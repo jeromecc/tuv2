@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Antecedents_Medicaux_Psychiatriques" priority="11" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Antécédents Méd. Psychiatriques</Libelle>
+<Objet>Fichier Médical Antécédents Psychiatriques</Objet>
+<Groupe>Fichier Médical Antécédents</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>PSYCHIATRIQUES:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Antecedents_Medicaux_Psychiatriques</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_PSYCHIATRIQUES_Depressif" oblig="y" histo="y" link="L_Val_PSYCHIATRIQUES_Depressif">
+		<Libelle style="color:green;">Syndrome anxio-dépressif</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PSYCHIATRIQUES_Depressif</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PSYCHIATRIQUES_Pmd" oblig="y" histo="y" link="L_Val_PSYCHIATRIQUES_Pmd">
+		<Libelle style="color:green;">PMD</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PSYCHIATRIQUES_Pmd</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PSYCHIATRIQUES_Psychose" onChangeReload="y" oblig="y" histo="y" link="L_Val_PSYCHIATRIQUES_Psychose">
+		<Libelle style="color:green;">Psychose chronique</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PSYCHIATRIQUES_Psychose</From>
+	</ITEM>
+	
+  <ITEM type="LONGTXT" rows="2" id="Val_PSYCHIATRIQUES_Psychose_Comm" opt="y" histo="y" link="L_Val_PSYCHIATRIQUES_Psychose_Comm">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PSYCHIATRIQUES_Psychose</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Psychose chronique commentaire</Libelle>
+		<From>var:L_Val_PSYCHIATRIQUES_Psychose_Comm</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PSYCHIATRIQUES_Autres" oblig="y" histo="y" link="L_Val_PSYCHIATRIQUES_Autres">
+		<Libelle style="color:green;">Autres</Libelle>
+		<From>var:L_Val_PSYCHIATRIQUES_Autres</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_PSYCHIATRIQUES_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	
+  <ACTION type="trigger" id_formx="Dossier_Medical_Chronologique" />
+	
+	
+</ETAPE>
+
+</FORMX>
+
+

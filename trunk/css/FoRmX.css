@@ -1,0 +1,165 @@
+ /*formulaires*/ 
+/*#formX {z-index:170; position:absolute ; top: 50px; left:50px;} */
+ 
+
+#formX td.gauche {  border:0px ; width:20px; } 
+#formX td.aa {  border:1px solid #006699;  background: #11AAEE;}
+#formX td.droite {  border:0px ; width:7px;background: #FFFFFF; } 
+#formX td.aa_gauche {  border-bottom:1px solid #AAAAAA;border-top:1px solid #AAAAAA;  background: #EEEEEE;width:200px;} 
+#formX td.fond_gris {  border:0px solid #006699;  background: #EEEEEE;} 
+#formX td.aa_bb {  border-bottom:1px solid #AAAAAA;border-top:1px solid #AAAAAA; background: #E0EEEE;width:500px;} 
+
+
+#formX td.aa_gauche_pair {  border-bottom:1px solid #AAAAAA;border-top:1px solid #AAAAAA; background: #EEFFEE;width:200px;} 
+#formX td.aa_bb_pair {  border-top:1px solid  #AAAAAA; border-bottom:1px solid  #AAAAAA;background: #E0EFFE;width:500px;} 
+
+#formX td.titre_actions {
+border:1px solid #006699; 
+width:423px; 
+background: #FFCC88;
+}
+
+#formx_titre {
+cursor:move;
+}
+
+#formX td.bb_gauche {  border:0px ; background: #D0EEEE;
+ 	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+ 	color:#000000;
+ } 
+#formX td.bb_cc {  border:0px ; background: #D0EEEE; 
+	text-align :left;
+	} 
+
+#formX td.interespace {  border:0px ;height:5px; background: #FFFFFF; 
+	} 	
+
+#formX select.select_mono { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	border: #11AAEE solid 1px;
+	background-color : #EEEEEE ;
+width:265px;
+	}
+	
+#formX input.text1 { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	border: #11AAEE solid 1px;
+	background-color : #EEEEEE ;
+	width:262px;
+	}
+
+#formX input.case { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	border: #11AAEE solid 1px;
+	background-color : #EEEEEE ;
+	width:60px;
+	text-align:right;
+	}
+
+#formX select.case { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	border: #11AAEE solid 1px;
+	background-color : #EEEEEE ;
+	width:60px;
+	text-align:right;
+	}
+		
+	
+#formX input.text2 { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	border: #11AAEE solid 1px;
+	background-color : #EEEEEE ;
+	width:150px;
+	}
+	
+#formX textarea.formx_longtext {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	border: #11AAEE solid 1px;
+	background-color : #EEEEEE ;
+	width:262px;
+}
+
+	
+/*selection de Nouvelel instance */
+/*selection de Nouvelel instance */
+
+
+#formXselect {z-index:170; position:absolute ; top: 50px; left:50px; width:600px;} 
+
+
+#formXselect {
+background-color: white ;
+border: solid 1px black;
+}
+
+.newform_groupe {
+border: solid 1px black;
+moz-border-radius: 10px;
+margin: 10px;
+}
+
+.newform_groupe_titre {
+background-color: #EEEECC ;
+color: black;
+font-weight: bold ;
+
+}
+
+.newform_groupe_body {
+display: none;
+}
+
+.newform_groupe_body tr {
+border: solid 1px #BBBBBB;
+}
+
+#newform_blocvalid {
+position: relative;
+left:400px;
+}
+
+.newform_boutonClose {
+border: solid 1px #BBBBBB;
+background-color: #EEEEEE ;
+}
+
+.new_form_col1 {
+width:200px;
+}
+
+.new_form_col2 {
+width:400px;
+}
+
+.new_form_col3 {
+width:10px;
+}
+
+.newform_boutonClose:hover {
+cursor:pointer;
+background-color: #FFFFFF;
+}
+
+.newform_boutonOpen {
+position:relative;
+top:-1px;
+border: solid 1px #BBBBBB;
+background-color: #FFFFEF ;
+height:8px;
+font-size: 8px;
+-moz-border-radius:2px;
+}
+
+.newform_boutonOpen:hover {
+cursor:pointer;
+background-color: #FFFFFF;
+}
+
+ 

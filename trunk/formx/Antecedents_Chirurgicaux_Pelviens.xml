@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Antecedents_Chirurgicaux_Pelviens" priority="15" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Antécédents Chir. Abdomino-Pelviens</Libelle>
+<Objet>Fichier Médical Antécédents Abdomino-Pelviens</Objet>
+<Groupe>Fichier Médical Antécédents</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>ABDOMINO-PELVIENS:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Antecedents_Chirurgicaux_Pelviens</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+
+  <ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_PELVIENS_Append" onChangeReload="y" oblig="y" histo="y" link="L_Val_PELVIENS_Append">
+		<Libelle style="color:green;">Appendicectomie</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PELVIENS_Append</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PELVIENS_Append_Comm" opt="y" histo="y" link="L_Val_PELVIENS_Append_Comm">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Append</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Appendicectomie commentaire</Libelle>
+		<From>var:L_Val_PELVIENS_Append_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PELVIENS_Cholo" onChangeReload="y" oblig="y" histo="y" link="L_Val_PELVIENS_Cholo">
+		<Libelle style="color:green;">Cholécystectomie</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PELVIENS_Cholo</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PELVIENS_Cholo_Comm" opt="y" histo="y" link="L_Val_PELVIENS_Cholo_Comm">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Cholo</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Cholécystectomie commentaire</Libelle>
+		<From>var:L_Val_PELVIENS_Cholo_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PELVIENS_Cure" onChangeReload="y" oblig="y" histo="y" link="L_Val_PELVIENS_Cure">
+		<Libelle style="color:green;">Cure de hernie inguinale</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PELVIENS_Cure</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PELVIENS_Cure_Comm" opt="y" histo="y" link="L_Val_PELVIENS_Cure_Comm">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Cure</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Latéralisation</Libelle>
+		<FromList>list:Droite|Gauche</FromList>
+		<From>var:L_Val_PELVIENS_Cure_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PELVIENS_Hemi" onChangeReload="y" oblig="y" histo="y" link="L_Val_PELVIENS_Hemi">
+		<Libelle style="color:green;">Hémi-colectomie</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PELVIENS_Hemi</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PELVIENS_Hemi_Comm" opt="y" histo="y" link="L_Val_PELVIENS_Hemi_Comm">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Hemi</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Latéralisation</Libelle>
+		<FromList>list:Droite|Gauche</FromList>
+		<From>var:L_Val_PELVIENS_Hemi_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PELVIENS_Gast" onChangeReload="y" oblig="y" histo="y" link="L_Val_PELVIENS_Gast">
+		<Libelle style="color:green;">Gastrectomie</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PELVIENS_Gast</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PELVIENS_Gast_Comm" opt="y" histo="y" link="L_Val_PELVIENS_Gast_Comm">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Gast</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Gastrectomie commentaire</Libelle>
+		<From>var:L_Val_PELVIENS_Gast_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PELVIENS_Chirp" onChangeReload="y" oblig="y" histo="y" link="L_Val_PELVIENS_Chirp">
+		<Libelle style="color:green;">Chirurgie urologique</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PELVIENS_Chirp</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" rows="2" id="Val_PELVIENS_Chirp_Choix" opt="y" histo="y" link="L_Val_PELVIENS_Chirp_Choix">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Chirp</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Type</Libelle>
+		<FromList>list:Prostatectomie|Résection prostatique per-endoscopique|Autre</FromList>
+		<From>var:L_Val_PELVIENS_Chirp_Choix</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PELVIENS_Chirp_CCom" opt="y" histo="y" link="L_Val_PELVIENS_Chirp_CCom">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Chirp</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Chirurgie urologique commentaire</Libelle>
+		<From>var:L_Val_PELVIENS_Chirp_CCom</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PELVIENS_Chirg" onChangeReload="y" oblig="y" histo="y" link="L_Val_PELVIENS_Chirg">
+		<Libelle style="color:green;">Chirurgie gynécologique</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PELVIENS_Chirg</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" rows="2" id="Val_PELVIENS_Chirg_Choix" opt="y" histo="y" link="L_Val_PELVIENS_Chirg_Choix">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Chirg</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Type</Libelle>
+		<FromList>list:Hystérectomie|Ovariectomie|Autre</FromList>
+		<From>var:L_Val_PELVIENS_Chirg_Choix</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PELVIENS_Chirg_CCom" opt="y" histo="y" link="L_Val_PELVIENS_Chirg_CCom">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PELVIENS_Chirg</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Chirurgie gynécologique commentaire</Libelle>
+		<From>var:L_Val_PELVIENS_Chirg_CCom</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PELVIENS_Autres" oblig="y" histo="y" link="L_Val_PELVIENS_Autres">
+    <Libelle style="color:green;">Autres</Libelle>
+		<From>var:L_Val_PELVIENS_Autres</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_PELVIENS_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	
+  <ACTION type="trigger" id_formx="Dossier_Medical_Chronologique" />
+	
+</ETAPE>
+
+</FORMX>
+
+

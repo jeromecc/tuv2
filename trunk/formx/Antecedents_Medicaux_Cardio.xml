@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Antecedents_Medicaux_Cardio" priority="4" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Antécédents Médicaux Cardio</Libelle>
+<Objet>Fichier Médical Antécédents Cardio-Vasculaires</Objet>
+<Groupe>Fichier Médical Antécédents</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>CARDIO-VASCULAIRES:</Libelle>
+
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Antecedents_Medicaux_Cardio</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+
+	<ITEM type="CHECK" id="Val_CARDIO_HTA" oblig="y" histo="y" link="L_Val_CARDIO_HTA">
+    <Libelle style="color:green;">HTA</Libelle>
+		<FromList>list:Non|Traitée|Non Traitée|Equilibrée|Non Equilibrée</FromList>
+		<From>var:L_Val_CARDIO_HTA</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_CARDIO_Troubles" onChangeReload="y" oblig="y" histo="y" link="L_Val_CARDIO_Troubles">
+		<Libelle style="color:green;">Troubles du rythme</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_CARDIO_Troubles</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_CARDIO_Troubles_Comm" opt="y" histo="y" link="L_Val_CARDIO_Troubles_Comm">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_CARDIO_Troubles</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Troubles du rythme commentaire</Libelle>
+		<From>var:L_Val_CARDIO_Troubles_Comm</From>
+	</ITEM>
+	
+  <ITEM type="RADIO" id="Val_CARDIO_Maladie_Ask" onChangeReload="y" oblig="y" histo="y" link="L_Val_CARDIO_Maladie_Ask">
+		<Libelle style="color:green;">Maladie athéromateuse</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_CARDIO_Maladie_Ask</From>
+	</ITEM>
+  
+  <ITEM type="LISTE" multiple="7" id="Val_CARDIO_MaladieA" opt="y" histo="y" link="L_Val_CARDIO_MaladieA">
+		<Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Maladie athéromateuse</Libelle>
+		<FromList>list:Angor|IDM|Coronaropathie|Artérite membres inférieurs|Autres</FromList>
+    <From>var:L_Val_CARDIO_MaladieA</From>
+  </ITEM>
+  
+  <ITEM type="LONGTXT" rows="4" id="Val_CARDIO_MaladieA_Comm" opt="y" histo="y" link="L_Val_CARDIO_MaladieA_Comm">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>		
+    <Libelle>Maladie athéromateuse commentaire</Libelle>
+		<From>var:L_Val_CARDIO_MaladieA_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_CARDIO_Maladie_Coro" onChangeReload="y" opt="y" histo="y" link="L_Val_CARDIO_Maladie_Coro">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>	
+    <Libelle>Coronaropaphie</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_CARDIO_Maladie_Coro</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_CARDIO_Maladie_Coro_Comm" opt="y" histo="y" link="Val_CARDIO_Maladie_Coro_Comm">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+				<Arg1>formVar:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Arg1>
+      <Arg2 type="equal" oblig="y">  
+        <Arg1>const:Oui</Arg1>
+        <Arg2>formVar:Val_CARDIO_Maladie_Coro</Arg2>
+      </Arg2>	
+    </Cond>
+    <Libelle>Coronaropaphie commentaire</Libelle>
+		<From>var:Val_CARDIO_Maladie_Coro_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_CARDIO_Maladie_Stent" onChangeReload="y" opt="y" histo="y" link="L_Val_CARDIO_Maladie_Stent">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>		
+    <Libelle>Stent</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_CARDIO_Maladie_Stent</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_CARDIO_Maladie_Stent_Comm" opt="y" histo="y" link="L_Val_CARDIO_Maladie_Stent_Comm">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+				<Arg1>formVar:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Arg1>
+      <Arg2 type="equal" oblig="y">  
+        <Arg1>const:Oui</Arg1>
+        <Arg2>formVar:Val_CARDIO_Maladie_Stent</Arg2>
+      </Arg2>	
+    </Cond>
+    <Libelle>Stent commentaire</Libelle>
+		<From>var:L_Val_CARDIO_Maladie_Stent_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_CARDIO_Valvulopathies" onChangeReload="y" oblig="y" histo="y" link="L_Val_CARDIO_Valvulopathies">
+    <Libelle style="color:green;">Valvulopathies</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_CARDIO_Valvulopathies</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_CARDIO_Valvulopathies_Comm" opt="y" histo="y" link="L_Val_CARDIO_Valvulopathies_Comm">
+	 <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_CARDIO_Valvulopathies</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Valvulopathies commentaire</Libelle>
+		<From>var:L_Val_CARDIO_Valvulopathies_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_CARDIO_Insuffisance" onChangeReload="y" oblig="y" histo="y" link="L_Val_CARDIO_Insuffisance">
+    <Libelle style="color:green;">Insuffisance cardiaque</Libelle>
+		<FromList>list:Non|Droite|Gauche</FromList>
+		<From>var:L_Val_CARDIO_Insuffisance</From>
+	</ITEM>
+	
+	<ITEM type="TXT" rows="1" id="Val_CARDIO_Insuffisance_Fevg" opt="y" histo="y" link="L_Val_CARDIO_Insuffisance_Fevg">
+    <Cond type="or" oblig="y">
+				<Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_CARDIO_Insuffisance</Arg1>
+          <Arg2>const:Droite</Arg2>
+        </Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>formVar:Val_CARDIO_Insuffisance</Arg1>
+          <Arg2>const:Gauche</Arg2>
+				</Arg2>
+		</Cond>
+		<Libelle>FEVG</Libelle>
+		<From>var:L_Val_CARDIO_Insuffisance_Fevg</From>
+  </ITEM>
+	
+	<ITEM type="CAL" id="Val_CARDIO_Insuffisance_Fevg_Depuis" opt="y" histo="y" link="L_Val_CARDIO_Insuffisance_Fevg_Depuis">
+		<Cond type="or" oblig="y">
+				<Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_CARDIO_Insuffisance</Arg1>
+          <Arg2>const:Droite</Arg2>
+        </Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>formVar:Val_CARDIO_Insuffisance</Arg1>
+          <Arg2>const:Gauche</Arg2>
+				</Arg2>
+		</Cond>
+    <Libelle>Le</Libelle>
+    <From>var:L_Val_CARDIO_Insuffisance_Fevg_Depuis</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_CARDIO_Autres" oblig="y" histo="y" link="L_Val_CARDIO_Autres">
+    <Libelle style="color:green;">Autres</Libelle>
+		<From>var:L_Val_CARDIO_Autres</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_CARDIO_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	<ACTION type="trigger" id_formx="Dossier_Medical_Chronologique" />
+	
+</ETAPE>
+
+</FORMX>
+
+

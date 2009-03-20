@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Antecedents_Medicaux_Oncologiques" priority="2" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Antécédents Médicaux Oncologiques</Libelle>
+<Objet>Fichier Médical Antécédents Oncologiques</Objet>
+<Groupe>Fichier Médical Antécédents</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>ONCOLOGIQUES:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Antecedents_Medicaux_Oncologiques</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+
+	<ITEM type="LONGTXT" rows="2" id="Val_ONCOLOGIQUES_Diagnostic" oblig="y" histo="y" link="L_Val_ONCOLOGIQUES_Diagnostic">
+		<Libelle style="color:green;">Diagnostic</Libelle>
+		<From>var:L_Val_ONCOLOGIQUES_Diagnostic</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_ONCOLOGIQUES_Localisation" onChangeReload="y" oblig="y" histo="y" link="L_Val_ONCOLOGIQUES_Localisation">
+		<Libelle style="color:green;">Localisation</Libelle>
+		<FromList>list:Primaire|Secondaire</FromList>
+		<From>var:L_Val_ONCOLOGIQUES_Localisation</From>
+	</ITEM>
+  
+  <ITEM type="LONGTXT" rows="2" id="Val_ONCOLOGIQUES_Localisation_Primaire" opt="y" histo="y" link="L_Val_ONCOLOGIQUES_Localisation_Primaire">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_ONCOLOGIQUES_Localisation</Arg1>
+      <Arg2>const:Primaire</Arg2>
+		</Cond>
+    <Libelle>Localisation primaire commentaire</Libelle>
+		<From>var:L_Val_ONCOLOGIQUES_Localisation_Primaire</From>
+	</ITEM>
+  
+  <ITEM type="LONGTXT" rows="2" id="Val_ONCOLOGIQUES_Localisation_Secondaire" opt="y" histo="y" link="L_Val_ONCOLOGIQUES_Localisation_Secondaire">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_ONCOLOGIQUES_Localisation</Arg1>
+				<Arg2>const:Secondaire</Arg2>
+		</Cond>
+    <Libelle>Localisation secondaire commentaire</Libelle>
+		<From>var:L_Val_ONCOLOGIQUES_Localisation_Secondaire</From>
+	</ITEM>
+  
+  <ITEM type="LONGTXT" rows="2" id="Val_ONCOLOGIQUES_Nature" oblig="y" histo="y" link="L_Val_ONCOLOGIQUES_Nature">
+    <Libelle style="color:green;">Nature histologique</Libelle>
+		<From>var:L_Val_ONCOLOGIQUES_Nature</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_ONCOLOGIQUES_TraitQ" onChangeReload="y" oblig="y" histo="y" link="L_Val_ONCOLOGIQUES_TraitQ">
+		<Libelle style="color:green;">Traitement</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_ONCOLOGIQUES_TraitQ</From>
+	</ITEM>
+  
+  <ITEM type="CHECK" id="Val_ONCOLOGIQUES_Trait" opt="y" histo="y" link="L_Val_ONCOLOGIQUES_Trait">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_ONCOLOGIQUES_TraitQ</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Traitement(s)</Libelle>
+		<FromList>list:Chirurgie|Chimiothérapie|Radiothérapie</FromList>
+		<From>var:L_Val_ONCOLOGIQUES_Trait</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_ONCOLOGIQUES_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	
+  <ACTION type="trigger" id_formx="Dossier_Medical_Chronologique" />
+	
+</ETAPE>
+
+</FORMX>
+
+

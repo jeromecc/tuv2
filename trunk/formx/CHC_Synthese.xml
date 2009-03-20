@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="CHC_Synthese" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Synthèse générale</Libelle>
+<Groupe>Dossier CHC</Groupe>
+
+<ETAPE id="1" etat="fini"	>
+<Libelle>SYNTHESE__</Libelle>
+
+<Libelle>FICHE Administrative:</Libelle>
+
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_NSEJPatient" opt="y" resync="y" readonly="y">
+		<Libelle>N° d'urgence</Libelle>
+		<From>globalObject:patient->getNSej()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateAdmission" opt="y" resync="y" readonly="y">
+		<Libelle>Date d'admission</Libelle>
+		<From>globalObject:patient->getDateAdmission()</From>
+	</ITEM>
+
+<ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+	<Libelle>Nom</Libelle>
+	<From>globalObject:patient->getNom()</From>
+</ITEM>
+	
+<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+	<Libelle>Prénom</Libelle>
+	<From>globalObject:patient->getPrenom()</From>
+</ITEM>
+	
+
+	
+<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+</ITEM>
+
+<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+	<Libelle>Date de naissance</Libelle>
+	<From>func:GetDateE2</From>
+</ITEM>
+
+<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+	<Libelle>Age</Libelle>
+	<From>func:GetAge2</From>
+</ITEM>
+	
+	<ITEM type="HIDDEN" id="Val_Patient_Mineur">
+    <From>func:GetPatientMineur</From>
+	</ITEM> 
+	
+
+
+<ITEM type="TXT" id="Val_Patient_Mineur_Non" opt="y" resync="y" readonly="y">
+		  <Libelle>Patient</Libelle>
+			<From>formVar:Val_Patient_Mineur</From>
+      	<Cond type="equal"><Arg1>formVar:Val_Patient_Mineur</Arg1><Arg2>const:majeur</Arg2></Cond>
+</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+ 
+ <ITEM type="TXT" id="Val_IDENT_Prevenir" opt="y" resync="y" readonly="y">
+		  <Libelle>Personne à prévenir</Libelle>
+      <From>globalObject:patient->getPrevenir()</From>
+	</ITEM>
+  
+			<ITEM type="TXT" id="Fiche_Administrative_Rep_Legal" opt="y" resync="y" readonly="y">
+		  	<Libelle>Représentant légal (nom, prénom)</Libelle>
+		  	<From>var:Fiche_Administrative_Rep_Legal</From>
+		  	<Cond type="equal"><Arg1>formVar:Val_Patient_Mineur</Arg1><Arg2>const:mineur</Arg2></Cond>
+		 	</ITEM>
+		  
+   <ITEM type="TXT" id="Val_IDENT_Traitant" opt="y" resync="y" readonly="y">
+		  <Libelle>Médecin traitant</Libelle>
+      <From>globalObject:patient->getMedecinTraitant()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="ALD" opt="y" resync="y" readonly="y">
+		  <Libelle>Passage aux urgences provoqué par une ALD ?</Libelle>
+      <From>var:ALD</From>
+  </ITEM>
+  	
+		<ITEM type="TXT" id="val_pansement" opt="y" resync="y" readonly="y">
+			<Libelle>Patient venu pour un pansement ?</Libelle>
+			<From>var:Fiche_Administrative_Pansement</From>
+		</ITEM>
+		
+		<ITEM type="TXT" id="val_patient_non_venu" opt="y" resync="y" readonly="y">
+			<Libelle>Patient non venu aux urgences ?</Libelle>
+			<From>var:Fiche_Administrative_Non_Venu</From>
+		</ITEM>
+		
+		<ITEM type="TXT" id="val_patient_orientation" opt="y" resync="y" readonly="y">
+			<Libelle>Orientation</Libelle>
+			<From>var:Fiche_Administrative_Orientation</From>
+			<Cond type="equal"><Arg1>formVar:val_patient_non_venu</Arg1><Arg2>const:oui</Arg2></Cond>
+		</ITEM>
+		
+		<ITEM type="TXT" id="val_liste_etablissement" opt="y" resync="y" readonly="y">
+			<Libelle>Liste des établissements</Libelle>
+			<From>var:Fiche_Administrative_Etablissement</From>
+			<Cond type="equal"><Arg1>formVar:val_patient_orientation</Arg1><Arg2>const:Transfert sur un autre établissement</Arg2></Cond>
+		</ITEM>
+		
+		<ITEM type="TXT" id="val_documents_patient" opt="y" resync="y" readonly="y">
+		<Libelle>Documents du patient</Libelle>
+		<From>var:Fiche_Administrative_Documents</From>
+		</ITEM>
+	
+	  <ITEM type="TXT" id="Val_IDENT_ModeAdmission" opt="y" resync="y" readonly="y">
+		  <Libelle>Mode d'admission</Libelle>
+      <From>globalObject:patient->getModeAdmission()</From>
+	</ITEM>
+
+  <ITEM type="TXT" id="Val_IDENT_MotifRecours" opt="y" resync="y" readonly="y">
+		  <Libelle>Motif recours</Libelle>
+      <From>globalObject:patient->getMotifRecours()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_Recours" opt="y" resync="y" readonly="y">
+		  <Libelle>Recours</Libelle>
+      <From>globalObject:patient->getRecours()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AT" opt="y" resync="y" readonly="y">
+			<Libelle>Accident du travail ?</Libelle>
+			<From>var:Fiche_Administrative_AT</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateAT" opt="y" resync="y" readonly="y">
+		<Libelle>Date AT</Libelle>
+		<From>var:Fiche_Administrative_date_AT</From>
+		<Cond type="equal">
+			<Arg1>formVar:AT</Arg1>
+			<Arg2>const:oui</Arg2>
+		</Cond>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_HeureAT" opt="y" resync="y" readonly="y">
+    <Libelle>Heure AT</Libelle>
+		<From>var:Fiche_Administrative_heure_AT</From>
+		<Cond type="equal">
+			<Arg1>formVar:AT</Arg1>
+			<Arg2>const:oui</Arg2>
+		</Cond> 
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_MinuteAT" opt="y" resync="y" readonly="y">
+    <Libelle>Minute AT</Libelle>
+		<From>var:Fiche_Administrative_minute_AT</From> 
+		<Cond type="equal">
+			<Arg1>formVar:AT</Arg1>
+			<Arg2>const:oui</Arg2>
+		</Cond>
+	</ITEM>
+
+	<ITEM type="TXT" id="IDE" opt="y" resync="y" readonly="y">
+		  <Libelle>IDE</Libelle>
+      <From>var:IDE_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Date" opt="y" resync="y" readonly="y">
+		  <Libelle>Date</Libelle>
+      <From>var:DATE_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Heure" opt="y" resync="y" readonly="y">
+		  <Libelle>Heure</Libelle>
+      <From>var:HEURE_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="PA_BG" opt="y" resync="y" readonly="y">
+		  <Libelle>PA Bras Gauche</Libelle>
+      <From>var:PA_BG_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="PA_BD" opt="y" resync="y" readonly="y">
+		  <Libelle>PA Bras Droit</Libelle>
+      <From>var:PA_BD_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="FC" opt="y" resync="y" readonly="y">
+		  <Libelle>FC</Libelle>
+      <From>var:FC_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Temp" opt="y" resync="y" readonly="y">
+		  <Libelle>Temp</Libelle>
+      <From>var:TEMP_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="HB" opt="y" resync="y" readonly="y">
+		  <Libelle>HB</Libelle>
+      <From>var:HB_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="SAO2" opt="y" resync="y" readonly="y">
+		  <Libelle>Sa O2</Libelle>
+      <From>var:SAO2_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Dextro" opt="y" resync="y" readonly="y">
+		  <Libelle>Dextro</Libelle>
+      <From>var:DEXTRO_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="EVA" opt="y" resync="y" readonly="y">
+		  <Libelle>EVA</Libelle>
+      <From>var:EVA_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="FR" opt="y" resync="y" readonly="y">
+		  <Libelle>FR</Libelle>
+      <From>var:FR_CTE_ARRIVEE</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Actes" opt="y" resync="y" readonly="y">
+		  <Libelle>Actes / Observations</Libelle>
+      <From>var:ACTES_CTE_ARRIVEE</From>
+	</ITEM>
+	
+<ITEM type="TXT" id="Val_IAO" opt="y" resync="y" readonly="y">
+		<Libelle>IAO</Libelle>
+		<From>var:Fiche_IAO_Nom_IDE</From>
+</ITEM>
+ 
+  <ITEM type="TXT" id="Val_Jour_Consultation" opt="y" resync="y" readonly="y">
+		<Libelle>Jour prise en charge IAO</Libelle>
+		<From>var:Fiche_IAO_Jour_Consultation</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" opt="y" resync="y" readonly="y">
+		<Libelle>Heure prise en charge IAO</Libelle>
+		<From>var:Fiche_IAO_Heure_Consultation</From>
+	</ITEM>
+
+<ITEM type="TXT" id="Val_Booleen_Accompagnant" opt="y" resync="y" readonly="y">
+	<Libelle>Présence famille ou accompagnants</Libelle>
+	<From>var:Fiche_IAO_Accompagnant</From>
+</ITEM>
+
+  <ITEM type="LONGTXT" rows="3" id="qui" opt="y" resync="y" readonly="y">
+    <Libelle>Qui accompagne le patient ?</Libelle>
+    <From>var:Fiche_IAO_qui</From>
+    <Cond type="equal"><Arg1>formVar:Val_Booleen_Accompagnant</Arg1><Arg2>const:OUI</Arg2></Cond>
+	</ITEM>
+
+	  <ITEM type="TXT" rows="10" id="recours" opt="y" readonly="y">
+    <Libelle>Recours</Libelle>
+    <From>globalObject:patient->getRecours()</From>
+	</ITEM>
+
+<ITEM type="TXT" id="Val_Booleen_lettre_medecin" opt="y" resync="y" readonly="y">
+    <Libelle>Lettre Médecin Traitant</Libelle>
+    <From>var:Fiche_IAO_lettre_medecin</From>
+	</ITEM>
+
+<ITEM type="TXT" id="Val_Booleen_Ordonnances" opt="y" resync="y" readonly="y">
+    <Libelle style="color:green;">Ordonnance</Libelle>
+    <From>var:Fiche_IAO_ordonnance</From>
+	</ITEM>
+
+  <ITEM type="LONGTXT" rows="6" id="traitement" opt="y" resync="y" readonly="y">
+    <Libelle>Traitement</Libelle>
+    <From>var:Fiche_IAO_Traitement</From>
+	</ITEM>
+
+	<ITEM type="TXT" id="Val_Booleen_VAT_a_jour" opt="y" resync="y" readonly="y">
+    <Libelle>VAT à jour</Libelle>
+    <From>var:Fiche_IAO_VAT</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Booleen_Tetanos_quicktest" opt="y" resync="y" readonly="y">
+    <Libelle>Tétanos Quicktest</Libelle>
+    <From>var:Fiche_IAO_Tetanos</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Booleen_Bandelette_Urinaire" opt="y" resync="y" readonly="y">
+    <Libelle>Bandelette Urinaire</Libelle>
+    <From>var:Fiche_IAO_Bandelette_Urinaire</From>
+	</ITEM>
+	
+<ITEM type="LONGTXT" rows="10" id="actes_IAO" opt="y" resync="y" readonly="y">
+    <Libelle>Actes IAO (antalgiques, ...)</Libelle>
+    <From>var:Fiche_IAO_Actes</From>
+	</ITEM>
+	
+	<!--
+	
+	<ITEM type="LISTE" id="Val_Medecin" opt="y" link="MEDECIN_EXAM">
+		<Libelle style="color:green;">Médecin</Libelle>
+		<From>globalObject:patient->getMedecin()</From>
+		<FromXHAMList>Médecins</FromXHAMList>
+</ITEM>
+	
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" link="DATE_EXAM">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" link="HEURE_EXAM">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+	
+		<ITEM type="TXT" id="observations_IDE" opt="y" resync="y" readonly="y">
+		<Libelle>Observations IDE</Libelle>
+		<From>var:ACTES_CTE_ARRIVEE</From>
+		</ITEM>
+		
+  <ITEM type="LONGTXT" rows="10" id="antecedents" opt="y" link="ATCD">
+    <Libelle style="color:green;">Antécédents</Libelle>
+    <From>var:ATCD</From>
+	</ITEM>
+	
+	  <ITEM type="LONGTXT" rows="10" id="allergies" opt="y" link="ALLERGIES">
+    <Libelle style="color:green;">Allergies</Libelle>
+    <From>var:ALLERGIES</From>
+	</ITEM>
+	
+	  <ITEM type="LONGTXT" rows="10" id="vaccination" opt="y" link="VACCINATION">
+    <Libelle style="color:green;">Vaccination</Libelle>
+    <From>var:VACCINATION</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_ALD" opt="y" link="ALD">
+	<Libelle style="color:green;">Passage aux urgences provoqué par une ALD ?</Libelle>
+	<From>var:ALD</From>
+	<FromList>list:OUI|NON</FromList>
+</ITEM>
+	
+<ITEM type="LONGTXT" rows="50" id="observtions_medicales" opt="y" link="OBSERVATIONS_MEDICALES">
+    <Libelle style="color:green;">Observations médicales / motif d'hopitalisation</Libelle>
+    <From>var:OBSERVATIONS_MEDICALES</From>
+</ITEM>
+
+	-->
+
+</ETAPE>
+
+<FUSION id_formx="CHC_Fiche_Suivi">
+<Libelle>MED:</Libelle>
+  <ITEM type="LONGTXT" rows="10" id="Val_Observation" opt="y">
+    <Libelle>Observations</Libelle>
+    <From>fusion:Val_Observation</From>
+	</ITEM>
+</FUSION>
+
+</FORMX>

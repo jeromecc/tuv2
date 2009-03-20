@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="CHC_Fiche_Examen_Medical" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Fiche Examen Medical</Libelle>
+<Groupe>Dossier CHC</Groupe>
+
+<ETAPE id="1">
+	
+<Libelle>FICHE EXAMEN MEDICAL:</Libelle>
+	
+<ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+	<Libelle>Nom</Libelle>
+	<From>globalObject:patient->getNom()</From>
+</ITEM>
+	
+<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+	<Libelle>Prénom</Libelle>
+	<From>globalObject:patient->getPrenom()</From>
+</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+
+<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+	<Libelle>Age</Libelle>
+	<From>func:GetAge2</From>
+	</ITEM>
+
+<ITEM type="HIDDEN" id="Val_Patient_Mineur">
+    <From>func:GetPatientMineur</From>
+	</ITEM> 
+	
+
+
+<ITEM type="TXT" id="Val_Patient_Mineur_Non" opt="y" resync="y" readonly="y">
+		  <Libelle>Patient</Libelle>
+			<From>formVar:Val_Patient_Mineur</From>
+      	<Cond type="equal"><Arg1>formVar:Val_Patient_Mineur</Arg1><Arg2>const:majeur</Arg2></Cond>
+</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_GravitePatient" opt="y" resync="y" readonly="y">
+		<Libelle>Code Gravité</Libelle>
+		<From>globalObject:patient->getCodeGravite()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_RecoursPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Recours</Libelle>
+		<From>globalObject:patient->getRecours()</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_Medecin" opt="y" link="MEDECIN_EXAM">
+		<Libelle style="color:green;">Médecin</Libelle>
+		<From>globalObject:patient->getMedecin()</From>
+		<FromXHAMList>Médecins</FromXHAMList>
+</ITEM>
+	
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" link="DATE_EXAM">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" link="HEURE_EXAM">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+	
+		<ITEM type="TXT" id="observations_IDE" opt="y" resync="y" readonly="y">
+		<Libelle>Observations IDE</Libelle>
+		<From>var:ACTES_CTE_ARRIVEE</From>
+		</ITEM>
+		
+  <ITEM type="LONGTXT" rows="10" id="antecedents" opt="y" link="ATCD">
+    <Libelle style="color:green;">Antécédents</Libelle>
+    <From>var:ATCD</From>
+	</ITEM>
+	
+	  <ITEM type="LONGTXT" rows="10" id="allergies" opt="y" link="ALLERGIES">
+    <Libelle style="color:green;">Allergies</Libelle>
+    <From>var:ALLERGIES</From>
+	</ITEM>
+	
+	  <ITEM type="LONGTXT" rows="10" id="vaccination" opt="y" link="VACCINATION">
+    <Libelle style="color:green;">Vaccination</Libelle>
+    <From>var:VACCINATION</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_ALD" opt="y" link="ALD">
+	<Libelle style="color:green;">Passage aux urgences provoqué par une ALD ?</Libelle>
+	<From>var:ALD</From>
+	<FromList>list:OUI|NON</FromList>
+</ITEM>
+	
+  <ITEM type="LONGTXT" rows="50" id="observtions_medicales" opt="y" link="OBSERVATIONS_MEDICALES">
+    <Libelle style="color:green;">Observations médicales / motif d'hopitalisation</Libelle>
+    <From>var:OBSERVATIONS_MEDICALES</From>
+	</ITEM>
+	
+	<ITEM id="cloture" oblig="y" type="CHECK">
+		<Libelle style="color:blue;">Cloturer définitivement le formulaire ?</Libelle>
+		<FromList>list:Oui</FromList>
+	</ITEM>
+	
+</ETAPE>
+
+</FORMX>

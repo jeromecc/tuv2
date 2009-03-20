@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="CHC_Fiche_IAO-IDE" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Fiche IAO-IDE</Libelle>
+<Groupe>Dossier CHC</Groupe>
+
+<ETAPE id="1">
+	
+<Libelle>Fiche IAO-IDE :</Libelle>
+	
+<ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+	<Libelle>Nom</Libelle>
+	<From>globalObject:patient->getNom()</From>
+</ITEM>
+	
+<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+	<Libelle>Prénom</Libelle>
+	<From>globalObject:patient->getPrenom()</From>
+</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+
+<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+	<Libelle>Age</Libelle>
+	<From>func:GetAge2</From>
+	</ITEM>
+
+<ITEM type="HIDDEN" id="Val_Patient_Mineur">
+    <From>func:GetPatientMineur</From>
+	</ITEM> 
+	
+
+
+<ITEM type="TXT" id="Val_Patient_Mineur_Non" opt="y" resync="y" readonly="y">
+		  <Libelle>Patient</Libelle>
+			<From>formVar:Val_Patient_Mineur</From>
+      	<Cond type="equal"><Arg1>formVar:Val_Patient_Mineur</Arg1><Arg2>const:majeur</Arg2></Cond>
+</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_GravitePatient" opt="y" resync="y" readonly="y">
+		<Libelle>Code Gravité</Libelle>
+		<From>globalObject:patient->getCodeGravite()</From>
+	</ITEM>
+
+<ITEM type="LISTE" id="Val_IAO" opt="y" link="Fiche_IAO_Nom_IDE">
+		<Libelle style="color:green;">IAO</Libelle>
+		<FromXHAMList>I.D.E.</FromXHAMList>
+</ITEM>
+ 
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" link="Fiche_IAO_Jour_Consultation">
+		<Libelle style="color:green;">Jour prise en charge IAO</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" link="Fiche_IAO_Heure_Consultation">
+		<Libelle style="color:green;">Heure prise en charge IAO</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+
+<ITEM type="RADIO" id="Val_Booleen_Accompagnant" opt="y" onChangeReload="y" link="Fiche_IAO_Accompagnant">
+	<Libelle style="color:green;">Présence famille ou accompagnants</Libelle>
+	<FromList>list:OUI|NON</FromList>
+</ITEM>
+
+  <ITEM type="LONGTXT" rows="3" id="qui" opt="y" link="Fiche_IAO_qui">
+    <Libelle style="color:green;">Qui accompagne le patient ?</Libelle>
+    <Cond type="equal"><Arg1>formVar:Val_Booleen_Accompagnant</Arg1><Arg2>const:OUI</Arg2></Cond>
+	</ITEM>
+
+	  <ITEM type="TXT" rows="10" id="recours" opt="y" readonly="y">
+    <Libelle>Recours</Libelle>
+    <From>globalObject:patient->getRecours()</From>
+	</ITEM>
+
+<ITEM type="RADIO" id="Val_Booleen_lettre_medecin" opt="y" link="Fiche_IAO_lettre_medecin">
+    <Libelle style="color:green;">Lettre Médecin Traitant</Libelle>
+    <FromList>list:OUI|NON</FromList>
+	</ITEM>
+
+<ITEM type="RADIO" id="Val_Booleen_Ordonnances" opt="y" link="Fiche_IAO_ordonnance">
+    <Libelle style="color:green;">Ordonnance</Libelle>
+    <FromList>list:OUI|NON</FromList>
+	</ITEM>
+
+  <ITEM type="LONGTXT" rows="6" id="traitement" opt="y" link="Fiche_IAO_Traitement">
+    <Libelle style="color:green;">Traitement</Libelle>
+	</ITEM>
+
+	<ITEM type="RADIO" id="Val_Booleen_VAT_a_jour" opt="y" link="Fiche_IAO_VAT">
+    <Libelle style="color:green;">VAT à jour</Libelle>
+    <FromList>list:OUI|NON</FromList>
+	</ITEM>
+	<ITEM type="RADIO" id="Val_Booleen_Tetanos_quicktest" opt="y" link="Fiche_IAO_Tetanos">
+    <Libelle style="color:green;">Tétanos Quicktest</Libelle>
+    <FromList>list:OUI|NON</FromList>
+	</ITEM>
+	<ITEM type="RADIO" id="Val_Booleen_Bandelette_Urinaire" opt="y" link="Fiche_IAO_Bandelette_Urinaire">
+    <Libelle style="color:green;">Bandelette Urinaire</Libelle>
+    <FromList>list:OUI|NON</FromList>
+	</ITEM>
+<ITEM type="LONGTXT" rows="10" id="actes_IAO" opt="y" link="Fiche_IAO_Actes">
+    <Libelle style="color:green;">Actes IAO (antalgiques, ...)</Libelle>
+	</ITEM>
+	
+	
+		<ITEM type="LISTE" id="Val_IDE" opt="y" link="IDE_CTE_ARRIVEE">
+		<Libelle style="color:green;">IDE</Libelle>
+		<FromXHAMList>I.D.E.</FromXHAMList>
+		<From>globalObject:patient->getIDE()</From>
+	</ITEM>
+	<ITEM type="CAL" default="today" id="Val_Constantes_Date" oblig="y" link="DATE_CTE_ARRIVEE">
+		<Libelle style="color:green;">Jour prise des constantes</Libelle>
+	</ITEM>
+	<ITEM type="TXT" id="Val_Constantes_Heure" oblig="y" link="HEURE_CTE_ARRIVEE">
+		<Libelle style="color:green;">Heure prise des constantes</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+	<ITEM type="TXT" id="Val_Constantes_PA_BG" opt="y" link="PA_BG_CTE_ARRIVEE">
+		<Libelle style="color:green;">PA Bras Gauche</Libelle>
+	</ITEM>
+	<ITEM type="TXT" id="Val_Constantes_PA_Bd" opt="y" link="PA_BD_CTE_ARRIVEE">
+		<Libelle style="color:green;">PA Bras Droit</Libelle>
+	</ITEM>
+	<ITEM type="TXT" id="Val_Constantes_FC" opt="y" link="FC_CTE_ARRIVEE">
+		<Libelle style="color:green;">FC</Libelle>
+	</ITEM>
+	<ITEM type="TXT" id="Val_Constantes_Temp" opt="y" link="TEMP_CTE_ARRIVEE">
+		<Libelle style="color:green;">Temp</Libelle>
+	</ITEM>
+	<ITEM type="TXT" id="Val_Constantes_HB" opt="y" link="HB_CTE_ARRIVEE">
+		<Libelle style="color:green;">HB</Libelle>
+	</ITEM>
+		<ITEM type="TXT" id="Val_Constantes_SaO2" opt="y" link="SAO2_CTE_ARRIVEE">
+		<Libelle style="color:green;">SaO2</Libelle>
+	</ITEM>
+		<ITEM type="TXT" id="Val_Constantes_Dextro" opt="y" link="DEXTRO_CTE_ARRIVEE">
+		<Libelle style="color:green;">Dextro</Libelle>
+	</ITEM>
+		<ITEM type="TXT" id="Val_Constantes_EVA" opt="y" link="EVA_CTE_ARRIVEE">
+		<Libelle style="color:green;">EVA</Libelle>
+	</ITEM>
+		<ITEM type="TXT" id="Val_Constantes_FR" opt="y" link="FR_CTE_ARRIVEE">
+		<Libelle style="color:green;">FR</Libelle>
+	</ITEM>
+		
+		<ITEM type="LONGTXT" rows="10" id="Val_Actes" opt="y" link="ACTES_CTE_ARRIVEE">
+		<Libelle style="color:green;">Observations IDE (antécédents, allergies, ...)</Libelle>
+	</ITEM>
+
+	<ITEM type="CHECK" id="fermer" >
+		<Libelle style="color:blue;">Cloturer le formulaire</Libelle>
+		<FromList>list:Ok</FromList>
+	</ITEM>
+
+</ETAPE>
+
+</FORMX>

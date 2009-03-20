@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+    Document   : pansement.xml.xml
+    Created on : 16 mars 2009, 13:37
+    Author     : ecervetti
+    Description:
+        Purpose of the document follows.
+-->
+
+<root>
+<trigger title="Pour toi médecin"  idForm="enquete_test_medecin"   type="medecin" maxDays="6" obligDays=""  autoStart="" >
+	</trigger>
+</root>

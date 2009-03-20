@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FORMX id="tutorial" >
+	<Libelle>Mon premier formulaire</Libelle>
+	<Groupe>Tests Tutorial</Groupe>
+	<Objet>Tutorial pour Formx</Objet>
+	<ETAPE id="1">
+		<Libelle>Première étape du formulaire</Libelle>
+		<ITEM id="nom" type="TXT"><Libelle>Nom</Libelle></ITEM>
+		<ITEM id="prenom" type="LONGTXT"><Libelle>Adresse</Libelle></ITEM>
+		<ITEM id="dt_trait" type="CAL"><Libelle>Date du dernier traitement</Libelle></ITEM>
+		
+		<ITEM id="unchamplibre1" type="TXT"  link="pipounou" ><Libelle>Champ libre enregistrant une variable globale</Libelle></ITEM>
+		<ITEM id="unchamplibre2" type="TXT"  resync="y"><Libelle>Champ libre récupérant cette variable globale, toujorus reloadé</Libelle><From>var:pipounou</From></ITEM>
+
+
+		<ITEM id="valeur1" type="TXT"  datatype="int" resync="y"  minvalue="10"   maxvalue="20" ><Libelle>Variable entiere entre 10 et 20</Libelle></ITEM>
+
+		<ITEM id="valeur2" type="TXT"  datatype="float" resync="y" ><Libelle>Variable décimale</Libelle></ITEM>
+		
+		<ITEM id="tp_trait" type="RADIO">
+		
+			<ShowItemsOnVal>
+				<OnVal>const:pilules B</OnVal>
+				<ListIdItems>list:tp_trait2|tp_trait3</ListIdItems>
+			</ShowItemsOnVal>
+			<Libelle>Type traitement</Libelle><FromList>list:pilules A|pilules B|pilules C</FromList></ITEM>
+		<ITEM id="tp_trait2" type="CHECK"><Libelle>Mange</Libelle><FromList>list:légumes|viande|poisson</FromList></ITEM>
+		<ITEM id="tp_trait3" type="LISTE"><Libelle>Hospitalisation</Libelle><FromList>list:courte durée|longue durée</FromList></ITEM>
+	</ETAPE>
+	<ETAPE id="2">
+			<Libelle>Deuxieme étape du formulaire</Libelle>  
+			<ITEM id="profession" type="TXT" link="laprofession">
+			<Libelle>Profession:</Libelle></ITEM>  
+			<ITEM id="type_pilules" type="LISTE" >  <Libelle>Type de pilules A:</Libelle>  <Cond type="equal"><Arg1>const:pilules A</Arg1><Arg2>formVar:tp_trait</Arg2></Cond>  </ITEM> 
+	</ETAPE>
+</FORMX>

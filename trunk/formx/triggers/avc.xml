@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+    Document   : avc.xml.xml
+    Created on : 9 mars 2009, 10:19
+    Author     : ecervetti
+    Description:
+        Purpose of the document follows.
+-->
+
+<root>
+	<trigger title="Enquete AVC " onEvent="Diag"  idForm="avc" maxDays="6" obligDays=""  autoStart="" ></trigger>
+	<trigger onOut="y" idForm="avc" dateStart="2008-01-01 00:00:00"  dateEnd="2009-06-01 00:00:00"  ></trigger>
+	<trigger title="Enquete AVC " onEvent="Diag"  idForm="avc" dateStart="2008-01-01 00:00:00"  dateEnd="2009-06-01 00:00:00"  maxDays="6" obligDays=""  autoStart="" ></trigger>
+</root>

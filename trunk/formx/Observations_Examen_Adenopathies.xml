@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Observations_Examen_Adenopathies" priority="25" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y"> 
+<Libelle>Observations Examen Adénopathies</Libelle>
+<Objet>Fichier Médical Observations Examen Adénopathies</Objet>
+<Groupe>Fichier Médical Observations</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>RECHERCHE D'ADENOPATHIES:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Observations_Examen_Adenopathies</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+  
+  <ITEM type="LONGTXT" rows="2" id="Val_EADENO_Cer" oblig="y" histo="y" link="L_Val_EADENO_Cer">
+    <Libelle style="color:green;">Cervicales</Libelle>
+		<From>var:L_Val_EADENO_Cer</From>
+  </ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_EADENO_Axi" oblig="y" histo="y" link="L_Val_EADENO_Axi">
+		<Libelle style="color:green;">Axillaires</Libelle>
+		<From>var:L_Val_EADENO_Axi</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_EADENO_Ing" oblig="y" histo="y" link="L_Val_EADENO_Ing">
+    <Libelle style="color:green;">Inguinales</Libelle>
+		<From>var:L_Val_EADENO_Ing</From>
+  </ITEM>
+  
+  <ITEM type="CHECK" id="Val_Obs_EAdeno_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	<ACTION type="trigger" id_formx="Dossier_Medical_Observations" />
+
+</ETAPE>
+
+</FORMX>
+	
+	

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Antecedents_Medicaux_Pneumologiques" priority="5" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Antécédents Médi. Pneumologiques</Libelle>
+<Objet>Fichier Médical Antécédents Pneumologiques</Objet>
+<Groupe>Fichier Médical Antécédents</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>PNEUMOLOGIQUES:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Antecedents_Medicaux_Pneumologiques</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_PNEUMOLOGIQUES_Asthme" onChangeReload="y" oblig="y" histo="y" link="L_Val_PNEUMOLOGIQUES_Asthme">
+		<Libelle style="color:green;">Asthme</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PNEUMOLOGIQUES_Asthme</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PNEUMOLOGIQUES_Asthme_Comm" opt="y" histo="y" link="L_Val_PNEUMOLOGIQUES_Asthme_Comm">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PNEUMOLOGIQUES_Asthme</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Asthme commentaire</Libelle>
+		<From>var:L_Val_PNEUMOLOGIQUES_Asthme_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PNEUMOLOGIQUES_BPCO" onChangeReload="y" oblig="y" histo="y" link="L_Val_PNEUMOLOGIQUES_BPCO">
+		<Libelle style="color:green;">BPCO</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PNEUMOLOGIQUES_BPCO</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PNEUMOLOGIQUES_BPCO_Comm" opt="y" histo="y" link="L_Val_PNEUMOLOGIQUES_BPCO_Comm">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PNEUMOLOGIQUES_BPCO</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>BPCO commentaire</Libelle>
+		<From>var:L_Val_PNEUMOLOGIQUES_BPCO_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PNEUMOLOGIQUES_Insuffisance" onChangeReload="y" oblig="y" histo="y" link="L_Val_PNEUMOLOGIQUES_Insuffisance">
+		<Libelle style="color:green;">Insuffisance respiratoire</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PNEUMOLOGIQUES_Insuffisance</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PNEUMOLOGIQUES_Odeux" onChangeReload="y" opt="y" histo="y" link="L_Val_PNEUMOLOGIQUES_Odeux">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PNEUMOLOGIQUES_Insuffisance</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>O2 dépendante</Libelle>
+    <FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PNEUMOLOGIQUES_Odeux</From>
+	</ITEM>
+	
+	<ITEM type="CAL" id="Val_PNEUMOLOGIQUES_Odeux_Depuis" opt="y" histo="y" link="L_Val_PNEUMOLOGIQUES_Odeux_Depuis">
+    <Cond type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>formVar:Val_PNEUMOLOGIQUES_Insuffisance</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>formVar:Val_PNEUMOLOGIQUES_Odeux</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg2>
+		</Cond>
+		<Libelle>Depuis</Libelle>
+		<From>var:L_Val_PNEUMOLOGIQUES_Odeux_Depuis</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PNEUMOLOGIQUES_Odeux_Comm" opt="y" histo="y" link="L_Val_PNEUMOLOGIQUES_Odeux_Comm">
+    <Cond type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>formVar:Val_PNEUMOLOGIQUES_Insuffisance</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>formVar:Val_PNEUMOLOGIQUES_Odeux</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg2>
+		</Cond>
+		<Libelle>Commentaire</Libelle>
+		<From>var:L_Val_PNEUMOLOGIQUES_Odeux_Comm</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_PNEUMOLOGIQUES_BK" onChangeReload="y" oblig="y" histo="y" link="L_Val_PNEUMOLOGIQUES_BK">
+		<Libelle style="color:green;">BK</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_PNEUMOLOGIQUES_BK</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PNEUMOLOGIQUES_BK_Comm" opt="y" histo="y" link="L_Val_PNEUMOLOGIQUES_BK_Comm">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_PNEUMOLOGIQUES_BK</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>BK commentaire</Libelle>
+		<From>var:L_Val_PNEUMOLOGIQUES_BK_Comm</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_PNEUMOLOGIQUES_Autres" oblig="y" histo="y" link="L_Val_PNEUMOLOGIQUES_Autres">
+		<Libelle style="color:green;">Autres</Libelle>
+		<From>var:L_Val_PNEUMOLOGIQUES_Autres</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_PNEUMOLOGIQUES_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	
+  <ACTION type="trigger" id_formx="Dossier_Medical_Chronologique" />
+	
+	
+		
+</ETAPE>
+
+</FORMX>
+
+

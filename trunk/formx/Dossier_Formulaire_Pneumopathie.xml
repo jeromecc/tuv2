@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Dossier_Formulaire_Pneumopathie" access="formulaires_TM_général" dontPrintNavi="y" hide="y">
+<Libelle>Fiche Pneumopathie Synthèse</Libelle>
+<Objet>Fiche Pneumopathie Synthèse</Objet>
+<Groupe>Pneumopathie</Groupe>
+</FORMX>

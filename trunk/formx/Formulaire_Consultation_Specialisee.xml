@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Formulaire_Consultation_Specialisee" access="formulaires_TM_général" closeAfterValid="y" dontPrintPrinter="y" dontPrintNavi="y">
+<Libelle>Consultation Spécialisée</Libelle>
+<Objet>Compte Rendu Spécialiste</Objet>
+<Groupe>Demandes de Bons</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>Ordonnance:</Libelle>
+	
+	<ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE3</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_NsejPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nsej</Libelle>
+		<From>globalObject:patient->getNsej()</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_F_CS_Nom_P" oblig="y">
+		<Libelle style="font-weight:bold;">Nom du prescripteur</Libelle>
+		<FromXHAMList>Médecins</FromXHAMList>
+		<From>globalObject:patient->getMedecin()</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_F_CS_Con" oblig="y" onChangeReload="y">
+		<Libelle style="font-weight:bold;">Consultation</Libelle>
+		<FromFuncList>ListeMedCCAM_consultation</FromFuncList> 
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_F_CS_Motif" oblig="y">
+		<Libelle style="font-weight:bold;">Motif</Libelle>
+		<From>globalObject:patient->getRecours()</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_F_CS_Spe" opt="y">
+		<Cond type="diff" oblig="y">
+		  <Arg1>formVar:Val_F_CS_Con</Arg1>
+		  <Arg2>const:</Arg2>
+    </Cond>
+    <Libelle style="font-weight:bold;">Nom du Spécialiste</Libelle>
+		<FromFuncList>ListeMedCCAM_specialiste</FromFuncList> 
+	</ITEM>
+	
+  <ITEM type="CAL" default="today" id="Val_F_CS_Date" oblig="y">
+		<Libelle style="font-weight:bold;">Date</Libelle>
+	</ITEM>
+  
+</ETAPE>
+
+</FORMX>
+	
+	
