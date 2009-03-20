@@ -1,0 +1,10 @@
+Mise à jour des actes sur un site :
+	-> Sauvegarde de la base "terminal_ccam"
+	-> Exctration du module des actes depuis bigfoot :
+		mysqldump -h mysql.ch-hyeres.fr -u xham -p xham_ccam ccam_acte ccam_actes_diagnostic ccam_actes_domaine ccam_actes_pack ccam_domaine ccam_lettres_cle ccam_nv CCAM_SITE ccam_uf_spe R_ACTE_IVITE_PHASE R_ACTIVITE_MODIFICATEUR R_ASSOCIATIONS R_TB11 > ccam.sql
+	-> Suppression des tables de la base "terminal_ccam" sauf les tables suivantes :
+		- ccam_cotation_actes
+		- ccam_liste
+		- MBTV2
+
+

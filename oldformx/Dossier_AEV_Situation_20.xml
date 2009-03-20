@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Dossier_AEV_Situation_20" access="formulaires_TM_général" priority="1" closeAfterValid="y" dontPrintNavi="y" phantom="y" hide="y">
+<Libelle>Exposition au sang Risque intermédiaire Source VIH et VHC</Libelle>
+<Objet>Exposition au sang Risque intermédiaire Source VIH et VHC</Objet>
+<Groupe>AEV</Groupe>
+
+<ETAPE id="1">
+
+<Libelle>Exposition au sang Risque intermédiaire Source VIH et VHC</Libelle>           				
+
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Dossier_AEV_Situation_20</From>
+	</ITEM>  
+	
+		<ITEM type="TXT" id="AEV_Patient" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">FICHE PATIENT</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle style="color:green;">Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id ="Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle style="color:green;">Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_SEJPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">SEJ</Libelle>
+		<From>globalObject:patient->getNSej()</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Etablissement_Etablissement" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Etablissement</Libelle>
+		<From>func:GetEtablissement</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp1" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp2" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="AEV_Titre_Document" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">DOCUMENT A REMETTRE AU PATIENT</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Document_Consentement" opt="y" readonly="y" hyperinfo="url:Consentement.pdf;width:1;height:1;">
+    <Libelle style="color:#660066;">Formulaire de consentement</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Document_Note" opt="y" readonly="y" hyperinfo="url:Note_d_info.pdf;width:1;height:1;">
+    <Libelle style="color:#660066;">Note d &#146;information à la victime</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Document_Fiche" opt="y" readonly="y" hyperinfo="url:Orientation.pdf;width:1;height:1;">
+    <Libelle style="color:#660066;">Fiche orientation victime</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp3" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp4" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="AEV_Titre_Dossier" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">DOSSIER DU PATIENT</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Titre_Accident" opt="y" readonly="y">
+    <Libelle style="color:#336666;font-weight:bold;">---- ACCIDENT</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="CAL" id="AEV_Date_Accident" oblig="y" link="L_AEV_Date_Accident_Situation_20">
+		<Libelle style="color:green;">Date de l'accident</Libelle>
+		<From>var:L_AEV_Date_Accident_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Heure_Accident" oblig="y" link="L_AEV_Heure_Accident_Situation_20">
+		<Libelle style="color:green;">Heure de l'accident</Libelle>
+		<From>var:L_AEV_Heure_Accident_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Titre_Pro" opt="y" readonly="y">
+    <Libelle style="color:#336666;font-weight:bold;">---- PROPHYLAXIE</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="CAL" id="AEV_Date_Prophylaxie" oblig="y" link="L_AEV_Date_Prophylaxie_Situation_20">
+		<Libelle style="color:green;">Date de la première prise de la prophylaxie</Libelle>
+		<From>var:L_AEV_Date_Prophylaxie_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Heure_Prophylaxie" oblig="y" link="L_AEV_Heure_Prophylaxie_Situation_20">
+		<Libelle style="color:green;">Heure de la première prise de la prophylaxie</Libelle>
+		<From>var:L_AEV_Heure_Prophylaxie_Situation_20</From>
+	</ITEM>
+
+</ETAPE>
+
+<ETAPE id="2">
+
+<Libelle>Exposition au sang Risque intermédiaire Source VIH et VHC</Libelle>
+	
+	<ITEM type="TXT" id="AEV_Titre_Accident" opt="y" readonly="y">
+    <Libelle style="color:#336666;font-weight:bold;">---- ACCIDENT DE TRAVAIL</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="AEV_Accident_Travail" oblig="y" cols="2" onChangeReload="y" link="L_AEV_Accident_Travail_Situation_20">
+		<Libelle style="color:green;">Accident de travail ?</Libelle>
+    <FromList>list:Oui|Non</FromList>
+    <From>var:L_AEV_Accident_Travail_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="AEV_Accident_Travail_Hyeres" opt="y" cols="2" link="L_AEV_Accident_Travail_Hyeres_Situation_20">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:AEV_Accident_Travail</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:#666699;">Etablissement CH-HYERES</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_AEV_Accident_Travail_Hyeres_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Accident_Travail_Etablissement" opt="y" link="L_AEV_Accident_Travail_Etablissement_Situation_20">
+		<Cond type="equal">
+		  <Arg1>formVar:AEV_Accident_Travail</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:#666699;">Autre Etablissement</Libelle>
+		<From>var:L_AEV_Accident_Travail_Etablissement_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Titre_Source" opt="y" readonly="y">
+    <Libelle style="color:#336666;font-weight:bold;">---- PATIENT SOURCE</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Source_Nom" opt="y" link="L_AEV_Source_Nom_Situation_20">
+    <Libelle style="color:green;">Nom</Libelle>
+    <From>var:L_AEV_Source_Nom_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Source_Prenom" opt="y" link="L_AEV_Source_Prenom_Situation_20">
+    <Libelle style="color:green;">Prenom</Libelle>
+    <From>var:L_AEV_Source_Prenom_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="AEV_Source_Jour_Naissance" opt="y" link="L_AEV_Source_Jour_Naissance_Situation_20">
+    <Libelle style="color:green;">Jour de naissance</Libelle>
+    <FromFuncList>ListeJour</FromFuncList>
+    <From>var:L_AEV_Source_Jour_Naissance_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="AEV_Source_Mois_Naissance" opt="y" link="L_AEV_Source_Mois_Naissance_Situation_20">
+    <Libelle style="color:green;">Mois de naissance</Libelle>
+    <FromFuncList>ListeMois</FromFuncList>
+    <From>var:L_AEV_Source_Mois_Naissance_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="AEV_Source_Annee_Naissance" opt="y" link="L_AEV_Source_Annee_Naissance_Situation_20">
+    <Libelle style="color:green;">Année de naissance</Libelle>
+    <FromFuncList>ListeAnnee</FromFuncList>
+    <From>var:L_AEV_Source_Annee_Naissance_Situation_20</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp5" opt="y" readonly="y">
+		<Cond type="equal">
+		  <Arg1>formVar:AEV_Accident_Travail</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp6" opt="y" readonly="y">
+		<Cond type="equal">
+		  <Arg1>formVar:AEV_Accident_Travail</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="AEV_Titre_Faire" opt="y" readonly="y">
+    <Cond type="equal">
+		  <Arg1>formVar:AEV_Accident_Travail</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:#CC3333;font-weight:bold;">A FAIRE</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Message_Travail" opt="y" readonly="y">
+    <Cond type="equal">
+		  <Arg1>formVar:AEV_Accident_Travail</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:#660066;">Déclaration accident de travail</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Message_Certificat" opt="y" readonly="y">
+    <Cond type="equal">
+		  <Arg1>formVar:AEV_Accident_Travail</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:#660066;">Remplir le certificat médical initial</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp7" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp8" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="AEV_Titre_Complement" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">COMPLEMENTS D'INFORMATION</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="AEV_Complement" opt="y" link="L_AEV_Complement_Situation_20">
+    <Libelle style="color:green;">Commentaires</Libelle>
+    <From>var:L_AEV_Complement_Situation_20</From>
+	</ITEM>
+	
+</ETAPE>
+
+<ETAPE id="3">
+
+<Libelle>Exposition au sang Risque intermédiaire Source VIH et VHC</Libelle>
+
+  <ITEM type="CHECK" id="AEV_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+  </ITEM>
+  
+<ACTION type="formxproc" id_formxproc="Creation_Dossier_AEV_Synthese" />
+
+</ETAPE>
+
+</FORMX>

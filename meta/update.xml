@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+
+<!--
+    Document   : update.xml
+    Created on : 13 février 2009, 16:23
+    Author     : ecervetti
+    Description:
+        Purpose of the document follows.
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	CE FICHIER DOIT ETRE EN CHARACTERES UTF8 , REQUETES COMPRISES
+	LES CARACTERES SUIVANTS DOIVENT S'AFFICHER CORRECTEMENT DANS VOTRE EDITEUR
+	ééééééèèèèèèèàààààààààééééééèèèèèèèàààààààààééééééèèèèèèèàààààààààééééééèèèèèè
+	SI CE N'EST PAS LE CAS, NE FAITES AUCUNE MODIF !!!!!!
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-->
+
+<updates>
+	<update id="1">
+		<description>Création de la table de gestion des enquetes</description>
+		<requete>CREATE TABLE IF NOT EXISTS `enquetes` (
+  `id_enquete` int(11) NOT NULL auto_increment,
+  `id_trigger` varchar(64) NOT NULL,
+  `date_debut` datetime NOT NULL,
+  `date_fin` datetime NOT NULL,
+  PRIMARY KEY  (`id_enquete`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1</requete>
+	</update>
+
+
+
+</updates>

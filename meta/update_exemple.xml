@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<updates>
+	<update id="2">
+		<description>renommage du menu installation en gestion terr et depts, ajout menu doc</description>
+		<menu_rename cle="installation">Gestion depts et territoires</menu_rename>
+		<menu_new>
+			<libelle>Documentation</libelle>
+			<sub idUnique="1sNt3ELgdcHO0Sk5" /> <!--Administration-->
+			<cle cle="documentation" />
+			<cletotale cle="administration|documentation" />
+			<param option="" droit="Accueil" visible="y" classe="gestDocumentation" argument="" /><!--Attention aux majuscules-->
+		</menu_new>
+	</update>
+
+	<update id="4">
+		<description>renommage du menu groupes, ajout des idincrément</description>
+		<menu_rename cle="Configuration_Groupes">Groupes de droits</menu_rename>
+		<requete base="appli">ALTER TABLE `etablissements` CHANGE `IdEtablissement` `IdEtablissement` INT( 255 ) NOT NULL AUTO_INCREMENT</requete>
+	</update>
+
+	<update id="8">
+		<description>Ajout de l'option permetant de gérer les passphrases dans le décryptage gpg</description>
+		<option_new>
+			<categorie>Environnement</categorie>
+			<cle>chemin_pass_phrase</cle> <!--id de l'option (utilisée dans le code-->
+			<libelle>Passphrase gpg pour la clé secrête (vide si sans)</libelle> <!--libelle de l'option (utilisée dans l'interface ) -->
+		</option_new>
+	</update>
+	<update id="12">
+		<description>Ajout du menu avec le rapport d'alimentation RPU</description>
+		<menu_new>
+			<libelle>Utilisation RPU</libelle>
+			<sub idUnique="Tm34J16Dn7h2VUf0" /> <!--Statistiques-->
+			<cle cle="statsutilrpu" />
+			<cletotale cle="statistiques|statsutilrpu" />
+			<param option="" droit="statistiques" visible="y" classe="gestInfos" argument="'rpu'" /><!--Attention aux majuscules , argument entre simple quotes-->
+		</menu_new>
+	</update>
+	<update id="13">
+		<description>Ajout de l'option permettant de gerer la synchro ROR RESS</description>
+		<option_new>
+			<categorie>Plugins</categorie>
+			<cle>is_syncro_ror</cle> <!--id de l'option (utilisée dans le code-->
+			<libelle>Activer la synchro ROR RESS ?</libelle> <!--libelle de l'option (utilisée dans l'interface ) -->
+			<type>bool</type>
+		</option_new>
+	</update>
+	<update id="17">
+		<description>Ajout de l'option permettant de gerer un nb de jour arbitraire pour l'envoi CIRE</description>
+		<option_new>
+			<categorie>Scripts automatisés</categorie>
+			<cle>nb_jours_recul_cire</cle> <!--id de l'option (utilisée dans le code-->
+			<libelle>Nb de jour de recul pour l'export quotidien cire</libelle> <!--libelle de l'option (utilisée dans l'interface ) -->
+			<defaultValue>7</defaultValue>
+		</option_new>
+	</update>
+	<update id="18">
+		<description>Ajout de l'option permettant d'ignorer des établissements lors des alertes d'incomplétude</description>
+		<option_new>
+			<categorie>Scripts automatisés</categorie>
+			<cle>alertes_saisies_incompletes_ignorer</cle> <!--id de l'option (utilisée dans le code-->
+			<libelle>ID interne des établissements à ignorer pour saisies incomplètes, séparés par virgule.</libelle> <!--libelle de l'option (utilisée dans l'interface ) -->
+			<defaultValue></defaultValue>
+		</option_new>
+	</update>
+	<update id="19">
+		<description>Ajout de l'option formus_nb_jours_saisie_auto permettant de distinguer le recul de saisie maxi en auto et en manuel </description>
+		<option_new>
+			<categorie>Scripts automatisés</categorie>
+			<cle>formus_nb_jours_saisie_auto</cle> <!--id de l'option (utilisée dans le code-->
+			<libelle>Nb de jours de recul pour la saisie des données par automatismes</libelle> <!--libelle de l'option (utilisée dans l'interface ) -->
+			<defaultValue>4</defaultValue>
+		</option_new>
+	</update>
+
+	<update id="20">
+		<description>Extension à 20 caractères de la colonne idFormServeur table statistiques_indicateurs</description>
+		<requete base="stats">ALTER TABLE `statistiques_indicateurs` CHANGE `idFormServeur` `idFormServeur` VARCHAR( 20 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0'</requete>
+	</update>
+
+	<update id="22">  <!-- Option a choix multiples  -->
+		<description>Ajout de l'option mail_algo_recuperation</description>
+		<option_new>
+			<categorie>Environnement</categorie>
+			<cle>mail_algo_recuperation</cle>
+			<libelle>Algo de récupération de mail</libelle>
+			<type>combobox</type>
+			<choix>defaut|kerio_imap</choix>
+			<defaultValue>defaut</defaultValue>
+		</option_new>
+	</update>
+
+	<update id="23">
+		<description>Ajouts d'indicateurs nécéssaires à l'export d'etat de tension</description>
+		<requete base="stats">INSERT INTO `statistiques_indicateurs` (`idIndicateur`, `libelleIndicateur`, `niveau`, `rang`, `valide`, `typeCompte`, `nomTableServeur`, `nomTableStat`, `idFormServeur`, `nomChamps`, `sommeIndicateurs`) VALUES
+(20, 'Transferts secondaires', 1, '04', 'O', 'R', '', 'statistiques_data_samu', '0', '', 'Oui'),
+(21, 'TIH Médicaux SAUF Néo-natals', 2, '040', 'O', 'O', 'donnees_samu', 'statistiques_data_samu', '0', 'NbAffTihNonNeoNat', 'Oui'),
+(22, 'TIH Médicaux Néo-natals', 2, '041', 'O', 'O', 'donnees_samu', 'statistiques_data_samu', '0', 'NbAffTihNeoNat', 'Oui'),
+(23, 'TIH Infirmiers', 2, '042', 'O', 'O', 'donnees_samu', 'statistiques_data_samu', '0', 'NbAffTihInf', 'Oui')</requete>
+	</update>
+
+
+
+	<update id="24">
+		<description>Ajout d'une option pour les alertes ARH</description>
+		<option_new>
+			<categorie>Scripts automatisés</categorie>
+			<cle>mail_alertes_arh</cle> <!--id de l'option (utilisée dans le code-->
+			<libelle>Mail pour les alertes exclusives à l'ARH</libelle>
+			<defaultValue></defaultValue>
+		</option_new>
+	</update>
+
+</updates>
