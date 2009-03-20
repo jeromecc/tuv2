@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+
+	<FORMX id="Dossier_Medical_Evolutions" ok4docshopi="y" access="formulaires_TM_synthèse" dontPrintNavi="y" uniq="y" hide="y" >
+	<Libelle>Dossier Evolutions Médicales</Libelle>
+	<Objet>Dossier Evolutions Médicales</Objet>
+	
+<!--On boucle sur le sous-formulaire evolution-->
+	<FUSION id_formx="Evolutions_Evolutions">
+		<Libelle>EVOLUTION:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_FEvolution"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Evolution</Libelle>
+			<From>fusion:Val_FEvolution</From>
+		</ITEM>
+  </FUSION>
+    
+<ETAPE id="der_e">
+
+  <Libelle>IDENTITE DU PATIENT:</Libelle>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="toujours_vide" readonly="y" dontPrint="y" >
+		<Libelle>Ce formulaire ne peut pas se fermer manuellement</Libelle>
+	</ITEM>
+	
+	</ETAPE>
+</FORMX>
+

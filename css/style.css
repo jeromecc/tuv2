@@ -1,0 +1,615 @@
+﻿/* ------------------------ TUV2 ----------------------------- */
+
+/* Accueil */
+#accueilGauche {height: 602px; width: 100%; margin-top:2px;  margin-right: 1px; margin-left: 1px; border:0px; z-index:-100; background-image: url(../images/img2.gif); background-repeat: no-repeat; background-position:top right; float: right;}
+.bigTitre {background-image: url(../images/img1.jpg);background-repeat: no-repeat; float:left; height: 172px; width: 587px; 
+       margin-left: 5%; border:0px;  z-index:100; margin-top:10%;}
+
+
+/* G�n�ral */
+html, body  { background-color:#FFFFFF; font-size: 12px; color:#000066; text-decoration: none;  }
+select, input, textarea { border: #93d2c2 solid 1px; font-size: 90%; background-color : #CCCCCC ; }
+input:hover, textarea:hover, select:hover { background-color : #EEEEEE ; }
+img { border: 0px; }
+form { display: inline; }
+a { color: #330033; }
+a:hover { color: #FF6500; }
+td.hidden { display: none; }
+
+/* Navigation */
+div#header { background-color: #DCE9F0;color: #515151; text-align: center; border-bottom: 1px solid #93d2c2; margin-top:0px;  }
+div#footer { background-color: #DCE9F0;color: #515151;  padding-bottom: 5px; padding-top: 5px; text-align: center; }
+div#footer p { margin: 0; }
+div#page { margin: 0px 3px 0px 3px;  border: 1px solid #93d2c2; font-size: 90%; font-family: Arial; margin-bottom: 220px;}
+div#navigation { border-top: 1px solid #93d2c2; border-bottom: 1px solid #2D729D; }
+div#extdroite { margin: 0pt; padding: 0pt; width: 100%;}
+div#extgauche { margin: 0pt; padding: 0pt; width: 100%; }
+
+
+/* Menu */
+#bandeauMenu { height: 23px; background-color: #A2DDCE; display: inline;  }
+#menu {  background-color: #A2DDCE; height: 22px; padding-top: 1px; z-index: 1000; background-position: right; top:0px;}
+#menu a { color: #000000; text-decoration: none; }
+#menu dl, #menu dt, #menu dd, #menu ul, #menu li { margin: 0; padding: 0; list-style-type: none; }
+#menu dl, #menu dt { display: inline; }
+#menu dt a { text-align: center; padding: 4px 9px 4px 9px; margin: 1px; cursor: pointer;}
+#menu dl { position: relative; float: left; padding: 4px 0px 4px 0px; }
+#menu dt a:hover { padding: 3px 8px 3px 8px; border-bottom: 1px solid #93d2c2; border-right: 1px solid #93d2c2; border-top: 1px solid #FFFFFF; border-left: 1px solid #FFFFFF; }
+#menu dt#active a { padding: 3px 8px 3px 8px; border-top: 1px solid #93d2c2; border-left: 1px solid #93d2c2; border-bottom: 1px solid #FFFFFF; border-right: 1px solid #FFFFFF; }
+#menu dd { display: none; position: absolute; top: 22px; width: 122px; left: 0px; border: 1px solid #000000; background-color: #FFFFFF; filter:alpha(opacity=80); -moz-opacity:0.8; opacity: 0.8; z-index: 1200;}
+#menu li { padding: 5px 10px 5px 10px; width: 100px; cursor: pointer; margin: 1px; }
+#menu li:hover { padding: 4px 9px 4px 9px; border: 1px solid #5cb1ae; width: 100px; background: #93d2c2; }
+.logomenu{background-image:url(../images/logoTerminurg.gif);  background-repeat:no-repeat; height:25px;width: 100%;}
+/* Authentification */
+dd#s10 { -moz-border-radius-bottomleft: 6px; -moz-border-radius-bottomright: 6px; position: absolute; top: 22px; left: -1px; border: 1px solid #2D729D; width: 180px; background: #FFFFFF; padding: 3px; display: none; text-align: center; z-index: 1000; filter:alpha(opacity=100); -moz-opacity:1.0; opacity: 1.0;}
+
+
+
+/* Affichage des Logs */
+#affichageLogs td.titre { text-align: right; padding-left: 20px; }
+#affichageLogs td.droite { text-align: right; }
+#affichageLogs select.form { width: 202px; }
+#affichageLogs input[type=text] { width: 200px; }
+#affichageLogsRes table { border-collapse: collapse; border: 1px solid #2D729D; }
+#affichageLogsRes th { border: 1px solid #2D729D; background-image: url(../images/fondTab.jpg); }
+#affichageLogsRes td { border: 1px solid #2D729D; }
+#affichageLogsRes td.droite { text-align: right; }
+#affichageLogsRes tr.pair { background-color: #FFCCCC;  }
+#affichageLogsRes tr.impair { background-color: #99CCCC; }
+#affichageLogsRes tr:hover { background-color: #FFFF77; }
+
+/* Gestion des droits */
+
+
+#droits select { width: 300px; }
+
+/* Gestion des options */
+#options table { border: 1px solid #006699; width: 98%; border-collapse: collapse; }
+#options th {
+	text-align: left;
+	border: 0px;
+}
+
+#options th.droite { border: 0px; text-align: right;  }
+
+#options .paire { border: 1px solid #44AA44; background: #FFCCCC; }
+#options .impaire { border: 1px solid #44AA44; background: #99CCCC; }
+#options .modification { background: #FFFF77; }
+#options tr {background-image: url(../images/fondTab.jpg);}
+#options tr:hover {	background: #FFFF77;}
+#options td:hover { background: #FFFF77; }
+#options .col1 { width: 20%; }
+#options .col2 { width: 55%; }
+#options .col3 { width: 25%; text-align: right; }
+#options .invisible { border: 0px; margin: 0px; text-align: right; }
+#options .colarge { width: 80%; }
+#gestionoption { text-align: center; background-color: #E4F7FD; border: 4px solid #2D729D; -moz-border-radius: 6px; z-index: 50; position: absolute; left: 300px; top: 80px; }
+#gestionoption td.droite { text-align: right; vertical-align: top; }
+#gestionoption select { width: 300px; }
+
+/* Listes générales  */
+#listesgenerales table { border: 0px solid #006699; width: 100%}
+#listesgenerales tr { border: 1px solid #006699; }
+#listesgenerales td { border: 1px solid #006699; }
+#listesgenerales select { width: 100%; font-size:10px; }
+
+/* Ajouter item  */
+#ajouteritem { text-align: center; }
+#ajouteritem table { border: 0px; border-collapse: collapse; margin-left: auto; margin-right: auto; }
+#ajouteritem tr { border: 0px; }
+#ajouteritem td { border: 0px; }
+#ajouteritem select { width: 200px; }
+#ajouteritem text { width: 200px; }
+
+/* Modifier item */
+#modifieritem { text-align: center; }
+#modifieritem table { border: 0px; border-collapse: collapse; margin-left: auto; margin-right: auto; }
+#modifieritem tr { border: 0px; }
+#modifieritem td { border: 0px; }
+#modifieritem select { width: 200px; }
+#modifieritem text { width: 200px; }
+
+/* Messages */
+#erreurs { padding: 13px; text-align: center; color: red; }
+#informations { padding: 13px; text-align: center; color: green; }
+#infos { color: green; }
+
+#confirmation { background-color: #E4F7FD; border: 5px solid #2D729D;
+-moz-border-radius: 6px; text-align: center; padding: 13px; z-index:
+100; position: absolute; left: 300px; top: 100px; width: 400px; }
+#confirmation table { border: 0px; border-collapse: collapse; margin-left: auto; margin-right: auto; }
+
+.boutons {margin: 5px; padding: 10px;}
+
+/* Gestion des groupes */
+/* Liste des groupes  */
+#gestiondesgroupes select { width: 300px; font-size:10px; }
+
+
+/* Listes */
+#listes { text-align: center; }
+#listes table { border: 0px; border-collapse: collapse; margin-left: auto; margin-right: auto; }
+#listes select { width: 300px; }
+
+/* Items */
+#items { text-align: center; }
+#items table { border: 0px; border-collapse: collapse; margin-left: auto; margin-right: auto; }
+#items select { width: 200px; }
+#items text { width: 200px; }
+#items .col1 { text-align: right; }
+
+/* Liste documents */
+#listedocuments table { border: 1px solid #006699; width: 98%; border-collapse: collapse; }
+#listedocuments th { border: 1px solid #000033; background-image: url(../images/fondTab.jpg); }
+#listedocuments .paire { border: 1px solid #44AA44; background: #FFCCCC; }
+#listedocuments .impaire { border: 1px solid #44AA44; background: #99CCCC; }
+#listedocuments .modification { background: #FFFF77; }
+#listedocuments tr:hover { background: #FFFF77; }
+#listedocuments td:hover { background: #FFFF77; }
+#listedocuments .col1 { width: 20%; }
+#listedocuments .col2 { width: 55%; font-style: italic; }
+#listedocuments .col3 { width: 25%; text-align: right; }
+#listedocuments .invisible { border: 0px; margin: 0px; text-align: right; }
+#listedocuments .colarge { width: 80%; }
+
+/*  Gestion des documents */
+#document .col1 { text-align: right; vertical-align: top; }
+#document textarea { background: #DCE9F0; }
+#document input.colorinput { background: #DCE9F0; }
+#document select { background: #DCE9F0; width: 202px; }
+
+/* Bandeau d'informations sur les patients pr�sents */
+#infospassages td { padding-left : 25px; }
+
+/* Liste patients presents */
+#listepatients table { width:100%; border-collapse: collapse; border: 1px solid #006699; }
+#listepatients tr { cursor: pointer; border: 1px solid #006699; vertical-align: top; }
+#listepatients th {  background-image: url(../images/fondTab.jpg); }
+#listepatients tr:hover { background: #FFFFFF; }
+#listepatients tr.vuspaire:hover { background: #FFFFFF; }
+#listepatients tr.vusimpaire:hover { background: #FFFFFF; }
+#listepatients tr.uhcdpaire:hover { background: #FFFFFF; }
+#listepatients tr.uhcdimpaire:hover { background: #FFFFFF; }
+#listepatients tr.nonvuspaire:hover { background: #FFFFFF;}
+#listepatients tr.nonvusimpaire:hover { background: #FFFFFF;}
+#listepatients tr.manuelspaire:hover { background: #FFFFFF;}
+#listepatients tr.manuelsimpaire:hover { background: #FFFFFF;}
+#listepatients td.sexe { vertical-align: middle; }
+#listepatients .normal { text-align: center; }
+#listepatients td .gauche { text-align: left; }
+#listepatients td .droite { text-align: right;  background: #FDDF66; }
+#listepatients tr.vuspaire { background: #FFFF66; }
+#listepatients tr.vusimpaire { background: #FFFFCC; }
+#listepatients tr.uhcdpaire { background: #FF99CC; }
+#listepatients tr.uhcdimpaire { background: #FFE6FF; }
+#listepatients tr.manuelspaire { background: #DD99DD; }
+#listepatients tr.manuelsimpaire { background: #FF99FF; }
+#listepatients tr.nonvuspaire { background: #99FFFF;}
+#listepatients tr.nonvusimpaire { background: #33CCCC;}
+#listepatients tr.attenduspaire { background: #BB99DD; }
+#listepatients tr.attendusimpaire { background: #DFDFDF; }
+#listepatients tr.sortispaire { background: #95DBB8; }
+#listepatients tr.sortisimpaire { background: #D7FFD7; }
+td.titreLP { text-align: right; cursor: help; pointer: help; }
+select.LP, input.LP { width: 200px; }
+/*
+#listepatients tr.rada { background: #ED0000; }
+#listepatients tr.radb { background: #FF4901; }
+#listepatients tr.radc { background: #EDFF0C; }
+#listepatients tr.radd { background: #1FA055; }
+*/
+
+/* Module Radio */
+
+#listepatients tr.rada { background: #FF3333; }
+#listepatients tr.radb { background: #FF9900; }
+#listepatients tr.radc { background: #FFFF66; }
+#listepatients tr.radd { background: #99FF66; }
+#listepatients tr.radelephant { background: #FF0066; }
+#listepatients tr.rada:hover { background: #FFFFFF; }
+#listepatients tr.radb:hover { background: #FFFFFF; }
+#listepatients tr.radc:hover { background: #FFFFFF; }
+#listepatients tr.radd:hover { background: #FFFFFF; }
+#listepatients tr.radelephant:hover { background: #FFFFFF; }
+#listepatients tr.sexe2 { }
+#listepatients td.gauchePat { cursor:default; pointeur:default;}
+#mod { position: absolute; left: 30%; text-align: center;
+       border: 1px solid #FBCB5A; color: black; background: #FFFF99; display:none; }
+
+.red { color: red; }
+.titreForm {
+        font: bold 1.1em arial, hevetica, sans-serif;
+        color: black;
+        background: #FBCB5A;
+        margin: 0;
+        padding: 0.5em;
+        cursor: move;
+        pointer: move;
+}
+.erreur { color: red; }
+.corpForm { border: 1px solid #9067CF; color: black; background: #efefef; margin: 0; padding: 1em; }
+fieldset {      margin: 0; font-style: normal; padding: 0 1em 1em; }
+legend { font-weight: bold;     color: black; background: transparent; }
+
+#modRadio { position: relative; width: 41em; text-align: center; padding-top: 5px; padding-bottom: 5px; margin-left: auto; margin-right: auto; padding-left: 5px; padding-right: 5px; }
+
+#retourRadio { position: absolute; left: 320px; top: 105px; width: 400px; border: 1px solid #006699; background-color: #CCFFFF; padding: 10px; 
+filter:alpha(opacity=100); -moz-opacity:1.0; opacity: 1.0; z-index: 81; }
+
+#RadioCCAM select { width: 380px;  }
+#RadioCCAM table { width: 380px; border-collapse: collapse; border-left: 1px solid #006699; border-right: 1px solid #006699; border-bottom: 1px solid #006699; }
+#RadioCCAM th { background: #FBCB5A; border: 1px solid #006699; text-align: center; }
+#RadioCCAM td { border: 1px solid #006699; text-align: center; }
+#RadioCCAM tr.acte:hover { background: #FF7777; cursor: pointer; pointer: hand; }
+
+/* CCAM */
+#ccam select { width: 450px; }
+#ccam select.select2 { width: 50px; }
+#ccam select.selectngap { width: 400px; }
+#ccam select.selectfamille { width: 300px; }
+#ccam select.selectperiod { width: 200px; }
+#ccam table.actes { border-collapse: collapse; border: 1px solid #006699; background: #FFFF99;}
+#ccam tr.actes { border-collapse: collapse; border: 1px solid #006699; }
+#ccam tr.actes:hover { background: #FFFFCC; border-collapse: collapse; border: 1px solid #006699; }
+#ccam th.actes {background-image: url(../images/fondTab.jpg);}
+#complementActe { font-size: 80%;  }
+#erreurs_ccam { color: red; }
+
+/* Export des actes */
+#listeActes { cursor: pointer; }
+table#listeActes  { margin-left: auto; margin-right: auto; border: 1px solid #006699; border-collapse: collapse; }
+table#listeActes td, table#listeActes th { border: 1px solid #006699; }
+table#listeActes th { background-color: #FFFF4F; }
+table#listeActes tr.paire { background-color: #5093FF; }
+table#listeActes tr.impaire { background-color: #F0DB8F; }
+
+
+/* R�cap cotation diagnostics/sactes */
+#recapcotation table { border-collapse: collapse; border: 1px solid #006699; background: #FFFF99; }
+#recapcotation tr { border-collapse: collapse; border: 1px solid #006699; }
+#recapcotation th { background-image: url(../images/fondTab.jpg); border-collapse: collapse; border: 1px solid #006699; }
+#recapcotation td { border-collapse: collapse; border: 1px solid #006699; }
+#recapcotation td.hover:hover { background: #FFFFCC; }
+#recapcotation th.nu { border: 0px; }
+#recapcotation th.droite { border: 0px; text-align: right; }
+
+/* D�tails des actes et diagnostics du patient */
+#detaildiagsactes { overflow:hidden; width:92em; background-color: #E4F7FD; border: 2px solid #2D729D; -moz-border-radius: 6px; z-index: 80; position: absolute; left: 3px; top: 80px; }
+#detaildiagsactes table { width: 100%; }
+
+/* Saisie complement acte #saisieComplementActe table { width: 100%; }*/
+#saisieComplementActe { background-color: #FFFFFF; border: 4px solid #2D729D; -moz-border-radius: 6px; z-index: 81; position: absolute; left: 100px; top: 30px; width: 75%; }
+
+
+/* Formulaire 1 acte#form1Acte { background-color: #FFFFFF; border: 4px solid #2D729D; -moz-border-radius: 6px; z-index: 80; position: absolute; left: 100px; top: 30px; width: 75%; } */
+
+
+/*listesCCAM */
+#listesccam select { width: 200px; }
+
+
+/*************** Fiche Patient **************/
+#fichepatient table { }
+#fichepatient td { vertical-align: top; }
+
+#QuestionSortie { position: absolute; left: 320px; top: 250px; width: 400px; border: 1px solid #006699; background-color: #CCFFFF; padding: 10px; 
+filter:alpha(opacity=100); -moz-opacity:1.0; opacity: 1.0; z-index: 81; }
+
+/* Etat civil du patient */
+#etatcivilpatient table { width: 100%; border-collapse: collapse; border: 1px solid #006699; background: #FFFF99; }
+#etatcivilpatient td { vertical-align: top; }
+#etatcivilpatient td.hover:hover { background: #FFFFCC; }
+#etatcivilpatient td.col60 { width: 100%; }
+#etatcivilpatient td.col55 { width: 55%; }
+#etatcivilpatient td.col50 { width: 50%; }
+#etatcivilpatient td.col45 { width: 45%; }
+#etatcivilpatient td.col40 { width: 40%; }
+#etatcivilpatient td.col33 { width: 33%; }
+#etatcivilpatient td.col35 { width: 36%; }
+#etatcivilpatient textarea { width: 98%; }
+#etatcivilpatient form { display: inline; }
+ form { display: inline; }
+ #modPatient { position: absolute; left: 320px; top: 200px; width: 400px; border: 1px solid #006699; background-color: #CCFFFF; padding: 10px; 
+filter:alpha(opacity=100); -moz-opacity:1.0; opacity: 1.0; z-index: 81; }
+#modPatient table { background-color: #CCFFFF; border: 0px; }
+#modPatient td.titreTD { width: 120px; font-weight: bold; text-align: right;} 
+
+#showFusions { position: absolute; width: 600px; border: 1px solid #006699; background-color: #CCFFFF; padding: 10px; 
+filter:alpha(opacity=100); -moz-opacity:1.0; opacity: 1.0; z-index: 81; }
+#showFusions table { width: 100%; }
+#showFusions table, #showFusions td, #showFusions tr, #showFusions th { border-collapse: collapse; border: 1px solid #006699; }
+#showFusions th { background: #CCCCCC; }
+#showFusions tr { cursor: pointer; pointer: hand; }
+#showFusions tr:hover { background: #FFFFCC; }
+
+/* Bloc Note*/
+#casemaincourante { 
+        background: #FFFF99;
+        width:100%;
+        height:100%;
+        border-collapse: collapse;
+        border: 1px solid #006699;
+}
+
+#casemaincourante textarea.maincourante { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	border: none;
+	background-color : #FFFF99 ;
+	height: 141px;
+	width:220px;
+	text-align:left;
+	scrollbar-3dlight-color: #FFFF99;
+	scrollbar-arrow-color: #FFFF99;
+    scrollbar-darkshadow-color: #FFFF99;
+    scrollbar-face-color: #FFFF99;
+    scrollbar-highlight-color: #FFFF99;
+    scrollbar-shadow-color: #FFFF99;
+    scrollbar-track-color: #FFFF99;
+    scrollbar-track-color: #FFFF99;
+}
+
+#casemaincourante input.maincourante { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	color:  #11BF85;
+	border: none;
+	background-color : #FFFF99 ;
+	text-align:left;
+}	
+
+#casemaincourante_handler {
+        cursor:move;
+        cursor:hand;
+}
+
+/* Diagnostic du patient */
+#transfertpatient table { width: 100%; border-collapse: collapse; border: 1px solid #006699; background: #FFFF99; }
+#transfertpatient table .sansstyle { border: 0px; }
+#transfertpatient table .sansstyle td { border: 0px; text-align: right; }
+#transfertpatient th { background-image: url(../images/fondTab.jpg); }
+#transfertpatient td { vertical-align: top; border: 1px solid #006699; }
+#transfertpatient td.droite { border-right: 0px; }
+#transfertpatient td.gauche { border-left: 0px; } 
+#transfertpatient table .sansstyle tr:hover { background: #FFFFCC; }
+#transfertpatient select { width: 250px; }
+
+/* Appels contextuels */
+#barreAppelContextuel { border: 1px solid #006699; background: #FFFF99; padding: 2px 2px 2px 2px;}
+#barreAppelContextuel img { padding: 2px 2px 2px 2px;}
+
+/* Informations du patient */
+#informationspatient table { width: 100%; border-collapse: collapse; border: 1px solid #006699; background: #FFFF99; }
+#informationspatient table .sansstyle { border: 0px; }
+#informationspatient table .sansstyle td { border: 0px; text-align: right; }
+#informationspatient th { background-image: url(../images/fondTab.jpg); }
+#informationspatient td { vertical-align: top; border: 1px solid #006699; }
+#informationspatient td.droite { border-right: 0px; }
+#informationspatient td.gauche { border-left: 0px; } 
+#informationspatient table .sansstyle tr:hover { background: #FFFFCC; }
+#informationspatient select { width: 250px; }
+
+/* Messages du patient */
+#messagespatient table { border-collapse: collapse; border: 1px solid #006699; background: #FFFF99;}
+#messagespatient tr { border-collapse: collapse; border: 1px solid #006699; }
+#messagespatient tr.droite:hover {background: #FFFFCC; border: 1px solid #006699; }
+#messagespatient th {background-image: url(../images/fondTab.jpg); border-collapse: collapse; border: 1px solid #006699;}
+#messagespatient th.droite  {background: #FFFFEC; border: 1px}
+#messagespatient th.droite:hover {background: #FFFFCC; border: 1px}
+#messagespatient td {border: 1px solid #006699; }
+
+/* Messages du patient */
+#bmr table { width: 100%; border-collapse: collapse; border: 1px solid #006699; background: #FFFF99;}
+#bmr tr { border-collapse: collapse; border: 1px solid #006699; }
+#bmr tr.droite:hover {background: #FFFFCC; border: 1px solid #006699; }
+#bmr th { background-image: url(../images/fondTab.jpg); border-collapse: collapse; border: 1px solid #006699; }
+#bmr th.droite  { background: #FFFFEC; border: 1px }
+#bmr th.droite:hover { background: #FFFFCC; border: 1px }
+#bmr td { border: 1px solid #006699; text-align: center; }
+#bmr td { text-decoration: blink; color: red; }
+
+/* meesageview */
+#messagesview { overflow:hidden; width:80em; background-color: #E4F7FD; border: 2px solid #2D729D; -moz-border-radius: 6px; z-index: 80; position: absolute; left: 90px; top: 145px; }
+#messagesview table { width: 100%; }
+#messagesview th {background-image: url(../images/fondTab.jpg); border-collapse: collapse; border: 1px solid #006699; }
+#messagesview th.gauche {width:15%; }
+#messagesview td {border-collapse: collapse; border: 1px solid #006699; padding: 4px;}
+#messagesview td.alignC {text-align:center;	border-collapse: collapse;	border: 1px solid #006699;	vertical-align: middle;}
+#messagesviewtitre table { width: 100%; border: 0px; background-color: #E4F7FD; }
+#messagesviewtitre th {background-image: url(../images/fondTab.jpg); border: 0px; }
+#messagesviewtitre th.alignD {background-image: url(../images/fondTab.jpg); text-align: right; }
+
+/* message new */
+#messagenew { overflow:hidden; width:40em; background-color: #E4F7FD; border: 2px solid #2D729D; -moz-border-radius: 6px; z-index: 80; position: absolute; left: 190px; top: 120px; }
+#messagenew table {background: #FFFFEC;}
+#messagenew th {background-image: url(../images/fondTab.jpg); border-collapse: collapse; border: 1px solid #006699; }
+#messagenew tr:hover {background: #FFFFEC;}
+#messagenew td.gauche { text-align: right; vertical-align: top; font-weight: bold; }
+#messagenew td.droite { text-align: left; vertical-align: top; }
+#messagenew td.droite:hover {background: #FFFFEC;}
+#messagenew td.hover:hover { background: #FFFFCC; vertical-align: top;}
+
+/* Ajouter attendu */
+#ajouterattendu { width: 450px; background-color: #E4F7FD; border: 2px solid #2D729D; -moz-border-radius: 6px; z-index: 80; position: absolute; left: 300px; top: 70px; }
+#ajouterattendu td.droite { text-align: right; vertical-align: top; font-weight: bold; }
+#ajouterattendu select.w300 { width: 300px; }
+#ajouterattendu select.w200 { width: 179px; }
+/* Ajouter present */
+#ajouterpresent { width: 450px; background-color: #E4F7FD; border: 2px solid #2D729D; z-index: 80; position: absolute; left: 50px; top: 70px; }
+#ajouterpresent td.droite { text-align: right; vertical-align: top; font-weight: bold; }
+#ajouterpresent select.w300 { width: 300px; }
+#ajouterpresent select.w200 { width: 179px; }
+#titreAddPat table { width: 100%; border: 1px; background-color: #E4F7FD; }
+#titreAddPat th.droite { text-align: right; }
+#titreAddPat { padding-bottom: 5px; }
+.patientR { border: 0; cursor: pointer; pointer: hand;}
+.patientR:hover { background: #FFFF66; }
+
+/* Liste des patients pour l'aide à la saisie manuelle */
+#recherchePatients { background: #E4F7FD; width: 550px; border: 2px solid #006699; position: absolute; top: 70px; left: 502px; padding-left: 10px; padding-bottom: 13px; }
+
+
+/* Historique Hospitalisations du patient */
+#historiquepatient table { border-collapse: collapse; border: 1px solid #006699; background: #FFFF99; }
+#historiquepatient tr { border-collapse: collapse; border: 1px solid #006699; }
+#historiquepatient th { background-image: url(../images/fondTab.jpg); border-collapse: collapse; border: 1px solid #006699; }
+#historiquepatient td { border-collapse: collapse; border: 1px solid #006699; }
+#historiquepatient th.droite { text-align: right; }
+
+/* Historique des documents saisis du patient */
+#historiquedocspatient table { border-collapse: collapse; border: 1px solid #006699; background: #FFFF99; }
+#historiquedocspatient tr { border-collapse: collapse; border: 1px solid #006699; }
+#historiquedocspatient th { background-image: url(../images/fondTab.jpg); border-collapse: collapse; border: 1px solid #006699; }
+#historiquedocspatient td { border-collapse: collapse; border: 1px solid #006699; }
+#historiquedocspatient th.droite { text-align: right; }
+
+/* Liste des documents �dit�s lors du passage du patient */
+#documentspatient table { border-collapse: collapse; border: 1px solid #006699; background: #FFFF99; }
+#documentspatient tr { border-collapse: collapse; border: 1px solid #006699; }
+#documentspatient th {background-image: url(../images/fondTab.jpg); border-collapse: collapse; border: 1px solid #006699; }
+#documentspatient td { border-collapse: collapse; border: 1px solid #006699; }
+#documentspatient tr:hover { background: #FFFFCC; }
+#documentspatient th.nu { border: 0px; }
+#documentspatient th.droite { border: 0px; text-align: right; }
+
+/* Choix des documents � imprimer */
+#documentsimpr { overflow:hidden; width:90em; background-color: #E4F7FD; border: 2px solid #2D729D; -moz-border-radius: 6px; z-index: 50; position: absolute; left: 9px; top: 56px; }
+#documentsimpr table { width: 100%; border: 0px; background-color: #E4F7FD; }
+#documentsimpr th {background-image: url(../images/fondTab.jpg); border: 0px; }
+#documentsimpr th.droite { text-align: right; }
+#documentsimpr td { width: 10%; border-collapse: collapse; border: 1px solid #006699; background-color: #6699FF;}
+#documentsimpr td.nostyle { background-color: #E4F7FD; border: 0px; }
+#documentsimpr td.dejaedite { background-color: #FF6699; }
+#documentsimpr td.categorie { background-color: #D4F7FD; }
+#documentsimpr td.categorie:hover { background-color: #D4F7FD; }
+#documentsimpr td:hover { background-color: #FFFFCC; }
+
+
+/* Bloc formx (formulaires patient)*/
+#bloc_formx {background-color: #FFFF99;  border: 1px solid #006699; }
+
+/* Fen�tre d'erreurs lors de la sortie */
+
+#erreurssortie { overflow:hidden; width:50em; 
+    background-color: #FFFFEC; border: 2px solid #2D729D; -moz-border-radius: 5px; z-index: 50; 
+    position: absolute; left: 180px;  top: 175px; }
+#erreurssortie table {border: 1px  background-color: #FFFFEC; width: 100%; border-collapse:collapse; }
+#erreurssortie th {background-image: url(../images/fondTab.jpg); border: 1px solid #2D729D; }
+#erreurssortie td { border-collapse: collapse; border: 1px solid #006699; background-color: #CCFFFF; color: red; }
+#erreurssortietitre table { width: 100%; border: 1px; border-collapse:collapse; }
+
+iframe.mask { display:none; display:block; position:absolute; top:0; left:0; z-index:-1; 
+              filter:mask(); width:3000px; height:3000px; }
+
+/* Erreurs UHCD */
+#grise { position: absolute; left: 11px; top: 32px; width: 98%; height: 800px; background-color: #CCCCCC; 
+    filter:alpha(opacity=70); -moz-opacity:0.7; opacity: 0.7; z-index: 80;}
+#erreurUHCD { position: absolute; left: 320px; top: 200px; width: 400px; border: 1px solid #006699; background-color: #CCFFFF; padding: 10px; 
+filter:alpha(opacity=100); -moz-opacity:1.0; opacity: 1.0; z-index: 81; }
+
+
+/* Fenetre Bloquante */
+#bloquant { position: absolute; left: 13px; top: 35px; width:1000px; height: 800px; background-color: #CCCCCC; 
+    filter:alpha(opacity=70); -moz-opacity:0.7; opacity: 0.7; z-index:100;}
+#contenuBloquant { position: absolute; left: 320px; top: 200px; width: 400px; border: 1px solid #006699; background-color: #CCFFFF; padding: 10px; 
+filter:alpha(opacity=100); -moz-opacity:1.0; opacity: 1.0; z-index: 181; }
+#confirmationB { position: absolute; left: 320px; top: 200px; width: 400px; border: 1px solid #006699; background-color: #CCFFFF; padding: 10px; 
+filter:alpha(opacity=100); -moz-opacity:1.0; opacity: 1.0; z-index: 181; }
+
+/* ******************* FIN Fiche Patient ************************ */
+
+/* Liste BE */
+
+#listeBE tr { cursor: pointer; pointer: hand; }
+#listeBE table { border-collapse: collapse; border: 1px solid #2D729D; }
+#listeBE th { border: 1px solid #2D729D; background-image: url(../images/fondTab.jpg); }
+#listeBE td { border: 1px solid #2D729D; padding:2px;}
+#listeBE tr:hover { background-color: #CCFF66; }
+
+/* Module d'importation */
+#importation { padding-left: 10px; padding-bottom: 10px; }
+
+/* Module de fusion */
+#fusionpatients { text-align: center; }
+#fusionpatients select { width: 350px; }
+#fusionpatients table { margin-left: auto; margin-right: auto; }
+#fusionpatients td.gauche { text-align: left; }
+#fusionpatients select.petit { width: 100%; }
+
+/* Module d'export */
+#export { text-align: center; }
+
+/* Module d'export V2 */
+#exportV2 { text-align: center; }
+#exportV2 table { background-color: #FFFF99; width: 100%; margin-left: auto; margin-right: auto; border-collapse: collapse; border: 1px solid #2D729D; }
+#exportV2 th { border: 1px solid #2D729D; background-image: url(../images/fondTab.jpg); }
+#exportV2 tr.suppression { background-color: #FF3333; }
+#exportV2 tr.creation { background-color: #99FF66; }
+#exportV2 td { vertical-align: top; border: 1px solid #2D729D; }
+#exportV2 td.right { text-align: right; width: 100px; }
+#exportV2 td.left { text-align: left; width: 350px; }
+
+/* Sessions */
+#sessionsactuelles table { border-collapse: collapse; border: 1px solid #2D729D; }
+#sessionsactuelles th { border: 1px solid #2D729D; background-image: url(../images/fondTab.jpg); }
+#sessionsactuelles td { border: 1px solid #2D729D; }
+#sessionsactuelles tr.pair { background-color: #FFCCCC;  }
+#sessionsactuelles tr.impair { background-color: #99CCCC; }
+#sessionsactuelles tr:hover { background-color: #FFFF77; }
+
+#sessionsstats table { border-collapse: collapse; border: 1px solid #2D729D; }
+#sessionsstats th { border: 1px solid #2D729D; background-image: url(../images/fondTab.jpg); }
+#sessionsstats td { border: 1px solid #2D729D; }
+#sessionsstats td.droite { text-align: right; }
+#sessionsstats tr.pair { background-color: #FFCCCC;  }
+#sessionsstats tr.impair { background-color: #99CCCC; }
+#sessionsstats tr:hover { background-color: #FFFF77; }
+
+/* Gestion des utilisateurs */
+#gestionutilisateurs td.droite { text-align: right; }
+#gestionutilisateurs select { width: 200px; }
+
+/* Gestion d'un problème de survol des select avec IE < 7 et overlib */
+.select-free
+	{
+		position:absolute; 
+		z-index:102;
+		overflow:hidden;
+	}
+			
+.select-free iframe
+	{
+		display:none;/*sorry for IE5*/
+		display/**/:block;/*sorry for IE5*/
+		position:absolute;/*must have*/
+		top:0;/*must have*/
+		left:0;/*must have*/
+		z-index:-1;/*must have*/
+		width:3000px;/*must have for any big value*/
+		height:3000px/*must have for any big value*/;
+		filter:mask();/*must have*/
+	}
+
+/* Gestion des menus */
+#gestionmenu { background-color: #E4F7FD; border: 4px solid #2D729D; -moz-border-radius: 6px; z-index: 50; position: absolute; left: 300px; top: 80px; }
+#gestionmenu td.droite { text-align: right; vertical-align: top; }
+#gestionmenu select { width: 300px; }
+
+
+select, input[type=text], input[type=password], input[type=submit], textarea {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	border: #2D729D solid 1px;
+	background-color : #EEEEEE ;
+}
+
+input[type=text]:hover, input[type=password]:hover, input[type=submit]:hover, textarea:hover {
+        background-color : #BBBBBB ;
+}
+
+.centre { text-align: center; }
+
+/* Gestion des RPU */
+
+#xmlRpu { padding-left: 10px; width: 500px; background-color: #70BBFF; border: 1px solid #2D729D; margin-left: auto; margin-right: auto; }
+#logsRpu { padding-left: 10px; width: 600px; background-color: #70BBFF; border: 1px solid #2D729D; margin-left: auto; margin-right: auto; }

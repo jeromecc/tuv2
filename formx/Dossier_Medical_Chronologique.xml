@@ -1,0 +1,1854 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+
+	<FORMX id="Dossier_Medical_Chronologique" ok4docshopi="y" access="formulaires_TM_synthèse" dontPrintNavi="y" uniq="y" hide="y">
+	<Libelle>Dossier Médical Antécédents</Libelle>
+	<Objet>Dossier Médical Antécédents</Objet>
+  
+<!--On boucle sur le sous-formulaire antecedent_habitus-->
+	<FUSION id_formx="Antecedents_Habitus">
+		<Libelle>HABITUS:</Libelle>
+		
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_HABITUS_TABAC_Paquet"/>
+		<Recup var="Val_HABITUS_TABAC_Non_Sevre"/>
+		<Recup var="Val_HABITUS_TABAC_Sevre_Depuis"/>
+		<Recup var="Val_HABITUS_ALCOOL_Test"/>
+		<Recup var="Val_HABITUS_ALCOOL_LITRE"/>
+		<Recup var="Val_HABITUS_ALCOOL_Non_Sevre"/>
+		<Recup var="Val_HABITUS_ALCOOL_Sevre_Depuis"/>
+		<Recup var="Val_HABITUS_Allergie"/>
+		<Recup var="Val_HABITUS_Iode"/>
+		<Recup var="Val_HABITUS_Medicament"/>
+		<Recup var="Val_HABITUS_Autre"/>
+		<Recup var="Val_HABITUS_Prof"/>
+		<Recup var="Val_HABITUS_Retraite"/>
+		<Recup var="Val_HABITUS_Vie"/>
+		
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Nombre de paquet par jour</Libelle>
+			<From>fusion:Val_HABITUS_TABAC_Paquet</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_HABITUS_TABAC_Paquet</Arg1>
+        <Arg2>const:0 </Arg2>
+      </Cond>
+      <Libelle>Personne sevré</Libelle>
+			<From>fusion:Val_HABITUS_TABAC_Non_Sevre</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="and" oblig="y">
+        <Arg1 type="equal" oblig="y">
+				  <Arg1>fusion:Val_HABITUS_TABAC_Non_Sevre</Arg1>
+				  <Arg2>const:Oui</Arg2>
+			 </Arg1>
+			 <Arg2 type="equal" oblig="y">
+				  <Arg1>fusion:Val_HABITUS_TABAC_Paquet</Arg1>
+				  <Arg2>const:0 </Arg2>
+			 </Arg2>
+      </Cond>
+    	<Libelle>Date de sevrage</Libelle>
+			<From>fusion:Val_HABITUS_TABAC_Sevre_Depuis</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Consommation d'alcool</Libelle>
+			<From>fusion:Val_HABITUS_ALCOOL_Test</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_HABITUS_ALCOOL_Test</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Nombre de gramme par jour</Libelle>
+			<From>fusion:Val_HABITUS_ALCOOL_LITRE</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_HABITUS_ALCOOL_Test</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Personne sevré</Libelle>
+			<From>fusion:Val_HABITUS_ALCOOL_Non_Sevre</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>fusion:Val_HABITUS_ALCOOL_Non_Sevre</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>fusion:Val_HABITUS_ALCOOL_Test</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg2>
+      </Cond>
+			<Libelle>Date de sevrage</Libelle>
+			<From>fusion:Val_HABITUS_ALCOOL_Sevre_Depuis</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Allergie</Libelle>
+			<From>fusion:Val_HABITUS_Allergie</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_HABITUS_Allergie</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Iode IV</Libelle>
+			<From>fusion:Val_HABITUS_Iode</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_HABITUS_Allergie</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Médicaments</Libelle>
+			<From>fusion:Val_HABITUS_Medicament</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_HABITUS_Allergie</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Autres</Libelle>
+			<From>fusion:Val_HABITUS_Autre</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Profession</Libelle>
+			<From>fusion:Val_HABITUS_Prof</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Retraité</Libelle>
+			<From>fusion:Val_HABITUS_Retraite</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Mode de vie</Libelle>
+			<From>fusion:Val_HABITUS_Vie</From>
+		</ITEM>
+  
+  </FUSION>
+
+<!--On boucle sur le sous-formulaire medicaux_oncologiques-->
+	<FUSION id_formx="Antecedents_Medicaux_Oncologiques">
+		<Libelle>ONCOLOGIQUES:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_ONCOLOGIQUES_Diagnostic"/>
+		<Recup var="Val_ONCOLOGIQUES_Localisation"/>
+		<Recup var="Val_ONCOLOGIQUES_Localisation_Primaire"/>
+		<Recup var="Val_ONCOLOGIQUES_Localisation_Secondaire"/>
+		<Recup var="Val_ONCOLOGIQUES_Nature"/>
+		<Recup var="Val_ONCOLOGIQUES_TraitQ"/>
+		<Recup var="Val_ONCOLOGIQUES_Trait"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Diagnostic</Libelle>
+			<From>fusion:Val_ONCOLOGIQUES_Diagnostic</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Localisation</Libelle>
+			<From>fusion:Val_ONCOLOGIQUES_Localisation</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_ONCOLOGIQUES_Localisation</Arg1>
+        <Arg2>const:Primaire</Arg2>
+      </Cond>
+			<Libelle>Localisation primaire commentaire</Libelle>
+			<From>fusion:Val_ONCOLOGIQUES_Localisation_Primaire</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ONCOLOGIQUES_Localisation</Arg1>
+				<Arg2>const:Secondaire</Arg2>
+      </Cond>
+			<Libelle>Localisation secondaire commentaire</Libelle>
+			<From>fusion:Val_ONCOLOGIQUES_Localisation_Secondaire</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Nature histologique</Libelle>
+			<From>fusion:Val_ONCOLOGIQUES_Nature</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Traitement</Libelle>
+			<From>fusion:Val_ONCOLOGIQUES_TraitQ</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ONCOLOGIQUES_TraitQ</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Traitement(s)</Libelle>
+			<From>fusion:Val_ONCOLOGIQUES_Trait</From>
+		</ITEM>
+  </FUSION>
+	
+<!--On boucle sur le sous-formulaire medicaux_infectieux-->
+	<FUSION id_formx="Antecedents_Medicaux_Infectieux">
+		<Libelle>INFECTIEUX:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_INFECTIEUX_Tuberculose"/>
+		<Recup var="Val_INFECTIEUX_Tuberculose_Comm"/>
+		<Recup var="Val_INFECTIEUX_Hepatites"/>
+		<Recup var="Val_INFECTIEUX_Hepatites_Detail"/>
+		<Recup var="Val_INFECTIEUX_Paludisme"/>
+		<Recup var="Val_INFECTIEUX_Paludisme_Comm"/>
+		<Recup var="Val_INFECTIEUX_Autres"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Tuberculose</Libelle>
+			<From>fusion:Val_INFECTIEUX_Tuberculose</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_INFECTIEUX_Tuberculose</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Tuberculose commentaire</Libelle>
+			<From>fusion:Val_INFECTIEUX_Tuberculose_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Hépatite(s)</Libelle>
+			<From>fusion:Val_INFECTIEUX_Hepatites</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_INFECTIEUX_Hepatites</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Type hépatite(s)</Libelle>
+			<From>fusion:Val_INFECTIEUX_Hepatites_Detail</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Paludisme</Libelle>
+			<From>fusion:Val_INFECTIEUX_Paludisme</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_INFECTIEUX_Paludisme</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Paludisme commentaire</Libelle>
+			<From>fusion:Val_INFECTIEUX_Paludisme_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_INFECTIEUX_Autres</From>
+		</ITEM>
+	
+  </FUSION>
+  
+<!--On boucle sur le sous-formulaire medicaux_cardio-->
+	<FUSION id_formx="Antecedents_Medicaux_Cardio">
+		<Libelle>CARDIO:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_CARDIO_HTA"/>
+		<Recup var="Val_CARDIO_Troubles"/>
+		<Recup var="Val_CARDIO_Troubles_Comm"/>
+		<Recup var="Val_CARDIO_Maladie_Ask"/>
+		<Recup var="Val_CARDIO_MaladieA"/>
+		<Recup var="Val_CARDIO_MaladieA_Comm"/>
+		<Recup var="Val_CARDIO_Maladie_Coro"/>
+		<Recup var="Val_CARDIO_Maladie_Coro_Comm"/>
+		<Recup var="Val_CARDIO_Maladie_Stent"/>
+		<Recup var="Val_CARDIO_Maladie_Stent_Comm"/>
+		<Recup var="Val_CARDIO_Valvulopathies"/>
+		<Recup var="Val_CARDIO_Valvulopathies_Comm"/>
+		<Recup var="Val_CARDIO_Insuffisance"/>
+		<Recup var="Val_CARDIO_Insuffisance_Fevg"/>
+		<Recup var="Val_CARDIO_Insuffisance_Fevg_Depuis"/>
+		<Recup var="Val_CARDIO_Autres"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>HTA</Libelle>
+			<From>fusion:Val_CARDIO_HTA</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Troubles du rythme</Libelle>
+			<From>fusion:Val_CARDIO_Troubles</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_CARDIO_Troubles</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Troubles du rythme commentaire</Libelle>
+			<From>fusion:Val_CARDIO_Troubles_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Maladie athéromateuse</Libelle>
+			<From>fusion:Val_CARDIO_Maladie_Ask</From>
+		</ITEM>
+    
+    <ITEM type="TXT">
+			<Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+		  </Cond>
+      <Libelle>Maladie athéromateuse</Libelle>
+			<From>fusion:Val_CARDIO_MaladieA</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+		  </Cond>
+			<Libelle>Maladie athéromateuse commentaire</Libelle>
+			<From>fusion:Val_CARDIO_MaladieA_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+		  </Cond>	
+      <Libelle>Coronaropaphie</Libelle>
+      <From>fusion:Val_CARDIO_Maladie_Coro</From>
+    </ITEM>
+		
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="and" oblig="y">
+        <Arg1 type="equal" oblig="y">
+				  <Arg1>fusion:Val_CARDIO_Maladie_Ask</Arg1>
+				  <Arg2>const:Oui</Arg2>
+        </Arg1>
+        <Arg2 type="equal" oblig="y">  
+          <Arg1>const:Oui</Arg1>
+          <Arg2>fusion:Val_CARDIO_Maladie_Coro</Arg2>
+        </Arg2>	
+      </Cond>
+      <Libelle>Coronaropaphie commentaire</Libelle>
+      <From>fusion:Val_CARDIO_Maladie_Coro_Comm</From>
+    </ITEM>
+		
+    <ITEM type="TXT">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_CARDIO_Maladie_Ask</Arg1>
+				<Arg2>const:Oui</Arg2>
+		  </Cond>	
+      <Libelle>Stent</Libelle>
+      <From>fusion:Val_CARDIO_Maladie_Stent</From>
+    </ITEM>
+		
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="and" oblig="y">
+        <Arg1 type="equal" oblig="y">
+				  <Arg1>fusion:Val_CARDIO_Maladie_Ask</Arg1>
+				  <Arg2>const:Oui</Arg2>
+        </Arg1>
+        <Arg2 type="equal" oblig="y">  
+          <Arg1>const:Oui</Arg1>
+          <Arg2>fusion:Val_CARDIO_Maladie_Stent</Arg2>
+        </Arg2>	
+      </Cond>
+      <Libelle>Stent commentaire</Libelle>
+      <From>fusion:Val_CARDIO_Maladie_Stent_Comm</From>
+    </ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Valvulopathies</Libelle>
+			<From>fusion:Val_CARDIO_Valvulopathies</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_CARDIO_Valvulopathies</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Valvulopathies commentaire</Libelle>
+			<From>fusion:Val_CARDIO_Valvulopathies_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Insuffisance cardiaque</Libelle>
+			<From>fusion:Val_CARDIO_Insuffisance</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="or" oblig="y">
+				<Arg1 type="equal" oblig="y">
+          <Arg1>fusion:Val_CARDIO_Insuffisance</Arg1>
+          <Arg2>const:Droite</Arg2>
+        </Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>fusion:Val_CARDIO_Insuffisance</Arg1>
+          <Arg2>const:Gauche</Arg2>
+				</Arg2>
+      </Cond>
+			<Libelle>FEVG</Libelle>
+			<From>fusion:Val_CARDIO_Insuffisance_Fevg</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="or" oblig="y">
+				<Arg1 type="equal" oblig="y">
+          <Arg1>fusion:Val_CARDIO_Insuffisance</Arg1>
+          <Arg2>const:Droite</Arg2>
+        </Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>fusion:Val_CARDIO_Insuffisance</Arg1>
+          <Arg2>const:Gauche</Arg2>
+				</Arg2>
+      </Cond>
+			<Libelle>Le</Libelle>
+			<From>fusion:Val_CARDIO_Insuffisance_Fevg_Depuis</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_CARDIO_Autres</From>
+		</ITEM>
+	
+  </FUSION>
+
+<!--On boucle sur le sous-formulaire medicaux_pneumologiques-->
+	<FUSION id_formx="Antecedents_Medicaux_Pneumologiques">
+		<Libelle>PNEUMOLOGIQUES:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_PNEUMOLOGIQUES_Asthme"/>
+		<Recup var="Val_PNEUMOLOGIQUES_Asthme_Comm"/>
+		<Recup var="Val_PNEUMOLOGIQUES_BPCO"/>
+		<Recup var="Val_PNEUMOLOGIQUES_BPCO_Comm"/>
+		<Recup var="Val_PNEUMOLOGIQUES_Insuffisance"/>
+		<Recup var="Val_PNEUMOLOGIQUES_Odeux"/>
+		<Recup var="Val_PNEUMOLOGIQUES_Odeux_Depuis"/>
+		<Recup var="Val_PNEUMOLOGIQUES_Odeux_Comm"/>
+		<Recup var="Val_PNEUMOLOGIQUES_BK"/>
+		<Recup var="Val_PNEUMOLOGIQUES_BK_Comm"/>
+		<Recup var="Val_PNEUMOLOGIQUES_Autres"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Asthme</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_Asthme</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PNEUMOLOGIQUES_Asthme</Arg1>
+				<Arg2>const:Oui</Arg2>
+		  </Cond>
+			<Libelle>Asthme commentaire</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_Asthme_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>BPCO</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_BPCO</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PNEUMOLOGIQUES_BPCO</Arg1>
+				<Arg2>const:Oui</Arg2>
+		  </Cond>
+			<Libelle>BPCO commentaire</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_BPCO_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Insuffisance respiratoire</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_Insuffisance</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PNEUMOLOGIQUES_Insuffisance</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>O2 dépendante</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_Odeux</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>fusion:Val_PNEUMOLOGIQUES_Insuffisance</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>fusion:Val_PNEUMOLOGIQUES_Odeux</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg2>
+      </Cond>
+			<Libelle>Depuis</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_Odeux_Depuis</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>fusion:Val_PNEUMOLOGIQUES_Insuffisance</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>fusion:Val_PNEUMOLOGIQUES_Odeux</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg2>
+      </Cond>
+			<Libelle>Commentaire</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_Odeux_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>BK</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_BK</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PNEUMOLOGIQUES_BK</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>BK commentaire</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_BK_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_PNEUMOLOGIQUES_Autres</From>
+		</ITEM>
+		
+	</FUSION>
+	
+	
+<!--On boucle sur le sous-formulaire medicaux_gastro-->
+	<FUSION id_formx="Antecedents_Medicaux_Gastro">
+		<Libelle>GASTRO:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_GASTRO_Ulcere"/>
+		<Recup var="Val_GASTRO_Ulcere_Comm"/>
+		<Recup var="Val_GASTRO_Maladie"/>
+		<Recup var="Val_GASTRO_Maladie_choix"/>
+		<Recup var="Val_GASTRO_Colopathie"/>
+		<Recup var="Val_GASTRO_Colopathie_Comm"/>
+		<Recup var="Val_GASTRO_Hemorroidaire"/>
+		<Recup var="Val_GASTRO_Hemorroidaire_Comm"/>
+		<Recup var="Val_GASTRO_Autres"/>
+
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Ulcère gastroduodénal</Libelle>
+			<From>fusion:Val_GASTRO_Ulcere</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_GASTRO_Ulcere</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Ulcère gastroduodénal commentaire</Libelle>
+			<From>fusion:Val_GASTRO_Ulcere_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Maladie inflammatoire colique</Libelle>
+			<From>fusion:Val_GASTRO_Maladie</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_GASTRO_Maladie</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Maladie</Libelle>
+			<From>fusion:Val_GASTRO_Maladie_choix</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Colopathie fonctionnelle</Libelle>
+			<From>fusion:Val_GASTRO_Colopathie</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_GASTRO_Colopathie</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Colopathie fonctionnelle commentaire</Libelle>
+			<From>fusion:Val_GASTRO_Colopathie_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Maladie hémorroïdaire</Libelle>
+			<From>fusion:Val_GASTRO_Hemorroidaire</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_GASTRO_Hemorroidaire</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Maladie hémorroïdaire commentaire</Libelle>
+			<From>fusion:Val_GASTRO_Hemorroidaire_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_GASTRO_Autres</From>
+		</ITEM>
+		
+	</FUSION>
+	
+<!--On boucle sur le sous-formulaire medicaux_endocrinologiques-->
+	<FUSION id_formx="Antecedents_Medicaux_Endocrinologiques">
+		<Libelle>ENDOCRINOLOGIQUES:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Diabete"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Diabete_Type"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Diabete_Insu"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Diabete_Ttt"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Diabete_Equi"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Diabete_Com"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Dysthyroidie"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Dyslipidemie"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Dyslipidemie_Comm"/>
+		<Recup var="Val_ENDOCRINOLOGIQUES_Autres"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+
+    <ITEM type="TXT">
+			<Libelle>Diabète</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Diabete</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>De quel type ?</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Type</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Type</Arg1>
+					<Arg2>const:Type 2</Arg2>
+				</Arg2>
+      </Cond>
+			<Libelle>Insulinorequérent</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Insu</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="and" oblig="y">
+			<Arg1 type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Insu</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg2>
+			</Arg1>
+			<Arg2 type="and" oblig="y">
+        <Arg1 type="diff" oblig="y">
+          <Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Ttt</Arg1>
+          <Arg2>const:(ttt).</Arg2>
+        </Arg1>
+        <Arg2 type="equal" oblig="y">
+          <Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Type</Arg1>
+          <Arg2>const:Type 2</Arg2>
+        </Arg2>
+      </Arg2>
+      </Cond>
+			<Libelle>Par</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Ttt</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Diabète</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Equi</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+        <Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Arg1>
+      <Arg2 type="or" oblig="y">
+        <Arg1 type="equal" oblig="y">
+          <Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Type</Arg1>
+					<Arg2>const:Type 1</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Type</Arg1>
+					<Arg2>const:Type 2</Arg2>
+				</Arg2>
+      </Arg2>
+      </Cond>
+			<Libelle>Diabète commentaire</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Diabete_Com</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Dysthyroïdie</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Dysthyroidie</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Dyslipidémie</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Dyslipidemie</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_ENDOCRINOLOGIQUES_Dyslipidemie</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Dyslipidémie commentaire</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Dyslipidemie_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_ENDOCRINOLOGIQUES_Autres</From>
+		</ITEM>
+		
+	</FUSION>
+	
+<!--On boucle sur le sous-formulaire medicaux_rhumatologiques-->
+	<FUSION id_formx="Antecedents_Medicaux_Rhumatologiques">
+		<Libelle>RHUMATOLOGIQUES:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Rhumatismale"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Rhumatismale_Comm"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Osteoporotique"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Osteoporotique_Comm"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Rhumatoide"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Rhumatoide_Comm"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Goutte"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Goutte_Comm"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Chondrocalcinose"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Chondrocalcinose_Comm"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Rachidiennes"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Rachidiennes_Comm"/>
+		<Recup var="Val_RHUMATOLOGIQUES_Autres"/>
+
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Maladie rhumatismale</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Rhumatismale</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_RHUMATOLOGIQUES_Rhumatismale</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Maladie rhumatismale localisation</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Rhumatismale_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Maladie ostéoporotique</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Osteoporotique</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_RHUMATOLOGIQUES_Osteoporotique</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Maladie ostéoporotique localisation</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Osteoporotique_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Maladie rhumatoïde</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Rhumatoide</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_RHUMATOLOGIQUES_Rhumatoide</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Maladie rhumatoïde commentaire</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Rhumatoide_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Goutte</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Goutte</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_RHUMATOLOGIQUES_Goutte</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Goutte commentaire</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Goutte_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Chondrocalcinose</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Chondrocalcinose</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_RHUMATOLOGIQUES_Chondrocalcinose</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Chondrocalcinose commentaire</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Chondrocalcinose_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Déformations rachidiennes</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Rachidiennes</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_RHUMATOLOGIQUES_Rachidiennes</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Déformations rachidiennes commentaire</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Rachidiennes_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_RHUMATOLOGIQUES_Autres</From>
+		</ITEM>
+	</FUSION>
+	
+<!--On boucle sur le sous-formulaire medicaux_nephrologiques-->
+	<FUSION id_formx="Antecedents_Medicaux_Nephrologiques">
+		<Libelle>URO-NEPHROLOGIQUES:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_NEPHROLOGIQUES_Hypertrophie"/>
+		<Recup var="Val_NEPHROLOGIQUES_Hypertrophie_Comm"/>
+		<Recup var="Val_NEPHROLOGIQUES_Infections"/>
+		<Recup var="Val_NEPHROLOGIQUES_Infections_Comm"/>
+		<Recup var="Val_NEPHROLOGIQUES_Pyelonephrites"/>
+		<Recup var="Val_NEPHROLOGIQUES_Pyelonephrites_Comm"/>
+		<Recup var="Val_NEPHROLOGIQUES_Renal"/>
+		<Recup var="Val_NEPHROLOGIQUES_Renal_CL"/>
+		<Recup var="Val_NEPHROLOGIQUES_Renal_Comm"/>
+		<Recup var="Val_NEPHROLOGIQUES_Renal_Dial"/>
+		<Recup var="Val_NEPHROLOGIQUES_Renal_Dial_Depuis"/>
+		<Recup var="Val_NEPHROLOGIQUES_Renal_Dial_Comm"/>
+		<Recup var="Val_NEPHROLOGIQUES_Autres"/>
+
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Hypertrophie bénigne de la prostate</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Hypertrophie</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_NEPHROLOGIQUES_Hypertrophie</Arg1>
+		    <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Hypertrophie bénigne de la prostate commentaire</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Hypertrophie_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Infections urinaires à répétition</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Infections</From>
+		</ITEM>
+		
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEPHROLOGIQUES_Infections</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+      <Libelle>Infections urinaires à répétition commentaire</Libelle>
+      <From>fusion:Val_NEPHROLOGIQUES_Infections_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Pyélonéphrite</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Pyelonephrites</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEPHROLOGIQUES_Pyelonephrites</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Pyélonéphrite commentaire</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Pyelonephrites_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Insuffisance rénale chronique</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Renal</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_NEPHROLOGIQUES_Renal</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Indiquez le CL</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Renal_CL</From>
+		</ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+        <Arg1>fusion:Val_NEPHROLOGIQUES_Renal</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Insuffisance rénale chronique commmentaire</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Renal_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEPHROLOGIQUES_Renal</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Dialysée</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Renal_Dial</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+				<Arg1>fusion:Val_NEPHROLOGIQUES_Renal</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg1>
+			<Arg2 type="equal" oblig="y">
+				<Arg1>fusion:Val_NEPHROLOGIQUES_Renal_Dial</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg2>
+      </Cond>
+			<Libelle>Dialysée depuis le</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Renal_Dial_Depuis</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+				<Arg1>fusion:Val_NEPHROLOGIQUES_Renal</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg1>
+			<Arg2 type="equal" oblig="y">
+				<Arg1>fusion:Val_NEPHROLOGIQUES_Renal_Dial</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg2>
+      </Cond>
+			<Libelle>Dialysée commentaire</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Renal_Dial_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_NEPHROLOGIQUES_Autres</From>
+		</ITEM>
+		
+	</FUSION>
+	
+<!--On boucle sur le sous-formulaire medicaux_neurologiques-->
+	<FUSION id_formx="Antecedents_Medicaux_Neurologiques">
+		<Libelle>NEUROLOGIQUES:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_NEUROLOGIQUES_Al"/>
+		<Recup var="Val_NEUROLOGIQUES_Al_MMS"/>
+		<Recup var="Val_NEUROLOGIQUES_Al_Comm"/>
+		<Recup var="Val_NEUROLOGIQUES_Park"/>
+		<Recup var="Val_NEUROLOGIQUES_Park_Comm"/>
+		<Recup var="Val_NEUROLOGIQUES_Ait"/>
+		<Recup var="Val_NEUROLOGIQUES_Ait_C"/>
+		<Recup var="Val_NEUROLOGIQUES_Avc"/>
+		<Recup var="Val_NEUROLOGIQUES_Avc_C"/>
+		<Recup var="Val_NEUROLOGIQUES_Avc_D"/>
+		<Recup var="Val_NEUROLOGIQUES_Avc_L"/>
+		<Recup var="Val_NEUROLOGIQUES_Avc_S"/>
+		<Recup var="Val_NEUROLOGIQUES_Avc_Comm"/>
+		<Recup var="Val_NEUROLOGIQUES_E"/>
+		<Recup var="Val_NEUROLOGIQUES_E_C"/>
+		<Recup var="Val_NEUROLOGIQUES_Autres"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+
+    <ITEM type="TXT">
+			<Libelle>Démence type Alzheimer</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Al</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Al</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Indiquez le MMS</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Al_MMS</From>
+		</ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Al</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Démence type Alzheimer commentaire</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Al_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Maladie Parkinson</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Park</From>
+		</ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Park</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Maladie Parkinson commentaire</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Park_Comm</From>
+		</ITEM>
+		
+    <ITEM type="TXT">
+			<Libelle>AIT</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Ait</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Ait</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>AIT commentaire</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Ait_C</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>AVC</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Avc</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Avc</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>De quel type ?</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Avc_C</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Avc</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Date</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Avc_D</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Avc</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Localisation</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Avc_L</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Avc</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Sequelles</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Avc_S</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_Avc</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>AVC commentaire</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Avc_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Epilepsie</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_E</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_NEUROLOGIQUES_E</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Epilepsie commentaire</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_E_C</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_NEUROLOGIQUES_Autres</From>
+		</ITEM>
+		
+	</FUSION>
+
+<!--On boucle sur le sous-formulaire medicaux_spychiatriques-->
+	<FUSION id_formx="Antecedents_Medicaux_Psychiatriques">
+		<Libelle>PSYCHIATRIQUES:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+		<Recup var="Val_PSYCHIATRIQUES_Depressif"/>
+		<Recup var="Val_PSYCHIATRIQUES_Pmd"/>
+		<Recup var="Val_PSYCHIATRIQUES_Psychose"/>
+		<Recup var="Val_PSYCHIATRIQUES_Psychose_Comm"/>
+		<Recup var="Val_PSYCHIATRIQUES_Autres"/>
+		
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Syndrome anxio-dépressif</Libelle>
+			<From>fusion:Val_PSYCHIATRIQUES_Depressif</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>PMD</Libelle>
+			<From>fusion:Val_PSYCHIATRIQUES_Pmd</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Psychose chronique</Libelle>
+			<From>fusion:Val_PSYCHIATRIQUES_Psychose</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+		  <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PSYCHIATRIQUES_Psychose</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Psychose chronique commentaire</Libelle>
+			<From>fusion:Val_PSYCHIATRIQUES_Psychose_Comm</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_PSYCHIATRIQUES_Autres</From>
+		</ITEM>
+		
+	</FUSION>
+	
+	<!--On boucle sur le sous-formulaire medicaux_autres-->
+  <FUSION id_formx="Antecedents_Medicaux_Autres">
+    <Libelle>AUTRES:</Libelle>
+    <Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_MEDICAUX_AUTRES_Comm"/>
+    
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Commentaires</Libelle>
+			<From>fusion:Val_MEDICAUX_AUTRES_Comm</From>
+    </ITEM>
+	</FUSION>
+	
+  <!--On boucle sur le sous-formulaire chirurgicaux_neurologiques-->
+  <FUSION id_formx="Antecedents_Chirurgicaux_Neurologiques">
+    <Libelle>NEUROCHIRURGICAUX:</Libelle>
+    <Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_CHIRURGICAUX_NEUROLOGIQUES_Comm"/>
+    
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Commentaires</Libelle>
+			<From>fusion:Val_CHIRURGICAUX_NEUROLOGIQUES_Comm</From>
+    </ITEM>
+	</FUSION>
+	
+<!--On boucle sur le sous-formulaire chirurgicaux_thoraciques-->
+  <FUSION id_formx="Antecedents_Chirurgicaux_Thoraciques">
+    <Libelle>THORACIQUES:</Libelle>
+    <Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_THORACIQUES_Space"/>
+    <Recup var="Val_THORACIQUES_Space_Comm"/>
+    <Recup var="Val_THORACIQUES_Pontage"/>
+    <Recup var="Val_THORACIQUES_Pontage_C"/>
+    <Recup var="Val_THORACIQUES_Pneumectomie"/>
+    <Recup var="Val_THORACIQUES_Pneumectomie_Comm"/>
+    <Recup var="Val_THORACIQUES_Autres"/>
+    
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Pace-Maker</Libelle>
+			<From>fusion:Val_THORACIQUES_Space</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_THORACIQUES_Space</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Pace-Maker commentaire</Libelle>
+			<From>fusion:Val_THORACIQUES_Space_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Pontages coronariens</Libelle>
+			<From>fusion:Val_THORACIQUES_Pontage</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_THORACIQUES_Pontage</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Pontages coronariens commentaire</Libelle>
+			<From>fusion:Val_THORACIQUES_Pontage_C</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Pneumectomie</Libelle>
+			<From>fusion:Val_THORACIQUES_Pneumectomie</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_THORACIQUES_Pneumectomie</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Pneumectomie commentaire</Libelle>
+			<From>fusion:Val_THORACIQUES_Pneumectomie_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_THORACIQUES_Autres</From>
+    </ITEM>
+    
+	</FUSION>
+
+<!--On boucle sur le sous-formulaire chirurgicaux_pelviens-->
+  <FUSION id_formx="Antecedents_Chirurgicaux_Pelviens">
+    <Libelle>ABDOMINO-PELVIENS:</Libelle>
+    <Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_PELVIENS_Append"/>
+    <Recup var="Val_PELVIENS_Append_Comm"/>
+    <Recup var="Val_PELVIENS_Cholo"/>
+    <Recup var="Val_PELVIENS_Cholo_Comm"/>
+    <Recup var="Val_PELVIENS_Cure"/>
+    <Recup var="Val_PELVIENS_Cure_Comm"/>
+    <Recup var="Val_PELVIENS_Hemi"/>
+    <Recup var="Val_PELVIENS_Hemi_Comm"/>
+    <Recup var="Val_PELVIENS_Gast"/>
+    <Recup var="Val_PELVIENS_Gast_Comm"/>
+    <Recup var="Val_PELVIENS_Chirp"/>
+    <Recup var="Val_PELVIENS_Chirp_Choix"/>
+    <Recup var="Val_PELVIENS_Chirp_CCom"/>
+    <Recup var="Val_PELVIENS_Chirg"/>
+    <Recup var="Val_PELVIENS_Chirg_Choix"/>
+    <Recup var="Val_PELVIENS_Chirg_CCom"/>
+    <Recup var="Val_PELVIENS_Autres"/>
+    
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Appendicectomie</Libelle>
+			<From>fusion:Val_PELVIENS_Append</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Append</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Appendicectomie commentaire</Libelle>
+			<From>fusion:Val_PELVIENS_Append_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Cholécystectomie</Libelle>
+			<From>fusion:Val_PELVIENS_Cholo</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Cholo</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Cholécystectomie commentaire</Libelle>
+			<From>fusion:Val_PELVIENS_Cholo_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Cure de hernie inguinale</Libelle>
+			<From>fusion:Val_PELVIENS_Cure</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Cure</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Latéralisation</Libelle>
+			<From>fusion:Val_PELVIENS_Cure_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Hémi-colectomie</Libelle>
+			<From>fusion:Val_PELVIENS_Hemi</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Hemi</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Latéralisation</Libelle>
+			<From>fusion:Val_PELVIENS_Hemi_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Gastrectomie</Libelle>
+			<From>fusion:Val_PELVIENS_Gast</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Gast</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Gastrectomie commentaire</Libelle>
+			<From>fusion:Val_PELVIENS_Gast_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Chirurgie urologique</Libelle>
+			<From>fusion:Val_PELVIENS_Chirp</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Chirp</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Type</Libelle>
+			<From>fusion:Val_PELVIENS_Chirp_Choix</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Chirp</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Chirurgie urologique commentaire</Libelle>
+			<From>fusion:Val_PELVIENS_Chirp_CCom</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Chirurgie gynécologique</Libelle>
+			<From>fusion:Val_PELVIENS_Chirg</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Chirg</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Type</Libelle>
+			<From>fusion:Val_PELVIENS_Chirg_Choix</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_PELVIENS_Chirg</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Chirurgie gynécologique commentaire</Libelle>
+			<From>fusion:Val_PELVIENS_Chirg_CCom</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_PELVIENS_Autres</From>
+    </ITEM>
+  </FUSION>
+  
+<!--On boucle sur le sous-formulaire chirurgicaux_orthopediques-->
+  <FUSION id_formx="Antecedents_Chirurgicaux_Orthopediques">
+    <Libelle>ORTHOPEDIQUES:</Libelle>
+    <Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_ORTHOPEDIQUES_Pth"/>
+    <Recup var="Val_ORTHOPEDIQUES_Pth_Choix"/>
+    <Recup var="Val_ORTHOPEDIQUES_Pth_Com"/>
+    <Recup var="Val_ORTHOPEDIQUES_Ptg"/>
+    <Recup var="Val_ORTHOPEDIQUES_Ptg_Choix"/>
+    <Recup var="Val_ORTHOPEDIQUES_Ptg_Comm"/>
+    <Recup var="Val_ORTHOPEDIQUES_Fracture"/>
+    <Recup var="Val_ORTHOPEDIQUES_Fracture_Comm"/>
+    <Recup var="Val_ORTHOPEDIQUES_Autres"/>
+    
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>PTHanche</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Pth</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ORTHOPEDIQUES_Pth</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Latéralisation</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Pth_Choix</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ORTHOPEDIQUES_Pth</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>PTHanche commentaire</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Pth_Com</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>PTGenou</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Ptg</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ORTHOPEDIQUES_Ptg</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Latéralisation</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Ptg_Choix</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ORTHOPEDIQUES_Ptg</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>PTGenou commentaire</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Ptg_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Fractures</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Fracture</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_ORTHOPEDIQUES_Fracture</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>Fractures commentaire</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Fracture_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_ORTHOPEDIQUES_Autres</From>
+    </ITEM>
+    
+  </FUSION>
+  
+<!--On boucle sur le sous-formulaire gyneco_obstetricaux-->
+  <FUSION id_formx="Antecedents_Gyneco_Obstetricaux">
+    <Libelle>GYNECO-OBSTETRICAUX:</Libelle>
+    <Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_OBSTETRICAUX_G"/>
+    <Recup var="Val_OBSTETRICAUX_P"/>
+    <Recup var="Val_OBSTETRICAUX_Ivg"/>
+    <Recup var="Val_OBSTETRICAUX_Ivg_Comm"/>
+    <Recup var="Val_OBSTETRICAUX_Fcs"/>
+    <Recup var="Val_OBSTETRICAUX_Fcs_Comm"/>
+    <Recup var="Val_OBSTETRICAUX_Geu"/>
+    <Recup var="Val_OBSTETRICAUX_Geu_Comm"/>
+    
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>G</Libelle>
+			<From>fusion:Val_OBSTETRICAUX_G</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>P</Libelle>
+			<From>fusion:Val_OBSTETRICAUX_P</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>IVG</Libelle>
+			<From>fusion:Val_OBSTETRICAUX_Ivg</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_OBSTETRICAUX_Ivg</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>IVG commentaire</Libelle>
+			<From>fusion:Val_OBSTETRICAUX_Ivg_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>FCS</Libelle>
+			<From>fusion:Val_OBSTETRICAUX_Fcs</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_OBSTETRICAUX_Fcs</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>FCS commentaire</Libelle>
+			<From>fusion:Val_OBSTETRICAUX_Fcs_Comm</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>GEU</Libelle>
+			<From>fusion:Val_OBSTETRICAUX_Geu</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+				<Arg1>fusion:Val_OBSTETRICAUX_Geu</Arg1>
+				<Arg2>const:Oui</Arg2>
+      </Cond>
+			<Libelle>GEU commentaire</Libelle>
+			<From>fusion:Val_OBSTETRICAUX_Geu_Comm</From>
+    </ITEM>
+    
+  </FUSION>
+  
+<!--On boucle sur le sous-formulaire familiaux-->
+  <FUSION id_formx="Antecedents_Familiaux">
+    <Libelle>FAMILLIAUX:</Libelle>
+    <Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_FAMILLIAUX_Grandparent"/>
+    <Recup var="Val_FAMILLIAUX_Pere"/>
+    <Recup var="Val_FAMILLIAUX_Mere"/>
+    <Recup var="Val_FAMILLIAUX_Fratrie"/>
+    <Recup var="Val_FAMILLIAUX_Autres"/>
+    
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Grand-Parents</Libelle>
+			<From>fusion:Val_FAMILLIAUX_Grandparent</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Père</Libelle>
+			<From>fusion:Val_FAMILLIAUX_Pere</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Mère</Libelle>
+			<From>fusion:Val_FAMILLIAUX_Mere</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Fratrie</Libelle>
+			<From>fusion:Val_FAMILLIAUX_Fratrie</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Autres</Libelle>
+			<From>fusion:Val_FAMILLIAUX_Autres</From>
+    </ITEM>
+  </FUSION>
+    
+<ETAPE id="der_c">
+  <Libelle>IDENTITE DU PATIENT:</Libelle>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+		
+  <ITEM type="TXT" id="toujours_vide" readonly="y" dontPrint="y" >
+		<Libelle>Ce formulaire ne peut pas se fermer manuellement</Libelle>
+	</ITEM>
+	
+  </ETAPE>
+</FORMX>
+

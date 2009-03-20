@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Formulaire_Anesthesie" priority="1" closeAfterValid="y" dontPrintNavi="y" phantom="y">
+<Libelle>Formulaire d'Anesthésie</Libelle>
+<Objet>Formulaire d'Anesthésie</Objet>
+<Groupe>Anesthésie</Groupe>
+
+<ETAPE id="1">
+<Libelle>Formulaire d'Anesthésie</Libelle>
+  
+  <ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Formulaire_Anesthesie</From>
+	</ITEM>           				
+
+	<ITEM type="TXT" id="Anesthesie_Patient" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">PATIENT</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle style="color:green;">Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id ="Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle style="color:green;">Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Anesthesie_Urgentiste" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">ANESTHESISTE</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Etablissement_Etablissement" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Etablissement</Libelle>
+		<From>func:GetEtablissement</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_Lieu_Lieu" oblig="y">
+		<Libelle style="color:green;">Lieu</Libelle>
+		<FromList>list:Consultations externes|Consultations maternité|Urgences|UHCD|Maternité|Cardiologie|Chirurgie 1|Chirurgie 2|Médecine 1|Médecine 2|Pédiatrie|Autre</FromList>
+		<From>const:Consultations externes</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Anesthesie_Horaires" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">HORAIRES</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_Horaire_Date_Examen" opt="y" readonly="y">
+		<Libelle style="color:green;">Date de l'examen</Libelle>
+		<From>func:GetDateHeureExamen</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Horaire_Heure_Examen" opt="y" readonly="y">
+		<Libelle style="color:green;">Heure de l'examen</Libelle>
+		<From>func:GetTimeHeureExamen</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Anesthesie_Intervention" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">INTERVENTION</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="Anesthesie_Intervention_Intervention" oblig="y">
+		<Libelle style="color:green;">Intervention</Libelle>
+    <From>var:L_Anesthesie_Intervention_Intervention</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Anesthesie_Intervention_Intervenant" oblig="y">
+		<Libelle style="color:green;">Intervenant</Libelle>
+    <FromList>list:1|2|3|4|5|6|7|8|9|10|11|12|13|14|15</FromList>
+    <From>var:L_Anesthesie_Intervention_Intervenant</From>
+	</ITEM>
+	
+	<ITEM type="CAL" id="Anesthesie_Intervention_Date" oblig="y" link="L_Anesthesie_Intervention_Date">
+		<Libelle style="color:green;">Date</Libelle>
+	  <From>var:L_Anesthesie_Intervention_Date</From>
+  </ITEM>
+  
+  <ITEM type="RADIO" id="Anesthesie_Intervention_Urgence" oblig="y" cols="2" link="L_Anesthesie_Intervention_Urgence">
+		<Libelle style="color:green;">Urgence</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Anesthesie_Intervention_Urgence</From>
+	</ITEM>
+
+</ETAPE>
+
+<ETAPE id="2">
+
+	<ITEM type="TXT" id="Anesthesie_Hospitalisation" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">HOSPITALISATION</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Hospitalisation_Ambulatoire" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Hospitalisation_Ambulatoire">
+		<Libelle style="color:green;">Ambulatoire</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Intervention_Ambulatoire</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Anesthesie_Hospitalisation_Lieu" opt="y" onChangeReload="y" link="L_Anesthesie_Hospitalisation_Lieu">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Hospitalisation_Urgence</Arg1>
+		  <Arg2>const:Non</Arg2>
+    </Cond>
+    <Libelle style="color:blue;">Lieu</Libelle>
+    <FromList>list:Consultations externes|Consultations maternité|Urgences|UHCD|Maternité|Cardiologie|Chirurgie 1|Chirurgie 2|Médecine 1|Médecine 2|Pédiatrie|Autre</FromList>
+    <From>var:L_Anesthesie_Hospitalisation_Lieu</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Anesthesie_Hospitalisation_Autre" link="L_Anesthesie_Hospitalisation_Autre">
+		<Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+		    <Arg1>formVar:Anesthesie_Hospitalisation_Urgence</Arg1>
+		    <Arg2>const:Non</Arg2>
+      </Arg1>
+      <Arg2 type="equal" oblig="y">
+		    <Arg1>formVar:Anesthesie_Hospitalisation_Lieu</Arg1>
+		    <Arg2>const:Autre</Arg2>
+      </Arg2>
+    </Cond>
+    <Libelle style="color:blue;"></Libelle>
+    <From>var:L_Anesthesie_Hospitalisation_Autre</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Anesthesie_Hospitalisation_Chambre" link="L_Anesthesie_Hospitalisation_Chambre">
+		<Libelle style="color:green;">Chambre</Libelle>
+    <From>var:L_Anesthesie_Hospitalisation_Chambre</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Anesthesie_Hospitalisation_Lit" link="L_Anesthesie_Hospitalisation_Lit">
+		<Libelle style="color:green;">Lit</Libelle>
+		<FromList>list:P|F|Seul</FromList>
+    <From>var:L_Anesthesie_Hospitalisation_Lit</From>
+	</ITEM>
+	
+</ETAPE>
+
+<ETAPE id="3">
+
+	<ITEM type="TXT" id="Anesthesie_Interrogatoire" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">INTERROGATOIRE</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Interrogatoire_Antecedent" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Interrogatoire_Antecedent">
+		<Libelle style="color:green;">Antécédents chirurgicaux</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Anesthesie_Interrogatoire_Antecedent</From>
+	</ITEM>
+	
+	<ITEM type="CAL" id="Anesthesie_Interrogatoire_Date" opt="y" link="L_Anesthesie_Interrogatoire_Date">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Antecedent</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Date</Libelle>
+	  <From>var:L_Anesthesie_Interrogatoire_Date</From>
+  </ITEM>
+  
+  <ITEM type="LONGTXT" id="Anesthesie_Interrogatoire_Intervention" opt="y" link="L_Anesthesie_Interrogatoire_Intervention">
+    <Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Antecedent</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+		<Libelle style="color:green;">Intervention</Libelle>
+    <From>var:L_Anesthesie_Interrogatoire_Intervention</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="Anesthesie_Interrogatoire_Anesthesie" opt="y" link="L_Anesthesie_Interrogatoire_Anesthesie">
+	 <Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Antecedent</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+		<Libelle style="color:green;">Anesthésie</Libelle>
+    <From>var:L_Anesthesie_Interrogatoire_Anesthesie</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Interrogatoire_Complications" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Interrogatoire_Complications">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Antecedent</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Complications</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Interrogatoire_Complications</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Anesthesie_Interrogatoire_Complications_C" oblig="y" cols="3" onChangeReload="y" link="L_Anesthesie_Interrogatoire_Complications_C">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+		    <Arg1>formVar:Anesthesie_Interrogatoire_Antecedent</Arg1>
+		    <Arg2>const:Oui</Arg2>
+      </Arg1>
+      <Arg2 type="equal" oblig="y">
+		    <Arg1>formVar:Anesthesie_Interrogatoire_Complications</Arg1>
+		    <Arg2>const:Oui</Arg2>
+      </Arg2>
+    </Cond>
+    <Libelle style="color:green;">Type</Libelle>
+		<FromList>list:Réaction allergique|NVPO|Agitation|Echec|Autre</FromList>
+		<From>var:L_Anesthesie_Interrogatoire_Complications_C</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="Anesthesie_Interrogatoire_Anesthesie" opt="y" link="L_Anesthesie_Interrogatoire_Anesthesie">
+	  <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+		    <Arg1>formVar:Anesthesie_Interrogatoire_Antecedent</Arg1>
+		    <Arg2>const:Oui</Arg2>
+      </Arg1>
+      <Arg2 type="equal" oblig="y">
+		    <Arg1>formVar:Anesthesie_Interrogatoire_Complications</Arg1>
+		    <Arg2>const:Oui</Arg2>
+      </Arg2>
+    </Cond>
+		<Libelle style="color:green;">Anesthésie</Libelle>
+    <From>var:L_Anesthesie_Interrogatoire_Anesthesie</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="antecedentsup">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Antecedent</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle>Antécédents chirurgicaux supplémentaires ?</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ACTION type="goto" step="3" options="reset">
+		<Cond type="equal">
+      <Arg1>formVar:antecedentsup</Arg1>
+      <Arg2>const:Oui</Arg2>
+    </Cond>
+	</ACTION>
+
+</ETAPE>
+
+<ETAPE id="4">
+
+  <ITEM type="RADIO" id="Anesthesie_Interrogatoire_Dossier" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Interrogatoire_Dossier">
+    <Libelle style="color:green;">Cf ancien dossier CH-HYERES</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Interrogatoire_Dossier</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Anesthesie_Interrogatoire_Dossier_Message" opt="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Dossier</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle>Message</Libelle>
+		<From>const:Faire sortir les anciens dossiers</From>
+	</ITEM>
+
+</ETAPE>
+
+<ETAPE id="5">
+
+	<ITEM type="TXT" id="Anesthesie_Transfusion_Titre" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">INTERROGATOIRE</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Transfusion" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Transfusion">
+		<Libelle style="color:green;">Transfusions</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Anesthesie_Transfusion</From>
+	</ITEM>
+	
+	<ITEM type="CAL" id="Anesthesie_Transfusion_Date" opt="y" link="L_Anesthesie_Transfusion_Date">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Transfusion</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Date</Libelle>
+	  <From>var:L_Anesthesie_Transfusion_Date</From>
+  </ITEM>
+  
+  <ITEM type="LONGTXT" id="Anesthesie_Transfusion_Intervention" opt="y" link="L_Anesthesie_Transfusion_Intervention">
+    <Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Transfusion</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+		<Libelle style="color:green;">Intervention</Libelle>
+    <From>var:L_Anesthesie_Transfusion_Intervention</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="Anesthesie_Transfusion_Anesthesie" opt="y" link="L_Anesthesie_Transfusion_Anesthesie">
+	 <Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Transfusion</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+		<Libelle style="color:green;">Anesthésie</Libelle>
+    <From>var:L_Anesthesie_Transfusion_Anesthesie</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Transfusion_Complications" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Transfusion_Complications">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Transfusion</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Complications</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Transfusion_Complications</From>
+	</ITEM>
+	
+  <ITEM type="LONGTXT" id="Anesthesie_Transfusion_Complications_C" opt="y" link="L_Anesthesie_Transfusion_Complications_C">
+	  <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+		    <Arg1>formVar:Anesthesie_Transfusion</Arg1>
+		    <Arg2>const:Oui</Arg2>
+      </Arg1>
+      <Arg2 type="equal" oblig="y">
+		    <Arg1>formVar:Anesthesie_Transfusion_Complications</Arg1>
+		    <Arg2>const:Oui</Arg2>
+      </Arg2>
+    </Cond>
+		<Libelle style="color:green;">Précisions</Libelle>
+    <From>var:L_Anesthesie_Transfusion_Complications_C</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="transfusionsup">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Transfusion</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle>Antécédents transfusions supplémentaires ?</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ACTION type="goto" step="5" options="reset">
+		<Cond type="equal">
+      <Arg1>formVar:transfusionsup</Arg1>
+      <Arg2>const:Oui</Arg2>
+    </Cond>
+	</ACTION>
+
+</ETAPE>
+
+<ETAPE id="6">
+
+	<ITEM type="TXT" id="Anesthesie_Medicaux_Titre" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">INTERROGATOIRE</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Interrogatoire_Medicaux" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Interrogatoire_Medicaux">
+		<Libelle style="color:green;">Antécédents médicaux personels</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Anesthesie_Interrogatoire_Medicaux</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Cardiaques" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Cardiaques">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Cardiaques</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Cardiaques</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Vasculaires" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Vasculaires">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Vasculaires</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Vasculaires</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Respiratoires" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Respiratoires">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Respiratoires</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Respiratoires</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Hepatiques" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Hepatiques">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Hépatiques</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Hepatiques</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Renaux" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Renaux">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Rénaux</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Renaux</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Gastrointestinaux" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Gastrointestinaux">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Gastrointestinaux</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Gastrointestinaux</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Metaboliques" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Metaboliques">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Métaboliques</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Metaboliques</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Infectieux" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Infectieux">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Infectieux</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Infectieux</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Hematologiques" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Hematologiques">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Hématologiques</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Hematologiques</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Neuropsychiatriques" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Neuropsychiatriques">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Neuropsychiatriques</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Neuropsychiatriques</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Oculaires" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Oculaires">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Oculaires</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Oculaires</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Otorhinolaryngologiques" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Otorhinolaryngologiques">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Otorhinolaryngologiques</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Otorhinolaryngologiques</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Squelettiques" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Squelettiques">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Squelettiques</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Squelettiques</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Musculaires" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Musculaires">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Musculaires</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Musculaire</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Genetiques" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Genetiques">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Génétiques</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Genetiques</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Dentaires" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Dentaires">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Dentaires</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Dentaires</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Anesthesie_Medicaux_Autres" oblig="y" cols="2" onChangeReload="y" link="L_Anesthesie_Medicaux_Autres">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:Anesthesie_Interrogatoire_Medicaux</Arg1>
+		  <Arg2>const:Oui</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Autres</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Anesthesie_Medicaux_Autres</From>
+	</ITEM>
+
+</ETAPE>
+
+
+</FORMX>

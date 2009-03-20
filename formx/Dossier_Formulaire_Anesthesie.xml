@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Dossier_Formulaire_Anesthesie" access="formulaires_TM_général" dontPrintNavi="y" hide="y">
+<Libelle>Fiche Anesthésie Synthèse</Libelle>
+<Objet>Fiche Anesthésie Synthèse</Objet>
+<Groupe>Anesthésie</Groupe>
+</FORMX>

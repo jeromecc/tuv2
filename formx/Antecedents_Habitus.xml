@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Antecedents_Habitus" priority="1" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Antécédents Habitus</Libelle>
+<Objet>Fichier Médical Antécédents Habitus</Objet>
+<Groupe>Fichier Médical Antécédents</Groupe>
+
+<ETAPE id="1">
+  
+  <Libelle>HABITUS:</Libelle>
+
+  <ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Antecedents_Habitus</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_HABITUS_TABAC_Paquet" onChangeReload="y" oblig="y" histo="y" link="L_Val_HABITUS_TABAC_Paquet">
+		<Libelle style="color:green;">Nombre de paquet par jour</Libelle>
+    <FromList>list:0 |1|2|3|4|5|6|7|8|9|10|plus 10</FromList>
+		<From>var:L_Val_HABITUS_TABAC_Paquet</From>
+	</ITEM>
+
+	<ITEM type="RADIO" id="Val_HABITUS_TABAC_Non_Sevre" onChangeReload="y" opt="y" histo="y" link="L_Val_HABITUS_TABAC_Non_Sevre">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_HABITUS_TABAC_Paquet</Arg1>
+      <Arg2>const:0 </Arg2>
+		</Cond>
+		<Libelle>Personne sevré</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_HABITUS_TABAC_Non_Sevre</From>
+	</ITEM>
+	
+	<ITEM type="CAL" id="Val_HABITUS_TABAC_Sevre_Depuis" opt="y" histo="y" link="L_Val_HABITUS_TABAC_Sevre_Depuis">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+				<Arg1>formVar:Val_HABITUS_TABAC_Non_Sevre</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg1>
+			<Arg2 type="equal" oblig="y">
+				<Arg1>formVar:Val_HABITUS_TABAC_Paquet</Arg1>
+				<Arg2>const:0 </Arg2>
+			</Arg2>
+		</Cond>
+		<Libelle>Date de sevrage</Libelle>
+		<From>var:L_Val_HABITUS_TABAC_Sevre_Depuis</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_HABITUS_ALCOOL_Test" onChangeReload="y" oblig="y" histo="y" link="L_Val_HABITUS_ALCOOL_Test">
+    <Libelle style="color:green;">Consommation d'alcool</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_HABITUS_ALCOOL_Test</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_HABITUS_ALCOOL_LITRE" opt="y" histo="y" link="L_Val_HABITUS_ALCOOL_LITRE">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_HABITUS_ALCOOL_Test</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Nombre de gramme par jour</Libelle>
+		<FromList>list:50|100|500|1000|1500|2000|2500|3000|3500|4000|4500|5000|5500|6000|6500|7000|7500|8000|8500|9000|9500|10000|plus 10000</FromList>
+		<From>var:L_Val_HABITUS_ALCOOL_LITRE</From>
+	</ITEM>
+
+	<ITEM type="RADIO" id="Val_HABITUS_ALCOOL_Non_Sevre" onChangeReload="y" opt="y" histo="y" link="L_Val_HABITUS_ALCOOL_Non_Sevre">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_HABITUS_ALCOOL_Test</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Personne sevré</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_HABITUS_ALCOOL_Non_Sevre</From>
+	</ITEM>
+	
+	<ITEM type="CAL" id="Val_HABITUS_ALCOOL_Sevre_Depuis" opt="y" histo="y" link="L_Val_HABITUS_ALCOOL_Sevre_Depuis">
+    <Cond type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>formVar:Val_HABITUS_ALCOOL_Non_Sevre</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>formVar:Val_HABITUS_ALCOOL_Test</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg2>
+		</Cond>
+		<Libelle>Date de sevrage</Libelle>
+		<From>var:L_Val_HABITUS_ALCOOL_Sevre_Depuis</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_HABITUS_Allergie" onChangeReload="y" oblig="y" histo="y" link="L_Val_HABITUS_Allergie">
+		<Libelle style="color:green;">Allergie</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_HABITUS_Allergie</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_HABITUS_Iode" opt="y" histo="y" link="L_Val_HABITUS_Iode">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_HABITUS_Allergie</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Iode IV</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_HABITUS_Iode</From>
+	</ITEM>
+	
+  <ITEM type="LONGTXT" rows="2" id="Val_HABITUS_Medicament" opt="y" histo="y" link="L_Val_HABITUS_Medicament">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_HABITUS_Allergie</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Médicaments</Libelle>
+		<From>var:L_Val_HABITUS_Medicament</From>
+	</ITEM>
+	
+  <ITEM type="LONGTXT" rows="2" id="Val_HABITUS_Autre" opt="y" histo="y" link="L_Val_HABITUS_Autre">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_HABITUS_Allergie</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Autres</Libelle>
+		<From>var:L_Val_HABITUS_Autre</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_HABITUS_Prof" oblig="y" histo="y" link="L_Val_HABITUS_Prof">
+		<Libelle style="color:green;">Profession</Libelle>
+		<From>var:L_Val_HABITUS_Prof</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_HABITUS_Retraite" oblig="y" histo="y" link="L_Val_HABITUS_Retraite">
+		<Libelle style="color:green;">Retraité</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_HABITUS_Retraite</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_HABITUS_Vie" oblig="y" histo="y" link="L_Val_HABITUS_Vie">
+		<Libelle style="color:green;">Mode de vie</Libelle>
+		<FromList>list:Grabataire|Sedentaire|Actif</FromList>
+		<From>var:L_Val_HABITUS_Vie</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_HABITUS_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	
+  <ACTION type="mail" joindreForm="oui">
+			<Libelle>Fichier Médical Antécédents Habitus d'un patient</Libelle>
+			<Message>Terminal des urgences CH d'Hyères : Fichier Médical Antécédents Habitus</Message>
+			<Destinataire>fderock@ch-hyeres.fr</Destinataire>
+			<Destinataire>fderock@ch-hyeres.fr</Destinataire>
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_HABITUS_Allergie</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+  </ACTION>
+  
+  <ACTION type="trigger" id_formx="Dossier_Medical_Chronologique" />
+	
+</ETAPE>
+
+</FORMX>
+
+

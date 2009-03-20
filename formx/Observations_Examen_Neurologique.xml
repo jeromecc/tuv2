@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Observations_Examen_Neurologique" priority="29" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Observations Examen Neurologique</Libelle>
+<Objet>Fichier Médical Observations Examen Neurologique</Objet>
+<Groupe>Fichier Médical Observations</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>EXAMEN NEUROLOGIQUE:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Observations_Examen_Neurologique</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_ENEURO_Con_C" onChangeReload="y" oblig="y" histo="y" link="L_Val_ENEURO_Con_C">
+    <Libelle style="color:green;">Conscience normale</Libelle>
+    <FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_ENEURO_Con_C</From>
+  </ITEM>
+  
+  <ITEM type="LISTE" id="Val_ENEURO_Con_Glasgow_Y" opt="y" histo="y" link="L_Val_ENEURO_Con_Glasgow_Y">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_ENEURO_Con_C</Arg1>
+      <Arg2>const:Non</Arg2>
+		</Cond>
+    <Libelle>Echelle de Glasgow Ouverture des Yeux</Libelle>
+    <FromFuncList>Score_de_Glasgow_Y</FromFuncList>
+    <From>var:L_Val_ENEURO_Con_Glasgow_Y</From>
+  </ITEM>
+  
+  <ITEM type="LISTE" id="Val_ENEURO_Con_Glasgow_V" opt="y" histo="y" link="L_Val_ENEURO_Con_Glasgow_V">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_ENEURO_Con_C</Arg1>
+      <Arg2>const:Non</Arg2>
+		</Cond>
+    <Libelle>Echelle de Glasgow Réponse verbale</Libelle>
+    <FromFuncList>Score_de_Glasgow_V</FromFuncList>
+    <From>var:L_Val_ENEURO_Con_Glasgow_V</From>
+  </ITEM>
+  
+  <ITEM type="LISTE" id="Val_ENEURO_Con_Glasgow_M" opt="y" histo="y" link="L_Val_ENEURO_Con_Glasgow_M">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_ENEURO_Con_C</Arg1>
+      <Arg2>const:Non</Arg2>
+		</Cond>
+    <Libelle>Echelle de Glasgow Réponse motrice</Libelle>
+    <FromFuncList>Score_de_Glasgow_M</FromFuncList>
+    <From>var:L_Val_ENEURO_Con_Glasgow_M</From>
+  </ITEM>
+  
+  <ITEM type="CHECK" id="Val_ENEURO_Score_Glasgow_W" onChangeReload="y" opt="y" link="L_Val_ENEURO_Score_Glasgow_W">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_ENEURO_Con_C</Arg1>
+      <Arg2>const:Non</Arg2>
+		</Cond>
+    <Libelle>Score de Glasgow</Libelle>
+    <FromList>list:Afficher la (nouvelle) valeur</FromList>
+    <From>var:L_Val_ENEURO_Score_Glasgow_W</From>
+  </ITEM>
+  
+  <ITEM type="TXT" id="Val_ENEURO_Score_Glasgow_A" resync="y" opt="y" histo="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+        <Arg1>formVar:Val_ENEURO_Con_C</Arg1>
+        <Arg2>const:Non</Arg2>
+		  </Arg1>
+		  <Arg2 type="equal" oblig="y">
+        <Arg1>formVar:Val_ENEURO_Score_Glasgow_W</Arg1>
+        <Arg2>const:Afficher la (nouvelle) valeur</Arg2>
+		  </Arg2>
+		</Cond>
+    <Libelle>Score de Glasgow</Libelle>
+    <From>func:Score_de_Glasgow_Score</From>
+  </ITEM>
+  
+  <ITEM type="TXT" id="Val_ENEURO_Vig" oblig="y" histo="y" link="L_Val_ENEURO_Vig">
+    <Libelle style="color:green;">Vigilance</Libelle>
+		<From>var:L_Val_ENEURO_Vig</From>
+  </ITEM>
+	
+	<ITEM type="RADIO" id="Val_ENEURO_Fonc" oblig="y" histo="y" link="L_Val_ENEURO_Fonc">
+    <Libelle style="color:green;">Fonctions supérieures</Libelle>
+		<FromList>list:Normales|DTS|Confusion</FromList>
+		<From>var:L_Val_ENEURO_Fonc</From>
+  </ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Pair" oblig="y" histo="y" link="L_Val_ENEURO_Pair">
+    <Libelle style="color:green;">Paires crâniennes</Libelle>
+    <From>var:L_Val_ENEURO_Pair</From>
+  </ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Pupi" oblig="y" histo="y" link="L_Val_ENEURO_Pupi">
+		<Libelle style="color:green;">Pupilles</Libelle>
+		<From>var:L_Val_ENEURO_Pupi</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Ton" oblig="y" histo="y" link="L_Val_ENEURO_Ton">
+		<Libelle style="color:green;">Tonus</Libelle>
+		<From>var:L_Val_ENEURO_Ton</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Mot" oblig="y" histo="y" link="L_Val_ENEURO_Mot">
+    <Libelle style="color:green;">Motricité</Libelle>
+    <From>var:L_Val_ENEURO_Mot</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_ROT" oblig="y" histo="y" link="L_Val_ENEURO_ROT">
+    <Libelle style="color:green;">ROT</Libelle>
+    <From>var:L_Val_ENEURO_ROT</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_RCA" oblig="y" histo="y" link="L_Val_ENEURO_RCA">
+    <Libelle style="color:green;">RCA</Libelle>
+    <From>var:L_Val_ENEURO_RCA</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_RCP" oblig="y" histo="y" link="L_Val_ENEURO_RCP">
+    <Libelle style="color:green;">RCP</Libelle>
+    <From>var:L_Val_ENEURO_RCP</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Coor" oblig="y" histo="y" link="L_Val_ENEURO_Coor">
+    <Libelle style="color:green;">Coordination</Libelle>
+    <From>var:L_Val_ENEURO_Coor</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Senss" oblig="y" histo="y" link="L_Val_ENEURO_Senss">
+    <Libelle style="color:green;">Sensibilité superficielle</Libelle>
+    <From>var:L_Val_ENEURO_Senss</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Sensp" oblig="y" histo="y" link="L_Val_ENEURO_Sensp">
+    <Libelle style="color:green;">Sensibilité profonde</Libelle>
+    <From>var:L_Val_ENEURO_Sensp</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Mar" oblig="y" histo="y" link="L_Val_ENEURO_Mar">
+    <Libelle style="color:green;">Marche</Libelle>
+    <From>var:L_Val_ENEURO_Mar</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENEURO_Epr" oblig="y" histo="y" link="L_Val_ENEURO_Epr">
+    <Libelle style="color:green;">Epreuve de Romberg</Libelle>
+    <From>var:L_Val_ENEURO_Epr</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_Obs_ENeurolog_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	<ACTION type="trigger" id_formx="Dossier_Medical_Observations" />
+
+</ETAPE>
+
+</FORMX>
+	
+	

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="CHC_Fiche_Suivi" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Fiche Suivi</Libelle>
+<Groupe>Dossier CHC</Groupe>
+
+<ETAPE id="1">
+
+<Libelle>Fiche Suivi :</Libelle>
+	
+<ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+	<Libelle>Nom</Libelle>
+	<From>globalObject:patient->getNom()</From>
+</ITEM>
+	
+<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+	<Libelle>Prénom</Libelle>
+	<From>globalObject:patient->getPrenom()</From>
+</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+
+<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+	<Libelle>Age</Libelle>
+	<From>func:GetAge2</From>
+	</ITEM>
+
+<ITEM type="HIDDEN" id="Val_Patient_Mineur">
+    <From>func:GetPatientMineur</From>
+	</ITEM> 
+
+
+<ITEM type="TXT" id="Val_Patient_Mineur_Non" opt="y" resync="y" readonly="y">
+		  <Libelle>Patient</Libelle>
+			<From>formVar:Val_Patient_Mineur</From>
+      	<Cond type="equal"><Arg1>formVar:Val_Patient_Mineur</Arg1><Arg2>const:majeur</Arg2></Cond>
+</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_GravitePatient" opt="y" resync="y" readonly="y">
+		<Libelle>Code Gravité</Libelle>
+		<From>globalObject:patient->getCodeGravite()</From>
+	</ITEM>
+
+<ITEM type="LISTE" id="Val_Medecin" opt="y">
+		<Libelle style="color:green;">Médecin</Libelle>
+		<FromXHAMList>Médecins</FromXHAMList>
+</ITEM>
+ 
+  <ITEM type="CAL" default="today" id="Val_Jour_Observation" oblig="y" >
+		<Libelle style="color:green;">Jour observations</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Observation" oblig="y" >
+		<Libelle style="color:green;">Heure observations</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+
+  <ITEM type="LONGTXT" rows="10" id="Val_Observation" opt="y" link="Fiche_Suivi_Observations">
+    <Libelle style="color:green;">Observations</Libelle>
+	</ITEM>
+
+</ETAPE>
+
+</FORMX>

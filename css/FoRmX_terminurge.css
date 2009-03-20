@@ -1,0 +1,6 @@
+#formX {z-index:150; position:absolute ; top: 50px; left:200px;}
+#formX table.tablegenerale { width: 700px; border-collapse: collapse; border: 1px solid #006699; background: #FFFFFF;  }
+
+.formx_message { background-color: #FFCC66; border: 3px solid #2D729D; -moz-border-radius: 12px; z-index: 1000; position: absolute; width:360px; left: 300px; top: 170px; -moz-opacity:0.92;}
+.formx_message td.droite { text-align: right; vertical-align: top; font-weight: bold; }
+.formx_message_titre {text-align: right; vertical-align: top; font-weight: bold; }

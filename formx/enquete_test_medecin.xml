@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FORMX id="enquete_test_medecin" >
+	<Libelle>Enquête médecin</Libelle>
+	<Groupe>Tests Tutorial</Groupe>
+	<Objet>Une enquête pour toi, médecin.</Objet>
+	<ETAPE id="1">
+		<Libelle>Première étape du formulaire</Libelle>
+		<ITEM id="nom" type="TXT"><Libelle>Nom</Libelle></ITEM>
+		<ITEM id="id_medecin" type="HIDDEN"><From>globalObject:patient->getMatriculeMedecin()</From></ITEM>
+		
+	</ETAPE>
+
+</FORMX>

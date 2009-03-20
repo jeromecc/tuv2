@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Observations_Primaire" priority="19" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Observations Primaires</Libelle>
+<Objet>Fichier Médical Observations Primaires</Objet>
+<Groupe>Fichier Médical Observations</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>PRIMAIRES:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Observations_Primaire</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+	
+  <ITEM type="CAL" id="Val_OBSERVATIONS_PRIMAIRES_DH" oblig="y" histo="y" link="L_Val_OBSERVATIONS_PRIMAIRES_DH">
+		<Libelle style="color:green;">Date d'hospitalisation</Libelle>
+		<From>var:L_Val_OBSERVATIONS_PRIMAIRES_DH</From>
+	</ITEM>
+	
+	<ITEM TYPE="HIDDEN" id="Val_IDENT_UF" oblig="y">
+	  <Libelle> </Libelle> 
+		<From>globalObject:patient->getUF()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_OBSERVATIONS_PRIMAIRES_S" oblig="y" histo="y">
+    <Libelle style="color:green;">Service</Libelle>
+		<From>func:GetUF</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_OBSERVATIONS_PRIMAIRES_MA" oblig="y" onChangeReload="y" histo="y" link="L_Val_OBSERVATIONS_PRIMAIRES_MA">
+		<Libelle style="color:green;">Patient venant de</Libelle>
+		<FromList>list:Domicile|Urgences|UHCD|Autre service|Autre établissement</FromList>
+		<From>var:L_Val_OBSERVATIONS_PRIMAIRES_MA</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_OBSERVATIONS_PRIMAIRES_MA_AS" opt="y" histo="y" link="L_Val_OBSERVATIONS_PRIMAIRES_MA_AS">
+    <Cond type="equal" oblig="y">
+			<Arg1>formVar:Val_OBSERVATIONS_PRIMAIRES_MA</Arg1>
+			<Arg2>const:Autre service</Arg2>
+		</Cond>
+    <Libelle>Quel service ?</Libelle>
+		<From>var:L_Val_OBSERVATIONS_PRIMAIRES_MA_AS</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_OBSERVATIONS_PRIMAIRES_MA_AE" opt="y" histo="y" link="L_Val_OBSERVATIONS_PRIMAIRES_MA_AE">
+    <Cond type="equal" oblig="y">
+			<Arg1>formVar:Val_OBSERVATIONS_PRIMAIRES_MA</Arg1>
+			<Arg2>const:Autre établissement</Arg2>
+		</Cond>
+		<Libelle>Quel établissement ?</Libelle>
+		<From>var:L_Val_OBSERVATIONS_PRIMAIRES_MA_AE</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="5" id="Val_OBSERVATIONS_PRIMAIRES_MH" oblig="y" histo="y" link="L_Val_OBSERVATIONS_PRIMAIRES_MH">
+    <Libelle style="color:green;">Motif d'hospitalisation</Libelle>
+		<From>var:L_Val_OBSERVATIONS_PRIMAIRES_MH</From>
+  </ITEM>
+	
+	<ITEM type="LONGTXT" rows="5" id="Val_OBSERVATIONS_PRIMAIRES_HM" oblig="y" histo="y" link="L_Val_OBSERVATIONS_PRIMAIRES_HM">
+		<Libelle style="color:green;">Histoire de la maladie</Libelle>
+		<From>var:L_Val_OBSERVATIONS_PRIMAIRES_HM</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="5" id="Val_OBSERVATIONS_PRIMAIRES_TH" oblig="y" histo="y" link="L_Val_OBSERVATIONS_PRIMAIRES_TH">
+		<Libelle style="color:green;">Traitement habituel</Libelle>
+		<From>var:L_Val_OBSERVATIONS_PRIMAIRES_TH</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_Obs_primaire_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	<ACTION type="trigger" id_formx="Dossier_Medical_Observations" />
+	
+</ETAPE>
+
+</FORMX>
+	
+	

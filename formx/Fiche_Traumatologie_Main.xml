@@ -1,0 +1,1887 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Fiche_Traumatologie_Main"  access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Fiche Traumatologie De La Main</Libelle>
+<Objet>Fiche Traumatologie De La Main</Objet>
+<Groupe>Terminal Urgence</Groupe>
+
+<ETAPE id="1">
+  
+<Libelle>ETAPE</Libelle>  
+  
+  <ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Fiche_Traumatologie_Main</From>
+	</ITEM>
+	
+	<ITEM type="HIDDEN" id="valeur_titre_patient" opt="y">
+    <Libelle style="font-weight:bold;">PATIENTS</Libelle>
+    <From></From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle style="color:green;">Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id ="Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle style="color:green;">Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_Main_Profession" oblig="y">
+		  <Libelle style="color:green;">Profession</Libelle>
+      <FromList>list:Manuel|Intellectuel|Retraité</FromList>
+      <From>const:Manuel</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_Main_StatutProfession" oblig="y">
+		  <Libelle style="color:green;">Statut profession</Libelle>
+      <FromList>list:Salarié|Indépendant</FromList>
+      <From>const:Salarié</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+
+</ETAPE>
+
+<ETAPE id="2" optimize="y">
+
+<Libelle>ETAPE</Libelle>
+  
+  <ITEM type="HIDDEN" id="valeur_titre_urgentiste" opt="y">
+    <Libelle style="font-weight:bold;">URGENTISTE</Libelle>
+    <From></From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Etablissement_Etablissement" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Etablissement</Libelle>
+		<From>func:GetEtablissement</From>
+	</ITEM>
+	
+	<ITEM type="HIDDEN" id="valeur_titre_horaire" opt="y">
+    <Libelle style="font-weight:bold;">HORAIRE</Libelle>
+    <From></From>
+	</ITEM>
+  
+  <ITEM type="CAL" id="Val_Horaire_Date_Accident" oblig="y" link="L_Val_Horaire_Date_Accident">
+		<Libelle style="color:green;">Date de l'accident</Libelle>
+		<From>var:L_Val_Horaire_Date_Accident</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Horaire_Heure_Accident" oblig="y" link="L_Val_Horaire_Heure_Accident">
+		<Libelle style="color:green;">Heure de l'accident</Libelle>
+		<From>var:L_Val_Horaire_Heure_Accident</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_Horaire_Date_Examen" oblig="y" readonly="y" link="L_Val_Horaire_Date_Examen">
+		<Libelle style="color:green;">Date de l'examen</Libelle>
+		<From>func:GetDateHeureExamen</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Horaire_Heure_Examen" oblig="y" readonly="y" link="L_Val_Horaire_Heure_Examen">
+		<Libelle style="color:green;">Heure de l'examen</Libelle>
+		<From>func:GetTimeHeureExamen</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_Horaire_Delai_Calcul" opt="y" onChangeReload="y" link="L_Val_Horaire_Delai_Calcul">
+		<Libelle style="color:green;">Delai</Libelle>
+    <FromList>list:Afficher la (nouvelle) valeur</FromList>
+    <From>var:L_Val_Horaire_Delai_Calcul</From>
+	</ITEM>
+	
+  
+  <ITEM type="TXT" id="Val_Horaire_Delai" opt="y" onChangeReload="y">
+    <Libelle style="color:green;">Delai</Libelle>
+		<From>func:Calcul_Delai_Traumatologie_Main</From>
+	</ITEM>
+	
+</ETAPE>
+
+<ETAPE id="3" optimize="y">
+
+<Libelle>ETAPE</Libelle>
+	
+	<ITEM type="HIDDEN" id="valeur_titre_antecedents" opt="y">
+    <Libelle style="font-weight:bold;">ANTECEDENTS</Libelle>
+    <From></From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_Main_Main_Dominante" oblig="y">
+		<Libelle style="color:green;">Main Dominante</Libelle>
+		<FromList>list:Droitier|Gaucher</FromList>
+		<From>const:Droitier</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Presence_Bague" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Présence de bague(s)</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Presence_Bague_C" opt="y" readonly="y">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Presence_Bague</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Presence_Bague_C</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Anticoagulants" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Anticoagulants</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Anticoagulants_C" opt="y">
+    <Cond type="equal">
+      <Arg1>formVar:Val_Main_Anticoagulants</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Detail(s)</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Troubles_Vasculaires" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Troubles vasculaires</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Troubles_Vasculaires_C" opt="y">
+    <Cond type="equal">
+      <Arg1>formVar:Val_Main_Troubles_Vasculaires</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Detail(s)</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Tabagisme" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Tabagisme</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_Main_Tabagisme_Paquet" opt="y">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Tabagisme</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Nombre de paquet année</Libelle>
+		<FromList>list:1|2|3|4|5|6|7|8|9|10</FromList>
+    <From>const:1</From>
+	</ITEM>
+  
+	<ITEM type="RADIO" id="Val_Main_Diabete" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Diabète</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Diabete_C" opt="y">
+    <Cond type="equal">
+      <Arg1>formVar:Val_Main_Diabete</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Traitement(s) ?</Libelle>
+		<From>const:</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Allergies" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Allergies</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Allergies_C" opt="y">
+    <Cond type="equal">
+      <Arg1>formVar:Val_Main_Allergies</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Detail(s)</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Vaccin_Anti" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Vaccin antitétanique à jour</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Oui</From>
+	</ITEM>
+	
+	<ITEM type="CAL" id="Val_Main_Vaccin_Anti_Date" opt="y" link="L_Val_Main_Vaccin_Anti_Date">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Vaccin_Anti</Arg1>
+      <Arg2>const:Non</Arg2>
+		</Cond>
+		<Libelle>Date</Libelle>
+		<From>var:L_Val_Main_Vaccin_Anti_Date</From>
+	</ITEM>
+	
+</ETAPE>
+
+<ETAPE id="4" optimize="y">
+
+<Libelle>ETAPE</Libelle>
+  
+  <ITEM type="HIDDEN" id="valeur_titre_contexte" opt="y">
+    <Libelle style="font-weight:bold;">CONTEXTE DE SURVENUE</Libelle>
+    <From></From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Accident_Trav" oblig="y" cols="2">
+		<Libelle style="color:green;">Accident du travail</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Lesions" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Autre(s) urgence(s) associée(s)</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Lesions_C" opt="y">
+    <Cond type="equal">
+      <Arg1>formVar:Val_Main_Lesions</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Lesquelles ?</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" multiple="5" id="Val_Main_Contexte_Accident" opt="y">
+		<Libelle style="color:green;">Contexte accident</Libelle>
+		<FromList>list:Accident de la voie publique - piéton|Accident de la voie publique - 2 roues|Accident de la voie publique - automobile|Accident domestique|Accident de bricolage</FromList>
+		<From>const:Accident de la voie publique - piéton</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Contexte_Accident_Sport" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Accident de sport</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Contexte_Accident_Sport_C" opt="y">
+    <Cond type="equal">
+      <Arg1>formVar:Val_Main_Contexte_Accident_Sport</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Detail(s)</Libelle>
+		<From>const:</From>
+	</ITEM>
+	 
+	<ITEM type="LISTE" multiple="4" id="Val_Main_Premier_Geste" opt="y">
+		<Libelle style="color:green;">Premiers gestes avant la prise en charge</Libelle>
+		<FromList>list:Aucun|Garrot|Pansement compressif|Glace</FromList>
+		<From>const:Aucun</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Premier_Geste_Autre" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Premiers gestes avant la prise en charge autre</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Premier_Geste_Autre_C" opt="y">
+    <Cond type="equal">
+      <Arg1>formVar:Val_Main_Premier_Geste_Autre</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Detail(s)</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+</ETAPE>
+
+<ETAPE id="5" optimize="y">
+
+<Libelle>ETAPE</Libelle>
+  
+  <ITEM type="HIDDEN" id="valeur_titre_traumatisme" opt="y">
+    <Libelle style="font-weight:bold;">MECANISME DU TRAUMATISME</Libelle>
+    <From></From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Mecanisme_Coupure" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Coupure</Libelle>
+		<FromList>list:Simple|Déchiquetée</FromList>
+		<From>const:Simple</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" multiple="3" id="Val_Main_Mecanisme_Coupure_G" onChangeReload="y" opt="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Innervation_de_la_main_1.jpg;width:950;height:1250;">
+		<Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Mecanisme_Coupure</Arg1>
+      <Arg2>const:Déchiquetée</Arg2>
+		</Cond>
+    <Libelle>Coupure par (Lien: http://www.institut-main.fr/pop_urgence/pression.html)</Libelle>
+		<FromList>list:Verre|Couteau|Autre</FromList>
+		<From>const:Verre</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Mecanisme_Coupure_Message" opt="y" readonly="y">
+		<Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+        <Arg1>formVar:Val_Main_Mecanisme_Coupure</Arg1>
+        <Arg2>const:Déchiquetée</Arg2>
+		  </Arg1>
+		  <Arg2 type="equal" oblig="y">
+        <Arg1>formVar:Val_Main_Mecanisme_Coupure_G</Arg1>
+				<Arg2>const:Verre</Arg2>
+			</Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Mecanisme_Coupure_Message</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_Main_Mecanisme_Facteur" onChangeReload="y" oblig="y" cols="3">
+		<Libelle style="color:green;">Facteur(s) aggravant(s)</Libelle>
+		<FromList>list:Aucun|Ecrasement|Arrachement</FromList>
+		<From>const:Aucun</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Mecanisme_FacteurC" opt="y">
+		<Cond type="or">
+      <Arg1 type="in">
+        <Arg1>const:Ecrasement</Arg1>
+        <Arg2>formVar:Val_Main_Mecanisme_Facteur</Arg2>
+		  </Arg1>
+		  <Arg2 type="in">
+        <Arg1>const:Arrachement</Arg1>
+        <Arg2>formVar:Val_Main_Mecanisme_Facteur</Arg2>
+		  </Arg2>
+		</Cond>
+    <Libelle>Description(s)</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Mecanisme_Injection" onChangeReload="y" oblig="y" cols="2" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Innervation_de_la_main_1.jpg;width:950;height:1250;">
+		<Libelle style="color:green;">Injection sous pression (Lien: Pdf)</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Mecanisme_Injection_G" opt="y" cols="4">
+		<Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Mecanisme_Injection</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Injection à</Libelle>
+		<FromList>list:Huile|Eau|Peinture|Air</FromList>
+		<From>const:Huile</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Mecanisme_Injection_Message" opt="y" readonly="y">
+		<Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Mecanisme_Injection</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Mecanisme_Injection_Message</From>
+	</ITEM>
+	
+  <ITEM type="RADIO" id="Val_Main_Mecanisme_Morsure" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Morsure</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Mecanisme_Morsure_G" opt="y" cols="5" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Innervation_de_la_main_1.jpg;width:950;height:1250;">
+		<Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Mecanisme_Morsure</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Type de morsure (Lien: http://www.institut-main.fr/pop_urgence/pression.html)</Libelle>
+		<FromList>list:Humaine|Chien|Chat|Cheval|Autre</FromList>
+		<From>const:Humaine</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Mecanisme_Morsure_Message" opt="y" readonly="y">
+		<Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Mecanisme_Morsure</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Mecanisme_Morsure_Message</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Mecanisme_Traction" onChangeReload="y" oblig="y" cols="2" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Innervation_de_la_main_1.jpg;width:950;height:1250;"> 
+		<Libelle style="color:green;">Traction sur une bague (Lien: http://www.institut-main.fr/pop_urgence/pression.html)</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Mecanisme_Traction_Message" opt="y" readonly="y">
+		<Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Mecanisme_Traction</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Mecanisme_Traction_Message</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Mecanisme_Autre" onChangeReload="y" oblig="y" cols="2">
+		<Libelle style="color:green;">Autre</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_Main_Mecanisme_Autre_G" opt="y">
+		<Cond type="equal">
+      <Arg1>formVar:Val_Main_Mecanisme_Autre</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Detail(s)</Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Mecanisme_Grante" oblig="y" onChangeReload="y">
+    <Libelle style="color:green;">Recherche de signe de gravité immédiat</Libelle>
+    <FromList>list:Aucun|Main multilesée avec évidence chirurgicale|Amputation compléte ou partielle avec dévascularisation</FromList>
+		<From>const:Aucun</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Mecanisme_Grante_Main" opt="y" readonly="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Conditionnement_patient.jpg;width:800;height:400;">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Mecanisme_Grante</Arg1>
+      <Arg2>const:Main multilesée avec évidence chirurgicale</Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message (Lien : Doc)</Libelle>
+		<From>var:L_Val_Main_Mecanisme_Grante_Main_M</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Mecanisme_Grante_Amputation" opt="y" readonly="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Conditionnement_patient.jpg;width:800;height:400;">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Mecanisme_Grante</Arg1>
+      <Arg2>const:Amputation compléte ou partielle avec dévascularisation</Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message (Lien : Doc)</Libelle>
+		<From>var:L_Val_Main_Mecanisme_Grante_Amputation_M</From>
+	</ITEM>
+
+</ETAPE>
+
+<ETAPE id="6" optimize="y">
+
+<Libelle>ETAPE</Libelle>  
+
+  <ITEM type="HIDDEN" id="valeur_titre_traumatisme" opt="y">
+    <Libelle style="font-weight:bold;">EXAMEN CLINIQUE AVANT TOUTE ANESTHESIE - DESCRIPTION DE(S) PLAIE(S)</Libelle>
+    <From></From>
+	</ITEM>
+	
+	<ITEM type="HIDDEN" id="valeur_titre_traumatisme_lesion" opt="y">
+    <Libelle style="font-weight:bold;color:blue">LESION</Libelle>
+    <From></From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Lesion_Main" oblig="y">
+    <Libelle style="color:green;">Main</Libelle>
+		<FromList>list:Droite|Gauche</FromList>
+		<From>const:Droite</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Lesion_Zone" oblig="y" onChangeReload="y">
+    <Libelle style="color:green;">Zone</Libelle>
+		<FromList>list:Poignet|Paume|Doigt</FromList>
+		<From>const:Poignet</From>
+	</ITEM>
+	
+	
+	<ITEM type="RADIO" id="Val_Main_Lesion_Rayon" opt="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Anatomie_de_la_main.jpg;width:516;height:375;">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Lesion_Zone</Arg1>
+      <Arg2>const:Paume</Arg2>
+		</Cond>
+    <Libelle style="color:green;">Rayon (Lien: Anatomie de la main)</Libelle>
+		<FromList>list:M1|M2|M3|M4|M5</FromList>
+		<From>const:M1</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Lesion_Face" opt="y">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Lesion_Zone</Arg1>
+      <Arg2>const:Paume</Arg2>
+		</Cond>
+    <Libelle style="color:green;">Face</Libelle>
+		<FromList>list:Palmaire|Dorsale|Les deux|Transfixiante</FromList>
+		<From>const:Palmaire</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" multiple="7" id="Val_Main_Lesion_Segment" opt="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Anatomie_de_la_main.jpg;width:516;height:375;">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Lesion_Zone</Arg1>
+      <Arg2>const:Doigt</Arg2>
+		</Cond>
+    <Libelle style="color:green;">Segment (Lien: Anatomie de la main)</Libelle>
+		<FromList>list:Métacarpo-phalangienne|1° phalange|Inter phalangienne proximale|2° phalange|Inter phalangienne distale|3° phalange</FromList>
+		<From>const:Métacarpo-phalangienne</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Lesion_Associees" oblig="y">
+    <Libelle style="color:green;">Lésions associées</Libelle>
+		<FromList>list:Plaie + contusion|Plaie souillée|Contusion et souillure|Aucune</FromList>
+		<From>const:Aucune</From>
+	</ITEM>
+  
+</ETAPE>
+
+<ETAPE id="7" optimize="y">
+
+<Libelle>ETAPE</Libelle> 
+
+  <ITEM type="HIDDEN" id="valeur_titre_recherche" opt="y">
+    <Libelle style="font-weight:bold;">RECHERCHE DES COMPLICATIONS VASCULAIRES</Libelle>
+    <From></From>
+	</ITEM>
+	
+  <ITEM type="LISTE" multiple="11" id="Val_Main_Complication_Capillaires" onChangeReload="y" oblig="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Innervation_de_la_main_1.jpg;width:950;height:1250;">
+    <Libelle style="color:green;">Anomalie des pouls capillaires ou du remplissage pulpaire (Lien: http://www.institut-main.fr/pop_urgence/pression.html)</Libelle>
+		<FromFuncList>ListePoulsCapillairesRemplissagePulpaire</FromFuncList> 
+    <From>const:Pas d'anomalie</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix1" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:V doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>V doigt Droit</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix1Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix1</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:V doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix1Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix1</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:V doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix2" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:V doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>V doigt Gauche</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix2Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix2</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:V doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix2Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix2</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:V doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix3" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:IV doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>IV doigt Droit</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix3Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix3</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:IV doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix3Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix3</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:IV doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix4" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:IV doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>IV doigt Gauche</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix4Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix4</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:IV doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix4Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix4</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:IV doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix5" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:III doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>III doigt Droit</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix5Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix5</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:III doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix5Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix5</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:III doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix6" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:III doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>III doigt Gauche</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix6Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix6</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:III doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix6Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix6</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:III doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix7" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:II doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>II doigt Droit</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix7Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix7</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:II doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix7Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix7</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:II doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix8" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:II doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>II doigt Gauche</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix8Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix8</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:II doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix8Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix8</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:II doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix9" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:I doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>I doigt Droit</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix9Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix9</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:I doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix9Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix9</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:I doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Capillaires_choix10" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:I doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+		</Cond>
+    <Libelle>I doigt Gauche</Libelle>
+		<FromList>list:Ralenti|Absent</FromList>
+		<From>const:Ralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix10Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix10</Arg1>
+          <Arg2>const:Ralenti</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:I doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mralenti</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Capillaires_choix10Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">  
+          <Arg1>formVar:Val_Main_Complication_Capillaires_choix10</Arg1>
+          <Arg2>const:Absent</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:I doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Capillaires</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Capillaires_Mabsent</From>
+	</ITEM>
+  
+  <ITEM type="LISTE" multiple="11" id="Val_Main_Complication_Coloration" oblig="y" onChangeReload="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Innervation_de_la_main_1.jpg;width:950;height:1250;">
+    <Libelle style="color:green;">Anomalie de la coloration ou de la température cutanée (Lien: http://www.institut-main.fr/pop_urgence/pression.html)</Libelle>
+		<FromFuncList>ListeColorationTemperatureCutanee</FromFuncList> 
+    <From>const:Pas d'anomalie</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix1" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:V doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>V doigt Droit</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix1Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix1</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:V doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix1Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix1</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:V doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix2" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:V doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>V doigt Gauche</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix2Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix2</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:V doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix2Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix2</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:V doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix3" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:IV doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>IV doigt Droit</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix3Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix3</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:IV doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix3Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix3</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:IV doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix4" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:IV doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>IV doigt Gauche</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix4Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix4</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:IV doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix4Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix4</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:IV doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix5" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:III doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>III doigt Droit</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix5Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix5</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:III doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix5Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix5</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:III doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix6" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:III doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>III doigt Gauche</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix6Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix6</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:III doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix6Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix6</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:III doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix7" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:II doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>II doigt Droit</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix7Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix7</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:II doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix7Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix7</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:II doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix8" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:II doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>II doigt Gauche</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix8Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix8</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:II doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix8Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix8</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:II doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix9" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:I doigt Droit</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>I doigt Droit</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix9Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix9</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:I doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix9Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix9</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:I doigt Droit</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Coloration_choix10" onChangeReload="y" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:I doigt Gauche</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+		</Cond>
+    <Libelle>I doigt Gauche</Libelle>
+		<FromList>list:Blanc|Violet</FromList>
+		<From>const:Blanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix10Ma" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix10</Arg1>
+          <Arg2>const:Blanc</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:I doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mblanc</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_Coloration_choix10Mb" opt="y" readonly="y" resync="y">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_Main_Complication_Coloration_choix10</Arg1>
+          <Arg2>const:Violet</Arg2>
+      </Arg1>
+      <Arg2 type="in" oblig="y">
+				<Arg1>const:I doigt Gauche</Arg1>
+        <Arg2>formVar:Val_Main_Complication_Coloration</Arg2>
+      </Arg2>
+		</Cond>
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Coloration_Mviolet</From>
+	</ITEM>
+  
+</ETAPE>
+
+<ETAPE id="8" optimize="y">
+
+<Libelle>ETAPE</Libelle> 
+
+  <ITEM type="HIDDEN" id="valeur_titre_orthopediques" opt="y">
+    <Libelle style="font-weight:bold;">RECHERCHE DES COMPLICATIONS ORTHOPEDIQUES</Libelle>
+    <From></From>
+	</ITEM> 
+  
+  <ITEM type="TXT" id="Val_Main_Complication_Profonds_MessageG" opt="y" readonly="y" resync="y">
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_Profonds_MessageG</From>
+	</ITEM>  
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_orthopedique_tonus" oblig="y" onChangeReload="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Anomalie_du_tonus_postual.html;width:425;height:350;">
+    <Libelle style="color:green;">Anomalie du tonus postural (Lien : Video)</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" multiple="5" id="Val_Main_Complication_orthopedique_tonus_c" opt="y">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Complication_orthopedique_tonus</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Anomalie du tonus postual</Libelle>
+		<FromList>list:1° Doigt|2° Doigt|3° Doigt|4° Doigt|5° Doigt</FromList>
+		<From>const:1° Doigt</From>
+	</ITEM>
+  
+  <ITEM type="LISTE" multiple="11" id="Val_Main_Complication_Profonds" onChangeReload="y" opt="y">
+    <Libelle style="color:green;">Flechisseurs communs profonds</Libelle>
+		<FromFuncList>ListeFlechisseursCommunsProfonds</FromFuncList> 
+    <From>const:Pas d'anomalie</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_ProfondsI" opt="y">
+    <Libelle style="color:green;">-**img src=&quot;http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Examen_des_flechisseurs_de_la_main_1.jpg&quot;**-</Libelle> 
+    <From>const:Examen fléchisseur profond des doigts</From>
+	</ITEM>
+	
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix1" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion V doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion V doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix2" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion V doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion V doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix3" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion IV doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion IV doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix4" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion IV doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion IV doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix5" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion III doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion III doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix6" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion III doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion III doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix7" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion II doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion II doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix8" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion II doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion II doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix9" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion I doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion I doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Profonds_choix10" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion I doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Profonds</Arg2>
+		</Cond>
+    <Libelle>Flexion I doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+	
+  <ITEM type="LISTE" multiple="11" id="Val_Main_Complication_Superficiels" onChangeReload="y" oblig="y">
+    <Libelle style="color:green;">Flechisseurs communs superficiels</Libelle>
+		<FromFuncList>ListeFlechisseursCommunsSuperficiels</FromFuncList> 
+    <From>const:Pas d'anomalie</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_SuperficielsI" opt="y">
+    <Libelle style="color:green;">-**img src=&quot;http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Examen_des_flechisseurs_de_la_main_2.jpg&quot;**-</Libelle> 
+    <From>const:Schéma fléchisseur superficiel des doigts</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix1" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion V doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+    </Cond>
+    <Libelle>Flexion V doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix2" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion V doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion V doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix3" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion IV doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion IV doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix4" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion IV doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion IV doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix5" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion III doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion III doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix6" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion III doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion III doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix7" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion II doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion II doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix8" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion II doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion II doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix9" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion I doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion I doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Superficiels_choix10" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Flexion I doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Superficiels</Arg2>
+		</Cond>
+    <Libelle>Flexion I doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+
+	<ITEM type="LISTE" multiple="11" id="Val_Main_Complication_Extenseurs" onChangeReload="y" opt="y" hyperinfo="url:http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Innervation_de_la_main_1.jpg;width:950;height:1250;">
+    <Libelle style="color:green;">Extenseurs (Lien: http://www.institut-main.fr/pop_urgence/pression.html)</Libelle>
+		<FromFuncList>ListeExtenseurs</FromFuncList> 
+    <From>const:Pas d'anomalie</From>
+  </ITEM>
+	
+	<ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix1" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension V doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension V doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix2" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension V doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension V doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix3" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension IV doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension IV doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix4" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension IV doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension IV doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix5" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension III doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension III doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix6" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension III doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension III doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix7" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension II doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension II doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix8" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension II doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension II doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix9" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension I doigt Droit anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension I doigt Droit anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+
+  <ITEM type="RADIO" id="Val_Main_Complication_Extenseurs_choix10" opt="y">
+		<Cond type="in" oblig="y">
+					<Arg1>const:Extension I doigt Gauche anormale</Arg1>
+					<Arg2>formVar:Val_Main_Complication_Extenseurs</Arg2>
+		</Cond>
+    <Libelle>Extension I doigt Gauche anormale</Libelle>
+		<FromList>list:Douloureuse|Impossible</FromList>
+		<From>const:Douloureuse</From>
+	</ITEM>
+	
+</ETAPE>
+
+<ETAPE id="9" optimize="y">
+
+<Libelle>ETAPE</Libelle> 
+
+  <ITEM type="HIDDEN" id="valeur_titre_neurologiques" opt="y">
+    <Libelle style="font-weight:bold;">RECHERCHE DES COMPLICATIONS NEUROLOGIQUES</Libelle>
+    <From></From>
+	</ITEM>
+  
+  <ITEM type="HIDDEN" id="Val_Main_Lesion_Zone_Presence_Poignet" opt="y">
+    <From>var:L_Val_Main_Lesion_Zone_Presence_Poignet</From>
+	</ITEM> 
+  
+  <ITEM type="HIDDEN" id="Val_Main_Lesion_Zone_Presence_Doigt" opt="y">
+    <From>var:L_Val_Main_Lesion_Zone_Presence_Doigt</From>
+	</ITEM>
+  
+  <ITEM type="HIDDEN" id="Val_Main_Lesion_Zone_Presence_Paume" opt="y">
+    <From>var:L_Val_Main_Lesion_Zone_Presence_Paume</From>
+	</ITEM>   
+	
+  <ITEM type="TXT" id="Val_Main_Complication_SensibiliteMain_MessageG" opt="y" readonly="y" resync="y">
+    <Libelle style="color:red;">Message</Libelle>
+		<From>var:L_Val_Main_Complication_SensibiliteMain_MessageG</From>
+	</ITEM>
+   
+  <ITEM type="LISTE" multiple="4" id="Val_Main_Complication_SensibiliteMain" opt="y">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Lesion_Zone_Presence_Poignet</Arg1>
+      <Arg2>const:1</Arg2>
+		</Cond>
+    <Libelle style="color:green;">Sensibilité de la main (lésion au niveau du poignet)</Libelle>
+		<FromList>list:Pas d'anomalie|Sensibilité territoire du nerf ulnaire anormale|Sensibilité territoire du nerf radial anormale|Sensibilité territoire du nerf median anormale</FromList>
+    <From>const:Pas d'anomalie</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_SensibiliteMainI" opt="y">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_Main_Lesion_Zone_Presence_Poignet</Arg1>
+      <Arg2>const:1</Arg2>
+		</Cond>
+    <Libelle style="color:green;">-**img src=&quot;http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Innervation_de_la_main.jpg&quot;**-</Libelle>
+    <From>const:Schéma Innervation de la main</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" multiple="21" id="Val_Main_Complication_SensibiliteHemi" opt="y">
+    <Cond type="or" oblig="y">
+      <Arg1 type="equal" oblig="y">
+        <Arg1>formVar:Val_Main_Lesion_Zone_Presence_Doigt</Arg1>
+        <Arg2>const:1</Arg2>
+      </Arg1>
+      <Arg2 type="equal" oblig="y">
+        <Arg1>formVar:Val_Main_Lesion_Zone_Presence_Paume</Arg1>
+        <Arg2>const:1</Arg2>
+      </Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sensibilité des hémi-pulpes des doigts</Libelle>
+    <FromFuncList>ListeSensibiliteHemiPulpesDoigts</FromFuncList> 
+    <From>const:Pas d'anomalie</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Main_Complication_SensibiliteHemiI" opt="y">
+    <Cond type="or" oblig="y">
+      <Arg1 type="equal" oblig="y">
+        <Arg1>formVar:Val_Main_Lesion_Zone_Presence_Doigt</Arg1>
+        <Arg2>const:1</Arg2>
+      </Arg1>
+      <Arg2 type="equal" oblig="y">
+        <Arg1>formVar:Val_Main_Lesion_Zone_Presence_Paume</Arg1>
+        <Arg2>const:1</Arg2>
+      </Arg2>
+    </Cond>
+    <Libelle style="color:green;">-**img src=&quot;http://cypres.ch-hyeres.fr/xham/terminal_urgences/formx/docs/Hemi.jpg&quot;**-</Libelle>
+    <From>const:Schéma innervation sensitive de la main</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="lesionsup">
+		<Libelle>Lesion supplementaire ?</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>const:Non</From>
+	</ITEM>
+	
+	<ACTION type="goto" step="6" options="reset">
+		<Cond type="equal">
+      <Arg1>formVar:lesionsup</Arg1>
+      <Arg2>const:Oui</Arg2>
+    </Cond>
+	</ACTION>
+
+</ETAPE>
+
+<ETAPE id="10" optimize="y">
+
+<Libelle>ETAPE</Libelle> 
+
+<ITEM type="CHECK" id="Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+		<From>const:Signer et Fermer ce formulaire</From>
+</ITEM>
+	
+<ACTION type="formxproc" id_formxproc="Creation_Dossier_Traumatologie_Main" />
+	
+</ETAPE>
+
+</FORMX>

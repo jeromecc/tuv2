@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Formulaire_Bio" access="formulaires_TM_général" closeAfterValid="y" dontPrintPrinter="y" dontPrintNavi="y">
+<Libelle>Formulaire Bio</Libelle>
+<Objet>Prescription d'examens biologiques</Objet>
+<Groupe>Demandes de Bons</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>Prescription d'examens biologiques:</Libelle>
+  
+  <ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Formulaire_Bio</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE3</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_NsejPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nsej</Libelle>
+		<From>globalObject:patient->getNsej()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_F_BIO_Motif" oblig="y">
+		<Libelle>Motif</Libelle>
+		<From>globalObject:patient->getRecours()</From>
+	</ITEM>
+					
+   <ITEM type="LISTE" id="Val_F_BIO_Liste_Choix" oblig="y" onChangeReload="y" link="L_Val_F_BIO_Liste_Choix">
+		<Libelle style="font-weight:bold;color:#094F13">Choix des bilans</Libelle>
+		<FromFuncList>ListesBilans_choixbilan_formulaire_bio</FromFuncList>
+		<From>var:L_Val_F_BIO_Liste_Choix</From>
+		<OnChangeRefresh>list:Val_F_BIO_F1|Val_F_BIO_F2</OnChangeRefresh>
+  </ITEM>
+
+  <ITEM type="CHECK" id="Val_F_BIO_F1" opt="y" cols="2">
+    <Cond type="diff">
+		  <Arg1>formVar:Val_F_BIO_Liste_Choix</Arg1>
+		  <Arg2>const:#</Arg2>
+    </Cond>
+    <Libelle style="font-weight:bold;">STANDARD</Libelle>
+    <FromXHAMList>BIO_Form1</FromXHAMList>
+		<From>func:ListesBilans_casespredef_formulaire_bio_stand</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_F_BIO_F2" opt="y" cols="2">
+    <Cond type="diff">
+		  <Arg1>formVar:Val_F_BIO_Liste_Choix</Arg1>
+		  <Arg2>const:#</Arg2>
+    </Cond>
+    <Libelle style="font-weight:bold;">COMPLEMENTAIRE</Libelle>
+    <FromXHAMList>BIO_Form2</FromXHAMList>
+		<From>func:ListesBilans_casespredef_formulaire_bio_comp</From>
+	</ITEM>
+
+	<ITEM type="LONGTXT" rows="2" id="Val_F_BIO_Autres_E" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Autres examens</Libelle>
+		<From>const:Aucun.</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_F_BIO_Nom_Prel" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Nom du préleveur</Libelle>
+		<FromXHAMList>I.D.E.</FromXHAMList>
+		<From>globalObject:patient->getIDE()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_F_BIO_Heure_Prel" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Heure du prélèvement</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_F_BIO_Nom_P" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Nom du prescripteur</Libelle>
+		<FromXHAMList>Médecins</FromXHAMList>
+		<From>globalObject:patient->getMedecin()</From>
+	</ITEM>
+	
+	<ITEM type="CAL" default="today" id="Val_F_BIO_Date" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Date</Libelle>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_F_BIO_Comm" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Commentaire</Libelle>
+		<From>const:Aucun.</From>
+	</ITEM>
+  
+</ETAPE>
+
+</FORMX>
+	
+	

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Antecedents_Medicaux_Endocrinologiques" priority="7" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Antécédents Méd. Endocrinologiques</Libelle>
+<Objet>Fichier Médical Antécédents Endocrinologiques</Objet>
+<Groupe>Fichier Médical Antécédents</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>ENDOCRINOLOGIQUES:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Antecedents_Medicaux_Endocrinologiques</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+
+	<ITEM type="RADIO" id="Val_ENDOCRINOLOGIQUES_Diabete" onChangeReload="y" oblig="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Diabete">
+		<Libelle style="color:green;">Diabète</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Diabete</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" rows="2" id="Val_ENDOCRINOLOGIQUES_Diabete_Type" onChangeReload="y" opt="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Diabete_Type">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>De quel type ?</Libelle>
+		<FromList>list:Type 1|Type 2</FromList>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Diabete_Type</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_ENDOCRINOLOGIQUES_Diabete_Insu" onChangeReload="y" opt="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Diabete_Insu">
+    <Cond type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete_Type</Arg1>
+					<Arg2>const:Type 2</Arg2>
+				</Arg2>
+		</Cond>
+		<Libelle>Insulinorequérent</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Diabete_Insu</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_ENDOCRINOLOGIQUES_Diabete_Ttt" opt="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Diabete_Ttt">
+    <Cond type="and" oblig="y">
+			<Arg1 type="and" oblig="y">
+				<Arg1 type="equal" oblig="y">
+					<Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete_Insu</Arg1>
+					<Arg2>const:Oui</Arg2>
+				</Arg2>
+			</Arg1>
+			<Arg2 type="equal" oblig="y">
+        <Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete_Type</Arg1>
+        <Arg2>const:Type 2</Arg2>
+			</Arg2>
+		</Cond>
+		<Libelle>Par</Libelle>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Diabete_Ttt</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" rows="2" id="Val_ENDOCRINOLOGIQUES_Diabete_Equi" opt="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Diabete_Equi">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Diabète</Libelle>
+		<FromList>list:Equilibré|Non Equilibré</FromList>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Diabete_Equi</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT"  rows="2" id="Val_ENDOCRINOLOGIQUES_Diabete_Com" opt="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Diabete_Com">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+        <Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete</Arg1>
+        <Arg2>const:Oui</Arg2>
+      </Arg1>
+      <Arg2 type="or" oblig="y">
+        <Arg1 type="equal" oblig="y">
+          <Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete_Type</Arg1>
+					<Arg2>const:Type 1</Arg2>
+				</Arg1>
+				<Arg2 type="equal" oblig="y">
+					<Arg1>formVar:Val_ENDOCRINOLOGIQUES_Diabete_Type</Arg1>
+					<Arg2>const:Type 2</Arg2>
+				</Arg2>
+      </Arg2>
+		</Cond>
+		<Libelle>Diabète commentaire</Libelle>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Diabete_Com</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_ENDOCRINOLOGIQUES_Dysthyroidie" oblig="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Dysthyroidie">
+		<Libelle style="color:green;">Dysthyroïdie</Libelle>
+		<FromList>list:Non|Hyperthyroidie|Hypothyroidie</FromList>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Dysthyroidie</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Val_ENDOCRINOLOGIQUES_Dyslipidemie" onChangeReload="y" oblig="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Dyslipidemie">
+		<Libelle style="color:green;">Dyslipidémie</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Dyslipidemie</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_ENDOCRINOLOGIQUES_Dyslipidemie_Comm" opt="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Dyslipidemie_Comm">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_ENDOCRINOLOGIQUES_Dyslipidemie</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Dyslipidémie commentaire</Libelle>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Dyslipidemie_Comm</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_ENDOCRINOLOGIQUES_Autres" oblig="y" histo="y" link="L_Val_ENDOCRINOLOGIQUES_Autres">
+    <Libelle style="color:green;">Autres</Libelle>
+		<From>var:L_Val_ENDOCRINOLOGIQUES_Autres</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_ENDOCRINOLOGIQUES_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	<ACTION type="trigger" id_formx="Dossier_Medical_Chronologique" />
+		
+</ETAPE>
+
+</FORMX>
+
+

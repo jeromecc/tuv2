@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Formulaire_Pneumopathie" priority="1" closeAfterValid="y" dontPrintNavi="y" phantom="y">
+<Libelle>Formulaire de Pneumopathie</Libelle>
+<Objet>Formulaire de Pneumopathie</Objet>
+<Groupe>Pneumopathie</Groupe>
+
+<ETAPE id="1">
+<Libelle>Formulaire de Pneumopathie</Libelle>
+  
+  <ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Formulaire_Pneumopathie</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Pneumopathie_Patient" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">PATIENT</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle style="color:green;">Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id ="Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle style="color:green;">Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Pneumopathie_Urgentiste" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">URGENTISTE</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Etablissement_Etablissement" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Etablissement</Libelle>
+		<From>func:GetEtablissement</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Pneumopathie_Horaires" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">HORAIRES</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_Horaire_Date_Examen" opt="y" readonly="y" link="L_Val_Horaire_Date_Examen">
+		<Libelle style="color:green;">Date de l'examen</Libelle>
+		<From>func:GetDateHeureExamen</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Horaire_Heure_Examen" opt="y" readonly="y" link="L_Val_Horaire_Heure_Examen">
+		<Libelle style="color:green;">Heure de l'examen</Libelle>
+		<From>func:GetTimeHeureExamen</From>
+	</ITEM>
+
+</ETAPE>
+
+<ETAPE id="2">
+
+	<ITEM type="TXT" id="Pneumopathie_Orientation" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">ORIENTATION DIAGNOSTIC</Libelle>
+    <From>const:</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Orientation_Motif" oblig="y" cols="2" link="L_Pneumopathie_Orientation_Motif">
+		<Libelle style="color:green;">Motif d'admission</Libelle>
+		<FromList>list:Boronchite aigue|Décompensation BPCO|Pneumopathie aigue communautaire</FromList>
+		<From>var:L_Pneumopathie_Orientation_Motif</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Pneumopathie_Orientation_Traitement" oblig="y" cols="2" link="L_Pneumopathie_Orientation_Traitement">
+		<Libelle style="color:green;">Traitement antibiotique avant la prise en charge</Libelle>
+		<FromList>list:Classes|Molécules</FromList>
+		<From>var:L_Pneumopathie_Orientation_Traitement</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Orientation_Adresse" oblig="y" cols="2" link="L_Pneumopathie_Orientation_Adresse">
+		<Libelle style="color:green;">Adressé par un médecin libéral</Libelle>
+		<FromList>list:Pour avis|Pour examen complémentaire|Pour hospitalisation|Non</FromList>
+		<From>var:L_Pneumopathie_Orientation_Adresse</From>
+	</ITEM>
+
+  <ITEM type="TXT" id="Pneumopathie_Comorbidites" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">COMORBIDITES</Libelle>
+    <From>const:</From>
+	</ITEM>
+
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Tabagisme" oblig="y" cols="2" onChangeReload="y" link="L_Pneumopathie_Comorbidites_Tabagisme">
+		<Libelle style="color:green;">Tabagisme</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Tabagisme</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Pneumopathie_Comorbidites_Tabagisme_C" opt="y" link="L_Pneumopathie_Comorbidites_Tabagisme_C">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Pneumopathie_Comorbidites_Tabagisme</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle style="color:blue;">Nombre de paquets année</Libelle>
+      <FromList>list:1|2|3|4|5|6|7|8|9|10</FromList>
+      <From>var:L_Pneumopathie_Comorbidites_Tabagisme_C</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Vie" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Vie">
+		<Libelle style="color:green;">Vit en institution</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Vie</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Precarite" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Precarite">
+		<Libelle style="color:green;">Précarité sociale</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Precarite</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Mauvaise" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Mauvaise">
+		<Libelle style="color:green;">Mauvaise observance</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Mauvaise</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Absorption" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Absorption">
+		<Libelle style="color:green;">Absorption traitement per os impossible</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Absorption</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Decompensation" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Decompensation">
+		<Libelle style="color:green;">Décompensation d'une comordité existante</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Decompensation</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Bpco" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Bpco">
+		<Libelle style="color:green;">BPCO</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Bpco</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Oxygeno" oblig="y" cols="2" onChangeReload="y" link="L_Pneumopathie_Comorbidites_Oxygeno">
+		<Libelle style="color:green;">Oxygeno thérapie à domicile</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Oxygeno</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Pneumopathie_Comorbidites_Oxygeno_C" opt="y" link="L_Pneumopathie_Comorbidites_Oxygeno_C">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Pneumopathie_Comorbidites_Oxygeno</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle style="color:blue;">Quantité en l/mn</Libelle>
+      <FromList>list:1|2|3|4|5|6|7|8|9|10|11|12|13|14|15</FromList>
+      <From>var:L_Pneumopathie_Comorbidites_Oxygeno_C</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Comorbidites_Hepatique" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Hepatique">
+		<Libelle style="color:green;">Maladie hépatique</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Hepatique</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Neoplasique" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Neoplasique">
+		<Libelle style="color:green;">Maladie néoplasique</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Neoplasique</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Renale" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Renale">
+		<Libelle style="color:green;">Maladie rénale</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Renale</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Cerebro" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Cerebro">
+		<Libelle style="color:green;">Maladie Cérébro-vasculaire</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Cerebro</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="Pneumopathie_Comorbidites_Diabete" oblig="y" cols="2" onChangeReload="y" link="L_Pneumopathie_Comorbidites_Diabete">
+		<Libelle style="color:green;">Diabète</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Diabete</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="Pneumopathie_Comorbidites_Diabete_C" opt="y" link="L_Pneumopathie_Comorbidites_Diabete_C">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Pneumopathie_Comorbidites_Diabete</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle style="color:blue;">Traitement ?</Libelle>
+    <From>var:L_Pneumopathie_Comorbidites_Diabete_C</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Comorbidites_Cardiaque" oblig="y" cols="2" link="L_Pneumopathie_Comorbidites_Cardiaque">
+		<Libelle style="color:green;">Insuffisance cardiaque congestive</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Comorbidites_Cardiaque</From>
+	</ITEM>
+	
+</ETAPE>
+
+<ETAPE id="3">
+
+  <ITEM type="TXT" id="Pneumopathie_Criteres" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">CRITERES DIAGNOSTIQUES</Libelle>
+    <From>const:</From>
+	</ITEM> 
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Toux" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Toux">
+		<Libelle style="color:green;">Toux</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Toux</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Dyspnee" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Dyspnee">
+		<Libelle style="color:green;">Dyspnée</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Dyspnee</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Douleur" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Douleur">
+		<Libelle style="color:green;">Douleur lathérothoracique</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Douleur</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Expectoration" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Expectoration">
+		<Libelle style="color:green;">Expectoration</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Expectoration</From>
+	</ITEM>	
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Fievre" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Fievre">
+		<Libelle style="color:green;">Fièvre</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Fievre</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Tachycardie" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Tachycardie">
+		<Libelle style="color:green;">Tachycardie</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Tachycardie</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Polypnees" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Polypnees">
+		<Libelle style="color:green;">Polypnées</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Polypnees</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Matite" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Matite">
+		<Libelle style="color:green;">Matité localisé</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Matite</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Foyer" oblig="y" cols="2" link="L_Pneumopathie_Criteres_Foyer">
+		<Libelle style="color:green;">Foyer de crépitants</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Foyer</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Criteres_Autres" oblig="y" cols="2" onChangeReload="y" link="L_Pneumopathie_Criteres_Autres">
+		<Libelle style="color:green;">Autres</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Criteres_Autres</From>
+	</ITEM>	
+  
+  <ITEM type="LONGTXT" id="Pneumopathie_Criteres_Autres_C" opt="y" link="L_Pneumopathie_Criteres_Autres_C">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Pneumopathie_Criteres_Autres</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle style="color:blue;">Précisions</Libelle>
+    <From>var:L_Pneumopathie_Criteres_Autres_C</From>
+	</ITEM>								
+  
+  <ITEM type="TXT" id="Pneumopathie_Evaluation" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">EVALUATION CRITERE DE GRAVITE</Libelle>
+    <From>const:</From>
+	</ITEM> 
+  
+  <ITEM type="RADIO" id="Pneumopathie_Evaluation_Trouble" oblig="y" cols="2" link="L_Pneumopathie_Evaluation_Trouble">
+		<Libelle style="color:green;">Trouble des fonctions supérieures</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Evaluation_Trouble</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Evaluation_Frequence" oblig="y" cols="2" link="L_Pneumopathie_Evaluation_Frequence">
+		<Libelle style="color:green;">Fréquence respiratoire Sup à 30</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Evaluation_Frequence</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Evaluation_Systolique" oblig="y" cols="2" link="L_Pneumopathie_Evaluation_Systolique">
+		<Libelle style="color:green;">TA Systolique Inf à 90</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Evaluation_Systolique</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Evaluation_Diastolique" oblig="y" cols="2" link="L_Pneumopathie_Evaluation_Diastolique">
+		<Libelle style="color:green;">TA Diastolique Inf ou égal à 60</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Evaluation_Diastolique</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Evaluation_T1" oblig="y" cols="2" link="L_Pneumopathie_Evaluation_T1">
+		<Libelle style="color:green;">T° Inf à 35</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Evaluation_T1</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Evaluation_T2" oblig="y" cols="2" link="L_Pneumopathie_Evaluation_T2">
+		<Libelle style="color:green;">T° Sup à 40</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Evaluation_T2</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Evaluation_Cardiaque" oblig="y" cols="2" link="L_Pneumopathie_Evaluation_Cardiaque">
+		<Libelle style="color:green;">Fréquence cardiaque Inf ou égal à 125</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Evaluation_Cardiaque</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Evaluation_Septique" oblig="y" cols="2" link="L_Pneumopathie_Evaluation_Septique">
+		<Libelle style="color:green;">Choc septique</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Evaluation_Septique</From>
+	</ITEM>
+  
+</ETAPE>
+
+<ETAPE id="4">
+
+  <ITEM type="TXT" id="Pneumopathie_Paraclinique" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">DONNEES PARACLINIQUES</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Paraclinique_Pha" oblig="y" cols="2" link="L_Pneumopathie_Paraclinique_Pha">
+		<Libelle style="color:green;">pHA Inf à 7,53</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Paraclinique_Pha</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Paraclinique_Ure" oblig="y" cols="2" link="L_Pneumopathie_Paraclinique_Ure">
+		<Libelle style="color:green;">Urée Inf ou Egal à 11 mmol par litre</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Paraclinique_Ure</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Paraclinique_Na" oblig="y" cols="2" link="L_Pneumopathie_Paraclinique_Na">
+		<Libelle style="color:green;">Na+ Inf 130 mmol par litre</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Paraclinique_Na</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Paraclinique_Hematocrique" oblig="y" cols="2" link="L_Pneumopathie_Paraclinique_Hematocrique">
+		<Libelle style="color:green;">Hématocrique Inf 30%</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Paraclinique_Hematocrique</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Paraclinique_Pao" oblig="y" cols="2" link="L_Pneumopathie_Paraclinique_Pao">
+		<Libelle style="color:green;">Pa02 Inf 60 mmHg ou saturation en O2 Inf 90%</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Paraclinique_Pao</From>
+	</ITEM> 
+  
+  <ITEM type="RADIO" id="Pneumopathie_Paraclinique_Pleural" oblig="y" cols="2" link="L_Pneumopathie_Paraclinique_Pleural">
+		<Libelle style="color:green;">Epanchement pleural</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Paraclinique_Pleural</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Pneumopathie_Therapeutique" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">THERAPEUTIQUE</Libelle>
+    <From>const:</From>
+	</ITEM> 
+  
+  <ITEM type="CHECK" id="Pneumopathie_Therapeutique_Anti" oblig="y" cols="2" link="L_Pneumopathie_Therapeutique_Anti">
+		<Libelle style="color:green;">Antibiothérapie</Libelle>
+		<FromList>list:Classes|Molécules</FromList>
+    <From>var:L_Pneumopathie_Therapeutique_Anti</From>
+	</ITEM>
+  
+  <ITEM type="LISTE" id="Pneumopathie_Therapeutique_Oxy" oblig="y" link="L_Pneumopathie_Therapeutique_Oxy">
+		<Libelle style="color:green;">Oxygeno-Thérapie</Libelle>
+		<FromList>list:1|2|3|4|5|6|7|8|9|10|11|12|13|14|15</FromList>
+    <From>var:L_Pneumopathie_Therapeutique_Oxy</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Therapeutique_Aerosol" oblig="y" cols="2" link="L_Pneumopathie_Therapeutique_Aerosol">
+		<Libelle style="color:green;">Aérosols</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Therapeutique_Aerosol</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="Pneumopathie_Therapeutique_Autres" oblig="y" cols="2" onChangeReload="y" link="L_Pneumopathie_Therapeutique_Autres">
+		<Libelle style="color:green;">Autres</Libelle>
+		<FromList>list:Oui|Non</FromList>
+    <From>var:L_Pneumopathie_Therapeutique_Autres</From>
+	</ITEM> 
+  
+  <ITEM type="LONGTXT" id="Pneumopathie_Therapeutique_Autres_C" opt="y" link="L_Pneumopathie_Therapeutique_Autres_C">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Pneumopathie_Therapeutique_Autres</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle style="color:blue;">Traitement ?</Libelle>
+    <From>var:L_Pneumopathie_Therapeutique_Autres_C</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Pneumopathie_Devenir" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">DEVENIR</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Pneumopathie_Devenir_Orientation" opt="y" readonly="y" link="L_Pneumopathie_Devenir_Orientation">
+		<Libelle style="color:green;">Orientation</Libelle>
+    <From>globalObject:patient->getOrientation()</From>
+	</ITEM>
+  
+  <ACTION type="formxproc" id_formxproc="Creation_Dossier_Formulaire_Pneumopathie" />
+           				
+
+</ETAPE>
+
+</FORMX>

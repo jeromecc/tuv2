@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Antecedents_Medicaux_Nephrologiques" priority="9" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Antécédents Méd. Uro-Néphrologiques</Libelle>
+<Objet>Fichier Médical Antécédents Uro-Néphrologiques</Objet>
+<Groupe>Fichier Médical Antécédents</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>URO-NEPHROLOGIQUES:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Antecedents_Medicaux_Nephrologiques</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+
+	<ITEM type="RADIO" id="Val_NEPHROLOGIQUES_Hypertrophie" onChangeReload="y" oblig="y" histo="y" link="L_Val_NEPHROLOGIQUES_Hypertrophie">
+		<Libelle style="color:green;">Hypertrophie bénigne de la prostate</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_NEPHROLOGIQUES_Hypertrophie</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_NEPHROLOGIQUES_Hypertrophie_Comm" opt="y" histo="y" link="L_Val_NEPHROLOGIQUES_Hypertrophie_Comm">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_NEPHROLOGIQUES_Hypertrophie</Arg1>
+		  <Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Hypertrophie bénigne de la prostate commentaire</Libelle>
+		<From>var:L_Val_NEPHROLOGIQUES_Hypertrophie_Comm</From>
+	</ITEM>
+	
+  <ITEM type="RADIO" id="Val_NEPHROLOGIQUES_Infections" onChangeReload="y" oblig="y" histo="y" link="L_Val_NEPHROLOGIQUES_Infections">
+		<Libelle style="color:green;">Infections urinaires à répétition</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_NEPHROLOGIQUES_Infections</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_NEPHROLOGIQUES_Infections_Comm" opt="y" histo="y" link="L_Val_NEPHROLOGIQUES_Infections_Comm">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_NEPHROLOGIQUES_Infections</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Infections urinaires à répétition commentaire</Libelle>
+		<From>var:L_Val_NEPHROLOGIQUES_Infections_Comm</From>
+	</ITEM>
+	
+  <ITEM type="RADIO" id="Val_NEPHROLOGIQUES_Pyelonephrites" onChangeReload="y" oblig="y" histo="y" link="L_Val_NEPHROLOGIQUES_Pyelonephrites">
+		<Libelle style="color:green;">Pyélonéphrite</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_NEPHROLOGIQUES_Pyelonephrites</From>
+	</ITEM>
+	
+  <ITEM type="LONGTXT" rows="2" id="Val_NEPHROLOGIQUES_Pyelonephrites_Comm" opt="y" histo="y" link="L_Val_NEPHROLOGIQUES_Pyelonephrites_Comm">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_NEPHROLOGIQUES_Pyelonephrites</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Pyélonéphrite commentaire</Libelle>
+		<From>var:L_Val_NEPHROLOGIQUES_Pyelonephrites_Comm</From>
+	</ITEM>
+	
+  <ITEM type="RADIO" id="Val_NEPHROLOGIQUES_Renal" onChangeReload="y" oblig="y" histo="y" link="L_Val_NEPHROLOGIQUES_Renal"> 
+		<Libelle style="color:green;">Insuffisance rénale chronique</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_NEPHROLOGIQUES_Renal</From>
+	</ITEM>
+	
+  <ITEM type="TXT" rows="1" id="Val_NEPHROLOGIQUES_Renal_CL" opt="y" histo="y" link="L_Val_NEPHROLOGIQUES_Renal_CL">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_NEPHROLOGIQUES_Renal</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Indiquez le CL</Libelle>
+		<From>var:L_Val_NEPHROLOGIQUES_Renal_CL</From>
+	</ITEM>
+	
+  <ITEM type="LONGTXT" rows="2" id="Val_NEPHROLOGIQUES_Renal_Comm" opt="y" histo="y" link="L_Val_NEPHROLOGIQUES_Renal_Comm">
+    <Cond type="equal" oblig="y">
+      <Arg1>formVar:Val_NEPHROLOGIQUES_Renal</Arg1>
+      <Arg2>const:Oui</Arg2>
+		</Cond>
+    <Libelle>Insuffisance rénale chronique commmentaire</Libelle>
+		<From>var:L_Val_NEPHROLOGIQUES_Renal_Comm</From>
+	</ITEM>
+	
+  <ITEM type="RADIO" id="Val_NEPHROLOGIQUES_Renal_Dial" onChangeReload="y" opt="y" histo="y" link="L_Val_NEPHROLOGIQUES_Renal_Dial">
+    <Cond type="equal" oblig="y">
+				<Arg1>formVar:Val_NEPHROLOGIQUES_Renal</Arg1>
+				<Arg2>const:Oui</Arg2>
+		</Cond>
+		<Libelle>Dialysée</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<From>var:L_Val_NEPHROLOGIQUES_Renal_Dial</From>
+	</ITEM>
+	
+  <ITEM type="CAL" id="Val_NEPHROLOGIQUES_Renal_Dial_Depuis" opt="y" histo="y" link="L_Val_NEPHROLOGIQUES_Renal_Dial_Depuis">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+				<Arg1>formVar:Val_NEPHROLOGIQUES_Renal</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg1>
+			<Arg2 type="equal" oblig="y">
+				<Arg1>formVar:Val_NEPHROLOGIQUES_Renal_Dial</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg2>
+		</Cond>
+		<Libelle>Dialysée depuis le</Libelle>
+		<From>var:L_Val_NEPHROLOGIQUES_Renal_Dial_Depuis</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_NEPHROLOGIQUES_Renal_Dial_Comm" opt="y" histo="y" link="L_Val_NEPHROLOGIQUES_Renal_Dial_Comm">
+    <Cond type="and" oblig="y">
+      <Arg1 type="equal" oblig="y">
+				<Arg1>formVar:Val_NEPHROLOGIQUES_Renal</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg1>
+			<Arg2 type="equal" oblig="y">
+				<Arg1>formVar:Val_NEPHROLOGIQUES_Renal_Dial</Arg1>
+				<Arg2>const:Oui</Arg2>
+			</Arg2>
+		</Cond>
+		<Libelle>Dialysée commentaire</Libelle>
+		<From>var:L_Val_NEPHROLOGIQUES_Renal_Dial_Comm</From>
+	</ITEM>
+	
+  <ITEM type="LONGTXT" rows="2" id="Val_NEPHROLOGIQUES_Autres" oblig="y" histo="y" link="L_Val_NEPHROLOGIQUES_Autres">
+		<Libelle style="color:green;">Autres</Libelle>
+		<From>var:L_Val_NEPHROLOGIQUES_Autres</From>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="Val_NEPHROLOGIQUES_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	<ACTION type="trigger" id_formx="Dossier_Medical_Chronologique" />
+		
+</ETAPE>
+
+</FORMX>
+
+

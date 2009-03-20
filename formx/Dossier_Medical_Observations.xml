@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+
+	<FORMX id="Dossier_Medical_Observations" ok4docshopi="y" access="formulaires_TM_synthèse" dontPrintNavi="y" uniq="y" hide="y" >
+	<Libelle>Dossier Observations Médicales</Libelle>
+	<Objet>Dossier Observations Médicales</Objet>
+	
+  <!--On boucle sur le sous-formulaire observations_primaire-->
+	<FUSION id_formx="Observations_Primaire">
+    <Libelle>PRIMAIRE:</Libelle>
+    <Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_OBSERVATIONS_PRIMAIRES_DH"/>
+    <Recup var="Val_OBSERVATIONS_PRIMAIRES_S"/>
+    <Recup var="Val_OBSERVATIONS_PRIMAIRES_MA"/>
+    <Recup var="Val_OBSERVATIONS_PRIMAIRES_MA_AS"/>
+    <Recup var="Val_OBSERVATIONS_PRIMAIRES_MA_AE"/>
+    <Recup var="Val_OBSERVATIONS_PRIMAIRES_MH"/>
+    <Recup var="Val_OBSERVATIONS_PRIMAIRES_HM"/>
+    <Recup var="Val_OBSERVATIONS_PRIMAIRES_TH"/>
+	
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Date d'hospitalisation</Libelle>
+		  <From>fusion:Val_OBSERVATIONS_PRIMAIRES_DH</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+      <Libelle>Service</Libelle>
+		  <From>fusion:Val_OBSERVATIONS_PRIMAIRES_S</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+      <Libelle>Patient venant de</Libelle>
+		  <From>fusion:Val_OBSERVATIONS_PRIMAIRES_MA</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+			 <Arg1>fusion:Val_OBSERVATIONS_PRIMAIRES_MA</Arg1>
+			 <Arg2>const:Autre service</Arg2>
+      </Cond>
+      <Libelle>Quel service ?</Libelle>
+		  <From>fusion:Val_OBSERVATIONS_PRIMAIRES_MA_AS</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Cond type="equal" oblig="y">
+			 <Arg1>fusion:Val_OBSERVATIONS_PRIMAIRES_MA</Arg1>
+			 <Arg2>const:Autre établissement</Arg2>
+      </Cond>
+		  <Libelle>Quel établissement ?</Libelle>
+		  <From>fusion:Val_OBSERVATIONS_PRIMAIRES_MA_AE</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Libelle>Motif d'hospitalisation</Libelle>
+		  <From>fusion:Val_OBSERVATIONS_PRIMAIRES_MH</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+      <Libelle>Histoire de la maladie</Libelle>
+		  <From>fusion:Val_OBSERVATIONS_PRIMAIRES_HM</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+		  <Libelle>Traitement habituel</Libelle>
+		  <From>fusion:Val_OBSERVATIONS_PRIMAIRES_TH</From>
+    </ITEM>
+  </FUSION>
+  
+  <!--On boucle sur le sous-formulaire signes_generaux-->
+	<FUSION id_formx="Observations_Signes_Generaux">
+		<Libelle>SIGNES GENERAUX:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_ESIGNES_Etats"/>
+		<Recup var="Val_ESIGNES_Poids"/>
+		<Recup var="Val_ESIGNES_Taille"/>
+		<Recup var="Val_ESIGNES_IMC_A"/>
+		<Recup var="Val_ESIGNES_Temp"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Etat général</Libelle>
+			<From>fusion:Val_ESIGNES_Etats</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Cond type="diff" oblig="y">
+		    <Arg1>fusion:Val_ESIGNES_Poids</Arg1>
+		    <Arg2>const:0</Arg2>
+      </Cond>
+      <Libelle>Poids en kilogramme</Libelle>
+			<From>fusion:Val_ESIGNES_Poids</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="diff" oblig="y">
+		    <Arg1>fusion:Val_ESIGNES_Taille</Arg1>
+		    <Arg2>const:0</Arg2>
+      </Cond>
+			<Libelle>Taille en mètre</Libelle>
+			<From>fusion:Val_ESIGNES_Taille</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="diff" oblig="y">
+		    <Arg1>fusion:Val_ESIGNES_IMC_A</Arg1>
+		    <Arg2>const:0</Arg2>
+      </Cond>
+			<Libelle>Indice de Masse Corporelle</Libelle>
+			<From>fusion:Val_ESIGNES_IMC_A</From>
+		</ITEM>
+    
+    <ITEM type="TXT">
+		  <Cond type="diff" oblig="y">
+		    <Arg1>fusion:Val_ESIGNES_Temp</Arg1>
+		    <Arg2>const:°C</Arg2>
+      </Cond>
+			<Libelle>Température</Libelle>
+			<From>fusion:Val_ESIGNES_Temp</From>
+		</ITEM>
+		
+		
+		
+		
+  </FUSION>
+  
+  <!--On boucle sur le sous-formulaire examen_cardio-->
+	<FUSION id_formx="Observations_Examen_Cardio">
+		<Libelle>EXAMEN CARDIO-VASCULAIRE:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_ECARDIO_Signes"/>
+		<Recup var="Val_ECARDIO_TA"/>
+    <Recup var="Val_ECARDIO_Pouls_S"/>
+    <Recup var="Val_ECARDIO_Pouls_I"/>
+		<Recup var="Val_ECARDIO_Coeur"/>
+		<Recup var="Val_ECARDIO_Souffles"/>
+		<Recup var="Val_ECARDIO_SignesC"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Signes fonctionnels</Libelle>
+			<From>fusion:Val_ECARDIO_Signes</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>TA</Libelle>
+			<From>fusion:Val_ECARDIO_TA</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="diff" oblig="y">
+		    <Arg1>fusion:Val_ECARDIO_Pouls_S</Arg1>
+		    <Arg2>const:Aucun Test</Arg2>
+      </Cond>
+			<Libelle>Pouls membre supérieur et céphalique</Libelle>
+			<From>fusion:Val_ECARDIO_Pouls_S</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="diff" oblig="y">
+		    <Arg1>fusion:Val_ECARDIO_Pouls_I</Arg1>
+		    <Arg2>const:Aucun Test</Arg2>
+      </Cond>
+			<Libelle>Pouls membre inférieur et céphalique</Libelle>
+			<From>fusion:Val_ECARDIO_Pouls_I</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Bruits du coeur</Libelle>
+			<From>fusion:Val_ECARDIO_Coeur</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Souffle(s)</Libelle>
+			<From>fusion:Val_ECARDIO_Souffles</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Signes d'insuffisance cardiaque</Libelle>
+			<From>fusion:Val_ECARDIO_SignesC</From>
+		</ITEM>
+	</FUSION>
+	
+	<!--On boucle sur le sous-formulaire examen_pulmonaire-->
+	<FUSION id_formx="Observations_Examen_Pulmonaire">
+		<Libelle>EXAMEN PULMONAIRE:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_EPULMO_Signes"/>
+		<Recup var="Val_EPULMO_Freq"/>
+		<Recup var="Val_EPULMO_Foy"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Signes fonctionnels</Libelle>
+			<From>fusion:Val_EPULMO_Signes</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Fréquence respiratoire</Libelle>
+			<From>fusion:Val_EPULMO_Freq</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Foyer auscultatoire</Libelle>
+			<From>fusion:Val_EPULMO_Foy</From>
+		</ITEM>
+	</FUSION>
+	
+	<!--On boucle sur le sous-formulaire examen_pelvien-->
+	<FUSION id_formx="Observations_Examen_Pelvien">
+		<Libelle>EXAMEN ABDOMINO-PELVIEN:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_EABDOMINO_Signes"/>
+		<Recup var="Val_EABDOMINO_Foie"/>
+		<Recup var="Val_EABDOMINO_Rate"/>
+		<Recup var="Val_EABDOMINO_Fosses"/>
+		<Recup var="Val_EABDOMINO_TV"/>
+		<Recup var="Val_EABDOMINO_TR"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Signes fonctionnels</Libelle>
+			<From>fusion:Val_EABDOMINO_Signes</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Foie</Libelle>
+			<From>fusion:Val_EABDOMINO_Foie</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Rate</Libelle>
+			<From>fusion:Val_EABDOMINO_Rate</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Fosses lombaires</Libelle>
+			<From>fusion:Val_EABDOMINO_Fosses</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>TV</Libelle>
+			<From>fusion:Val_EABDOMINO_TV</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>TR</Libelle>
+			<From>fusion:Val_EABDOMINO_TR</From>
+		</ITEM>
+	</FUSION>
+	
+  <!--On boucle sur le sous-formulaire examen_buccale-->
+	<FUSION id_formx="Observations_Examen_Buccale">
+		<Libelle>EXAMEN CAVITE BUCCALE:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_ECAVITE_comm"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Commentaire</Libelle>
+			<From>fusion:Val_ECAVITE_comm</From>
+		</ITEM>
+	</FUSION>
+	
+  <!--On boucle sur le sous-formulaire examen_adenopathies-->
+	<FUSION id_formx="Observations_Examen_Adenopathies">
+		<Libelle>EXAMEN D'ADENOPATHIES:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_EADENO_Cer"/>
+		<Recup var="Val_EADENO_Axi"/>
+		<Recup var="Val_EADENO_Ing"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Cervicales</Libelle>
+			<From>fusion:Val_EADENO_Cer</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Axillaires</Libelle>
+			<From>fusion:Val_EADENO_Axi</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Inguinales</Libelle>
+			<From>fusion:Val_EADENO_Ing</From>
+		</ITEM>
+	</FUSION>
+	
+	<!--On boucle sur le sous-formulaire examen_thyroide-->
+	<FUSION id_formx="Observations_Examen_Thyroide">
+		<Libelle>EXAMEN THYROIDE:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_ETHYRO_Comm"/>
+	
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Commentaire</Libelle>
+			<From>fusion:Val_ETHYRO_Comm</From>
+		</ITEM>
+	</FUSION>
+	
+	<!--On boucle sur le sous-formulaire examen_seins-->
+	<FUSION id_formx="Observations_Examen_Seins">
+		<Libelle>EXAMEN SEINS:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_ESEINS_Comm"/>
+	
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Commentaire</Libelle>
+			<From>fusion:Val_ESEINS_Comm</From>
+		</ITEM>
+	</FUSION>
+	
+	<!--On boucle sur le sous-formulaire examen_teguments-->
+	<FUSION id_formx="Observations_Examen_Teguments">
+		<Libelle>EXAMEN TEGUMENTS:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_ETEGU_Comm"/>
+	
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Commentaire</Libelle>
+			<From>fusion:Val_ETEGU_Comm</From>
+		</ITEM>
+	</FUSION>
+	
+	<!--On boucle sur le sous-formulaire examen_neurologique-->
+	<FUSION id_formx="Observations_Examen_Neurologique">
+		<Libelle>EXAMEN NEUROLOGIQUE:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_ENEURO_Con_C"/>
+		<Recup var="Val_ENEURO_Score_Glasgow_A"/>
+		<Recup var="Val_ENEURO_Vig"/>
+		<Recup var="Val_ENEURO_Fonc"/>
+		<Recup var="Val_ENEURO_Pair"/>
+		<Recup var="Val_ENEURO_Pupi"/>
+		<Recup var="Val_ENEURO_Ton"/>
+		<Recup var="Val_ENEURO_Mot"/>
+		<Recup var="Val_ENEURO_ROT"/>
+		<Recup var="Val_ENEURO_RCA"/>
+		<Recup var="Val_ENEURO_RCP"/>
+		<Recup var="Val_ENEURO_Coor"/>
+		<Recup var="Val_ENEURO_Senss"/>
+		<Recup var="Val_ENEURO_Sensp"/>
+		<Recup var="Val_ENEURO_Mar"/>
+		<Recup var="Val_ENEURO_Epr"/>
+		
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+			<Libelle>Conscience normale</Libelle>
+			<From>fusion:Val_ENEURO_Con_C</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+		  <Cond type="equal" oblig="y">
+		    <Arg1>fusion:Val_ENEURO_Con_C</Arg1>
+		    <Arg2>const:Non</Arg2>
+      </Cond>
+			<Libelle>Score de Glasgow</Libelle>
+			<From>fusion:Val_ENEURO_Score_Glasgow_A</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Vigilance</Libelle>
+			<From>fusion:Val_ENEURO_Vig</From>
+		</ITEM>
+		
+		<ITEM type="TXT">
+			<Libelle>Fonctions supérieures</Libelle>
+			<From>fusion:Val_ENEURO_Fonc</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Paires crâniennes</Libelle>
+			<From>fusion:Val_ENEURO_Pair</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Pupilles</Libelle>
+			<From>fusion:Val_ENEURO_Pupi</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Tonus</Libelle>
+			<From>fusion:Val_ENEURO_Ton</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Motricité</Libelle>
+			<From>fusion:Val_ENEURO_Mot</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>ROT</Libelle>
+			<From>fusion:Val_ENEURO_ROT</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>RCA</Libelle>
+			<From>fusion:Val_ENEURO_RCA</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>RCP</Libelle>
+			<From>fusion:Val_ENEURO_RCP</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Coordination</Libelle>
+			<From>fusion:Val_ENEURO_Coor</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Sensibilité superficielle</Libelle>
+			<From>fusion:Val_ENEURO_Senss</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Sensibilité profonde</Libelle>
+			<From>fusion:Val_ENEURO_Sensp</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Marche</Libelle>
+			<From>fusion:Val_ENEURO_Mar</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Epreuve de Romberg</Libelle>
+			<From>fusion:Val_ENEURO_Epr</From>
+		</ITEM>
+	</FUSION>
+  
+  <!--On boucle sur le sous-formulaire examen_articulaire-->
+	<FUSION id_formx="Observations_Examen_Articulaire">
+		<Libelle>EXAMEN OSTEO-ARTICULAIRE:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_EOSTEO_Signes"/>
+		<Recup var="Val_EOSTEO_Arti"/>
+		<Recup var="Val_EOSTEO_Rachis"/>
+		
+    <ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Signes fonctionnels</Libelle>
+			<From>fusion:Val_EOSTEO_Signes</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Articulations</Libelle>
+			<From>fusion:Val_EOSTEO_Arti</From>
+		</ITEM>
+		
+		<ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Rachis</Libelle>
+			<From>fusion:Val_EOSTEO_Rachis</From>
+		</ITEM>
+	</FUSION>
+	
+	<!--On boucle sur le sous-formulaire observation_conclusion-->
+	<FUSION id_formx="Observations_Conclusions">
+		<Libelle>FICHE CONCLUSION:</Libelle>
+		<Recup var="Val_Jour_Consultation"/>
+		<Recup var="Val_Heure_Consultation"/>
+    <Recup var="Val_OBSERVATIONS_Conlusion"/>
+		
+		<ITEM type="TXT">
+      <Libelle>Jour de consultation du patient</Libelle>
+      <From>fusion:Val_Jour_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT">
+		  <Libelle>Heure de consultation du patient</Libelle>
+		  <From>fusion:Val_Heure_Consultation</From>
+    </ITEM>
+    
+    <ITEM type="TXT" dontPrintwhenNull="y">
+			<Libelle>Conclusion</Libelle>
+			<From>fusion:Val_OBSERVATIONS_Conlusion</From>
+		</ITEM>	
+	</FUSION>
+		
+<ETAPE id="der_o">
+  
+  <Libelle>IDENTITE DU PATIENT:</Libelle>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="toujours_vide" readonly="y" dontPrint="y" >
+		<Libelle>Ce formulaire ne peut pas se fermer manuellement</Libelle>
+	</ITEM>
+	
+  </ETAPE>
+</FORMX>
+

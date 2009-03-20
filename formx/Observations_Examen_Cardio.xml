@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Observations_Examen_Cardio" priority="21" access="formulaires_TM_général" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>Observations Examen Cardio</Libelle>
+<Objet>Fichier Médical Observations Examen Cardio</Objet>
+<Groupe>Fichier Médical Observations</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>EXAMEN CARDIO-VASCULAIRE:</Libelle>
+	
+	<ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Observations_Examen_Cardio</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle>Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;font-weight:bold;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y" histo="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+  
+  <ITEM type="LONGTXT" rows="2" id="Val_ECARDIO_Signes" oblig="y" histo="y" link="L_Val_ECARDIO_Signes">
+    <Libelle style="color:green;">Signes fonctionnels</Libelle>
+    <From>const:Champ Non Précisé.</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_ECARDIO_TA" oblig="y" histo="y" link="L_Val_ECARDIO_TA">
+    <Libelle style="color:green;">TA</Libelle>
+    <From>var:L_Val_ECARDIO_TA</From>
+  </ITEM>
+  
+  <ITEM type="LISTE" multiple="19" id="Val_ECARDIO_Pouls_S" oblig="y" histo="y" link="L_Val_ECARDIO_Pouls_S">
+		<Libelle style="color:green;">Pouls membre supérieur et céphalique</Libelle>
+		<FromList>list:Aucun Test|Temporale droit 0|Temporale droit +|Temporale droit ++|Temporale gauche 0|Temporale gauche +|Temporale gauche ++|Carotidien droit 0|Carotidien droit +|Carotidien droit ++|Carotidien gauche 0|Carotidien gauche +|Carotidien gauche ++|Radial droit 0|Radial droit +|Radial droit ++|Radial gauche 0|Radial gauche +|Radial gauche ++</FromList>
+    <From>var:L_Val_ECARDIO_Pouls_S</From>
+  </ITEM>
+	
+	<ITEM type="LISTE" multiple="19" id="Val_ECARDIO_Pouls_I" oblig="y" histo="y" link="L_Val_ECARDIO_Pouls_I">
+		<Libelle style="color:green;">Pouls membre inférieur et céphalique</Libelle>
+		<FromList>list:Aucun Test|Fémoral droit 0|Fémoral droit +|Fémoral droit ++|Fémoral gauche 0|Fémoral gauche +|Fémoral gauche ++|Pédieux droit 0|Pédieux droit +|Pédieux droit ++|Pédieux gauche 0|Pédieux gauche +|Pédieux gauche ++|Tibial post droit 0|Tibial post droit +|Tibial post droit ++|Tibial post gauche 0|Tibial post gauche +|Tibial post gauche ++</FromList>
+		<From>var:L_Val_ECARDIO_Pouls_I</From>
+	</ITEM>
+        	
+	<ITEM type="RADIO" id="Val_ECARDIO_Coeur" oblig="y" histo="y" link="L_Val_ECARDIO_Coeur">
+    <Libelle style="color:green;">Bruits du coeur</Libelle>
+		<FromList>list:Réguliers|Irréguliers</FromList>
+		<From>var:L_Val_ECARDIO_Coeur</From>
+  </ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_ECARDIO_Souffles" oblig="y" histo="y" link="L_Val_ECARDIO_Souffles">
+    <Libelle style="color:green;">Souffle(s)</Libelle>
+    <From>var:L_Val_ECARDIO_Souffles</From>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_ECARDIO_SignesC" oblig="y" histo="y" link="L_Val_ECARDIO_SignesC">
+    <Libelle style="color:green;">Signes d'insuffisance cardiaque</Libelle>
+    <From>var:L_Val_ECARDIO_SignesC</From>
+  </ITEM>
+  
+  <ITEM type="CHECK" id="Val_Obs_ECardio_Signer">
+		<Libelle>Signature</Libelle>
+		<FromList>list:Signer et Fermer ce formulaire</FromList>
+	</ITEM>
+	<ACTION type="trigger" id_formx="Dossier_Medical_Observations" />
+	
+</ETAPE>
+
+</FORMX>
+	
+	

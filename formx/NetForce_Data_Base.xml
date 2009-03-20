@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="NetForce_Data_Base" phantom="y" closeAfterValid="y" dontPrintNavi="y">
+<Libelle>NetForce Data Base</Libelle>
+<Objet>Dossier NetForce</Objet>
+<Groupe>NetForce Data Base</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>NETFORCE DATA BASE:</Libelle>
+	
+	
+	<ITEM type="LISTE" id="NetForce_List">
+    <Libelle>Choix du formulaire</Libelle>
+		<FromFuncList>Init_NetForce_Data_Base</FromFuncList>
+  </ITEM>
+		
+</ETAPE>
+
+</FORMX>
+
+
