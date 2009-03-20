@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Dossier_AEV_Synthese" access="formulaires_TM_synthèse" dontPrintNavi="y" uniq="y" hide="y" ok4docshopi="y">
+<Libelle>Dossier AEV Synthèse</Libelle>
+<Objet>Dossier AEV de Synthèse du patient</Objet>
+<Groupe>AEV</Groupe>
+</FORMX>

@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Formulaire_AEV" access="formulaires_TM_général" priority="1" closeAfterValid="y" dontPrintNavi="y" phantom="y" uniq="y">
+<Libelle>Formulaire AEV</Libelle>
+<Objet>Formulaire AEV</Objet>
+<Groupe>AEV</Groupe>
+
+<ETAPE id="1">
+
+<Libelle>Formulaire AEV</Libelle>
+
+  <ITEM type="HIDDEN">
+    <Libelle> </Libelle>
+    <From>func:Init_Formulaire_AEV</From>
+	</ITEM>           				
+  
+  <ITEM type="TXT" id="AEV_Patient" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">PATIENT</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:M</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Masculin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Cond type="equal" oblig="y">
+		  <Arg1>globalObject:patient->getSexe()</Arg1>
+		  <Arg2>const:F</Arg2>
+    </Cond>
+    <Libelle style="color:green;">Sexe</Libelle>
+		<From>const:Feminin</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle style="color:green;">Date de naissance</Libelle>
+      <From>func:GetDateE2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id ="Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle style="color:green;">Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle style="color:green;">Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SEJPatient" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">SEJ</Libelle>
+		<From>globalObject:patient->getNSej()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Docteur_Consultation" oblig="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Consultation du patient par le Docteur</Libelle>
+		<From>func:GetDocteur</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Etablissement_Etablissement" opt="y" resync="y" readonly="y">
+		<Libelle style="color:green;">Etablissement</Libelle>
+		<From>func:GetEtablissement</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="temp1" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp2" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="AEV_Horaires" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">HORAIRES</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="CAL" default="today" id="Val_Jour_Consultation" oblig="y">
+		<Libelle style="color:green;">Jour de consultation du patient</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_Heure_Consultation" oblig="y">
+		<Libelle style="color:green;">Heure de consultation du patient</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp3" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp4" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="AEV_Titre_Exposition" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">TYPE D'EXPOSITION</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="AEV_Type" oblig="y" cols="2" onChangeReload="y" link="L_AEV_Type">
+		<Libelle style="color:green;">Type d'exposition</Libelle>
+    <FromList>list:Expositions au sang|Expositions sexuelles|Expositions chez les usagers de drogues|Autres situations</FromList>
+	  <From>var:L_AEV_Type</From>
+  </ITEM>
+	
+	<ITEM type="RADIO" id="AEV_Exposition_Sang" opt="y" cols="3" link="L_AEV_Exposition_Sang">
+	  <Cond type="equal" oblig="y">
+		  <Arg1>formVar:AEV_Type</Arg1>
+		  <Arg2>const:Expositions au sang</Arg2>
+    </Cond>
+		<Libelle style="color:#666699;">Risque et nature de l'exposition</Libelle>
+    <FromList>list:Important|Intermédiaire|Minime</FromList>
+    <From>var:L_AEV_Exposition_Sang</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="AEV_Exposition_Sexuelle" opt="y" cols="3" link="L_AEV_Exposition_Sexuelle">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:AEV_Type</Arg1>
+		  <Arg2>const:Expositions sexuelles</Arg2>
+    </Cond>
+    <Libelle style="color:#666699;">Risque et nature de l'exposition</Libelle>
+    <FromList>list:Rapports anaux|Rapports vaginaux|Fellation réceptive avec éjaculation</FromList>
+	  <From>var:L_AEV_Exposition_Sexuelle</From>
+  </ITEM>
+	
+	<ITEM type="RADIO" id="AEV_Exposition_Drogue" opt="y" cols="2" link="L_AEV_Exposition_Drogue">
+		<Cond type="equal" oblig="y">
+		  <Arg1>formVar:AEV_Type</Arg1>
+		  <Arg2>const:Expositions chez les usagers de drogues</Arg2>
+    </Cond>
+    <Libelle style="color:#666699;">Risque et nature de l'exposition</Libelle>
+    <FromList>list:Important|Intermédiaire</FromList>
+    <From>var:L_AEV_Exposition_Drogue</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp5" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="temp6" opt="y" readonly="y">
+		<Libelle> </Libelle>
+		<From>const:</From>
+	</ITEM>
+  
+  <ITEM type="TXT" id="AEV_Titre_Bilan" opt="y" readonly="y">
+    <Libelle style="color:#CC3333;font-weight:bold;">BILAN BIOLOGIQUE</Libelle>
+    <From>const:</From>
+	</ITEM>
+  
+  <ITEM type="RADIO" id="AEV_Source" oblig="y" cols="2" link="L_AEV_Source">
+    <Libelle style="color:green;">Patient source</Libelle>
+    <FromList>list:Infecté par le VIH|Infecté par le VHC|Infecté par le VIH et VHC|De sérologie inconnue</FromList>
+	  <From>var:L_AEV_Source</From>
+  </ITEM>
+  
+  <ITEM type="HIDDEN" id="AEV_Situation" opt="y" resync="y">
+		<Libelle></Libelle>
+		<From>var:L_AEV_Situation</From>
+	</ITEM>
+	
+	<ITEM type="HIDDEN" id="AEV_Dossier" opt="y" resync="y">
+		<Libelle></Libelle>
+		<From>var:L_AEV_Dossier</From>
+	</ITEM>
+	
+</ETAPE>
+
+<ETAPE id="2">
+<Libelle>Formulaire AEV</Libelle>
+
+<ITEM type="TXT" id="AEV_Titre_Dossier" opt="y" readonly="y">
+<Libelle style="color:#CC3333;font-weight:bold;">CREATION DU DOSSIER</Libelle>
+<From>formVar:AEV_Dossier</From>
+</ITEM>
+
+<ACTION type="formxproc" id_formxproc="Formulaire_AEV_MAJ_Situation">
+</ACTION>
+<ACTION type="formxproc" id_formxproc="Formulaire_AEV_MAJ_Formulaire">
+</ACTION>
+	
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_1">
+<Cond type="function" namefunc="Test_AEV_Situation_1"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_2">
+<Cond type="function" namefunc="Test_AEV_Situation_2"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_3">
+<Cond type="function" namefunc="Test_AEV_Situation_3"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_4">
+<Cond type="function" namefunc="Test_AEV_Situation_4"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_5">
+<Cond type="function" namefunc="Test_AEV_Situation_5"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_6">
+<Cond type="function" namefunc="Test_AEV_Situation_6"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_7">
+<Cond type="function" namefunc="Test_AEV_Situation_7"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_8">
+<Cond type="function" namefunc="Test_AEV_Situation_8"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_9">
+<Cond type="function" namefunc="Test_AEV_Situation_9"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_10">
+<Cond type="function" namefunc="Test_AEV_Situation_10"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_11">
+<Cond type="function" namefunc="Test_AEV_Situation_11"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_12">
+<Cond type="function" namefunc="Test_AEV_Situation_12"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_13">
+<Cond type="function" namefunc="Test_AEV_Situation_13"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_14">
+<Cond type="function" namefunc="Test_AEV_Situation_14"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_15">
+<Cond type="function" namefunc="Test_AEV_Situation_15"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_16">
+<Cond type="function" namefunc="Test_AEV_Situation_16"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_17">
+<Cond type="function" namefunc="Test_AEV_Situation_17"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_18">
+<Cond type="function" namefunc="Test_AEV_Situation_18"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_19">
+<Cond type="function" namefunc="Test_AEV_Situation_19"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_20">
+<Cond type="function" namefunc="Test_AEV_Situation_20"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_21">
+<Cond type="function" namefunc="Test_AEV_Situation_21"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_22">
+<Cond type="function" namefunc="Test_AEV_Situation_22"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_23">
+<Cond type="function" namefunc="Test_AEV_Situation_23"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_24">
+<Cond type="function" namefunc="Test_AEV_Situation_24"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_25">
+<Cond type="function" namefunc="Test_AEV_Situation_25"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_26">
+<Cond type="function" namefunc="Test_AEV_Situation_26"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_27">
+<Cond type="function" namefunc="Test_AEV_Situation_27"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_28">
+<Cond type="function" namefunc="Test_AEV_Situation_28"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_29">
+<Cond type="function" namefunc="Test_AEV_Situation_29"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_30">
+<Cond type="function" namefunc="Test_AEV_Situation_30"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_31">
+<Cond type="function" namefunc="Test_AEV_Situation_31"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_32">
+<Cond type="function" namefunc="Test_AEV_Situation_32"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_33">
+<Cond type="function" namefunc="Test_AEV_Situation_33"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_34">
+<Cond type="function" namefunc="Test_AEV_Situation_34"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_35">
+<Cond type="function" namefunc="Test_AEV_Situation_35"/>
+</ACTION>
+
+<ACTION type="trigger" id_formx="Dossier_AEV_Situation_36">
+<Cond type="function" namefunc="Test_AEV_Situation_36"/>
+</ACTION>
+
+</ETAPE>
+
+
+</FORMX>
