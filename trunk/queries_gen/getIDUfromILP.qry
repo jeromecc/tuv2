@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>REF</domaine>
+		<nom>TG_IDU2ILP</nom>
+		<id_config>config_ref</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT IDU from REFID where ILP = '$ilp'
+		</code_sql>
+		<description></description>
+		<env>cfg</env>
+	</element>
+</result>

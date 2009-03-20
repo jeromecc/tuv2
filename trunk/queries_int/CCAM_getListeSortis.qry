@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getListeSortis</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select *
+			from ccam.ccam_cotation_actes cot,xham_tuv2.patients_sortis sort
+			where $cw
+			order by $order
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

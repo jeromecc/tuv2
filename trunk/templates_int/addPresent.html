@@ -1,0 +1,135 @@
+<div id="ajouterpresent">
+  <div id="titreAddPat">
+    <table class="w100">
+      <tr><th><mx:text id="titre" /></th><th class="droite"><a mXattribut="href:lienClose"><mx:image id="imgClose"/><br /></th></tr>
+    </table>
+  </div>
+  <form method="post" id="creationPatient" action="index.php">
+    <table>
+      <tr>
+        <td class="droite">
+          Sexe :
+        </td>
+        <td>
+          <mx:select id="sexe"  style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+          Prénom :
+        </td>
+        <td>
+          <mx:formField id="prenom" autocomplete="off" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+          Nom :
+        </td>
+        <td>
+          <mx:formField id="nom" autocomplete="off" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+          Date de naissance :
+        </td>
+        <td>
+	  <mx:formField id="naissance" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+          Adresse :
+        </td>
+        <td>
+          <mx:formField id="adresse" style="width: 345px;" />	  
+        </td>
+      </tr>  
+      <tr>
+        <td class="droite">
+          Code Postal / Ville :
+        </td>
+        <td>
+          <mx:formField id="cp" style="width: 45px;" /> / <mx:formField id="ville" style="width: 286px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+          Téléphone :
+        </td>
+        <td>
+          <mx:formField id="telephone" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+          Médecin :
+        </td>
+        <td>
+          <mx:select id="medecin" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+          Salle :
+        </td>
+        <td>
+          <mx:select id="salle" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+	  Catégorie de recours :
+        </td>
+        <td>
+          <mx:select id="categorieRecours" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+          Destination souhaitée :
+        </td>
+        <td>
+          <mx:select id="destSouhaitee" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+        <td class="droite">
+	  Destination attendue :
+        </td>
+        <td>
+          <mx:select id="destAttendue" style="width: 345px;" />
+        </td>
+      </tr>
+      <tr>
+	<td colspan="2" align="center">
+	  <mx:bloc id="ajouter">
+	    <input name="ValiderAjouter"  type="image" src="images/ajouter2.gif"   value="ValiderAjouter" style="border: 0px; background-color: transparent;" />
+          </mx:bloc id="ajouter">
+	  <mx:bloc id="modifier">
+	    <input name="ValiderModifier"  type="image" src="images/modifier2.gif"   value="ValiderModifier" style="border: 0px; background-color: transparent;" />
+          </mx:bloc id="modifier">
+	  <form method="post" action="index.php">
+	  <input name="Annuler"  type="image" src="images/annuler2.gif" value="Annuler" style="border: 0px; background-color: transparent;" />
+      </tr>
+    </table>
+    <mx:hidden id="hidden" />
+  </form>
+  <script type="text/javascript">
+     /*	  
+     Calendar.setup({
+      inputField     :    "naissance",
+      ifFormat       :    "%d/%m/%Y",
+      displayArea    :    "naissance",
+      daFormat       :    "%Y-%m-%d",
+      align          :    "Tl",				     
+      singleClick    :    true
+      });
+      */
+     request('index.php?navi=QWpheHxnZXRQYXRpZW50c1NvcnRpcw==',null,'getPatients') ;
+  </script>
+</div>
+<div id="recherchePatients">
+
+</div>

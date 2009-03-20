@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getMaxIdentifiantCCAMCotationActes</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select max(`identifiant`) maximun from ccam_cotation_actes</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

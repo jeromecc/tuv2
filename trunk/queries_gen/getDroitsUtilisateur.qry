@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>getDroitsUtilisateur</nom>
+		<id_config>config_xham</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT * FROM droits d, rel_utilisateur_groupe r WHERE d.idgroupe=r.idgroupe AND r.idutilisateur='$iduser'
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

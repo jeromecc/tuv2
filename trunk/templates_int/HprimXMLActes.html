@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<evenementsServeurActes<mx:text id="attributsesa" />>
+	<enteteMessage>
+		<identifiantMessage><mx:text id="identifiantMessage" /></identifiantMessage>
+		<dateHeureProduction><mx:text id="dateHeureProduction" /></dateHeureProduction>
+		<emetteur>
+			<agents>
+				<agent categorie="application">
+					<code><mx:text id="codeEmetteur" /></code>
+				</agent>
+			</agents>
+		</emetteur>
+		<destinataire>
+			<agents>
+				<agent categorie="application">
+					<code><mx:text id="codeDestinataire" /></code>
+				</agent>
+			</agents>
+		</destinataire>
+	</enteteMessage>
+	<evenementServeurActe>
+		<patient>
+			<identifiant>
+				<emetteur>
+					<valeur><mx:text id="patientEmetteur" /></valeur>
+				</emetteur>
+				<recepteur>
+					<valeur><mx:text id="patientRecepteur" /></valeur>
+				</recepteur>
+			</identifiant>
+			<personnePhysique sexe="<mx:text id="sexe" />">
+				<nomUsuel><mx:text id="patientNom" /></nomUsuel>
+				<prenoms>
+					<prenom><mx:text id="patientPrenom" /></prenom>
+				</prenoms>
+				<dateNaissance>
+					<date><mx:text id="patientNaissance" /></date>
+				</dateNaissance>
+			</personnePhysique>
+		</patient>
+		<venue>
+			<identifiant>
+				<emetteur>
+					<valeur><mx:text id="venueEmetteur" /></valeur>
+				</emetteur>
+				<recepteur>
+					<valeur><mx:text id="venueRecepteur" /></valeur>
+				</recepteur>
+			</identifiant>
+			<entree typeEntree="urgence">
+				<dateHeureOptionnelle>
+					<date><mx:text id="venueDate" /></date>
+					<heure><mx:text id="venueHeure" /></heure>
+				</dateHeureOptionnelle>
+			</entree>
+		</venue>
+		<intervention>
+			<identifiant>
+				<emetteur><mx:text id="interventionEmetteur" /></emetteur>
+			</identifiant>
+			<debut>
+				<date><mx:text id="interventionDate" /></date>
+				<heure><mx:text id="interventionHeure" /></heure>
+			</debut>
+			<demande>
+				<datePrescription>
+					<date><mx:text id="interventionDemandeDate" /></date>
+					<heure><mx:text id="interventionDemandeHeure" /></heure>
+				</datePrescription>
+				<uniteFonctionnelle>
+					<code><mx:text id="interventionUF" /></code>
+				</uniteFonctionnelle>
+				<medecin>
+				  <identification>
+				    <code><mx:text id="codeAdeliMedecin" /></code>
+				  </identification>
+				</medecin>
+			</demande>
+		</intervention>
+		<mx:bloc id="actesngap">
+		<actesNGAP>
+		<mx:bloc id="ngap">
+			<acteNGAP action="<mx:text id="action" />" facturable="<mx:text id="facturable" />" executionNuit="<mx:text id="executionNuit" />" executionDimancheJourFerie="<mx:text id="executionDimancheJourFerie" />">
+				<identifiant>
+					<emetteur><mx:text id="ngapEmetteur" /></emetteur>
+				</identifiant>
+				<lettreCle><mx:text id="lettreCle" /></lettreCle>
+				<coefficient><mx:text id="coefficient" /></coefficient>
+				<execute>
+					<date><mx:text id="ngapDate" /></date>
+					<heure><mx:text id="ngapHeure" /></heure>
+				</execute>
+				<prestataire>
+					<medecins>
+						<medecin>
+							<numeroAdeli><mx:text id="medecinADELI" /></numeroAdeli>
+							<identification>
+								<code><mx:text id="medecinCode" /></code>
+							</identification>
+							<personne>
+								<nomUsuel><mx:text id="medecinNom" /></nomUsuel>
+								<prenoms>
+									<prenom/>
+								</prenoms>
+							</personne>
+						</medecin>
+					</medecins>
+					<uniteFonctionnelle>
+						<code><mx:text id="medecinUF" /></code>
+					</uniteFonctionnelle>
+				</prestataire>
+			</acteNGAP>
+		</mx:bloc id="ngap">
+		</actesNGAP>
+		</mx:bloc id="actesngap">
+		<mx:bloc id="actesccam">
+		<actesCCAM>
+		<mx:bloc id="ccam">
+			<acteCCAM action="<mx:text id="action" />" facturable="oui">
+				<identifiant>
+				<emetteur><mx:text id="ccamEmetteur" /></emetteur>
+				<recepteur/>
+				</identifiant>
+				<codeActe><mx:text id="codeActe" /></codeActe>
+				<codeActivite><mx:text id="codeActivite" /></codeActivite>
+				<codePhase><mx:text id="codePhase" /></codePhase>
+				<execute>
+					<date><mx:text id="ccamDate" /></date>
+					<heure><mx:text id="ccamHeure" /></heure>
+				</execute>
+				<executant>
+					<medecins>
+						<medecinExecutant<mx:text id="medExec" />>
+							<medecin>
+								<numeroAdeli><mx:text id="medecinADELI" /></numeroAdeli>
+								<identification>
+									<code><mx:text id="medecinCode" /></code>
+								</identification>
+								<personne>
+									<nomUsuel><mx:text id="medecinNom" /></nomUsuel>
+									<prenoms>
+										<prenom/>
+									</prenoms>
+								</personne>
+							</medecin>
+						</medecinExecutant>
+					</medecins>
+					<uniteFonctionnelle>
+						<code><mx:text id="medecinUF" /></code>
+					</uniteFonctionnelle>
+				</executant>
+				<modificateurs>
+				<mx:bloc id="modificateur">
+					<modificateur<mx:text id="modStatut" />><mx:text id="modificateur" /></modificateur>
+				</mx:bloc id="modificateur">
+				</modificateurs>
+				<codeAssociationNonPrevue><mx:text id="codeAssociationNonPrevue" /></codeAssociationNonPrevue>
+			</acteCCAM>
+		</mx:bloc id="ccam">
+		</actesCCAM>
+		</mx:bloc id="actesccam">
+	</evenementServeurActe>
+</evenementsServeurActes>

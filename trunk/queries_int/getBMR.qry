@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>getBMR</nom>
+		<id_config>config_bmr</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT * FROM vigilances $cw
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

@@ -1,0 +1,13 @@
+<img src="images/<mx:text id="image" />.gif" alt="Question sortie" onClick="show('QuestionSortie');setWait('navigation');" style="cursor:pointer; pointer:hand;" /> 
+<div id="QuestionSortie" style="display:none; z-index:200;">
+<span class="close" style="position: absolute; margin-left: 399px; top: 0px; cursor: pointer; pointer: hand; z-index:200;" onClick="cache('QuestionSortie');unsetWait();"><img src="images/close.gif" alt="[x]" /></span>
+	<form method="post" action="index.php">
+		<center>
+			<br /><br />
+			<b>Question : </b><mx:text id="detail" /><br /><br />
+			<mx:hidden id="hidden" />
+			<input type="submit" name="validerQuestionSortie" value="Oui" />
+			<input type="submit" name="validerQuestionSortie" value="Non" />
+		</center>
+	</form>	
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>getPoulet</nom>
+		<id_config>config_terminal</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT dt_naissance FROM TG_GUIDAGE where idu='$ids' UNION
+			SELECT dt_naissance FROM TG_GUIDAGE_HISTORIQUE where idu='$ids' UNION
+			SELECT dt_naissance FROM TG_EMG_ACTIFS where idu='$ids' UNION
+			SELECT dt_naissance FROM TG_EMG_PASSIFS where idu='$ids'
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

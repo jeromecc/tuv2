@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>getDroitsProd</nom>
+		<id_config>config_prod</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT DISTINCT * FROM droits $cw
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

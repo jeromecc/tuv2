@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getListeLC</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select nomitem identifiant
+			from ccam_liste
+			where nomliste='$nomListe' and idDomaine=$idDomaine and nomItem!='LISTE'
+			order by nomitem
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

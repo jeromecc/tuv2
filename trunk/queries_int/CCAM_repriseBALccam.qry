@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_repriseBALccam</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT distinct t.DISCR
+      FROM xham_ccam.MBTV2_origine AS t, (
+      
+      SELECT substring( a.contenu, 1, 8 ) idpass
+      FROM xham_ccam.MBTV2_origine AS a, (
+      
+      SELECT idpatient
+      FROM xham_tuv2.patients_sortis
+      WHERE type_destination = 'E' and salle_examen not like 'UHCD%'
+      ) AS ps
+      WHERE a.discr = ps.idpatient
+      AND a.TYPE = 'CCAM'
+      GROUP BY substring( a.contenu, 1, 8 )
+      HAVING count( * ) >1
+      ) AS x
+      WHERE substring( t.contenu, 1, 8 ) = x.idpass
+      AND t.type = 'CCAM' and t.discr<=19493
+      ORDER BY t.discr,t.id
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

@@ -1,0 +1,22 @@
+<LM:config>
+ $nb_result_per_page=1000;
+
+ $sort_arrow_up="<IMG src=\"images/sort_up.gif\" alt=\"Haut\" />";
+ $sort_arrow_down="<IMG syesrc=\"images/sort_down.gif\" alt=\"Bas\" />";
+ $sort_arrow_none="<IMG src=\"images/none.gif\" alt=\"Aucun\" />";
+</LM:config>
+
+<LM:list>
+<table summary="Stats" align="center">
+  <tr>
+    <th>{_SortHeader[col1]}</th>
+    <th>{_SortHeader[col2]}</th>
+  </tr>
+  <LM:item>
+    <tr class="{_ItemColor}">
+      <td>{page}</td>
+      <td class="droite">{clics}</td>
+    </tr>
+  </LM:item>
+</table>
+</LM:list>

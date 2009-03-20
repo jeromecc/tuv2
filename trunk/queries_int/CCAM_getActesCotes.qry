@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getActesCotes</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select cot.codeActe identifiant,cot.libelleActe libelle,cot.identifiant id,
+				cot.quantite,cot.periodicite,cot.lesionMultiple,cot.dateDemande,cot.nomIntervenant medecin
+			from ccam_cotation_actes cot
+			where cot.idDomaine=$idDomaine and cot.idEvent=$idEvent and cot.type='ACTE' and cot.codeActe not like 'CONS%'
+			AND cot.cotationNGAP NOT IN ('MCG 1','MNO 1','MGE 1','MINFD 1','INFN2 1','INFN1 1') AND cot.cotationNGAP NOT IN ('MNP 1','MPJ 1') and cot.libelleActe <>'ATU'
+			and cot.libelleActe <>'MTU' order by id
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

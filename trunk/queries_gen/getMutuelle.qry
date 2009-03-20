@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>REF</domaine>
+		<nom>getPatient</nom>
+		<id_config>config_ref</id_config>
+		<colonnes></colonnes>
+		<code_sql>select * from vcouv where ilp='$ilp' and RG = '2' order
+		by dtmaj desc
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

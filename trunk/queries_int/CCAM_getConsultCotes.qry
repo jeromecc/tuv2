@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getConsultCotes</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select cot.matriculeIntervenant identifiant,cot.nomIntervenant libelle,list.nomListe spe,cot.identifiant id,
+				cot.codeActe
+			from ccam_cotation_actes cot,ccam_liste list
+			where cot.matriculeIntervenant=list.code and list.categorie='ListeMédecins' and  
+				cot.idDomaine=$idDomaine and cot.idEvent=$idEvent and cot.type='ACTE' and cot.codeActe like 'CONS%'
+				and (cot.cotationNGAP like 'CS%' or cot.cotationNGAP like 'CNPSY%' or cot.cotationNGAP like 'CSC%' or cot.cotationNGAP like 'CF%')
+			order by id
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

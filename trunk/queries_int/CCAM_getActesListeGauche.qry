@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getActesListeGauche</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select tab.code identifiant,tab.libelle_long libelle,
+				tab.libelle_long title
+			from ccam_acte tab
+			where tab.dt_fin is null and tab.organe='$idListeSelection1'
+				and tab.code not in ($listeIdRelation)
+			order by tab.code
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

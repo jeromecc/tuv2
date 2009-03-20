@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>getImports</nom>
+		<id_config>config_terminal</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT * FROM imports $cw
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

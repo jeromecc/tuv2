@@ -1,0 +1,22 @@
+<iframe id="grise">
+
+</iframe>
+<div id="erreurUHCD">
+  <h4>Changement d'UF</h4>
+  <span style="color: red;">La réponse à cette question est obligatoire.</span><br /><br />
+  Le patient présente-t-il les caractéristiques suivantes ?
+  <ul>
+	  <li>présente un caractère instable ou un diagnostic incertain,</li>
+	  <li>nécessite une surveillance médicale et un environnement paramédical qui ne peuvent être délivrés que dans le cadre d'une hospitalisation,</li>
+	  <li>nécessite la réalisation d'examens complémentaires ou d'actes thérapeutiques.</li>
+  </ul>
+  <form method="post" action="index.php">
+	  <input type="hidden" name="dateUHCD" value="now" />
+  <br />
+  <center>
+      <mx:hidden id="hidden" />
+      <input type="submit" name="valider" value="Oui" />
+      <input type="submit" name="valider" value="Non" />
+    </form>
+  </center>
+</div>

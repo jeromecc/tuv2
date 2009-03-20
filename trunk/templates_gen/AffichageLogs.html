@@ -1,0 +1,43 @@
+<LM:config>
+ $nb_result_per_page=1000;
+
+ $sort_arrow_up="<IMG src=\"images/sort_up.gif\" alt=\"Haut\" />";
+ $sort_arrow_down="<IMG syesrc=\"images/sort_down.gif\" alt=\"Bas\" />";
+ $sort_arrow_none="<IMG src=\"images/none.gif\" alt=\"Aucun\" />";
+</LM:config>
+
+<LM:list>
+<div id="affichageLogsRes">
+<table summary="Liste des logs" align="center">
+  <tr>
+    <th class="titre1">{_SortHeader[col1]}</th>
+    <th class="titre2">{_SortHeader[col2]}</th>
+    <th class="titre3">{_SortHeader[col3]}</th>
+    <th class="titre4">{_SortHeader[col4]}</th>
+    <th class="titre5">{_SortHeader[col5]}</th>
+    <th class="titre6">{_SortHeader[col6]}</th>
+    <th class="titre7">{_SortHeader[col7]}</th>
+    <th class="titre8">{_SortHeader[col8]}</th>
+    <th class="titre9">{_SortHeader[col9]}</th>
+  </tr>
+  <LM:item>
+    <tr class="{_ItemColor}">
+      <td>{type}</td>
+      <td>{utilisateur}</td>
+      <td>{ip}</td>
+      <td>{date}</td>
+      <td>{description}</td>
+      <td>{cible}</td>
+      <td>{tempsPage}</td>
+      <td>{tempsSQL}</td>
+      <td>{nombreSQL}</td>
+    </tr>
+  </LM:item>
+  <LM:no_item>
+    <tr> 
+      <td colspan="9">Aucun résultat</td>
+    </tr>
+  </LM:no_item>
+</table>
+</div>
+</LM:list>

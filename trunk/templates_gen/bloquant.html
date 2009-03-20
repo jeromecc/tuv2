@@ -1,0 +1,19 @@
+<div id="bloquantB"></div>
+<script type="text/javascript">
+	NS4 = (document.layers) ? 1 : 0;
+	IE4 = (document.all) ? 1 : 0;
+	W3C = (document.getElementById) ? 1 : 0;
+	var mod = document.getElementById ( "navigation" ) ;
+	if ( IE4 ) { 
+		var left = mod.offsetLeft + 9 ;
+		var top = mod.offsetTop + 15 ;
+	} else { 
+		var left = mod.offsetLeft ; 
+		var top = mod.offsetTop ;
+	}
+	var width = mod.offsetWidth ;
+	var height = mod.offsetHeight ;
+	setDiv ( 'bloquantB', '<iframe style="border: 0px; display: block; position: absolute; left: '+left+'px; top: '+top+'px; width: '+width+'px; height: '+height+'px; filter:alpha(opacity=50); -moz-opacity:0.5; opacity: 0.5;" ></iframe><div style="position: absolute; left: '+left+'px; top: '+top+'px; width:'+width+'px; height: '+height+'px; background-color: #CCCCCC; filter:alpha(opacity=50); -moz-opacity:0.5; opacity: 0.5; z-index:100;"></div>'+<mx:text id="div" />) ;
+
+</script>
+

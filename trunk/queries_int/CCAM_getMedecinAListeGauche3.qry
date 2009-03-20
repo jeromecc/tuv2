@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getMedecinAListeGauche3</nom>
+		<id_config>config_xham</id_config>
+		<colonnes></colonnes>
+		<code_sql>select libre identifiant,nomitem libelle, nomitem title
+    from listes
+    where (nomliste='Médecins' and libre not in ($listeIdRelation) and idapplication='1')
+    UNION
+    select code identifiant,nomitem libelle, nomitem title
+    from $base.ccam_liste
+    where (categorie='ListeMédecins'
+    and code not in ($listeIdRelation) and nomitem!='LISTE' and idDomaine='1')
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

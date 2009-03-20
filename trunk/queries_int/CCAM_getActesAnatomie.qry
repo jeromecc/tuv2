@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getActesAnatomie</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select rel.idActe identifiant,act.libelleActe libelle,
+				act.libelleActe title,act.cotationNGAP cotationNGAPvide
+			from ccam_actes_anatomie rel,ccam_actes_domaine act
+			where rel.idDomaine=act.idDomaine and rel.idActe=act.idActe
+				and rel.idDomaine=$idDomaine and rel.idAnatomie='$idListeSelection1'
+				$cw
+			order by $order
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

@@ -1,0 +1,36 @@
+<script language='javascript'>
+	function majNote<mx:text id="id" />Prepare ( str ) {
+		var note = document.getElementById ( 'area<mx:text id="id" />' ).value ;
+		return "note="+note ;
+	}
+
+	function majNote<mx:text id="id" /> ( result, idDiv ) {
+	}
+
+	document.onkeyup = saveOnF7 ;
+	function saveOnF7 ( e ) {
+		var key = (window.event) ? event.keyCode : e.keyCode;
+		//alert ( key);
+		if (key == 115) {
+		        //document.maincourante.submit();
+			var str = document.getElementById('area<mx:text id="id" />').value ;
+			var test = str.replace(/\n/g, '<br />');
+			setDiv('text<mx:text id="id" />',test);
+			afficher('text<mx:text id="id" />');
+			cache('area<mx:text id="id" />');
+			<mx:bloc id="droitJ">
+				request('index.php?navi=<mx:text id="navi" />',null,'majNote<mx:text id="id" />');
+			</mx:bloc id="droitJ">
+	        }
+	}
+</script>
+<div id="<mx:text id="id" />">
+	<div id="form<mx:text id="id" />">
+		<textarea name="area<mx:text id="id" />" id="area<mx:text id="id" />" style="display:none;font-size: 90%;"><mx:text id="contenu2" /></textarea>
+        </div>
+	<mx:bloc id="droit">
+		<div id="text<mx:text id="id" />" onclick="afficher( 'area<mx:text id="id" />', 'text<mx:text id="id" />' );cache('text<mx:text id="id" />')">
+	</mx:bloc id="droit">
+		<mx:text id="contenu1" />
+	</div>
+</div>

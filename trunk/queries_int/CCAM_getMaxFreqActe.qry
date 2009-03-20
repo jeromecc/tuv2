@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getMaxFreqActe</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select max(rel.frequence) freq_max
+			from ccam_actes_domaine rel
+			where rel.idActe='$idActe' and rel.idDomaine=$idDomaine
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

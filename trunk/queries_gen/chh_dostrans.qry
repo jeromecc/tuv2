@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>chh_dostrans</nom>
+		<id_config>config_hemo</id_config>
+		<colonnes></colonnes>
+		<code_sql>select * from CHH_DOSTRANS where idu='$val' order by dtevt desc</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

@@ -1,0 +1,40 @@
+<LM:config>
+ $nb_result_per_page=1000;
+
+ $sort_arrow_up="<IMG src=\"images/sort_up.gif\">";
+ $sort_arrow_down="<IMG syesrc=\"images/sort_down.gif\">";
+ $sort_arrow_none="<IMG src=\"images/none.gif\">";
+</LM:config>
+
+<LM:list>
+<div id="listeBE">
+  <table  id="listeBE" align="center">
+    <tr>
+      <th>Patient</th>
+      <th>ILP</th>
+      <th>Nsej</th>
+      <th>UF</th>
+      <th>Dest. Attendue</th>
+      <th>Action</th>
+      <th>Date</th>
+    </tr>
+    <LM:item>
+      <tr class="{_ItemColor}">
+        <td>{patient}</td>
+        <td>{ilp}</td>
+        <td>{nsej}</td>
+        <td>{uf}</td>
+        <td>{destAttendue}</td>
+        <td>{action}</td>
+        <td>{date}</td>
+	<td><a href="{urlbe}"><img src="{urlimg}" alt="Valider" /></a>
+      </tr>
+    </LM:item>
+    <LM:no_item>
+      <tr>
+	<td colspan="12" align="center">Aucune action.</td>
+      </tr>
+    </LM:no_item>
+  </table>
+</div>
+</LM:list>

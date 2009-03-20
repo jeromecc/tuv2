@@ -1,0 +1,87 @@
+<script type="text/javascript">
+	// Pr√paration de l'ajout.
+	function addTodoPrepare ( ) {
+		var nom = document.getElementById ( 'Nom' ).value ;
+		var dat = document.getElementById ( 'dateLimite' ).value ;
+		var catA = document.getElementById ( 'Categorie' ).options[document.getElementById ( 'Categorie' ).selectedIndex].value ;
+		var imp = document.getElementById ( 'Importance' ).options[document.getElementById ( 'Importance' ).selectedIndex].value ;
+		var pub = document.getElementById ( 'Public' ).options[document.getElementById ( 'Public' ).selectedIndex].value ;
+		var cat = document.getElementById ( 'listeCates' ).options[document.getElementById ( 'listeCates' ).selectedIndex].value ;
+                var mod = document.getElementById ( 'listeModes' ).options[document.getElementById ( 'listeModes' ).selectedIndex].value ;
+                var idu = document.getElementById ( 'listeUsers' ).options[document.getElementById ( 'listeUsers' ).selectedIndex].value ;
+		var data = "Nom="+nom+"&CategorieA="+catA+"&dateLimite="+dat+"&Importance="+imp+"&Public="+pub+"&Categorie="+cat+"&Mode="+mod+"&idUser="+idu ;
+//	  	alert ( data ) ;
+	  	setWait ( 'navigation' ) ;
+	  	return data ;
+	}
+
+	// Mise a jour et ajout des todo.
+	function addTodo ( result ) {
+	  if (result.readyState == 4) {
+	    setDiv ( 'listeTodo', result.responseText);
+	    //request('index.php?ajax=refresh&navi=VG9kbw==',null,'refreshTodo');
+	    unsetWait ( 'navigation' ) ;
+	  }
+	}
+
+	// Preparation a l'affichage des todo
+	function refreshTodoPrepare ( ) {
+		var cat = document.getElementById ( 'listeCates' ).options[document.getElementById ( 'listeCates' ).selectedIndex].value ;
+		var mod = document.getElementById ( 'listeModes' ).options[document.getElementById ( 'listeModes' ).selectedIndex].value ;
+		var idu = document.getElementById ( 'listeUsers' ).options[document.getElementById ( 'listeUsers' ).selectedIndex].value ;
+                var data = "Categorie="+cat+"&Mode="+mod+"&idUser="+idu ;
+		// alert ( data ) ;
+                setWait ( 'navigation' ) ;
+                return data ;
+	}
+
+	// Affichage des todo
+	function refreshTodo ( result ) {
+		if (result.readyState == 4) {
+	            setDiv ( 'listeTodo', result.responseText);
+		    unsetWait ( 'navigation' ) ;
+		}
+	}
+</script>
+
+<style>
+	#todoList { text-align: center; padding: 20px; width: 70%; }
+	#todoListTitre { font-weight: bold; }
+	#listeModes, #listeUsers, #listeCates { width: 150px; }
+	.selectTodo { width: 75px; }
+	.inputTodo { width: 200px; }
+	.dateTodo { width: 65px; cursor: pointer; pointer: hand; }
+	.validerTodo { cursor: pointer; pointer: hand; }
+	#listeTo { border: 1px solid #2D729D; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%; }
+	#listeTo th { background-color: #4F8EB6; }
+	#listeTo th, #listeTo td { border: 1px solid #2D729D; }
+	tr.afaire { background-color: #E9383F; }
+	tr.encours { background-color: #F0E36B; }
+	tr.termines { background-color: #87E990; }
+	tr.afaire, tr.encours, tr.termines { cursor: pointer; pointer: hand; }
+	tr.afaire:hover, tr.encours:hover, tr.termines:hover { background-color: #FFFFFF; }
+</style>
+
+<div id="todoList">
+	<div id="todoListTitre">Todo List !</div>
+	<mx:text id="texteLibre" />
+	<br/>
+	<mx:select id="listeModes" /> <mx:select id="listeUsers" /> <mx:select id="listeCates" />
+	<br/><br/>
+	Nom : <mx:formField id="nom" /> Cat&eacute;gorie : <mx:select id="listeCates2" /> Limite : <mx:formField id="dateLimite" /> Temps : <mx:select id="listeImportances" /> Public : <mx:select id="listePublic" /> <mx:text id="valider" />
+	<br/><br/>
+	<div id="listeTodo">
+		<mx:text id="listeTodo" />
+	</div>
+</div>
+
+<script type="text/javascript">
+	Calendar.setup({
+	  inputField     :    "dateLimite",
+	  ifFormat       :    "%d/%m/%Y",
+	  displayArea    :    "dateLimite",
+	  daFormat       :    "%d/%m/%Y",
+	  align          :    "Tl",				     
+	  singleClick    :    true
+	});
+</script>

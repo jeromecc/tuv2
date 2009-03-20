@@ -1,0 +1,62 @@
+<h4>Rejouer les actes</h4>
+<form method="post" action="index.php">
+	<mx:hidden id="hidden" />
+	<table>
+    <tr>
+		  <td>Liste des num&eacute;ros de s&eacute;jours</td>
+		  <td><input type="text" name="nsej" style="width:500px;" /></td>
+		  <td><input type="submit" name="replayNsej" value="Rejouer" /></td>
+	  </tr>
+  </table>
+</form>
+<h4>Rejouer les actes (avec messages de suppression)</h4>
+<form method="post" action="index.php">
+	<mx:hidden id="hidden" />
+	<table>
+    <tr>
+		  <td>Liste des num&eacute;ros de s&eacute;jours</td>
+		  <td><input type="text" name="nsej" style="width:500px;" /></td>
+		  <td><input type="submit" name="replayNsejWithDelete" value="Rejouer" /></td>
+	  </tr>
+  </table>
+</form>
+<h4>Remplacement d'un code médecin par un autre</h4>
+<form method="post" action="index.php">
+	<mx:hidden id="hidden" />
+	<table>
+    <tr>
+		  <td>Ancien code : </td>
+		  <td><input type="text" name="codemed1" style="width:200px;" /></td>
+		  <td>Nouveau code : </td>
+		  <td><input type="text" name="codemed2" style="width:200px;" /></td>
+		  <td><input type="submit" name="remplacerCodeMed" value="Remplacer code médecin" /></td>
+	  </tr>
+  </table>
+</form>
+<h4>Remplacement d'un code diagnostic par un autre</h4>
+<form method="post" action="index.php">
+	<mx:hidden id="hidden" />
+	<table>
+    <tr>
+		  <td>Ancien diag : </td>
+		  <td><input type="text" name="diag1" style="width:200px;" /></td>
+		  <td>Nouveau diag : </td>
+		  <td><input type="text" name="diag2" style="width:200px;" /></td>
+		  <td><input type="submit" name="remplacerCodeDiag" value="Remplacer diagnostic" /></td>
+	  </tr>
+  </table>
+</form>
+<h4>Remplacement d'une UF par une autre</h4>
+<form method="post" action="index.php">
+	<mx:hidden id="hidden" />
+	<table>
+    <tr>
+		  <td>Ancienne UF : </td>
+		  <td><input type="text" name="uf1" style="width:200px;" /></td>
+		  <td>Nouvelle UF : </td>
+		  <td><input type="text" name="uf2" style="width:200px;" /></td>
+		  <td><input type="submit" name="remplacerUF" value="Remplacer UF" /></td>
+	  </tr>
+  </table>
+</form>
+<br/>

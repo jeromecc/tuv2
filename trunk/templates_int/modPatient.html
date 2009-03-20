@@ -1,0 +1,37 @@
+<iframe id="grise">
+
+</iframe>
+<div id="modPatient">
+  <center><h4>Modification des informations du patient : </h4></center>
+  <form method="post" action="index.php">
+	  <table>
+		  <tr><td class="titreTD">IPP : </td><td><mx:formField id="ipp" style="width: 250px;" /></td></tr>
+		  <tr><td class="titreTD">Numéro de séjour : </td><td><mx:formField id="nsej" style="width: 250px;" /></td></tr>
+		  <tr><td class="titreTD">Sexe : </td><td><mx:select id="listeSexes" style="width: 250px;" /></td></tr>
+		  <tr><td class="titreTD">Nom : </td><td><mx:formField id="nom" style="width: 250px;" /></td></tr>
+		  <tr><td class="titreTD">Prénom : </td><td><mx:formField id="prenom" style="width: 250px;" /></td></tr>
+		  <tr><td class="titreTD">Naissance : </td><td><mx:formField id="naissance" style="width: 250px; cursor: pointer; pointer: hand;" /></td></tr>
+		  <tr><td class="titreTD">Adresse : </td><td><mx:formField id="adresse" style="width: 250px;" /></td></tr>
+		  <tr><td class="titreTD">CP / Ville : </td><td><mx:formField id="cp" style="width: 50px;" /> / <mx:formField id="ville" style="width: 190px;" /></td></tr>
+		  <tr><td class="titreTD">Téléphone : </td><td><mx:formField id="tel" style="width: 250px;" /></td></tr>
+	  </table>
+  <br />
+  <br />
+  <center>
+      <mx:hidden id="hidden" />
+      <input type="submit" name="validerModPat" value="Modifier" />
+      <input type="submit" name="validerModPat" value="Annuler" />
+    </form>
+  </center>
+    <script type="text/javascript">
+        Calendar.setup({
+        inputField     :    "naissance",
+        ifFormat       :    "%d/%m/%Y",
+        displayArea    :    "naissance",
+        daFormat       :    "%d/%m/%Y",
+        align          :    "Tl",
+        singleClick    :    true
+        });
+  </script>
+
+</div>

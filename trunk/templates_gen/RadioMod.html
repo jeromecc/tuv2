@@ -1,0 +1,45 @@
+<span class="close" style="position: absolute; margin-left: 202px; top: 7px; cursor: pointer; pointer: hand; z-index:200;" onClick="cache('mod');cache('arbo');"><img src="images/closebig.gif" alt="[x]" /></span>
+<div id="modRadio">
+	<div id="handMod" class="titreForm">Modification du bon de radio du patient "<mx:text id="patient" />" </div>
+	<div class="corpForm">
+	                <fieldset>
+		                <legend>Etapes</legend>
+	                        <table summary="Formulaire">
+					<mx:bloc id="etape">
+						<tr style="height: 25px;">
+							<td class="titre" style="width: 100px; text-align: right; font-weight: bold;"><mx:text id="nomEtape" /></td>
+	        	                                <td class="info" style="text-align: left; vertical-align: middle;">
+								<mx:text id="dateEtape" />
+								<mx:bloc id="formEtape">
+									<form name="valEtape" id="valEtape">
+									<mx:select id="valeurEtape" />
+									<mx:hidden id="hidden" />
+									<img name="ValiderEtape" <mx:text id="ajaxVal" /> src="images/valider.gif" alt="Valider" style="pointer: hand; cursor: pointer;"/>
+									</form>
+								</mx:bloc id="formEtape">
+								<mx:bloc id="annulerEtape">
+									<form name="annEtape" id="annEtape">
+									<mx:hidden id="hidden" />
+									<img name="AnnulerEtape" <mx:text id="ajaxAnn" /> src="images/annuler.gif" alt="Annuler" style="pointer: hand; cursor: pointer;"/>
+									</form>
+								</mx:bloc id="annulerEtape">
+		                	                </td>
+						</tr>
+					</mx:bloc id="etape">
+	                        </table>
+			</fieldset>
+			<mx:bloc id="cotation">
+			<fieldset>
+				<legend>Cotation</legend>
+				<table summary="Formulaire">
+					<tr>
+						<td style="text-align: left;"><span style="width: 75px;">Radiologue : </span><form id="radiologues"><mx:select id="listeRadiologues" /></form></td>
+					</tr>
+					<tr><td style="text-align: left;"><div id="RadioCCAM"><mx:text id="moduleCCAM" /></div></td></tr>
+				</table>
+			</fieldset>
+			</mx:bloc id="cotation">
+        </div>
+</div>
+<div id="debug">
+</div>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>getPoulet</nom>
+		<id_config>config_formx</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT ids FROM `formx` WHERE status != 'F' AND status !='H' AND ids in (select idu FROM $table) AND idformx = '$idformx'
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

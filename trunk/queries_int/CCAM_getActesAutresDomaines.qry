@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getActesAutresDomaines</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select rel.idActe identifiant,rel.libelleActe libelle,
+				rel.libelleActe title
+			from ccam_actes_domaine rel
+			where rel.idDomaine!=$idDomaine and rel.idActe like '$typeCode%'
+				and rel.idActe not in ($listeIdRelation)
+			order by rel.idActe
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

@@ -1,0 +1,53 @@
+<LM:config>
+ $nb_result_per_page=1000;
+
+ $sort_arrow_up="<IMG src=\"images/sort_up.gif\">";
+ $sort_arrow_down="<IMG syesrc=\"images/sort_down.gif\">";
+ $sort_arrow_none="<IMG src=\"images/none.gif\">";
+</LM:config>
+
+<LM:list>
+<div id="listepatients">
+  <table align="center" class="sortable" id="listeRadioL">
+    <tr>
+      <th></th>
+      <th>Patient</th>
+      <th>Age</th>
+      <th>UF</th>
+      <th>Salle</th>
+      <th>Arriv&eacute;e</th>
+      <th>Soignants</th>
+      <th>Motif</th>
+      <th>Date demande</th>
+      <th>Description</th>
+      <th>Etat</th>
+      <th>D&eacute;tail</th>
+    </tr>
+    <LM:item>
+      <tr class="{ItemColor}">
+	      <td {js} class="sexe2">{sexe}</td>
+	      <td class="gauchePat">{patient}</td>
+	      <td {js} class="gauche">{age}</td>
+	      <td {js} class="gauche">{uf}</td>
+	      <td {js} class="gauche">{salle}</td>
+	      <td {js} class="gauche">{arrivee}</td>
+	      <td {js} class="gauche">{soignants}</td>
+	      <td {js} class="gauche">{motif}</td>
+	      <td {js} class="gauche">{demande}</td>
+	      <td {js} class="gauche">{description}</td>
+	      <td class="gauchePat">{etat}</td>
+	<td class="gauchePat">{detail}</td>
+	<td class="hidden">{ageD}</td>
+	<td class="hidden">{nomD}</td>
+	<td class="hidden">{arriveeD}</td>
+	<td class="hidden">{etatD}</td>
+      </tr>
+    </LM:item>
+    <LM:no_item>
+      <tr>
+        <td colspan="12" align="center">Aucun patient dans cette liste.</td>
+      </tr>
+    </LM:no_item>
+  </table>
+</div>
+</LM:list>

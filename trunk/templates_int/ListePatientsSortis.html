@@ -1,0 +1,56 @@
+<LM:config>
+ $show_inactive_nav_button=true;
+ $url_first_text=<IMG src="images/gg.gif"> ;
+ $url_prev_text=<IMG src="images/g.gif"> ;
+ $url_next_text=<IMG src="images/d.gif"> ;
+ $url_last_text=<IMG src="images/dd.gif"> ;
+ $sort_arrow_up=<IMG src="images/sort_up.gif">;
+ $sort_arrow_down=<IMG src="images/sort_down.gif">;
+ $sort_arrow_none=<IMG src="images/none.gif">;
+</LM:config>
+
+<LM:list>
+<div id="listepatients">
+  <table align="center">
+    <tr>
+      <th></th>
+      <th>{_SortHeader[col1]}</th>
+      <th>{_SortHeader[col2]}</th>
+      <th>{_SortHeader[col3]}</th>
+      <th>{_SortHeader[col4]}</th>
+      <th>{_SortHeader[col5]}</th>
+      <th>{_SortHeader[col6]}</th>
+      <th>{_SortHeader[col7]}</th>
+      <th>{_SortHeader[col8]}</th>
+      <th>{_SortHeader[col9]}</th>
+    </tr>
+    <LM:item>
+      <tr class="{_ItemColor}" onclick="document.location='{urlpatient}'">
+        <td class="sexe">{sexe}</td>
+        <td class="gauche">{patient}</td>
+        <td class="gauche">{arrivee}</td>
+        <td class="gauche">{examen}</td>
+        <td class="gauche">{sortie}</td>
+        <td class="gauche">{destSouhaitee}</td>
+        <td class="gauche">{destAttendue}</td>
+        <td class="gauche">{medecin}</td>
+	<td class="gauche">{ide}</td>
+	<td class="gauche">{uf}</td>
+	<td class="hidden">{arriveeD}</td>
+	<td class="hidden">{examenD}</td>
+	<td class="hidden">{sortieD}</td>
+	<td class="hidden">{nomD}</td>
+      </tr>
+    </LM:item>
+    <LM:no_item>
+      <tr>
+        <td colspan="12" align="center">Aucun patient dans cette liste.</td>
+      </tr>
+    </LM:no_item>
+  </table>
+  <center>
+  {_UrlFirstPage} {_UrlPrevPage} Patients {_FirstItem} à {_LastItem} de
+      {_TotalCount} - Page {_PageNumber} sur {_PageCount} {_UrlNextPage} {_UrlLastPage}
+  </center>
+</div>
+</LM:list>
