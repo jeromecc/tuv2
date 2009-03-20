@@ -1,0 +1,869 @@
+v2.19.7 
+instable pour l'instant
+
+
+********************************************************************************************************
+**************************** 2009-03-04 11:00:00 : V 2.19.6 ********************************************
+********************************************************************************************************
+
+- Correction dans les envois ARH d'un bug sur lors de la connexion FTP.		(Damien Borel)
+- Correction sur le formulaire de demandes de scanners.				(Damien Borel)
+- Correction sur la date de réalisation des actes dans le flux HprimXML.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2009-03-01 15:48:00 : V 2.19.5 ********************************************
+********************************************************************************************************
+
+- Debug variables globales formx						(Emmanuel Cervetti)
+- Debug plugin sorties/actes				 			(Damien Borel)
+
+
+********************************************************************************************************
+**************************** 2009-02-25 15:48:00 : V 2.19.4 ********************************************
+********************************************************************************************************
+
+- Possiblité de choisir l'UF envoyée dans les fichiers HprimXML.		(Damien Borel)
+- Correction pb récupération de l'age formulaire radio. 			(Emmanuel Cervetti)
+- Synthese de la facturation pour Ch Hyeres. 					(Emmanuel Cervetti)
+
+********************************************************************************************************
+**************************** 2009-01-26 10:00:00 : V 2.19.3 ********************************************
+********************************************************************************************************
+
+- Systeme de plugin pour les appels validation sortie / sortie.			(Emmanuel Cervetti)
+- Correction sur les formulaires radios : sexe correctement récupéré.		(Damien Borel)
+- Adaptation HprimXML pour APHM : nom du médecin dans la balise code.		(Damien Borel)
+- Enquête Radio à la sortie des patients est optionnelle : EnqueteRadio		(Damien Borel)
+
+
+********************************************************************************************************
+**************************** 2009-01-26 10:00:00 : V 2.19.2 ********************************************
+********************************************************************************************************
+
+- Correction de la facturation du samedi des AMI.				(Emmanuel Cervetti)
+- Adaptation optionnelle HprimXML.						(Emmanuel Cervetti)
+- Correction bug du diagnostic automatique dans les consult libérales.		(Damien Borel)
+- Correction du bug si UFUHCD et UFUHCDrepere étaient identiques.		(Damien Borel)
+- Adapatations diverses HprimXML pour Cannes et APHM.				(Damien Borel)
+- Les bons de radios terminés restent affichés en vert dans les listes.		(Damien Borel)
+- Gestion des planches d'étiquettes au format attendu par Carpentras.		(Damien Borel)
+- "(Radio)" est ajouté à côté du nom de la salle si radio en cours.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2008-12-08 12:00:00 : V 2.19.1 ********************************************
+********************************************************************************************************
+
+- Les erreurs gpg s'affichent correctement.					(Emmanuel Cervetti)
+- Le log du bloc note affiche plus de choses.					(Emmanuel Cervetti)
+- Correction d'un bug sur les dates du grand formulaire de radios.		(Damien Borel)
+- Correction bug dans export V2 avec IE.					(Damien Borel)
+- Correction divers bugs formx.							(Emmanuel Cervetti)
+- Gestion de répertoires en fonction des messages HprimXML (Cannes).		(Damien Borel)
+- Classes de connexion à l'annuaire LDAP de Cannes.				(Damien Borel)
+- Gestion du nom d'appli client pour prescription cyberlab.			(Emmanuel Cervetti)
+- Les packs s'affichent en premier apres sélection d'un diag.			(Emmanuel Cervetti) 
+- Possibilité de changer le nom des fichiers HprimXML générés.			(Damien Borel)
+- Ajout d'attributs dans la balise EvenementServeurActes (APHM).		(Damien Borel)
+- Gestion de l'envoi ou non à la facturation de tous les actes NGAP.		(Damien Borel)
+- Gestion de l'envoi ou non à la facturation des ATU.				(Damien Borel)
+
+********************************************************************************************************
+**************************** 2008-10-24 15:00:00 : V 2.19.0 ********************************************
+********************************************************************************************************
+	
+- Correction sur les noms avec des apostrophes dans Fusions V2.         	(Damien Borel)
+- Ajout d'un nouvel appel contextuel : blue medi.				(Damien Borel)
+- Correction bug d'affichage avec IE et le formulaire de retour radio.		(Damien Borel)
+- Possibilité de rejouer certains actes via l'interface.			(Damien Borel)
+- Outils pour modifier des actes à envoyer en HprimXML.				(Damien Borel)
+- Correction du bug de tri par défaut des patients non vus.			(Damien Borel)
+- Correction annulation de sortie : mode d'admission.				(Damien Borel)
+
+********************************************************************************************************
+**************************** 2008-10-13 23:57:26 : V 2.18.4 ********************************************
+********************************************************************************************************
+
+- Module d'export spécial APHM. Autres sites non concernés.			(Emmanuel Cervetti)
+
+********************************************************************************************************
+**************************** 2008-09-25 09:00:00 : V 2.18.3 ********************************************
+********************************************************************************************************
+
+- Diverses corrections sur les colonnes dans le module d'export.		(Damien Borel)
+- Correction sur certains envois de consultations non facturables.		(Damien Borel)
+- Correction sur les noms avec des apostrophes dans Fusions V2.			(Damien Borel)
+- Gestion de l'appel du dossier patient dans Axigate (Fréjus).			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2008-09-10 16:00:00 : V 2.18.2 ********************************************
+********************************************************************************************************
+
+- Correction sur les dates UHCD dans le module d'export V1.			(Damien Borel)
+- Meilleur classement sur la date d'admission dans les listes patients.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2008-08-13 09:00:00 : V 2.18.1 ********************************************
+********************************************************************************************************
+
+- Gestion de l'enquête sur les radios poumons de face (par JP Ligier)		(Damien Borel)
+- Correction d'un problème sur la sélection des dates dans les radios.		(Damien Borel)
+- Les patients non vus sont mélangés avec les patients vus lors du tri.		(Damien Borel)
+- Le module d'export V2 contient trois phases de validation.			(Damien Borel)
+- Gestion des équipes et de leurs listes pour Hopital Nord.			(Damien Borel)
+- Correction Fusions V2 quand un patient n'a pas de date de sortie.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2008-07-22 15:00:00 : V 2.18.0 ********************************************
+********************************************************************************************************
+
+- Modification fonction qui permet de gérer les actes CCAM de code 4.   	(François Derock)
+- Ajout des items pour préciser l'heure sur les formulaires de radio.   	(François Derock)
+- Informations sur l'heure de réalisation sur la partie Liste Radio.    	(François Derock)
+- Option: Envoi des actes groupés par intervenant dans le flux HprimXML.	(François Derock)
+- Spécificité du flux HprimXML pour le Ch-Avignon.                      	(François Derock)
+- Gestion de la sortie sans avis médical au niveau de l'ATU.            	(François Derock)
+- Tri de la liste des catégories de diagnostic.                         	(François Derock)
+- Gestion de la description des codes gravité.					(Damien Borel)
+- Correction destination confirmée dans le module d'export V2.			(Damien Borel)
+- Correction d'un bug d'administration dans le module de documents.		(Damien Borel)
+- Ajout d'un mode allégé du module d'export V2.					(Damien Borel)
+- Mise en place du formulaire algorithme d'exposition aux virus AEV.    	(François Derock) 
+- Prise en charge du nom marital s'il existe dans le module HL7.		(Damien Borel)
+- Contrôles des champs adresse et tel dans le module HL7.			(Emmanuel Cervetti)
+- Correction d'un problème d'envoi systématiques des diagnostics.		(Emmanuel Cervetti)
+- Correction d'un bug sur le tri des patients en UHCD et Pédiatrie.		(Damien Borel)
+- Ajout d'un nouveau type de dest. attendue : Erreur (ni atu ni rpu).		(Damien Borel)
+- Amélioration du module d'export V2 (bouton de validation).			(Damien Borel)
+- Gestion des droits sur le bouton pour rendre un patient invalide.		(Damien Borel)
+- Ajout des nouveaux packs d'actes et diagnostics.				(GV,FA,OM,VF,ED)
+- Champs supplémentaires disponibles dans le module de documents.		(Damien Borel)
+- Si hospitalisation ou UHCD alors les actes sont facultatifs.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2008-03-31 17:00:00 : V 2.17.0 ********************************************
+********************************************************************************************************
+
+- Module de fusions V2 : réecriture avec gestion des suppressions.		(Damien Borel)
+- Suppression des majorations suivant l'âge du patient sauf la MNO.     	(François Derock)
+- Possibilité de saisir les actes infirmiers dans le module des actes   	(François Derock)
+
+********************************************************************************************************
+**************************** 2008-02-20 14:00:00 : V 2.16.1 ********************************************
+********************************************************************************************************
+
+- Mise en place des consultations urgentiste de sage-femmes dans TU     	(François Derock)
+- Mise en place des consultations urgentiste de gynéco-obs. dans TU     	(François Derock)
+- Ajout du type de médecin "Gynécologie-Obstétrique"                    	(François Derock)
+- Mise en place de la clé CF pour les actes NGAP des sage-femmes        	(François Derock)
+- Mise en place de l'acte NGAP sage-femme facturable                    	(François Derock)
+- Mise en place de l'acte NGAP sage-femme non fact                      	(François Derock)
+- Mise en place de l'acte NGAP gynéco facturable                        	(François Derock)
+- Mise en place de l'acte NGAP gynéco non facturable                    	(François Derock)
+- Mise en place des majorations de nuit pour les consultations de sf    	(François Derock)
+- Mise en place des majorations de nuit pour les consultations de gynéco	(François Derock)
+- Mise à jour des régles de facturation des ATU pour les soins continus 	(François Derock)
+- Suppression des majorations MCG et MCS                                	(François Derock)
+- Suppression de l'anesthésiste dans le module des actes de saisie.		(Damien Borel)
+- Le code des diagnostics n'est plus affiché dans le module de saisie.		(Damien Borel)
+- Les sous-catégories de diagnostics apparaissent en couleurs.			(Damien Borel)
+- Réecriture du module de génération de fichier HprimXML.			(Damien Borel)
+
+
+********************************************************************************************************
+**************************** 2008-01-23 14:00:00 : V 2.16.0 ********************************************
+********************************************************************************************************
+
+- Adaptation optionnelle HprimXML pour Avignon.					(Damien Borel)
+- Affichage du numéro de séjour dans le module de radio.			(Damien Borel)
+- Adaptation du filtre Hprim pour Digne.					(Damien Borel)
+- La date de passage en UHCD ne peut plus être choisie.				(Damien Borel)
+- Ajout de l'item TISS en option dans la fiche patient.				(Damien Borel)
+- Mise en place du logigramme SC optionnel.					(Damien Borel)
+- Correction du filtre Hprim pour Arles.					(Damien Borel)
+- Gestion d'un nouvel attribut : patient RPU.					(Damien Borel)
+- Ajout d'une question en option à la sortie du patient.			(Damien Borel)
+- Ajout du type de médecin "Sage-femme".					(Damien Borel)
+- La date d'examen est maintenant envoyée dans les RPU.				(Damien Borel)
+
+********************************************************************************************************
+**************************** 2008-01-23 14:00:00 : V 2.15.2 ********************************************
+********************************************************************************************************
+
+- Correction : les alertes AES sont correctement envoyées.			(Damien Borel)
+- Classement par défaut de la liste patients présent en option.			(Damien Borel) 
+- Appel des scripts RPU et ARH automatiquement.					(Damien Borel)
+- Mise à jour de la CCAM version 11.                                    	(François Derock)
+- Mise à jour des ufs pour les consultations spécialisés liste médecin. 	(François Derock)
+- Créat. option pour envoyer l'ATU suivant les régles de facturation.   	(François Derock)
+- Création d'une barre de lancement pour les applications externes.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-12-27 12:00:00 : V 2.15.1 ********************************************
+********************************************************************************************************
+
+- Mise en place de la clé CS pour les actes NGAP                        	(François Derock)
+- Mise en place de l'acte NGAP consultation urgentiste spécialiste      	(François Derock)
+- Modification du libellé pour la consultation urgentiste C1 et C0      	(François Derock)
+- Mise en place de la fonction de comparaison C/CS ou CCAM.             	(François Derock)
+- Affectation de l'acte NGAP C/CS au patient en fonction de la spéc.    	(François Derock)
+- Affectat. de l'acte NGAP C/CS d'un pack au patient en fonc de la spéc.	(François Derock)
+- Correction de bug sur l'affichage des actes au patient.               	(François Derock)
+- Amélioration fonction d'attribution du forfait pour les NGAP et CONS  	(François Derock)
+- Amélioration de la fonction d'écriture dans la boîte aux lettres      	(François Derock)
+- Amélioration fonction de majoration en tenant compte de la spécialité.	(François Derock)
+- Amélioration de la fonction de requêtage des tarifs CCAM et NGAP.     	(François Derock)
+- Amélioration apportée dans les contraintes de sortie.                 	(François Derock)
+- Création de la fonction qui récupère les codes associations des CCAM  	(François Derock)
+- Création de la fonction qui récupére les tarifs des actes CCAM        	(François Derock)
+- Intégration du médecin traitant dans les messages HL7 v2.3.1 (Avignon)	(François Derock)
+- Cor. de bugs sur la modification d'actes ngap dans liste restreinte   	(François Derock)
+- Annulation de l'affectation de la majoration MPC pour les CS          	(François Derock)
+- Ajout des 3 critères UHCD.							(Damien Borel)
+- Amélioration de l'ouverture des documents générés en PDF.			(Damien Borel)
+- Réorganisation des options.							(Borel/Aronica)
+- Seules les options modifiables sont visibles par les utilisateurs.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-10-20 12:00:00 : V 2.15.0 ********************************************
+********************************************************************************************************
+
+- Correction Formx : Module de formulaires.					(Emmanuel Cervetti)
+- Evolution du connecteur Hprim (Arles).					(Damien Borel)
+- Evolution du module radios (multi-applications).				(Damien Borel)
+- Correction taille champs provenance en base.					(Damien Borel)
+- Création de la requête CORA Oracle pour récuperer les actes.			(Falanga/Dekhli)
+- Intégration de la requête CORA (RPU, Contraintes et Fiche patient).		(Damien Borel)
+- Intégration du requetage MSSQL dans le moteur XHAM.				(Damien Borel)
+- Passage de l'épuration des fichier hprim à 30 jours au lieu de 7.		(Damien Borel)
+- Alerte non bloquante sur les dépassements de longueurs des champs.		(Damien Borel)
+- Intégration du flux HL7 en entrée.						(François Derock)
+- Correction de bug dans le module de fusion (perte mode d'admission).		(Damien Borel)
+- Mise en place des majorations pour les actes infirmiers.              	(François Derock)
+- Correction fonction en tenant compte du nom et code ADELI des I.D.E.  	(François Derock)
+- Indication du code ADELI infirmier par défaut dans les options.       	(François Derock)
+- Optimisations des requêtes d'affichage des actes prescrits au patient.	(François Derock)
+- Optimisation des fonctions CCAM du module des actes.                  	(François Derock)
+- Gestion du parcours de soins dans TU                                  	(François Derock)
+- Suppression des majorations lorsqu'on annule la sortie d'un patient.  	(François Derock)
+- Restreint la modification de libellé pour certains actes NGAP.        	(François Derock)
+- Différenciation de code avec options pour appel à la dll de CORA.     	(Borel/Derock)
+- Actes affectés au patient par un seul médecin et infirmier.           	(François Derock)
+- Ajout de 2 colonnes dans la table ccam_cotation_actes.                	(François Derock)
+- Mise à jour des formulaires formx radio, echo et scanner              	(François Derock)
+
+********************************************************************************************************
+**************************** 2007-09-20 14:00:00 : V 2.14.5 ********************************************
+********************************************************************************************************
+
+- Correction : "Agir en tant que" avec IE" (réservé développeurs).	(Damien Borel)
+- Correction : ajout d'items manquants au remplissage automatique.	(Damien Borel)
+- Ajout d'un index sur la table sessions_statistiques.			(Damien Borel)  
+- Correction : Le type du médecin est renvoyé correctement.		(Damien Borel)
+- Correction : La contrainte sur la provenance est respectée.		(Damien Borel)
+- Correction : Bug formulaire création médecin dans listes générales.	(Damien Borel)
+- Gestion d'une URL avec paramètres dans les Iframes.			(Alain Falanga)
+- Les menus peuvent se masquer automatiquement ou par clic.		(Damien Borel)
+- Correction : Les recours peuvent se trier par ordre alphabétique.	(Damien Borel)
+- Mise à jour de la version de la CCAM. Version disponible Version 10.  (Borel/Derock)
+- Le bloc note est lié au passage du patient.				(Damien Borel)
+- Ajout du filtre de recherche sur la date d'entrée des patients.	(Damien Borel)
+- Affichage du statut UHCD ou Urgences dans la liste des sortis.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-09-12 17:00:00 : V 2.14.4 ********************************************
+********************************************************************************************************
+
+- Suppression de deux items liés aux RPU dans la fiche patient(!).	(Damien Borel)
+- Destination confirmée gère maintenant les deux items supprimés.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-08-13 09:00:00 : V 2.14.3 ********************************************
+********************************************************************************************************
+
+- Gestion des codes ADELI pour les I.D.E.				(Damien Borel)
+- Corrections sur la gestion des codes ADELI des médecins.		(Damien Borel)
+- Le libellé "Identidiant" est maintenant remplacé par "ADELI".		(Damien Borel)
+- Gestion des types de médecins (à renseigner) des listes générales.	(Damien Borel)
+- Séparation du filtre de recherche sur le prénom ou le nom.		(Damien Borel)
+- Suppression du filtre de recherche sur le nom de la salle du patient.	(Damien Borel)
+- Correction export Hprim XML avec les noms et prénoms accentués.	(Damien Borel)
+- Correction Hprim XML dans le champs identifiant emetteur.		(Damien Borel)
+- Tri des listes de patients sur le nom de la salle par défaut.		(Damien Borel)
+- Lancement de CORA à partir de la fenêtre de saisie des actes.         (François Derock)
+- Création de l'icône pour le lancement de Cora Recueil.                (Sandrine Denécé)
+- Infographie : Amélioration de l'ergonomie de la fiche patient.	(Sandrine Denécé)
+
+********************************************************************************************************
+**************************** 2007-07-13 09:00:00 : V 2.14.2 ********************************************
+********************************************************************************************************
+
+- Correction sur l'affichage des cons. urgentistes et spécialistes.     (François Derock)
+- Mise en place de l'option : Envoi des majo NGAP pour C et CS.         (François Derock)
+- Amélioration et optimisation du code pour les fonct. de majoration.   (François Derock)
+- Correction d'un bug sur l'affichage des cons. psychiatriques.         (François Derock)
+- Majoration NGAP : prise en compte des majo pour cons. psychiatriques. (François Derock)
+- Gestion de l'acte A.T.U pour chaque patient du terminal à sa sorti.   (François Derock)
+- Modification fonction: Envoi des messages de suppression dans MBTV2.  (François Derock)
+- Mise en place du code association 1 pour les actes YYYY.              (François Derock) 
+- Création de la fonction envoi des diagnostics à la facturation.       (François Derock)
+- Mise en place de l'option : Envoi des diagnostics dans MBTV2.         (François Derock)
+- Ajout du tag statut="ft" dans les fichiers hprim xml (Fréjus).	(Damien Borel)
+- Correction du problème de mise à jour des statistiques de sessions.	(Damien Borel)
+- Améliorations du filtre de recherche des patients sortis.		(Damien Borel)
+- Affichage de l'idpatient dans les infobulles des listes patients.	(Damien Borel)
+- Améliorations du module de fusion des patients manuels.		(Damien Borel)
+- Seuls les pat. des 3 derniers mois sont affichés dans le mod. fusion.	(Damien Borel)
+- Correction d'un bug d'affichage avec IE6 de certaines infobulles.	(Damien Borel)
+- Amélioration de la fonction de gestion des Diags/Actes.               (François Derock)
+- Affichage des actes NGAP et Diagnostics dans un ordre donnée.         (François Derock)
+- Mise en place de l'opt. concernant l'affectation de l'heure à l'acte. (François Derock)
+- Correction d'affichage de l'acte ATU qui n'est pas visible dans TU.   (François Derock)
+- Amélioration du code pour les numéros UF demandeuses et exécutantes.  (Borel/Derock)
+- Indication des tarifs pour les actes CCAM.                            (François Derock)
+
+********************************************************************************************************
+**************************** 2007-06-21 17:00:00 : V 2.14.1 ********************************************
+********************************************************************************************************
+
+- Raccourcis vers les formulaires principaux en options.		(Damien Borel)
+- Raccourci pour la création d'un formulaire en fonction du droit.	(Damien Borel)
+- Modification de la génération d'étiquettes pour Pertuis.		(Damien Borel)
+- Correction d'un bug avec uf et dt_admission dans le connecteur Hprim.	(Damien Borel)
+- Récupération des tarifs NGAP dans une table interne.			(François Derock)
+- Affichage d'une icone différente en fonction de l'état de la radio.	(Damien Borel)
+- Configuration de l'envoi des actes NGAP à la facturation ou non.	(François Derock)
+- Consultation de cardiologie : Envoi d'une CSC au lieu d'une CS.	(François Derock)
+- Optimisation du module d'export V2 (suppression des libélés).		(Damien Borel)
+- Mise à jour des tarifs NGAP (table ccam_lettres_cle).			(François Derock)
+
+********************************************************************************************************
+**************************** 2007-06-21 17:00:00 : V 2.14.0 ********************************************
+********************************************************************************************************
+
+- Création de l'édition d'étiquettes pour le CH Pertuis.		(Damien Borel)
+- Gestion des bilans de labo dans deux listes complexes.		(François Derock)
+- Ajout des menus pour la gestion des listes complexes des bilans.	(Damien Borel)
+- Création d'un formulaire de transfert (réservé à Toulon/La Seyne).	(Damien Borel)
+- Gestion de spécificité au double établissement (Toulon/La Seyne).	(Damien Borel)
+- Correction dans l'impression des formulaires (un seul à la fois).	(Damien Borel)
+- Améliorations et optimisations du formulaire Labo.			(François Derock)
+- Corrections et améliorations dans le module Formx.			(Emmanuel Cervetti)
+
+********************************************************************************************************
+**************************** 2007-06-08 17:00:00 : V 2.13.2 ********************************************
+********************************************************************************************************
+
+- Nouveau module d'export (Etat Civil, Résumé passage et cotation).	(Damien Borel)
+- Correction emetteur CCAM dans le flux HprimXML.			(Damien Borel)
+- Envoi dans la BAL des actes en option pour les patients manuels.	(Damien Borel)
+- Intégration des majorations NGAP pour les cons. généralistes et spé.	(François Derock)
+- Amélioration de la gestion des modificateurs dans le module radio.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-06-06 17:00:00 : V 2.13.1 ********************************************
+********************************************************************************************************
+
+- Changement du mode de saisie des dates de naissance : saisie libre.	(Damien Borel)
+- Gestion des modificateurs dans le module de la radio.			(Damien Borel)
+- Ajout d'un outil pour gérer les actes de la radio.			(Damien Borel)
+- Gestion des pièces jointes avec sock_mail.				(Damien Borel)
+- Gestion de l'envoi vers le serveur de veille en php.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-06-04 17:00:00 : V 2.13.0 ********************************************
+********************************************************************************************************
+
+- Création d'une première version du module de Radio.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-05-30 16:00:00 : V 2.12.5 ********************************************
+********************************************************************************************************
+
+- Correction listes patients UHCD et pédiatrie : nom des colonnes.	(Damien Borel)
+- Correction : les bons peuvent être imprimés indépendamment.		(Damien Borel)
+- Correction et améliorations du module Formx.				(Emmanuel Cervetti)
+- Ajout d'un nouvel attribut dans le flux hprim xml des actes (Fréjus).	(Damien Borel)
+- Ajout d'un "favicon.ico".						(Sandrine Denécé)
+- Correction gestion UF UHCD (Fréjus).					(Damien Borel)
+- Gestion d'un nouveau mode de tri pour la liste BE (tri par nom).	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-05-25 16:00:00 : V 2.12.4 ********************************************
+********************************************************************************************************
+
+- Corrections dans les demandes de bons.				(François Derock)
+- Possibilité de stopper l'envoi des DIAG dans le flux Hprim XML.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-05-23 13:30:00 : V 2.12.3 ********************************************
+********************************************************************************************************
+
+- Récupération des identités déjà saisies pour les créations manuelles.	(Damien Borel)
+- Appel d'un calendrier en javascript pour les dates de naissances.	(Damien Borel)
+- Correction erreur critique dans "clFormxManip.php".			(Emmanuel Cervetti)
+- Création d'un module de recherche des patients (AJAX).		(Damien Borel)
+- Correction dans la récupération des spécialités pour les bons de CS.	(Damien Borel)
+- Diverses corrections dans l'édition des bons de radio, labo et CS.	(Damien Borel)
+- Diverses corrections dans les formulaires des différents bons.	(François Derock)
+- L'icone "print" n'est plus affichée dans les formulaires des bons.	(Emmanuel Cervetti)
+- Diverses améliorations et corrections du module Formx.		(Emmanuel Cervetti)
+- Corrections et adaptations du module HprimXML. (Fréjus)		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-05-22 14:00:00 : V 2.12.2 ********************************************
+********************************************************************************************************
+
+- Ajout d'une image pour la modification des patients manuels.		(Damien Borel)
+- Correction d'un problème de droits pour les patients de pédiatrie.	(Damien Borel)
+- Correction d'un bug dans le module des RPU.				(Damien Borel)
+- Ajout d'une ligne dans la table CCAM_SITE (Y | SUPPLEMENTS)		(Karine Dekhli)
+- Gestion du nom de l'émetteur en option.				(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-05-16 11:00:00 : V 2.12.1 ********************************************
+********************************************************************************************************
+
+- Correction d'un bug dans le tri par défaut de la liste des présents.	(Damien Borel)
+- Correction d'un bug sur certaines contraintes de sortie.		(Damien Borel)
+- Amélioration de l'affichage des options.				(Sandrine Denecé)
+- Masquage des select avec IE 6 si FormX appelé.			(Emmanuel Cervetti)
+- Correction d'un bug de police pour les codes barres dans les docs.	(Damien Borel)
+- Correction d'un bug d'affichage dans FormxManip.			(Damien Borel)
+- Correction affichage d'un débugage dans les listes patients.		(Damien Borel)
+- Modification de l'identité des manuels depuis la fiche patient.	(Damien Borel) 
+- Retouche de l'infographie des divers documents PDF générés.		(Damien Borel)
+- Réorganisation des informations de passages dans la fiche patient.	(Damien Borel)
+- Renommage de la destination attendue en destination confirmée.	(Damien Borel)
+- Les Options CCAM sont maintenant réservées à l'accès superadmin.	(Damien Borel)
+- Modification ergonomiques sur les formulaires de radio et labo.	(François Derock)
+- Affichage de la date de création des formulaires.			(Damien Borel)
+- Création d'un formulaire pour les consultations spécialisées.		(François Derock)
+- Impression des demandes de consultations spécialisées.		(Damien Borel)
+- Création d'une liste pédiatrie en options (comme liste UHCD).		(Damien Borel)
+- Gestion de l'envoi de mails d'alerte pour les sorties forcées.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-05-03 15:00:00 : V 2.12.0 ********************************************
+********************************************************************************************************
+
+- Correction d'un bug dans le calcul des UHCD pour l'envoi au SRVA.	(Damien Borel)
+- Augmentation de la taille du champs valeur dans la table options.	(Damien Borel)
+- Création des formulaires de bons de labo et de bons de radio.		(François Derock)
+- Module d'impression des bons de labo et de radio.			(Damien Borel)
+- Correction d'un bug dans l'administration des menus - pour les devs.	(Damien Borel)	
+- Génération des RPU.							(Damien Borel)
+- Récupération des informations manquantes pour les RPU.		(Damien Borel)
+- Création d'une interface d'envoi des RPU.				(Damien Borel)
+- Visualisation des logs d'envoi des RPU.				(Damien Borel)	
+- Epuration automatique des RPU et des fichiers Hprim.			(Damien Borel)
+- Nouveau classement des options : séparation informatique/médical.	(Damien Borel)
+- Ajout de nouveaux répertoires dans le script "index.test.php".	(Damien Borel)	
+- Agrandissement d'une colonne de la table formx.			(Emmanuel Cervetti)
+- FormX : CSS Improvement.						(Emmanuel Cervetti)
+- Nouveau menu "Scripts" regroupant les différents scripts.		(Damien Borel)	
+- Correction bug mise à jour de dates dans le connecteur Hprim.		(Damien Borel)
+- Correction bug mise à jour du nsej dans le connecteur Hprim.		(Damien Borel)
+- Epuration des options inutilisées.					(Damien Borel)
+- Ajout d'un champs optionnel "Transport" dans la fiche patient.	(Damien Borel)	
+- Ajout d'un champs "Provenance PMSI" dans la fiche patient.		(Damien Borel)	
+- Ajout d'un champs "Orientation" dans la fiche patient.		(Damien Borel)	
+- Ajout d'un champs "Destination PMSI" dans la fiche patient.		(Damien Borel)
+- Remplissage des listes correspondantes aux nouveaux champs.		(Gilles Viudes)
+- Possibilité de trier sur les  colonnes dans les listes patients.	(Damien Borel)
+- Correction bug avec changement d'heure dans le module d'export.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-02-13 13:30:00 : V 2.11.3 ********************************************
+********************************************************************************************************
+
+- Correction dans le module d'export HprimXML.				(Damien Borel)
+- Création de la liste générales des alertes UHCD.			(Damien Borel)
+- Gestion du logigramme UHCD via le CCMU ou le code gravité en option.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-02-06 14:40:00 : V 2.11.2 ********************************************
+********************************************************************************************************
+
+- Correction bug question UHCD sur les patients sortis.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-01-24 12:00:00 : V 2.11.1 ********************************************
+********************************************************************************************************
+
+- Correction envoi de mails à plusieurs destinataires via sock_mail.	(Damien Borel) 
+- Changement de l'export des UHCD : filtre sur l'uf au lieu des salles.	(Damien Borel)
+- Affichage du médecin en face de chaque acte réalisé.			(Damien Borel)
+- Correction d'un bug de destructeur et de session avec PHP 5.2.0.	(Damien Borel)  
+- Correction d'un bug de la BAL BE lors de la sortie des patients UHCD.	(Damien Borel) 
+- Correction d'un bug : oubli de certain passages en UHCD dans la BAL.	(Damien Borel) 
+- Correction d'un bug de positionnement du patient lors de la sortie.	(Damien Borel)
+- Correction d'une erreur d'affichage dans le module des actes.		(Damien Borel)
+- Ajout de l'UF du patient dans le module d'export.			(Damien Borel)
+- Ajout de la date de passage en UHCD dans le module d'export.		(Damien Borel)
+- Ajout de l'appel à la classe clHprimXML automatiquement.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-01-22 15:00:00 : V 2.11.0 ********************************************
+********************************************************************************************************
+
+- Correction bug sur certaines insertions en MySQL 5.1 et supérieur.	(Cervetti/Falanga)
+- Amélioration des critères d'apparition de la question sur l'UHCD.	(Damien Borel)
+- Possibilité de placer X Iframes dans la fiche patient.		(Damien Borel) 
+- Création d'un profil 'Médecin DIM' avec un accès total en lecture.	(Damien Borel) 
+
+********************************************************************************************************
+**************************** 2007-01-22 09:23:00 : V 2.10.5 ********************************************
+********************************************************************************************************
+
+- Correction d'un bug lors de certaines fusions Hprim.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-01-09 08:23:00 : V 2.10.4 ********************************************
+********************************************************************************************************
+
+- Correction fusion des patients Hprim bug des fusions (Martigues).	(Damien Borel)	
+- Correction d'un bug sur les contraintes de sortie.			(Damien Borel)	
+- Correction d'un bug du module des actes.				(Damien Borel) 	
+- Correction problème sur le bcc (->cc) des mails avec le sock_mail.	(Damien Borel)  
+- Suppression des "." dans les codes recours du fichier export.xls.	(Damien Borel)  
+- Amélioration du dimensionnement de l'iframe.				(Damien Borel)	
+- Désactivation de l'export CCAM si le module CCAM est externe.		(Damien Borel)  
+
+********************************************************************************************************
+**************************** 2007-01-03 17:42:00 : V 2.10.3 ********************************************
+********************************************************************************************************
+
+- Amélioration de l'affichage des bulles de synthèse dans les listes.	(Damien Borel)
+- Amélioration du placement de l'iframe.				(Damien Borel)
+- Affichage en clair des URL dans les messages d'erreur.		(Damien Borel)
+- Gestion de l'affichage de l'utilisateur connecté dans les options.	(Damien Borel)  
+- Gestion de l'authentification pour les envois de mail (SMTP).		(Damien Borel)
+- Changement de l'interfaçage du module externe CORA (Brignoles).	(Alain Falanga)
+- Vérification de la validité de la constante "URLLOCAL".		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2007-01-02 11:16:00 : V 2.10.2 ********************************************
+********************************************************************************************************
+
+- Création du menu invisible 'Ajax' pour utilisation future.		(Damien Borel)
+- Correction bug ajout de patient (à partir de MySQL 5.1).		(Alain Falanga)
+- Amélioration du placement de l'iframe.				(Damien Borel)  
+- L'adresse de Bcc des messages est maintenant dans define.php.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-12-11 10:00:00 : V 2.10.1 ********************************************
+********************************************************************************************************
+
+- Amélioration des logs : Description des actions.			(Damien Borel)
+- Amélioration de l'agencement de la fiche patient.			(Damien Borel)
+- Amélioration de l'agencement du module CCAM / Diagnostics.		(Damien Borel)
+- Correction bug IE : module des actes (Brignoles).			(Damien Borel)
+- Module externe des actes et diagnostics pour Brignoles.		(Alain Falanga)
+- Intégration des modifications modules des actes de Brignoles.		(Damien Borel)
+- Module externe des documents pour Brignoles.				(Alain Falanga)
+- Intégration des modifications modules des documents de Brignoles.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-11-23 16:00:00 : V 2.10.0 ********************************************
+********************************************************************************************************
+
+- La configuration de chaque site se fait maintenant dans "define.xml".	(Damien Borel)
+- La configuration des bases (*.cfg) est générée automatiquement.	(Damien Borel)
+- Création d'un module de test : 'index.test.php'.			(Damien Borel)
+- Correction bug dans le module de fusion des patients manuels.		(Damien Borel)
+- Adaptation de la fusion des patients "Hprim 2.1" pour Martigues.	(Damien Borel) 
+- Création du flux Hprim XML pour les actes et les diagnostics.		(Damien Borel)
+- Ajout d'une iframe configurable dans la fiche patient.		(Damien Borel)
+- Création utilisateur : l'uid n'est plus généré automatiquement.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-11-15 16:00:00 : V 2.9.0 *********************************************
+********************************************************************************************************
+
+- Intégration "technique" de FormX (from Tégéria).			(Emmanuel Cervetti)
+- Correction bug modification patient attendu avec IE.			(Damien Borel)
+- Correction bug des export (dû au changement d'heure hivers/été).	(Damien Borel)
+- Gestion de la saisie des actes dans module externe CCAM. (Brignoles)	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-10-30 15:00:00 : V 2.8.3 *********************************************
+********************************************************************************************************
+
+- Correction : Désactivation de la gestion UHCD pour les sortis.	(Damien Borel)
+- Correction bug de la fiche patient.					(Damien Borel)
+- Correction bug dans le rappatriement des documents (martigues)	(Damien Borel)
+- Gestion filtre pour séparation de la liste des patients UHCD.		(Damien Borel)
+- Correction bug de syntaxe dans le fichier "clHprim.php".		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-10-27 16:00:00 : V 2.8.2 *********************************************
+********************************************************************************************************
+
+- Intégration des modifications de Alain Falanga (Brignoles).		(Damien Borel)
+- Appel d'un module de gestion de document externe.			(Alain Falanga)
+- Appel d'un client externe CORA pour gérer les actes du terminal.	(Alain Falanga)
+- Gestion d'une fenêtre bloquante facilement appelable.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-10-27 15:00:00 : V 2.8.1 *********************************************
+********************************************************************************************************
+
+- Correction bug de la liste des dernières actions effectuées ListeBE.	(Damien Borel)
+- Option supplémentaire dans le module Hprim : filtre sur le statut ER.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-10-23 11:00:00 : V 2.8.0 *********************************************
+********************************************************************************************************
+
+- Correction bug suppression personnel et utilisateurs avec IE.		(Damien Borel)
+- Récupération de documents en base et création à la volée. (Martigues)	(Damien Borel)
+- Correction pour prise en compte de l'option 'ModuleDocuments'.	(Damien Borel)
+- Amélioration du module des actes.					(Christophe Boulay)
+
+********************************************************************************************************
+**************************** 2006-07-10 11:00:00 : V 2.7.0 *********************************************
+********************************************************************************************************
+
+- Ajout des colonnes etatUHCD et dt_UHCD dans les tables patients.	(Damien Borel)
+- Création de la table 'bal' : Boite aux lettres.			(Damien Borel)
+- Gestion du remplissage automatique via des options.			(Damien Borel)
+- Renommage fichier Hprim pour garder historique.			(Damien Borel)
+- Diverses petites corrections.						(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-07-10 11:00:00 : V 2.6.6 *********************************************
+********************************************************************************************************
+
+- Correction bug de l'annulation des patients sortis avec IE.		(Damien Borel)
+- Correction du problème des export sur la colonne dest attendue.	(Damien Borel)
+- Gestion de deux items supplémentaires sans contrainte.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-07-05 11:00:00 : V 2.6.5 *********************************************
+********************************************************************************************************
+
+- Ajout d'une image pour 'Annuler la sortie' d'un patient.		(Damien Borel)
+- Le tri des patients sortis se fait sur nom au lieu de dt_sortie.	(Damien Borel)
+- Correction d'un bug avec les infos-bulles (remplacement des " par ').	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-07-05 11:00:00 : V 2.6.4 *********************************************
+********************************************************************************************************
+
+- Export des données optionnelles.					(Damien Borel)
+- Correction d'un bug IE pour l'ajout manuel de patient.		(Damien Borel)
+- Correction d'un bug IE dans la fiche patient.				(Damien Borel)
+- Correction de la mise à jour lors de l'import Hprim.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-06-29 11:00:00 : V 2.6.3 *********************************************
+********************************************************************************************************
+
+- Correction d'un bug du module d'impression.				(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-06-23 14:30:00 : V 2.6.2 *********************************************
+********************************************************************************************************
+
+- Fusion de deux colonnes dans l'export des actes (CCAM & NGAP).	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-06-15 17:00:00 : V 2.6.1 *********************************************
+********************************************************************************************************
+
+- Export des actes au format Excel.					(Damien Borel)
+	-> modules/CCAM/classes_int/clCCAMExportActes.php
+	-> images/tableur.jpg
+	-> templates_int/CCAM_ExportActes.html
+
+********************************************************************************************************
+**************************** 2006-05-30 17:00:00 : V 2.6.0 *********************************************
+********************************************************************************************************
+
+- Amélioration de la gestion des listes générales avec des ancres.	(Damien Borel)
+- Infographie améliorée et compatible IE / Firefox / Opera / Netscape.	(Damien Borel)
+- Gestion des fichiers HPRIM 2.1 en source.				(Damien Borel)
+- Modification (en option) de l'adresseur dans la fiche patient.	(Damien Borel) 
+- Modification (en option) du mode d'admission dans la fiche patient.	(Damien Borel)
+- Ajout de l'alerte en cas de visites répétitives.			(Damien Borel)
+- Gestion de balises (i,u,b,br) dans la colonne des médecins des docs.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2006-04-06 17:00:00 : V 2.5.2 *********************************************
+********************************************************************************************************
+
+- Création d'une classe qui exporte les actes et diagnostics.		(Christophe Boulay)
+- Appel de la classe d'export des actes et diagnostics dans l'export.	(Damien Borel)
+- Gestion de l'anonymisation dans le module d'export.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-11-30 17:00:00 : V 2.5.1 *********************************************
+********************************************************************************************************
+
+- Date d'examen automatiquement remplie si médecin en mode manuel.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-11-30 17:00:00 : V 2.5.0 *********************************************
+********************************************************************************************************
+
+- Ajout du post-it "made in" tegeria dans la fiche patient.		(Damien Borel)
+- Gestion des codes associations pour la facturation des actes CCAM (Christophe Boulay)
+  * Alter table de "ccam_cotation_actes" => ajout des colonnes "date_demande" et "lesion"
+  * Rajout de la zone "Lésions multiples" dans la grille de cotation
+  * Anesthésiste par défaut = urgentiste
+  * Mise à jour du script d'alimentation de la BAL MBTUV2
+
+********************************************************************************************************
+**************************** 2005-09-23 11:00:00 : V 2.4.2 *********************************************
+********************************************************************************************************
+
+- Liste des patients : Alerte si le patient est dans la table des BMR.	(Damien Borel)
+- Fiche Patient : Affichage de l'historique des BMR du patient.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-09-21 09:00:00 : V 2.4.1 *********************************************
+********************************************************************************************************
+
+- Correction de la gestion des listes mails pour les messages.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-08-09 14:00:00 : V 2.4.0 *********************************************
+********************************************************************************************************
+
+- Correction des bugs d'écriture dans la BAL MBTV2			(Christophe Boulay)
+- Gestion des catégories et listes de médecins				(Christophe Boulay)
+- Module des consultations spécialisées					(Christophe Boulay)
+- Création des groupes MEDECIN et URGENCES				(Christophe Boulay)
+- MAJ des droits pour gérer les actes et les consults spécialisées	(Christophe Boulay)
+
+********************************************************************************************************
+**************************** 2005-08-03 16:00:00 : V 2.3.1 *********************************************
+********************************************************************************************************
+
+- Duplication des packs d'actes vers plusieurs diagnostics		(Christophe Boulay)
+
+********************************************************************************************************
+**************************** 2005-07-07 12:00:00 : V 2.3.0 *********************************************
+********************************************************************************************************
+
+- Intégration de XHAM V1.0 dans le terminal :				(Damien Borel)
+   -> Administration totale de l'application au niveau développement.	(Damien Borel) 
+   -> Gestion des menus et de la navigation.				(Damien Borel)
+   -> Administration des droits et des options.				(Damien Borel)
+   -> Certaines tables communes entre les applications basées sur XHAM. (Damien Borel)
+- Possibilité d'exporter différentes parties de l'affichage.		(Damien Borel)
+
+- Alter table de la table ccam_cotation_actes				(Christophe Boulay)
+- Update des libellés de diagnostics pour l'ensemble des enregistrements(Christophe Boulay)
+- Gestion des modificateurs par déduction				(Christophe Boulay)
+- Envoi des actes/diags dans la BAL MBTV2 lors de la sortie du patient	(Christophe Boulay)
+- Gestion de la BAL pour les actes et diags des patients fusionnés	(Christophe Boulay)
+
+********************************************************************************************************
+**************************** 2005-06-08 12:00:00 : V 2.2.1 *********************************************
+********************************************************************************************************
+
+- Gestion des utilisateurs dans la base interne MySQL en option.	(Damien Borel)
+- Les utilisateurs MySQL peuvent changer directement leur mot de passe.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-06-06 14:11:00 : V 2.2.0 *********************************************
+********************************************************************************************************
+
+- Nouvelle version plus adaptée du module de fusion des patients.	(Damien Borel)
+- Affichage des statistiques (logs) de navigation.			(Damien Borel)
+- Redirection vers la liste des présents après une validation de sortie.(Damien Borel)
+- Gestion d'un super admin dans le fichier define.php: Tous les droits.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-06-02 08:32:00 : V 2.1.5 *********************************************
+********************************************************************************************************
+
+- Affichage d'un message d'avertissement si Javascript est désactivé.	(Damien Borel)
+- Détachement du code Javascript dans un fichier externe (scripts.js).	(Damien Borel)
+- Ajout de tables MySQL pour gérer et historiser les sessions.		(Damien Borel)
+- Le moindre clic est comptabilisé pour historique et statistiques.	(Damien Borel)
+- Visualisation des sessions : "qui fait quoi depuis quand ?"		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-06-01 09:24:00 : V 2.1.4 *********************************************
+********************************************************************************************************
+
+- Vérification supplémentaire sur les codes ADELI : 9 caractères.	(Damien Borel)
+- Passage du numéro de séjour (identifiant de passage) au module CCAM.	(Damien Borel)
+- Suppression de l'option ActesAssoDiags				(Christophe Boulay)
+- Création de l'option numUFexec					(Christophe Boulay)
+- Récupération des numéros de séjours, des lieux d'interventions,
+  du code activité 4, de l'urgence de l'acte, de l'uf exécutante 
+  et de la validation définitive dans la table des cotations		(Christophe Boulay)
+
+********************************************************************************************************
+**************************** 2005-05-31 10:15:00 : V 2.1.3 *********************************************
+********************************************************************************************************
+
+- Correction du fonctionnement du filtre de recherche des sortis.	(Damien Borel)
+- Gestion de l'option "Forcer la sortie" pour les administrateurs.	(Damien Borel)
+- Ajout de l'option pour visualiser les notes de patchs.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-05-23 10:21:45 : V 2.1.2 *********************************************
+********************************************************************************************************
+
+- Suppression du signalement de patient manquant dans une liste.	(Damien Borel)
+- Distinction UHCD / non-UHCD dans le module d'export.			(Damien Borel)
+- Amélioration du module HOPI pour l'appartenance à un groupe.		(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-05-19 15:48:00 : V 2.1.1 *********************************************
+********************************************************************************************************
+
+- Correction de la requête effectuée pour Voice.			(Laurent Simon)
+- Correction du module ARH qui exporte les données pour l'ARH.		(Laurent Simon)
+- Utilisation de $relocate dans le config pour gérer plusieurs env.	(Laurent Simon)
+
+********************************************************************************************************
+**************************** 2005-05-18 09:03:55 : V 2.1.0 *********************************************
+********************************************************************************************************
+
+- Module d'export des données opérationnel.				(Damien Borel)
+- Le répertoire "cache/" est purgé toutes les deux heures.		(Damien Borel)
+- Correction d'un bug de destinataires dans les messages.		(Damien Borel)
+- Changement d'état vu/non-vu en fonction de l'affectation d'un méd.	(Damien Borel)
+- Correction d'un bug qui bloquait les patients à cause d'une "'".	(Damien Borel)
+- Changement des couleurs de la fiche patient.				(Sandrine Chiletti)
+- On ignore la contrainte sur le 2702 pour les patients manuels.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-05-16 17:31:15 : V 2.0.2 *********************************************
+********************************************************************************************************
+
+- Gestion d'erreur quand un patient est introuvable dans une liste.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-05-12 15:34:24 : V 2.0.1 *********************************************
+********************************************************************************************************
+
+- Correction de bugs dans le module des diagnostics.			(Christophe Boulay)
+- Correction d'un bug dans la liste des patients présents.		(Damien Borel)
+- Correction des problèmes dans le flux Cafeterra.			(Karine Dekhli)
+- Récupération des patients disparus au cours de la migration.  	(Damien Borel)
+- Correction d'un bug sur la contrainte "ContrainteHuitUF2702". 	(Damien Borel)
+- Correction de bug du clignotement des patient.			(Damien Borel)
+
+********************************************************************************************************
+**************************** 2005-05-12 11:05:32 : V 2.0.0 *********************************************
+********************************************************************************************************
+
+- Réecriture complète de l'application en POO avec PHP5.		(Damien Borel)
+- Décrochage d'Orgacle : Passage en MySQL.				(Damien Borel)
+- Gestion des droits et des options.					(Damien Borel)
+- Gestion et signalement des erreurs / bugs.				(Damien Borel)
+- Gestion des actes et des diagnostics multiples.			(Christophe Boulay)
+- Ergonomie revue, aspect graphique amélioré.				(Sandrine Chiletti)
+- Utilisation de ModeliXe + CSS.					(Sandrine Chiletti)
+- Adaptation des scripts d'exports.					(Laurent Simon)
+- Mise en place du flux Cafeterra des patients.				(Karine Dekhli)
+- Mise en place de la BAL des patients dans le terminal.        	(Damien Borel)
+- Gestion de procédures manuelles en cas de coupure.			(Damien Borel)
+- Module de connexion via Hopi.						(Damien Borel)
+- Module de connexion à l'annuaire LDAP.				(Damien Borel)
