@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getMedecinCCAM</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select * from ccam_cotation_actes
+    where codeActe not like 'NGAP%' and codeActe not like 'CONS%' and type='ACTE'
+          and $cw</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

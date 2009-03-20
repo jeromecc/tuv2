@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getModificateursActe</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select distinct m.modifi_cod 
+      from ccam_acte a, R_ACTIVITE_MODIFICATEUR m 
+      where substring(m.aa_code,1,7)=a.code and m.aadt_modif>=a.dt_modif 
+				$cw
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

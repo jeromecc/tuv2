@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getAMIActes</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select rel.idActe identifiant,rel.libelleActe libelle,
+				rel.libelleActe title,rel.cotationNGAP cotationNGAPvide
+			from ccam_actes_domaine rel
+			where rel.idDomaine=$idDomaine 
+				and rel.idActe like '$type%'
+				and rel.idActe not in ($listeIdRelation)
+				and ( rel.cotationNGAP like '%AMI%' or rel.cotationNGAP like '%AIS%') $cw
+			order by $order
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

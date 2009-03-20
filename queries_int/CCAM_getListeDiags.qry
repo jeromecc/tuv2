@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getListeDiags</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select code identifiant,nomitem libelle
+			from ccam_liste 
+			where nomliste='$idListeSelection0'
+				and idDomaine=$idDomaine and nomitem<>'LISTE' and categorie='Diagnostics'
+			order by $order
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

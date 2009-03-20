@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getDiagCotes</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select distinct cot.codeActe identifiant,cot.libelleActe libelle,cot.identifiant id,cot.dateDemande
+			from ccam_cotation_actes cot
+			where cot.idDomaine=$idDomaine and cot.idEvent=$idEvent and cot.type='DIAG'
+			order by id
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

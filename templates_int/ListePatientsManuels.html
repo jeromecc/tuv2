@@ -1,0 +1,41 @@
+<LM:config>
+ $show_inactive_nav_button=true;
+ $url_first_text=<IMG src="images/gg.gif"> ;
+ $url_prev_text=<IMG src="images/g.gif"> ;
+ $url_next_text=<IMG src="images/d.gif"> ;
+ $url_last_text=<IMG src="images/dd.gif"> ;
+ $sort_arrow_up=<IMG src="images/sort_up.gif">;
+ $sort_arrow_down=<IMG src="images/sort_down.gif">;
+ $sort_arrow_none=<IMG src="images/none.gif">;
+</LM:config>
+
+<LM:list>
+<div id="listepatients">
+  <table align="center" id="manuels" class="sortable">
+    <tr>
+      <th></th>
+      <th>Patient</th>
+      <th>Naissance</th>
+      <th>Admission</th>
+      <th>Sortie</th>
+      <th>S&eacute;jour</th>
+    </tr>
+    <LM:item>
+    <tr class="{_ItemColor}" {fusion}>
+        <td class="sexe">{sexe}</td>
+	<td class="gauche">{patient}</td>
+        <td class="centre">{naissance}</td>
+        <td class="centre">{admission}</td>
+        <td class="centre">{sortie}</td>
+	<td class="centre">{nsej}</td>
+      </tr>
+    </LM:item>
+    <LM:no_item>
+      <tr>
+        <td colspan="12" align="center">Aucun patient dans cette liste.</td>
+      </tr>
+    </LM:no_item>
+  </table>
+</div>
+<div id="mod"></mod>
+</LM:list>

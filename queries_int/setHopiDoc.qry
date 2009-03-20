@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>HOPI</domaine>
+		<nom>getHistoriqueDocs
+		<id_config>config_hopi_ref</id_config>
+		<colonnes></colonnes>
+		<code_sql>INSERT INTO BASEDOC VALUES ('$titre','','$url' ,'$ilp',
+sysdate,'','','$idsej','','$auteur','','')
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

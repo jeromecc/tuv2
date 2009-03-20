@@ -1,0 +1,30 @@
+<LM:config>
+ $nb_result_per_page=1000;
+
+ $sort_arrow_up="<IMG src=\"images/sort_up.gif\" alt=\"Haut\" />";
+ $sort_arrow_down="<IMG syesrc=\"images/sort_down.gif\" alt=\"Bas\" />";
+ $sort_arrow_none="<IMG src=\"images/none.gif\" alt=\"Aucun\" />";
+</LM:config>
+
+<LM:list>
+<table summary="Liste des connectés" align="center">
+  <tr>
+    <th>{_SortHeader[col1]}</th>
+    <th>{_SortHeader[col2]}</th>
+    <th>{_SortHeader[col3]}</th>
+    <th>{_SortHeader[col4]}</th>
+    <th>{_SortHeader[col5]}</th>
+    <th>{_SortHeader[col6]}</th>
+  </tr>
+  <LM:item>
+    <tr class="{_ItemColor}">
+      <td>{uid}</td>
+      <td>{type}</td>
+      <td>{ip}</td>
+      <td>{date}</td>
+      <td>{last}</td>
+      <td>{localisation}</td>
+    </tr>
+  </LM:item>
+</table>
+</LM:list>

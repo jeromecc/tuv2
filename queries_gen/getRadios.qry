@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>getRadios</nom>
+		<id_config>config_terminal</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT * FROM radios r, $base.patients_presents p $cw UNION SELECT * FROM radios r, $base.patients_sortis p $cw 
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

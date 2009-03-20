@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getActesDiags2</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select distinct(act.idActe) identifiant,act.libelleActe libelle,
+				act.libelleActe title,act.cotationNGAP cotationNGAPvide, act.date_fin
+			from ccam_actes_diagnostic rel,ccam_actes_domaine act
+			where rel.idDomaine=act.idDomaine and ( rel.idActe=act.idActe $net)
+				and rel.idDomaine=$idDomaine and rel.idDiag='$idListeSelection1'
+				$cw $netforce
+			order by $order
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

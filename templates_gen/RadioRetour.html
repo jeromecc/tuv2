@@ -1,0 +1,69 @@
+<img src="images/radio.png" alt="retour radio à saisir" onClick="show('retourRadio');show('grise')" style="cursor:pointer; pointer:hand;" /> 
+<iframe id="grise" style="display:<mx:text id="display" />;"></iframe>
+<div id="retourRadio" style="display:<mx:text id="display" />;">
+<span class="close" style="position: absolute; margin-left: 399px; top: 0px; cursor: pointer; pointer: hand; z-index:200;" onClick="cache('retourRadio');cache('grise');"><img src="images/close.gif" alt="[x]" /></span>
+	Une radio vous a été retournée pour ce patient :<br />
+	<u>Date :</u> <mx:text id="date" /><br />
+	<mx:text id="detail" /><br />
+	Résultat :<br/>
+	<form method="post" action="index.php">
+		<input type="radio" name="anomalie" value="Oui" <mx:text id="ro" /> />  La radio a permis de détecter des anomalies.<br/>
+		<input type="radio" name="anomalie" value="Non" <mx:text id="rn" /> />  La radio n'a pas permis de détecter des anomalies.<br/>
+		<input type="radio" name="anomalie" value="NR" <mx:text id="rr" /> />  La radio n'a pas été réalisée.<br/>
+		<input type="radio" name="anomalie" value="NI" <mx:text id="ri" /> />  La radio n'a pas été inteprétée.<br/><br/>
+		<mx:bloc id="enquete">
+			<table style="border: 1px solid red; background-color:">
+				<tr>
+					<td style="padding:5px;" >Enqu&ecirc;te - <mx:text id="typeEnquete" /></td>
+					<td></td>
+				</tr>
+				<tr>	
+					<td style="padding:5px;" >Indication :</td>
+                                        <td><mx:text id="indication" /></td>
+                                </tr>
+				<tr>
+                                        <td style="padding:5px;" >Je cherche :</td>
+                                        <td><mx:text id="recherche" /></td>
+                                </tr>
+				<tr>
+					<td style="padding-left: 5px; vertical-align: middle;">Qualité du cliché</td>
+					<td>
+						<mx:select id="qualite" style="width: 200px;" />
+					</td>
+				</tr>
+				<tr>
+                                        <td style="padding-left: 5px; vertical-align: middle;">Est-il interprétable ?</td>
+                                        <td>
+						<input type="radio" name="interpretable" value="oui" <mx:text id="ico" /> /> Oui<input type="radio" name="interpretable" value="non" <mx:text id="icn" /> />Non
+					</td>
+				</tr>
+				<tr>
+                                        <td style="padding-left: 5px; vertical-align: middle;">Impact conduite diagnostic ?</td>
+                                        <td>
+                                                <input type="radio" name="impactdiag" value="oui" <mx:text id="idco" /> /> Oui<input type="radio" name="impactdiag" value="non" <mx:text id="idcn" /> />Non
+                                        </td>
+                                </tr>
+				<tr>
+                                        <td style="padding-left: 5px; vertical-align: middle;">Impact conduite thérapeutique ?</td>
+                                        <td>
+                                                <input type="radio" name="impactthera" value="oui" <mx:text id="itco" /> /> Oui<input type="radio" name="impactthera" value="non" <mx:text id="itcn" /> />Non
+                                        </td>
+                                </tr>
+				<tr>
+                                        <td style="padding-left: 5px; vertical-align: middle;">Diagnostic radiologique</td>
+                                        <td style="padding-bottom: 5px; padding-right: 5px;">
+						 <textarea name="diagradio"><mx:text id="diagradio" /></textarea>
+                                        </td>
+                                </tr>
+			</table>			
+		</mx:bloc id="enquete">
+		Commentaires :
+		<textarea name="commentaire"><mx:text id="commentaire" /></textarea><br/><br/>
+		<mx:hidden id="hidden" />
+		<center>
+		<mx:text id="erreurs" />
+		<input type="submit" name="validerRetourRadio" value="Valider" />
+	</form>	
+	<input type="submit" value="Annuler" onClick="cache('retourRadio');cache('grise');" />
+	</center>
+</div>

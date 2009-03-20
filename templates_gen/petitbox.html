@@ -1,0 +1,138 @@
+<style type="text/css">
+
+table.petitbox {
+font-family: verdana;
+font-size: 13px;
+border-collapse: collapse; border: 2px solid #666666; }
+
+#calque select, input[type=text], input[type=password], input[type=submit], textarea {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        border: #2D729D solid 1px;
+        background-color : #CCCCCC;
+}
+
+#calque input[type=text]:hover, input[type=password]:hover, input[type=submit]:hover, textarea:hover, select:hover {
+        background-color : #EEEEEE ;
+}
+
+#titreFenetre { text-align: center; padding: 1px; height: 30px;
+background-image: url(./images/fondTab.jpg); font-weight: bold; }
+
+#fermerFenetre { position: absolute; left: 430px; }
+ 
+#calque { left:25%; top:20%; filter:alpha(opacity=0); -moz-opacity:0; opacity: 0; position: absolute; border: 2px solid #330033;z-index: 100; background-color: #f2f2f2; }
+
+#divStayTopRight { position: absolute; left:92%; top:8%;z-index: 100; }
+
+.txt{ font-family:Verdana, Arial, Helvetica, sans-serif; }
+
+</style>
+
+<script type="text/javascript" language="javascript">
+
+function makeRequest( ) {
+        
+  valeur_nature     = document.frm.nature.value.length;
+  valeur_titre      = document.frm.titre.value.length;
+  valeur_expediteur = document.frm.expediteur.value.length;
+  valeur_contenu    = document.frm.contenu.value.length;
+        
+  if ( valeur_nature == 0 ) {
+    alert("Entrez la nature de votre demande :");
+    document.frm.nature.focus();
+    return false; 
+  }
+  else if ( valeur_titre == 0 ) {
+    alert("Entrez le titre de votre message :");
+    document.frm.titre.focus();
+    return false; 
+  }
+  else if ( valeur_expediteur == 0 ) {
+    alert("Entrez votre nom :");
+    document.frm.expediteur.focus();
+    return false; 
+  }
+  
+  else if ( valeur_contenu == 0 ) {
+    alert("Entrez le contenu de votre message :");
+    document.frm.contenu.focus();
+    return false; 
+  }
+  else shiftOpacity(calque);
+}
+
+function display(calque) {
+  var myDiv = document.getElementById("calque");  
+  shiftOpacity(calque);
+  };
+
+function display2(calque) {
+  document.getElementById(calque).style.display=document.getElementById(calque).style.display=="none"?"block":"none";
+  var myDiv = document.getElementById("calque");
+  };
+
+</script>
+
+
+<div id="calque" class="txt">
+  <div id="titreFenetre">
+    <mx:text id="titreFenetre" />
+    <span id="fermerFenetre">
+      <a href="#" onclick="display('calque'); "><mx:image id="imgFermer"/></a>
+    </span>
+  </div>
+  <center>
+  <br />
+  <form method="post" name="frm" onSubmit="return makeRequest( )">
+    <table width="450">
+      <tr>
+        <td><div align="right">Nature du message:</div></td>
+        <td><mx:select id="nature" /></td>
+      </tr>
+      <tr>
+        <td><div align="right">Titre du message:</div></td>
+        <td><mx:formField id="titre" /></td>
+      </tr>
+      <tr>
+        <td><div align="right">Expéditeur:</div></td>
+        <td><mx:formField id="expediteur" /></td>
+      </tr>
+      <tr>
+        <td><div align="right">Contenu du message:</div></td>
+        <td><mx:formField id="contenu" /></td>
+      </tr>
+    </table>
+    <mx:hidden id="hidden1" />
+    <mx:hidden id="hidden5" />
+    <br />
+    <input type="submit" value="Envoyez" name="envoyer" />
+  </form>
+  <br /><br />
+  </center>
+</div>
+
+<div id="divStayTopRight">
+<table class="petitbox" border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="1" onmouseover="return overlib('Déplacement de la fenêtre');" onmouseout="return nd();"></td>
+  </tr>
+  <tr>
+    <td valign="middle" height="13">
+      <a class="petitbox" href="#" onmouseover="return overlib('Envoi de Mail au service informatique du CH-HYERES');" onmouseout="return nd();" onclick="display('calque');"><img src ="./images/petitbox.png"></a>
+    </td>
+  </tr>
+  <tr>
+    <td height="1" onmouseover="return overlib('Déplacement de la fenêtre');" onmouseout="return nd();"></td>
+  </tr>
+</table>
+</div>
+
+<script type="text/javascript">
+display2('calque');
+SET_DHTML('divStayTopRight'+CURSOR_MOVE);
+</script>
+
+
+
+

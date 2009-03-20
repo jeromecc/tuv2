@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_get1ActeCote</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select cot.codeActe identifiant,cot.categorie
+			from ccam_cotation_actes cot
+			where cot.codeActe='$codeActe' and cot.idEvent=$idEvent and type='$type'
+				and idDomaine=$idDomaine
+			order by cot.codeActe
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

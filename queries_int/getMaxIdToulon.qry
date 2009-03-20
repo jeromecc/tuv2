@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>getMaxIdToulon</nom>
+		<id_config>config_terminal</id_config>
+		<colonnes></colonnes>
+		<code_sql>select max(idpatient) idpatient from patients_presents UNION select max(idpatient) from patients_sortis UNION select max(idpatient) from terminal2_tuv2.patients_presents UNION select max(idpatient) from terminal2_tuv2.patients_sortis
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

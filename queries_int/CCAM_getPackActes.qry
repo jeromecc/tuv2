@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getPackActes</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select distinct rel.idPack,act.libelleActe
+			from ccam_actes_pack rel,ccam_actes_domaine act
+			where rel.idDomaine=act.idDomaine and rel.idPack=act.idActe
+				$cw
+			order by rel.idPack
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

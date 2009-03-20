@@ -1,0 +1,44 @@
+<LM:config>
+ $nb_result_per_page=1000;
+
+ $sort_arrow_up="<IMG src=\"images/sort_up.gif\">";
+ $sort_arrow_down="<IMG syesrc=\"images/sort_down.gif\">";
+ $sort_arrow_none="<IMG src=\"images/none.gif\">";
+</LM:config>
+
+<LM:list>
+<div id="listepatients">
+  <table align="center">
+    <tr>
+      <th></th>
+      <th>Patient</th>
+      <th>Age</th>
+      <th>Adresseur</th>
+      <th>Création</th>
+      <th>Médecin informé</th>
+      <th>Observations</th>
+      <th>Action</th>
+    </tr>
+    <LM:item>
+      <tr class="{_ItemColor}" onclick="document.location='{urlpatient}'">
+        <td class="sexe">{sexe}</td>
+        <td class="gauche">{patient}</td>
+        <td class="gauche">{age}</td>
+        <td class="gauche">{adresseur}</td>
+        <td class="gauche">{date}</td>
+        <td class="gauche">{medecin}</td>
+        <td class="gauche">{observations}</td>
+	<td class="droite">
+          {lienModifier}
+          {lienSupprimer}
+        </td>
+      </tr>
+    </LM:item>
+    <LM:no_item>
+      <tr>
+        <td colspan="12" align="center">Aucun patient dans cette liste.</td>
+      </tr>
+    </LM:no_item>
+  </table>
+</div>
+</LM:list>

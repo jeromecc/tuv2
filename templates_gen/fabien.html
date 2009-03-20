@@ -1,0 +1,43 @@
+<img src="http://cypres.ch-hyeres.fr/xham/pifgadget/fabien.gif" id="fabien" style="position:absolute;top:100px;left:1400px;pointer:hand;cursor:pointer;" onclick="tuerFabien()"  /> 
+
+<script language="javascript">
+	var haut = 100;
+	var gauche = 1800;
+	var coefY = 200;
+	var lenteur = 3;
+	var vitesse = 1;
+	var mouv = 1 ;
+
+	function bouge ( x ) {
+	        if(document.getElementById) {
+		        haut = coefY*Math.cos(gauche/coefY)+200;
+		        gauche -= x;
+		        document.getElementById("fabien").style.top = haut+"px";
+		        document.getElementById("fabien").style.left = gauche+"px";
+	        }
+	}
+
+	function bougeRec ( x ) {
+		if ( x < 1800 ) {
+
+		} else {
+			x = 0 ;
+			gauche = 1400 ;
+		}		
+		bouge ( vitesse ) ;
+		if ( mouv == 1 )
+			setTimeout(function(){bougeRec ( x + vitesse )},lenteur);
+		
+	}
+
+	function tuerFabien ( ) {
+		document.getElementById("fabien").src = "http://cypres.ch-hyeres.fr/xham/pifgadget/tachefabien.gif" ;
+		haut = haut - 50 ;
+		document.getElementById("fabien").style.top = haut+"px";
+		mouv = 0 ;
+	}
+
+	bougeRec ( 0 ) ;
+</script>
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getConsultListeGauche</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select distinct tab.code identifiant,tab.nomItem libelle
+			from ccam_liste tab
+			where tab.categorie='ListeMédecins' and tab.idDomaine=$idDomaine and
+				tab.code not in ($listeIdRelation) and nomItem!='liste' $cw
+			order by tab.nomItem
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

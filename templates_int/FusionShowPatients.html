@@ -1,0 +1,36 @@
+<div id="showFusions">
+	<span class="close" style="position: absolute; margin-left: 299px; top: 0px; cursor: pointer; pointer: hand; z-index:200;" onClick="cache('showFusions');"><img src="images/close.gif" alt="[x]" /></span>
+	<span style="position: absolute; top: 0px; z-index:200; font-weight: bold; margin-left:-308px;">Liste des fusions propos&eacute;es</span>
+	<br/>
+	<table>
+		<tr <mx:text id="survol" /> style="border:0; font-weight: bold;">
+			<td class="nostyle"><mx:text id="sexe" /></td>
+                        <td class="nostyle"><mx:text id="nom" /></td>
+                        <td class="nostyle"><mx:text id="prenom" /></td>
+                        <td class="nostyle"><mx:text id="dt_naissance" /></td>
+                        <td class="nostyle"><mx:text id="dt_admission" /></td>
+                        <td class="nostyle"><mx:text id="nsej" /></td>
+			<td class="nostyle"><img src="images/annuler3.gif" alt="X" <mx:text id="supprimer" /> /></td>
+                </tr>
+		<tr>
+			<th></th>
+			<th>Nom</th>
+			<th>Pr&eacute;nom</th>
+			<th>Naissance</th>
+			<th>Admission</th>
+			<th>S&eacute;jour</th>
+			<th>%</th>
+		</tr>
+		<mx:bloc id="patient">
+		<tr <mx:text id="js" /> <mx:text id="survol" /> >
+			<td><mx:text id="sexe" /></td>
+			<td><mx:text id="nom" /></td>
+			<td><mx:text id="prenom" /></td>
+			<td><mx:text id="dt_naissance" /></td>
+			<td><mx:text id="dt_admission" /></td>
+			<td><mx:text id="nsej" /></td>
+			<td><mx:text id="prc" /></td>
+		</tr>
+		</mx:bloc id="patient">
+	</table>
+</div>

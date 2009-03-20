@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>REF</domaine>
+		<nom>getHistorique</nom>
+		<id_config>config_ref</id_config>
+		<colonnes></colonnes>
+		<code_sql>select IDPASS, ILP, to_char(DTENT,'dd/mm/yyyy') ENTREE, LIBELLE_UF, to_char(DTSOR,'dd/mm/yy') DTSOR from passage, UF,REFID where Passage.IDU = '$IDU' and DTSOR is not NULL and UFADM=NUMERO_UF and passage.IDU=refid.idu and REFID.idc=1 order by DTENT DESC
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

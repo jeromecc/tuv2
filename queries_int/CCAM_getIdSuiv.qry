@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getIdSuiv</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select max(idActe) maxCode
+			from ccam_actes_domaine
+			where idActe like '$typeCode%'
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

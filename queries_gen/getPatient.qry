@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>REF</domaine>
+		<nom>getPatient</nom>
+		<id_config>config_ref</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT p.PREN, p.NOMU, p.NOMPAT, p.SEXE,
+		r.ILP, p.IDU, p.SIFAM, p.ADR1, p.ADR2, p.CDPOST, p.LIEU,
+		p.TEL, p.TELP, p.NOSS, to_char(p.DTNAI,'yyyy-mm-dd')
+		DTNAI from PATIENT p, REFID r $cw
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

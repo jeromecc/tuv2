@@ -1,0 +1,42 @@
+<div id="ExportActes" style="text-align: center;">
+	<h4>Export des actes</h4>
+	<form method="post" action="index.php">
+		<table style="margin-left: auto; margin-right: auto;">
+			<tr><td style="align: left;">Choix d'un jour :</td><td><mx:select id="listeDates" /></td></tr>
+			<tr><td style="align: left;">Filtre sur le type :</td><td><mx:select id="listeTypes" /></td></tr>
+			<tr><td style="align: left;">Filtre sur l'action :</td><td><mx:select id="listeActions" /></td></tr>
+		</table>
+		<mx:hidden id="hidden" />
+	</form>
+	<mx:text id="fichierTableur" />
+	<br />
+	<table id="listeActes">
+		<tr>
+			<th>Date & Heure</th>
+			<th>Type</th>
+			<th>Action</th>
+			<th>Patient</th>
+			<th>IPP</th>
+			<th>Dossier</th>
+			<th>Acte</th>
+			<th>Lib</th>
+			<th>Medecin</th>
+			<th>ADELI</th>
+		</tr>		
+		<mx:bloc id="listeActes">
+			<mx:text id="tr" />
+				<td><mx:text id="date" /></td>
+				<td><mx:text id="type" /></td>
+				<mx:text id="action" />
+				<td><mx:text id="patient" /></td>
+				<td><mx:text id="ipp" /></td>
+				<td><mx:text id="dossier" /></td>
+				<td><mx:text id="acte" /></td>
+				<td><mx:text id="lib" /></td>
+				<td><mx:text id="medecin" /></td>
+				<td><mx:text id="ADELI" /></td>
+			</tr>
+		</mx:bloc id="listeActes">
+	</table>
+	<br />
+</div>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<evenementsPMSI>
+	<enteteMessage>
+		<identifiantMessage><mx:text id="identifiantMessage" /></identifiantMessage>
+		<dateHeureProduction><mx:text id="dateHeureProduction" /></dateHeureProduction>
+		<emetteur>
+			<agents>
+				<agent categorie="application">
+					<code><mx:text id="codeEmetteur" /></code>
+				</agent>
+			</agents>
+		</emetteur>
+		<destinataire>
+			<agents>
+				<agent categorie="application">
+					<code><mx:text id="codeDestinataire" /></code>
+				</agent>
+			</agents>
+		</destinataire>
+	</enteteMessage>
+	<evenementPMSI>
+		<patient>
+			<identifiant>
+				<emetteur>
+					<valeur><mx:text id="patientEmetteur" /></valeur>
+				</emetteur>
+				<recepteur>
+					<valeur><mx:text id="patientRecepteur" /></valeur>
+				</recepteur>
+			</identifiant>
+			<personnePhysique sexe="<mx:text id="sexe" />">
+				<nomUsuel><mx:text id="patientNom" /></nomUsuel>
+				<prenoms>
+					<prenom><mx:text id="patientPrenom" /></prenom>
+				</prenoms>
+				<dateNaissance>
+					<date><mx:text id="patientNaissance" /></date>
+				</dateNaissance>
+			</personnePhysique>
+		</patient>
+		<venue>
+			<identifiant>
+				<recepteur>
+					<valeur><mx:text id="venueRecepteur" /></valeur>
+				</recepteur>
+			</identifiant>
+			<entree typeEntree="">
+				<dateHeureOptionnelle>
+					<date><mx:text id="venueDate" /></date>
+					<heure><mx:text id="venueHeure" /></heure>
+				</dateHeureOptionnelle>
+			</entree>
+		</venue>
+		<rss>
+			<rum action="<mx:text id="action" />">
+				<identifiant>
+					<emetteur><mx:text id="rumEmetteur" /></emetteur>
+				</identifiant>
+				<dateAction><mx:text id="rumDate" /></dateAction>
+				<acteurAction>
+					<numeroAdeli><mx:text id="ADELI" /></numeroAdeli>
+				</acteurAction>
+				<uniteMedicale>
+					<code><mx:text id="rumUF" /></code>
+					<entree mode="" complementMode="">
+						<dateHeureOptionnelle>
+							<date><mx:text id="rumUFDate" /></date>
+							<heure><mx:text id="rumUFHeure" /></heure>
+						</dateHeureOptionnelle>
+					</entree>
+				</uniteMedicale>
+				<diagnostics>
+					<diagnosticPrincipal>
+						<codeCim10><mx:text id="cim10princ" /></codeCim10>
+					</diagnosticPrincipal>
+					<diagnosticsSignificatifs>
+						<mx:bloc id="diagsign">
+							<diagnosticSignificatif>
+								<codeCim10><mx:text id="codeCim10sign" /></codeCim10>
+							</diagnosticSignificatif>
+						</mx:bloc id="diagsign">
+					</diagnosticsSignificatifs>
+				</diagnostics>
+			</rum>
+		</rss>
+	</evenementPMSI>
+</evenementsPMSI>

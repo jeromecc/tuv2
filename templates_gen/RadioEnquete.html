@@ -1,0 +1,64 @@
+<span class="close" style="position: absolute; margin-left: 435px; top: 5px; cursor: pointer; pointer: hand; z-index:200;" onClick="cache('mod');cache('arbo');"><img src="images/close.gif" alt="[x]" /></span>
+<div id="modRadio" style="width:895px;">
+	<div id="handMod" class="titreForm">Enqu&ecirc;te <mx:text id="nomEnquete" /></div>
+	<div class="corpForm">
+		<table>
+		<tr>
+		<td>
+		<form method="post" action="index.php">
+			<fieldset>
+                                <legend>Identit&eacute;</legend>
+				<table>
+					<tr>
+                                                        <td class="titre" style="width: 100px; text-align: right; font-weight: bold;">Radiologue</td>
+                                                        <td class="info" style="text-align: left; vertical-align: middle;"><mx:select id="listeMedecins" /></td>
+					</tr>
+				</table>
+			</fieldset>
+	                <fieldset>
+		                <legend>Questionnaire qualit&eacute;</legend>
+	                        <table summary="Formulaire">
+					<tr>
+						<td></td>
+						<td>Oui</td>
+						<td>Non</td>
+					</tr>
+					<mx:bloc id="question">
+					<tr>
+						<td class="titre" style="width: <mx:text id="width" />px; text-align: right; font-weight: bold;"><mx:text id="question" /></td>
+	        	                        <td class="info" style="vertical-align: middle;"><mx:checker id="oui" /></td>
+						<td class="info" style="vertical-align: middle;"><mx:checker id="non" /></td>
+					</tr>
+					</mx:bloc id="question">
+	                        </table>
+			</fieldset>
+			<fieldset>
+                                <legend>Diagnostic radio</legend>
+                                <table summary="Formulaire">
+					<textarea name="radiologuediagradio" style="width:545px;"><mx:text id="radiologuediagradio" /></textarea>
+                                </table>
+                        </fieldset>
+			<mx:hidden id="hidden" />
+			<br/>
+			<input type="submit" name="Valider" value="Valider" />
+		</form>
+		</td>
+		<td style="vertical-align:top; text-align: left;">
+			<fieldset style="width:260px;">
+                                <legend>Urgentiste</legend>
+				<br/>
+                                <b>Indication :</b> <mx:text id="indication" /><br/><br/>
+				<b>Il cherche :</b> <mx:text id="recherche" /><br/><br/>
+				<b>Qualit&eacute; du clich&eacute; :</b> <mx:text id="qualite" /><br/><br/>
+				<b>Interpr&eacute;table :</b> <mx:text id="interpretable" /><br/><br/>
+				<b>Impact conduite diagnostic :</b> <mx:text id="impactdiag" /><br/><br/>
+				<b>Impact conduite th&eacute;rapeutique :</b> <mx:text id="impactthera" /><br/><br/>
+				<b>Diagnostic radiologique :</b> <mx:text id="diagradio" /><br/><br/>
+                        </fieldset>
+		</td>
+		</tr>
+		</table>
+        </div>
+</div>
+<div id="debug">
+</div>

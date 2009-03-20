@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_Cora</nom>
+		<id_config>config_cora</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT 
+		    	SELECT
+				TB_DET_ACTE.ID_MEDECIN as clef_medecin_cora,
+				UTIL.code_util as code_util_cora,
+                                UTIL.nom_util as nom_utilisateur_cora,
+                                UTIL.prenom_util as prenom_utilisateur_cora,
+                                UTIL.matricule as matricule_utilisateur_cora,
+                                TB_ACTE.DATE_ACTE as DateActe,
+                                TB_ACTE.HEURE_ACTE as Heure_NGAP,
+                                TB_ACTE.NO_INTERVENTION_CCAM as NumInter,
+                                TB_ACTE.CODE_ACTE as identifiant
+                        FROM
+                                TB_ACTE INNER JOIN TB_MVT
+                                ON TB_ACTE.ID_MVT = TB_MVT.ID_MVT INNER JOIN TB_SEJOUR
+                                ON TB_MVT.ID_SEJOUR = TB_SEJOUR.ID_SEJOUR INNER JOIN TB_DET_ACTE
+	                        ON TB_DET_ACTE.ID_ACTE = TB_ACTE.ID_ACTE 
+				INNER JOIN UTIL ON UTIL.ID_UTIL = TB_DET_ACTE.ID_MEDECIN
+                        WHERE
+                                1=1
+                                AND TB_sejour.no_sejour = '$nsej'
+                                AND TB_MVT.ID_UNITE_M IN ( '6004', '6005', '6006', '6010' )
+		</code_sql>
+		<description>La requete la plus sympa du siecle.</description>
+		<env>qry</env>
+	</element>
+</result>

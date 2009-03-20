@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>REF</domaine>
+		<nom>getPatient</nom>
+		<id_config>config_touline</id_config>
+		<colonnes></colonnes>
+		<code_sql>select to_char(max(mef_d_ack), 'yyyy-mm-dd hh24:mi:ss') der from vmef where mef_d_ack is not null </code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

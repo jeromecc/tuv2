@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>authCodeAcces</nom>
+		<id_config>config_veille</id_config>
+		<colonnes></colonnes>
+		<code_sql>SELECT * FROM DKT_TABLE_ACTEURS d, arh_droits a $cw AND a.idActeur=d.idActeur $ob
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

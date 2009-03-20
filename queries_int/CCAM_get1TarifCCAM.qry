@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_get1TarifCCAM</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select t.pu_base 
+      from ccam_acte a,  R_ACTE_IVITE_PHASE t
+      where concat(a.code,'1')=t.aa_cod and t.aadt_modif>=a.dt_modif
+        $cw
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

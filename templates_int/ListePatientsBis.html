@@ -1,0 +1,36 @@
+<LM:config>
+ $nb_result_per_page=1000;
+ $odd_color="nonvuspaire";
+ $even_color="nonvusimpaire";
+
+ $sort_arrow_up="<IMG src=\"images/sort_up.gif\">";
+ $sort_arrow_down="<IMG src=\"images/sort_down.gif\">";
+ $sort_arrow_none="<IMG src=\"images/none.gif\">";
+</LM:config>
+
+<LM:list>
+<div id="listepatients">
+  <LM:item>
+    <tr class="{_ItemColor}" {colorSpe} onclick="document.location='{urlpatient}'">
+      <td class="sexe">{sexe}</td>
+      <td class="gauche">{patient}</td>
+      <td class="gauche">{age}</td>
+      <td class="gauche">{modeAdm}</td>
+      <td class="gauche">{arrivee}</td>
+      <td class="gauche">{soignants}</td>
+      <td class="gauche">{salle}</td>
+      <td class="gauche">{motif}</td>
+      <td class="normal">{code}</td>
+      <td class="gauche">{destSouhaitee}</td>
+      <td class="gauche">{destAttendue}</td>
+      <td class="gauche">{obs}</td>
+      <td class="hidden">{nomD}</td>
+      <td class="hidden">{arriveeD}</td>
+    </tr>
+  </LM:item>
+  <LM:no_item>
+
+  </LM:no_item>
+</div>
+</table>
+</LM:list>

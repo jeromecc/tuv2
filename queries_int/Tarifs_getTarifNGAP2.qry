@@ -1,0 +1,18 @@
+ <?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>Tarifs_getTarifNGAP</nom>
+		<id_config>config_pastel</id_config>
+		<colonnes></colonnes>
+		<code_sql>select a.tlc_cdloc lc,a.tlc_mttar tarif from da_tlc a 
+			where a.tlc_dtapp in (
+  			   select max(b.tlc_dtapp) 
+  			   from da_tlc b 
+  			   where a.tlc_cdloc=b.tlc_cdloc)
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

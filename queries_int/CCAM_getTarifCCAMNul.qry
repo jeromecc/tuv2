@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getTarifCCAMNul</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select d.idActe, d.libelleActe
+      from ccam_actes_domaine d, ccam_acte a,  R_ACTE_IVITE_PHASE t
+      where d.idActe=a.code and concat(a.code,'1')=t.aa_cod and t.aadt_modif>=a.dt_modif and 
+        t.pu_base='0.00'
+      order by d.idActe
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

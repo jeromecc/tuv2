@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getMedecin</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select * from ccam_cotation_actes
+    where codeActe like 'NGAP%' and
+          (libelleActe='Consultation urgentiste' or
+          libelleActe='Consultation urgentiste non facturable' or
+          libelleActe='Consultation urgentiste spécialiste' or
+          libelleActe='Consultation urgentiste spécialiste non facturable') and
+          (cotationNGAP like 'CS %' or cotationNGAP like 'C %') and
+          $cw</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>

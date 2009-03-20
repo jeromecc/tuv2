@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<result num="1">
+	<element>
+		<identifiant>1</identifiant>
+		<domaine>Local</domaine>
+		<nom>CCAM_getSousFamilles</nom>
+		<id_config>config_ccam</id_config>
+		<colonnes></colonnes>
+		<code_sql>select code_ccam_long identifiant,libelle_long libelle
+			from ccam_acte
+			where length(code_ccam_long)=4
+				$cw
+			order by code_ccam_long
+		</code_sql>
+		<description></description>
+		<env>qry</env>
+	</element>
+</result>
