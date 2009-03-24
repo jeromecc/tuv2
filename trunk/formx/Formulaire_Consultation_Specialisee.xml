@@ -19,21 +19,8 @@
 	</ITEM>
 	
 	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
-		<Cond type="equal" oblig="y">
-		  <Arg1>globalObject:patient->getSexe()</Arg1>
-		  <Arg2>const:M</Arg2>
-    </Cond>
-    <Libelle>Sexe</Libelle>
-		<From>const:Masculin</From>
-	</ITEM>
-	
-	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
-		<Cond type="equal" oblig="y">
-		  <Arg1>globalObject:patient->getSexe()</Arg1>
-		  <Arg2>const:F</Arg2>
-    </Cond>
-    <Libelle>Sexe</Libelle>
-		<From>const:Feminin</From>
+		<Libelle>Sexe</Libelle>
+		<From>libelle_sexe|globalObject:patient->getSexe()</From>
 	</ITEM>
 	
 	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">

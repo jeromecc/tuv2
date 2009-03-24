@@ -47,6 +47,20 @@ cp -frL ${location}formx/functions/getAge2.php    ${locationtmp}formx/functions/
 
 cp -frL ${location}formx/Formulaire_Radio_Partie_*    ${locationtmp}formx/
 
+cp -frL ${location}formx/Formulaire_Bio.xml    ${locationtmp}formx/
+cp -frL ${location}formx/Formulaire_Radio.xml    ${locationtmp}formx/
+cp -frL ${location}formx/Formulaire_Consultation_Specialisee.xml    ${locationtmp}formx/
+
+#fonctions utilitaires FX-TU
+mkdir ${locationtmp}formx/functions/helpers
+mkdir ${locationtmp}formx/functions/getters
+mkdir ${locationtmp}formx/functions/setters
+
+cp -frL ${location}formx/functions/helpers/*    ${locationtmp}formx/functions/helpers/
+cp -frL ${location}formx/functions/getters/*    ${locationtmp}formx/functions/getters/
+cp -frL ${location}formx/functions/setters/*    ${locationtmp}formx/functions/setters/
+
+
 
 #Suppressions des plugins de mouvements spécifiques en dev
 rm -f ${locationtmp}modules/mouvements/enabled/*
