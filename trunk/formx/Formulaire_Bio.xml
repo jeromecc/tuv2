@@ -12,7 +12,7 @@
     <Libelle> </Libelle>
     <From>func:Init_Formulaire_Bio</From>
 	</ITEM>
-	
+  
   <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
 		<Libelle>Nom</Libelle>
 		<From>globalObject:patient->getNom()</From>
@@ -85,7 +85,7 @@
 		<OnChangeRefresh>list:Val_F_BIO_F1|Val_F_BIO_F2</OnChangeRefresh>
   </ITEM>
 
-  <ITEM type="CHECK" id="Val_F_BIO_F1" opt="y" cols="2">
+  <ITEM type="CHECK" id="Val_F_BIO_F1" opt="y">
     <Cond type="diff">
 		  <Arg1>formVar:Val_F_BIO_Liste_Choix</Arg1>
 		  <Arg2>const:#</Arg2>
@@ -95,7 +95,7 @@
 		<From>func:ListesBilans_casespredef_formulaire_bio_stand</From>
 	</ITEM>
 	
-	<ITEM type="CHECK" id="Val_F_BIO_F2" opt="y" cols="2">
+	<ITEM type="CHECK" id="Val_F_BIO_F2" opt="y">
     <Cond type="diff">
 		  <Arg1>formVar:Val_F_BIO_Liste_Choix</Arg1>
 		  <Arg2>const:#</Arg2>

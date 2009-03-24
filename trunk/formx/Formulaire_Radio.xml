@@ -12,7 +12,12 @@
 		<Libelle>Nom</Libelle>
 		<From>globalObject:patient->getNom()</From>
 	</ITEM>
-		
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
 	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
 		<Libelle>Sexe</Libelle>
 		<From>libelle_sexe|globalObject:patient->getSexe()</From>
