@@ -1,0 +1,8 @@
+Options Indexes +FollowSymLinks MultiViews
+AddDefaultCharset ISO-8859-1
+php_flag allow_call_time_pass_reference on
+php_flag short_open_tag  on
+#show all errors but no notices
+php_flag error_reporting 6135
+#show no errors
+#php_flag error_reporting 0

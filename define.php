@@ -21,7 +21,7 @@ define ( 'DATESTATS', 		(string)$xml->datestats ) ;
 define ( 'NOMAPPLICATION', 	(string)$xml->nomapplication ) ;
 define ( 'URLIMGLOGO',  	"images/villes/".(string)$xml->nomlogo ) ;
 define ( 'URL',         	(string)$xml->url ) ;
-define ( 'URLLOCAL',    	(string)$xml->urllocal ) ;
+define ( 'URLLOCAL',    realpath(dirname(__FILE__)).'/' 	) ;
 define ( 'MYSQL_HOST', 		(string)$xml->mysqlhost ) ;
 define ( 'MYSQL_USER', 		(string)$xml->mysqluser ) ;
 define ( 'MYSQL_PASS', 		(string)$xml->mysqlpass ) ;
@@ -36,7 +36,11 @@ define ( 'Erreurs_Mail', 	(string)$xml->erreursto ) ;
 if ( (string)$xml->baseformx ) 
 	define ( 'FX_BDD',      (string)$xml->baseformx ) ;
 
-
+if ( (string)$xml->uniqIdSiteInstallation )
+	define ( 'IDSITE',      (string)$xml->uniqIdSiteInstallation ) ;
+else
+	define ( 'IDSITE','0') ;
+	
 // Versions
 define ( 'CCAM_VERSION',"CCAM V11") ;
 define ( 'VERSIONAPPLICATION', file_get_contents( "version.txt" ) ) ;
@@ -47,6 +51,7 @@ define ( 'FORMX_DEBUG_EKO', "0" ) ;
 define ( 'DEBUGSQL', "0" ) ;
 define ( 'NONOTICE', "1" ) ;
 define ( 'DEBUGDATE', "0" ) ;
+define ( 'PRINT_ERRORS', "0" ) ;
 define ( 'DEBUGOPTION', "0" ) ;
 define ( 'DEBUGLISTES', "0" ) ;
 define ( 'DEBUGSESSION', "0" ) ;

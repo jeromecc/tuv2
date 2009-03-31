@@ -1,163 +1,56 @@
 <?php 
-// Titre  : Fichier index du terminal
-// Auteur : Damien Borel <dborel@ch-hyeres.fr>
-// Date   : 05 Janvier 2005
- 
-// Description : 
-// Le squelette du site est fabriquï¿½ ici et les objets "globaux" sont
-// instanciï¿½s ï¿½ ce niveau.
+// Ce fichier doit être appellé à l'installation et apres chaque mise à jour
+
+
+
 
 
 // Appel du fichier de configuration.
 include_once ( "config.php" ) ;
 
+//parametres apache/php par default
+if ( ! file_exists(URLLOCAL.'.htaccess'))
+	copy(URLLOCAL.'default.htaccess',URLLOCAL. '.htacess');
+
 print "<h3>Procédure de vérification</h3>" ;
-print "<hr>" ;
-print "<h4>Création des fichiers de configuration MySQL</h4>" ;
+print "<hr />" ;
 
-$dom      = new DOMDocument ( '1.0', 'utf8' ) ;
-$result   = $dom->createElement ( 'result', '' ) ;
-$result  -> setAttribute ( 'num', '1' ) ;
-$element  = $dom->createElement ( 'element', '' ) ;
-$id       = $dom -> createElement ( 'id', 1 ) ;
-$nom      = $dom -> createElement ( 'nom', 'Local' ) ;
-$type     = $dom -> createElement ( 'type', 'MySQL' ) ;
-$host     = $dom -> createElement ( 'host', MYSQL_HOST ) ;
-$login    = $dom -> createElement ( 'login', MYSQL_USER ) ;
-$password = $dom -> createElement ( 'password', MYSQL_PASS ) ;
-$db       = $dom -> createElement ( 'db', BASEXHAM ) ;
-$env      = $dom -> createElement ( 'env', 'cfg' ) ;
-$element -> appendChild ( $id ) ;
-$element -> appendChild ( $nom ) ;
-$element -> appendChild ( $type ) ;
-$element -> appendChild ( $host ) ;
-$element -> appendChild ( $login ) ;
-$element -> appendChild ( $password ) ;
-$element -> appendChild ( $db ) ;
-$element -> appendChild ( $env ) ;
-$result  -> appendChild ( $element ) ;
-$dom     -> appendChild ( $result ) ;
-$FIC      = fopen ( "queries_gen/config_xham.cfg", "w" ) ;
-print "Creation du fichier 'queries_gen/config_xham.cfg' => " ;
-if ( fwrite ( $FIC, $dom->saveXML ( ) ) ) print "<font color=\"green\">OK</font>" ;
-else print "<font color=\"red\">KO</font>" ;
-fclose ( $FIC ) ;
+print "<h4>Configuration php basique</h4>" ;
 
-$dom      = new DOMDocument ( '1.0', 'utf8' ) ;
-$result   = $dom->createElement ( 'result', '' ) ;
-$result  -> setAttribute ( 'num', '1' ) ;
-$element  = $dom->createElement ( 'element', '' ) ;
-$id       = $dom -> createElement ( 'id', 1 ) ;
-$nom      = $dom -> createElement ( 'nom', 'Local' ) ;
-$type     = $dom -> createElement ( 'type', 'MySQL' ) ;
-$host     = $dom -> createElement ( 'host', MYSQL_HOST ) ;
-$login    = $dom -> createElement ( 'login', MYSQL_USER ) ;
-$password = $dom -> createElement ( 'password', MYSQL_PASS ) ;
-$db       = $dom -> createElement ( 'db', CCAM_BDD ) ;
-$env      = $dom -> createElement ( 'env', 'cfg' ) ;
-$element -> appendChild ( $id ) ;
-$element -> appendChild ( $nom ) ;
-$element -> appendChild ( $type ) ;
-$element -> appendChild ( $host ) ;
-$element -> appendChild ( $login ) ;
-$element -> appendChild ( $password ) ;
-$element -> appendChild ( $db ) ;
-$element -> appendChild ( $env ) ;
-$result  -> appendChild ( $element ) ;
-$dom     -> appendChild ( $result ) ;
-$FIC      = fopen ( "queries_gen/config_ccam.cfg", "w" ) ;
-print "<br>Creation du fichier 'queries_gen/config_ccam.cfg' => " ;
-if ( fwrite ( $FIC, $dom->saveXML ( ) ) ) print "<font color=\"green\">OK</font>" ;
-else print "<font color=\"red\">KO</font>" ;
-fclose ( $FIC ) ;
+clUpdater::checkPHPVersion('5.1.0');
+clUpdater::testSafeMode();
 
-$dom      = new DOMDocument ( '1.0', 'utf8' ) ;
-$result   = $dom->createElement ( 'result', '' ) ;
-$result  -> setAttribute ( 'num', '1' ) ;
-$element  = $dom->createElement ( 'element', '' ) ;
-$id       = $dom -> createElement ( 'id', 1 ) ;
-$nom      = $dom -> createElement ( 'nom', 'Local' ) ;
-$type     = $dom -> createElement ( 'type', 'MySQL' ) ;
-$host     = $dom -> createElement ( 'host', MYSQL_HOST ) ;
-$login    = $dom -> createElement ( 'login', MYSQL_USER ) ;
-$password = $dom -> createElement ( 'password', MYSQL_PASS ) ;
-$db       = $dom -> createElement ( 'db', BDD ) ;
-$env      = $dom -> createElement ( 'env', 'cfg' ) ;
-$element -> appendChild ( $id ) ;
-$element -> appendChild ( $nom ) ;
-$element -> appendChild ( $type ) ;
-$element -> appendChild ( $host ) ;
-$element -> appendChild ( $login ) ;
-$element -> appendChild ( $password ) ;
-$element -> appendChild ( $db ) ;
-$element -> appendChild ( $env ) ;
-$result  -> appendChild ( $element ) ;
-$dom     -> appendChild ( $result ) ;
-$FIC      = fopen ( "queries_gen/config_terminal.cfg", "w" ) ;
-print "<br>Creation du fichier 'classes_gen/config_terminal.cfg' => " ;
-if ( fwrite ( $FIC, $dom->saveXML ( ) ) ) print "<font color=\"green\">OK</font>" ;
-else print "<font color=\"red\">KO</font>" ;
-fclose ( $FIC ) ;
-
-$dom      = new DOMDocument ( '1.0', 'utf8' ) ;
-$result   = $dom->createElement ( 'result', '' ) ;
-$result  -> setAttribute ( 'num', '1' ) ;
-$element  = $dom->createElement ( 'element', '' ) ;
-$id       = $dom -> createElement ( 'id', 1 ) ;
-$nom      = $dom -> createElement ( 'nom', 'Local' ) ;
-$type     = $dom -> createElement ( 'type', 'MySQL' ) ;
-$host     = $dom -> createElement ( 'host', MYSQL_HOST ) ;
-$login    = $dom -> createElement ( 'login', MYSQL_USER ) ;
-$password = $dom -> createElement ( 'password', MYSQL_PASS ) ;
-$db       = $dom -> createElement ( 'db', (FX_BDD?FX_BDD:BDD) ) ;
-$env      = $dom -> createElement ( 'env', 'cfg' ) ;
-$element -> appendChild ( $id ) ;
-$element -> appendChild ( $nom ) ;
-$element -> appendChild ( $type ) ;
-$element -> appendChild ( $host ) ;
-$element -> appendChild ( $login ) ;
-$element -> appendChild ( $password ) ;
-$element -> appendChild ( $db ) ;
-$element -> appendChild ( $env ) ;
-$result  -> appendChild ( $element ) ;
-$dom     -> appendChild ( $result ) ;
-$FIC      = fopen ( "queries_gen/config_formx.cfg", "w" ) ;
-print "<br>Creation du fichier 'classes_gen/config_formx.cfg' => " ;
-if ( fwrite ( $FIC, $dom->saveXML ( ) ) ) print "<font color=\"green\">OK</font>" ;
-else print "<font color=\"red\">KO</font>" ;
-fclose ( $FIC ) ;
-
-print "<br><br><hr><h4>Connexions aux bases</h4>" ;
-
-print "Connexion au serveur MySQL '".MYSQL_USER."@".MYSQL_HOST." (using password: ".(MYSQL_PASS?'YES':'NO').")' => " ;
-$res = mysql_pconnect ( MYSQL_HOST, MYSQL_USER, MYSQL_PASS ) ;
-if ( $res ) print "<font color=\"green\">OK</font>" ;
-else print "<font color=\"red\">KO</font>" ;
-
-print "<br>Connexion ï¿½ la base '".BASEXHAM."' => " ;
-if ( mysql_select_db ( BASEXHAM ) ) print "<font color=\"green\">OK</font>" ;
-else print "<font color=\"red\">KO</font>" ;
-
-clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,BASEXHAM);
-
-print "<br>Connexion ï¿½ la base '".BDD."' => " ;
-if ( mysql_select_db ( BDD ) ) print "<font color=\"green\">OK</font>" ;
-else print "<font color=\"red\">KO</font>" ;
-
-clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,BDD);
-
-print "<br>Connexion ï¿½ la base '".CCAM_BDD."' => " ;
-if ( mysql_select_db ( CCAM_BDD ) ) print "<font color=\"green\">OK</font>" ;
-else print "<font color=\"red\">KO</font>" ;
-
-clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,CCAM_BDD);
+clUpdater::testNoNoNoNoNoNoThereIsNoLimit('512M');
 
 
 
 
+/*
+-disable-cgi --enable-soap
+            --with-libxml-dir --with-xsl --enable-track-vars --with-xml --enable-ftp --with-mysql
+            --with-calendar --with-gd --enable-calendar --with-zlib-dir --with-jpeg-dir
+            --enable-sigchild --with-freetype-dir --enable-mbstring --enable-sockets --with-zip
+*/
 
-print "<br><br><hr><h4>Vérification des répertoires</h4>" ;
 
+
+print "<hr />" ;
+
+print "<h4>Modules php nécessaires</h4>" ;
+clUpdater::testModule('soap');
+clUpdater::testModule('xsl');
+clUpdater::testModule('xml');
+clUpdater::testModule('ftp');
+clUpdater::testModule('mysql');
+clUpdater::testModule('calendar');
+clUpdater::testModule('gd');
+clUpdater::testModule('zlib');
+clUpdater::testModule('ftp');
+clUpdater::testModule('mbstring');
+clUpdater::testModule('sockets');
+print "<hr/>";
+
+print "<h4>Vérification des répertoires</h4>" ;
 
 
 clUpdater::testEcritureDossier(URLCACHE);
@@ -170,11 +63,159 @@ clUpdater::testEcritureDossier(URLLOCAL.'rpu/ok/');
 clUpdater::testEcritureDossier(URLLOCAL.'rpu/logs/');
 clUpdater::testEcritureDossier(URLLOCAL.'var/');
 clUpdater::testEcritureDossier(URLLOCAL.'var/maj/');
+clUpdater::testEcritureDossier(URLLOCAL.'temp/');
+clUpdater::testEcritureDossier(URLLOCAL.'var/dist/');
+
+print "<hr/>";
+
+print "<h4>Création des fichiers de configuration MySQL</h4>" ;
+
+
+clUpdater::genResultQueryConfigFile(URLLOCAL. "queries_int/config_xham.cfg",MYSQL_HOST,BASEXHAM,MYSQL_USER,MYSQL_PASS);
+clUpdater::genResultQueryConfigFile(URLLOCAL. "queries_int/config_ccam.cfg",MYSQL_HOST,CCAM_BDD,MYSQL_USER,MYSQL_PASS);
+clUpdater::genResultQueryConfigFile(URLLOCAL. "queries_int/config_terminal.cfg",MYSQL_HOST,BDD,MYSQL_USER,MYSQL_PASS);
+clUpdater::genResultQueryConfigFile(URLLOCAL. "queries_int/config_formx.cfg",MYSQL_HOST,(defined('FX_BDD')?FX_BDD:BDD),MYSQL_USER,MYSQL_PASS);
+
+
+print "<br><br><hr><h4>Connexions aux bases</h4>" ;
+
+print "Connexion au serveur MySQL '".MYSQL_USER."@".MYSQL_HOST." (using password: ".(MYSQL_PASS?'YES':'NO').")' => " ;
+$res = mysql_pconnect ( MYSQL_HOST, MYSQL_USER, MYSQL_PASS ) ;
+if ( $res ) print "<font color=\"green\">OK</font>" ;
+else  {  print "<font color=\"red\">KO</font>" ; die ; }
+
+print "<br>Connexion à la base '".BASEXHAM."' => " ;
+if ( mysql_select_db ( BASEXHAM ) ) print "<font color=\"green\">OK</font>" ;
+else  {  print "<font color=\"red\">KO</font>" ; die ; }
+
+clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,BASEXHAM);
+
+print "<br>Connexion à  la base '".BDD."' => " ;
+if ( mysql_select_db ( BDD ) ) print "<font color=\"green\">OK</font>" ;
+else {  print "<font color=\"red\">KO</font>" ; die ; }
+
+clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,BDD);
+
+print "<br>Connexion à la base '".CCAM_BDD."' => " ;
+if ( mysql_select_db ( CCAM_BDD ) ) print "<font color=\"green\">OK</font>" ;
+else  {  print "<font color=\"red\">KO</font>" ; die ; }
+
+clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,CCAM_BDD);
 
 
 
 
-clUpdater::applyPatchs();
+//Installation des bases si vides
+clUpdater::installBase(BASEXHAM,URLLOCAL.'meta/install/terminal_xham.sql','logs',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
+clUpdater::installBase(BDD,URLLOCAL.'meta/install/terminal_appli.sql','patients_presents',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
+clUpdater::installBase(CCAM_BDD,URLLOCAL.'meta/install/terminal_ccam.sql','ccam_liste',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
 
+print "<br>Test du parametre mysql server 'lower_case_table_names = 1 ' ";
+if (clUpdater::mysql_table_exists('R_ACTE_IVITE_PHASE',CCAM_BDD)) print "<font color=\"green\">OK</font>" ;
+else  {  print "<font color=\"red\">KO</font>" ; print "<br />sous Debian: Rajoutez lower_case_table_names = 1 dans /etc/mysql/my.cnf"  ; die ; }
+
+
+
+print "<br><br><hr><h4>Communication</h4>" ;
+
+
+//Test connexion FTP vers serveur de veille
+print "<br />Test de connexion FTP vers serveur de veille  (ftp://www.veille-arh-paca.com)  =>" ;ob_flush();flush();
+$ftp_server = 'veille-arh-paca.com' ;
+$ftp_user_name = 'importsrv' ;
+$ftp_user_pass = '4dS#3!b';
+$conn_id = ftp_connect($ftp_server);
+if(! $conn_id) {
+		 print "<font color=\"red\">Connexion impossible</font>";
+} else {
+	ftp_set_option($conn_id, FTP_TIMEOUT_SEC, 10);
+	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+	if(! $login_result) {
+		 print "<font color=\"red\">Identification refusée</font>";
+	} else {
+		$fp = fopen(URLLOCAL.'index.php', 'r');
+		if (ftp_fput($conn_id, 'test_tu.txt', $fp, FTP_BINARY)) {
+			print "<font color=\"green\">OK</font>";
+		} else {
+			print "<font color=\"red\">Problème lors du transfert</font>";
+		}
+	}
+}
+
+
+print "<br />Test de connexion au serveur de mises à jour (www.orupaca.fr:80) => " ;ob_flush();flush();
+if(false !== strpos(@file_get_contents('http://www.orupaca.fr/test_tu.html'), 'ok'  ))
+{
+	$isSrvMaj = true ;
+	print "<font color=\"green\">OK</font>";
+}
+else
+{
+	$isSrvMaj = false ;
+	print "<font color=\"red\">KO</font>";
+}
+
+
+print "<br />Test de cryptage avec la clé publique ARH => " ;
+//$gpg = new gnuPG(PGPLOCATION,HOMEGPG);
+$gpg = new gnuPG();
+$gpg->EncryptFile('import@veille-arh-paca.com',URLLOCAL.'index.php');
+$errors=$gpg->error;
+if($errors) {
+	print "<font color=\"red\">KO : $errors</font>";
+	print "<br /><br /><code>Pour installer la clé publique, exécutez en tant que root: ";
+	print "<br />su ".$_ENV["APACHE_RUN_USER"];
+	print "<br />gpg -import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
+	print "<br />gpg -edit-key import@veille-arh-paca.com";
+	print "<br />     -trust";
+	print "<br />    choisir 'je donne une confiance ultime'";
+	print "<br />    -quit";
+	print "<br />exit";
+	print "<br />gpg -import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
+	print "<br />gpg -edit-key import@veille-arh-paca.com";
+	print "<br />     -trust";
+	print "<br />    choisir 'je donne une confiance ultime'";
+	print "<br />    -quit</code>";
+
+} else {
+	print "<font color=\"green\">OK</font>";
+}
+
+
+if ($isSrvMaj )
+{
+	print "<br><br><hr><h4>Mise a jour de l'application</h4>" ;
+	$tabMatches = array();
+	preg_match('/_maj_(.*)_hash_(.*)_/', file_get_contents('http://www.orupaca.fr/ressources/tu/repository/last_version_stable.html'),$tabMatches);
+	$lastVersion = $tabMatches[1];
+	$currentVersion = file_get_contents(URLLOCAL.'version.txt');
+	$hash = $tabMatches[2];
+	if ( version_compare($lastVersion,$currentVersion,'>'))
+	{
+		print "<br />Une nouvelle version:  $lastVersion est disponible. <br />Téléchargement dans ".URLLOCAL."var/dist/   ..." ;
+		ob_flush() ; flush() ;
+		$archive = @file_get_contents('http://www.orupaca.fr/ressources/tu/repository/'.$lastVersion.'.tgz');
+        if( md5($archive) == $hash )
+        {
+            file_put_contents($archive,URLLOCAL."var/dist/". $lastVersion .      '.tgz'   );
+            print "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version</a>";
+            die ;
+        }
+        else
+        {
+            print "<font color=\"red\">KO (problème lors du téléchargement)</font>";
+        }
+		
+		
+	}
+	
+}
+
+
+print "<br><br><hr><h4>Mise a jour des bases de données</h4>" ;
+	
+clUpdater::applyPatchs(IDSITE);
+
+print "<font color=\"green\">Votre TU est à jour.</font>";
 
 ?>

@@ -4,14 +4,43 @@
 <Objet>Formulaire AVC</Objet>
 
 <ETAPE id="1">
-	
+
+         <ITEM id="id_passage" type="HIDDEN"><From>globalObject:patient->getNSej()</From></ITEM>
+        <ITEM id="refus" type="CHECK" onChangeSubmit='y' opt="y"><Libelle></Libelle>
+            <FromList>list:oui</FromList>
+            <FromListLibelles>list:Je refuse de répondre au formulaire (fermeture)</FromListLibelles>
+        </ITEM>
+
+
+    <ITEM type="RADIO" id="is_avc" oblig="y" onChangeSubmit='y'  >
+		<Libelle>Est-ce ub AVC ?</Libelle>
+		<FromList>list:oui|non</FromList>
+        <FromListLibelles>list:Oui|Non (quitter)</FromListLibelles>
+	</ITEM>
+
+
+        <ITEM id="closer1" type="HIDDEN" readonly="y"  closer="y">
+            <Cond type="equal">
+                <Arg1>const:oui</Arg1>
+                <Arg2>formVar:refus</Arg2>
+            </Cond>
+        </ITEM>
+
+        <ITEM id="closer2" type="HIDDEN" readonly="y"  closer="y">
+            <Cond type="equal">
+                <Arg1>const:non</Arg1>
+                <Arg2>formVar:is_avc</Arg2>
+            </Cond>
+        </ITEM>
+
+
 	<Libelle>Administratif</Libelle>
 
-  	<ITEM type="TXT" id="nom" readonly="y" opt="y" >
+  	<ITEM type="TXT" id="nom" readonly="y" opt="y" nominativeData="y">
 		<Libelle>Nom</Libelle>
 		<From>globalObject:patient->getNom()</From>
 	</ITEM>
-	<ITEM type="TXT" id="prenom" readonly="y" opt="y" >
+	<ITEM type="TXT" id="prenom" readonly="y" opt="y" nominativeData="y" >
 		<Libelle>Prenom</Libelle>
 		<From>globalObject:patient->getPrenom()</From>
 	</ITEM>
@@ -188,18 +217,18 @@
 		<From>const:Protocole des AVC avec PEC hors Thrombolyse-*-Tri IAO orange</From>
 	</ITEM>	
 	<ITEM type="TXT" id="Pouls" datatype="int" minvalue="40" maxvalue="180" >
-		<Libelle>Pouls</Libelle>
+		<Libelle>Pouls (p/m)</Libelle>
 	</ITEM>	
 	<ITEM type="TXT" id="tas"   datatype="int" minvalue="10" maxvalue="999" >
-		<Libelle>TAS</Libelle>
+		<Libelle>Tension Artérielle Systolique (mmHg)</Libelle>
 	</ITEM>
 
 	<ITEM type="TXT" id="tad"   datatype="int" minvalue="10" maxvalue="99" >
-		<Libelle>TAD</Libelle>
+		<Libelle>Tension Artérielle Diastolique (mmHg)</Libelle>
 	</ITEM>
 
 	<ITEM type="TXT" id="tmp"  datatype="int" minvalue="33" maxvalue="41" >
-		<Libelle>T (C°)</Libelle>
+		<Libelle>Température (C°)</Libelle>
 	</ITEM>
 	
 	<ITEM type="TXT" id="sao"   datatype="int" minvalue="50" maxvalue="100" >
@@ -207,25 +236,22 @@
 	</ITEM>
 	
 	<ITEM type="TXT" id="hgt"   datatype="float" minvalue="1" maxvalue="30" >
-		<Libelle>HGT (mmol)</Libelle>
+		<Libelle>Hémoglucotest (mmol)</Libelle>
 	</ITEM>
 	
-	<ITEM type="TXT" id="gcs"  datatype="float" >
-		<Libelle>GCS</Libelle>
+	<ITEM type="TXT" id="gcs"   datatype="int" minvalue="3" maxvalue="15" >
+		<Libelle>Glascow [3-15]</Libelle>
 	</ITEM>
 
 	<ITEM type="TXT" id="poids"   datatype="int" minvalue="10" maxvalue="999" >
-		<Libelle>Poids</Libelle>
+		<Libelle>Poids (kg)</Libelle>
 	</ITEM>
 	
 	<ITEM type="TXT" id="taille"   datatype="int" minvalue="10" maxvalue="300"   >
 		<Libelle>Taille (cm)</Libelle>
 	</ITEM>
 	
-	<ITEM type="CHECK" id="is_avc" opt="y" closer="y" >
-		<Libelle>Ce n'est pas un AVC</Libelle>
-		<FromList>list:Ce n'est pas un AVC (quitter)</FromList>
-	</ITEM>
+
 	
 
 	
@@ -240,14 +266,14 @@
 	<ITEM type="RADIO" id="is_facteurs_risques">
 	<Libelle>Facteurs de risques ?</Libelle>
 		<ShowItemsOnVal>
-			<ListIdItems>list:fdr_cv_sm</ListIdItems>
+			<ListIdItems>list:fdr_cv</ListIdItems>
 			<OnVal>const:oui</OnVal>
 		</ShowItemsOnVal>
 	<FromList>list:oui|non</FromList>
 	</ITEM>	
 
-	<ITEM type="CHECK" id="fdr_cv_sm" >
-		<Libelle>FDR CV SM</Libelle>
+	<ITEM type="CHECK" id="fdr_cv" >
+		<Libelle>Facteurs de risques CardioVasculaires</Libelle>
 		<FromList>list:HTA|DNID|DID|Tabac|Dyslipidemie|Alcool|Obésité|Contraception orale|Hormonothérapie</FromList>
 	</ITEM>
 	
@@ -255,15 +281,15 @@
 	<Libelle>Antécédents ?</Libelle>
 		<FromList>list:oui|non</FromList>
 		<ShowItemsOnVal>
-			<ListIdItems>list:atcd_cv_sm</ListIdItems>
+			<ListIdItems>list:atcd_cv</ListIdItems>
 			<OnVal>const:oui</OnVal>
 		</ShowItemsOnVal>
 	</ITEM>	
 	
 
-	<ITEM type="CHECK" id="atcd_cv_sm" >
+	<ITEM type="CHECK" id="atcd_cv" >
 	
-		<Libelle>ATCD SM</Libelle>
+		<Libelle>Antécédents</Libelle>
 		
 		<FromList>list:Perte d'autonomie|Neurologique|CV|Médicaux autres|Chirurgicaux</FromList>
 	
@@ -306,7 +332,7 @@
 	</ITEM>
 
 	<ITEM type="CHECK" id="cv_infos" >
-		<Libelle>CV</Libelle>
+		<Libelle>Cardiovasculaires</Libelle>
 		<FromList>list:IDM|AF/FA</FromList>
 	</ITEM>
 	
@@ -423,12 +449,12 @@
 	</ITEM>
 
 	<ITEM type="CAL" id="jour_pec_tni" >
-		<Libelle>Date PEC médicale (thrombolise non indiquée)</Libelle>
+		<Libelle>Date PEC médicale (thrombolyse non indiquée)</Libelle>
 		<From>func:specifique/avc/get_jour_pecm_default</From>
 	</ITEM>
 	
 	<ITEM type="LISTE" id="heure_pec_tni" >
-		<Libelle>Heure PEC médicale (thrombolise non indiquée)</Libelle>
+		<Libelle>Heure PEC médicale (thrombolyse non indiquée)</Libelle>
 		<From>func:specifique/avc/get_heure_pecm_default</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
@@ -458,7 +484,7 @@
 
 	<ITEM type="CHECK" id="examen_radio" >
 		<Libelle>Examen Radiologique</Libelle>
-		<FromList>list:TDM cérébral sans injection|Angio TDM cérébrale|IRM Cérébrale</FromList>
+		<FromList>list:TDM cérébral sans injection|Angio TDM cérébrale|IRM Cérébrale|Non réalisé</FromList>
 		<ShowItemsOnVal>
 			<ListIdItems>list:jour_appel_tdm|jour_exam_tdm|heure_appel_tdm|heure_exam_tdm|resultat_radio</ListIdItems>
 			<OnVal>const:TDM cérébral sans injection</OnVal>
@@ -586,8 +612,16 @@
 			<OnVal>const:Hyperglycémie sup. 12 mmol</OnVal>
 		</ShowItemsOnVal>
 		<ShowItemsOnVal>
-			<ListIdItems>list:traitment_hyperthermie</ListIdItems>
+			<ListIdItems>list:traitement_hyperthermie</ListIdItems>
 			<OnVal>const:Hyperthermie inf. 37.5</OnVal>
+		</ShowItemsOnVal>
+        <ShowItemsOnVal>
+			<ListIdItems>list:traitement_vigilance</ListIdItems>
+			<OnVal>const:Trouble de la vigilance</OnVal>
+		</ShowItemsOnVal>
+        <ShowItemsOnVal>
+			<ListIdItems>list:traitement_convulsions</ListIdItems>
+			<OnVal>const:Convulsions</OnVal>
 		</ShowItemsOnVal>
 		<ShowItemsOnVal>
 			<ListIdItems>list:traitement_autre</ListIdItems>
@@ -610,10 +644,22 @@
 		<FromList>list:Insuline</FromList>
 	</ITEM>
 
-<ITEM type="CHECK" id="traitment_hyperthermie" opt="y">
+<ITEM type="CHECK" id="traitement_hyperthermie" opt="y">
 		<Libelle>Traitement de l'hyperthermie</Libelle>
 		<FromList>list:Paracetamol</FromList>
 	</ITEM>
+
+    <ITEM type="CHECK" id="traitement_vigilance" opt="y">
+		<Libelle>Traitement de la vigilance</Libelle>
+		<FromList>list:intubation oro-trachéale</FromList>
+	</ITEM>
+
+<ITEM type="CHECK" id="traitement_convulsions" opt="y">
+		<Libelle>Traitement des convulsions</Libelle>
+		<FromList>list:anticomitiaux</FromList>
+	</ITEM>
+
+
 
 <ITEM type="TXT" id="traitement_autre">
 		<Libelle>Autre traitement:</Libelle>

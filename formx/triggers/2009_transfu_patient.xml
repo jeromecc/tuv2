@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+    Document   : transfu_patient2008.xml
+    Created on : 27 mars 2009, 10:30
+    Author     : ecervetti
+    Description:
+        Purpose of the document follows.
+-->
+
+<root>
+<trigger title="Enquete Transfusion patient" onOut="y"  idForm="enquetes/transfusionpatient2009" maxDays="4" obligDays=""  autoStart="" >
+    <cond type="ccmu">
+        <ccmu val="3" />
+        <ccmu val="4" />
+        <ccmu val="5" />
+    </cond>
+</trigger>
+</root>
