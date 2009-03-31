@@ -283,7 +283,11 @@ class clDemandeBons {
     		$pdf -> AddFont ( 'code39h48', '', 'IDAutomation_Code_39.php' ) ;
       		for ( $i = 0 ; isset ( $r['Val_IDENT_NomPatient'][$i] ) ; $i++ ) {
 				if ( $r['Val_IDENT_NsejPatient'][$i] == $nsej ) {
-					if ( $r['Val_IDENT_SexePat'][0] == "M" ) { $e = '' ; $titre = 'Mr ' ; } else { $e = 'e' ; $titre = 'Mme ' ; }
+
+
+                    if ( $r['Val_IDENT_SexePat'][0] == "M"  or $r['Val_IDENT_SexePat'][0] == "Masculin" ) { $e = '' ; $titre = 'Mr ' ; }
+                    if ( $r['Val_IDENT_SexePat'][0] == "F"  or $r['Val_IDENT_SexePat'][0] == "Feminin"  or $r['Val_IDENT_SexePat'][0] == "Féminin" or $r['Val_IDENT_SexePat'][0] == utf8_encode("Féminin")  ) { $e = 'e' ; $titre = 'Mme ' ; }
+
 					$html  = "<b>Nom : </b>".$titre.$r['Val_IDENT_NomPatient'][$i].'<br>' ;
 					$html .= "<b>Prénom : </b>".$r['Val_IDENT_PrenomPatient'][$i].'<br>' ;
 					$html .= "<b>Né$e le : </b>".$r['Val_IDENT_DateNPat2'][$i].'<br>' ;
