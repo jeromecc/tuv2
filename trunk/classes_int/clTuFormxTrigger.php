@@ -90,6 +90,13 @@ class clTuFormxTrigger {
 		return false ;
 	}
 
+	function isPassageLinked()
+	{
+		if( $this->getDxDefAttributeVal('passageLinked') )
+			return true ;
+		return false ;
+	}
+
 	function isAutoclose()
 	{
 		if( $this->getDxDefAttributeVal('maxDays') )
@@ -101,7 +108,18 @@ class clTuFormxTrigger {
 	}
 
 
-
+	function getCondition()
+	{
+		foreach($this->getSxDef()->trigger as $sxTrigger)
+		{
+			foreach($sxTrigger->cond as $sxCond)
+			{
+				return new clTuFormxTriggerCondition($this,$sxCond) ;
+			}
+		}
+		return null ;
+		//throw new Exception("pas trouve de balise cond dans le trigger");
+	}
 
 	function mustBegin()
 	{
@@ -403,7 +421,10 @@ function getSxDef()
 	return $this->sxDef ;
 }
 
-
+function getType()
+{
+	return $this->sxDef['type'];
+}
 
 /**
  * regarde si la cond (supposée de type diag) contient ce code diag comme déclencheur
@@ -416,7 +437,19 @@ function getSxDef()
 		{
 			$diag1 = str_replace(array('.','+'), array('',''), $diag['code']);
 			$diag2 = str_replace(array('.','+'), array('',''), $codeDiagPatient);
-			if( $diag1 == $diag2 || $diag1=='all' )
+			if( $diag1 == $diag2 || ( $diag2 && $diag1=='all' ) )
+			{
+				return true ;
+			}
+		}
+		return false ;
+	}
+
+    function hasCcmu($ccmuPatient)
+	{
+		foreach( $this->getSxDef()->ccmu as $ccmu )
+		{
+			if ( ( $ccmu['val'] == $ccmuPatient ) || ( $ccmuPatient && $ccmu['val'] == 'all' ) )
 			{
 				return true ;
 			}
@@ -435,7 +468,7 @@ function getSxDef()
 		{
 			foreach($tabActesPatient as $codeActePatient)
 			{
-				if( $codeActePatient == $sxActe['code']  ||  $sxActe['code']  == 'all' )
+				if( $codeActePatient == $sxActe['code']  ||  ( $codeActePatient && $sxActe['code']  == 'all' ) )
 				{
 					return true ;
 				}
@@ -522,29 +555,38 @@ class clTuFormxTriggerWatcher
 	}
 
 
-	private function checkCond(clTuFormxTriggerCond $condition)
+	private function checkCond(clTuFormxTriggerCondition $condition,$options)
 	{
+		if( ! $condition )
+			return true ;
 
 		switch($condition->getType())
 		{
 		case 'and':
-			return $this->checkCond($condition->getFirstSubCond()) && $this->checkCond($condition->getSecondSubCond() ) ;
+			return $this->checkCond($condition->getFirstSubCond(),$options) && $this->checkCond($condition->getSecondSubCond() ,$options) ;
 		case 'or':
-			return $this->checkCond($condition->getFirstSubCond()) or $this->checkCond($condition->getSecondSubCond() ) ;
+			return $this->checkCond($condition->getFirstSubCond(),$options) or $this->checkCond($condition->getSecondSubCond() ,$options) ;
 		case 'not':
-			return ! $this->checkCond($condition->getFirstSubCond()) ;
+			return ! $this->checkCond($condition->getFirstSubCond(),$options) ;
 		case 'xor':
-			return  $this->checkCond($condition->getFirstSubCond()) XOR  $this->checkCond( $condition->getSecondSubCond() ) ;
+			return  $this->checkCond($condition->getFirstSubCond(),$options) XOR  $this->checkCond( $condition->getSecondSubCond() ,$options) ;
+		case 'ccmu':
+			//est-ce que le diagnostic du patient est concerné par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
+            if($condition->hasCcmu($this->getPatient()->getCCMU()) &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
+			{
+				return true ;
+			}
+			return false ;
 		case 'diag':
 			//est-ce que le diagnostic du patient est concerné par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
-			if($condition->hasDiag($this->getPatient()->getCodeDiagnostic()) &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),$options['etatsFormx'] ) )
+			if($condition->hasDiag($this->getPatient()->getCodeDiagnostic()) &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
 			{
 				return true ;
 			}
 			return false ;
 		case 'acte':
 			//est-ce que les actes du patient sont concernés par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
-			if($condition->hasActes($this->getPatient()->getTabActes()  )  &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),$options['etatsFormx'] )  )
+			if($condition->hasActes($this->getPatient()->getTabActes()  )  &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) )  )
 			{
 				return true ;
 			}
@@ -558,12 +600,15 @@ class clTuFormxTriggerWatcher
 				return true ;
 			}
 			return false ;
+		default :
+			return false ;
 		}
 	}
 
 	//on regarde si le patient est elligible à des trigger diags, si c'est le cas on marque le déclenchement du trigger pour qu'il s'affiche des que l'affichage est dispo
 	function launchTriggers($typeAppel='onPresent')
 	{
+
 		//est-ce qu'il y a des enquetes  en cours ?
 		if ( !  clTuFormxTrigger::isTriggersActive() )
 			return false ;
@@ -571,7 +616,7 @@ class clTuFormxTriggerWatcher
 		foreach( clTuFormxTrigger::getTriggersActive() as $trigger )
 		{
 			//le patient est il elligible ? Si en sortie, est-ce bien un trigger de sortie ?
-			if( $this->isElligible($trigger)  && ( $typeAppel != 'onOut' || $trigger ->isOnOut()  ) )
+			if( $this->isElligible($trigger)  and ( ! $trigger ->isOnOut() or ( $typeAppel == 'onOut' && $trigger ->isOnOut()  ) ) )
 			{
 				//on le marque comme à afficher
 				$this->markLaunching($trigger->getIdTrigger() );

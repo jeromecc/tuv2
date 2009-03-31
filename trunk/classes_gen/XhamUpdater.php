@@ -28,6 +28,87 @@ class XhamUpdater {
 		
 	}
 
+
+
+static function testSafeMode()
+{
+	print "<br />Safe mode non activé   ";
+	if( ! ini_get('safe_mode') )
+		print "<font color=\"green\">OK</font>" ;
+	else
+	{
+		print "<font color=\"red\">KO</font>" ;
+				die ;
+	}
+}
+
+static function testNoNoNoNoNoNoThereIsNoLimit($memory)
+{
+	print "<br />Test de la désactivation de la limite temporelle d'exécution du script  ";
+	set_time_limit(0);
+	if(  ini_get('max_execution_time') == 0  )
+		print "<font color=\"green\">OK</font>" ;
+	else
+	{
+		print "<font color=\"red\">KO</font>" ;
+				die ;
+	}
+	print "<br />Test de l'augmentation de la mémoire allouée à  $memory ";
+	ini_set('memory_limit', $memory);
+	if(  ini_get('memory_limit') == $memory  )
+		print "<font color=\"green\">OK</font>" ;
+	else
+	{
+		print "<font color=\"red\">KO</font>" ;
+				die ;
+	}	
+}
+
+
+static function testModule($module)
+{
+	print "<br />Test de la présence du module PHP $module  ";
+
+	if( extension_loaded($module) )
+		print "<font color=\"green\">OK</font>" ;
+	else
+	{
+		print "<font color=\"red\">KO</font>" ;
+				die ;
+	}
+}
+
+static function checkPHPVersion($version)
+{
+
+
+	print "<br />Test version de PHP > $version  ";
+
+	if (version_compare(PHP_VERSION,$version, '>')) {
+		print "<font color=\"green\">OK</font>" ;
+	} else
+	{
+		print "<font color=\"red\">KO</font>" ;
+				die ;
+	}
+}
+
+
+static function installBase($base,$file,$table,$login,$pass,$host)
+ {
+	 
+	$link = mysql_connect($host,$login,$pass);
+	mysql_select_db($base,$link);
+
+	 if( ! self::mysql_table_exists($table,$base,$link ) )
+	 {
+		print "<br /><font color=\"orange\">La base $base semble vide, installation...</font>" ;
+		self::execSqlFile($link,$file);
+		print "<font color=\"green\">OK</font>" ;
+	 }
+	
+}
+
 /**
  * Teste, crée si besoin, change les droits si besoin, d'un dossier nécessaire en écriture
  * @param string $dir dossier à tester
@@ -95,9 +176,8 @@ function mysql_table_exists($table , $db) {
 }
 
 
-function execSqlFile($h,$u,$p,$b,$file) {
-	$bdd = mysql_connect($h,$u,$p);
-	$rsql = mysql_select_db($b,$bdd);
+function execSqlFile($rsql,$file) {
+	$requetes = '' ;
 	$sql=file($file);
 	foreach($sql as $l){ // on le lit
 	if (substr(trim($l),0,2)!="--"){ // suppression des commentaires
@@ -106,7 +186,7 @@ function execSqlFile($h,$u,$p,$b,$file) {
 	}
 	$reqs = split(";[\n\r]+",$requetes);// on sépare les requêtes
 	foreach($reqs as $req){	// et on les éxécute
-		if (!mysql_query($req) && trim($req)!=""){
+		if (!mysql_query($req,$rsql) && trim($req)!=""){
 			print("<br />ERROR : ".$req); // stop si erreur
 			print  "<br /><span style='color:red;'>".mysql_errno() . ": " . mysql_error() . "</span>";
 		}
@@ -122,6 +202,7 @@ function execSqlFile($h,$u,$p,$b,$file) {
  * @return bool
  */
 static function testGrantOnBase($h,$u,$p,$b) {
+	print  "<br />Test des privilèges CREATE ALTER DROP ";
 	$nocol = rand(1,9999);
 	$requete_creation = "CREATE TABLE  IF NOT EXISTS `test_creation` ( `col1` VARCHAR( 1 ) NOT NULL ) ENGINE = MYISAM " ;
 	$requete_modification =  "ALTER TABLE `test_creation` ADD `test_ncol_$nocol` VARCHAR( 1 ) NOT NULL ;";
@@ -129,6 +210,7 @@ static function testGrantOnBase($h,$u,$p,$b) {
 	self::execRequete($h,$u,$p,$b,$requete_creation,true);
 	self::execRequete($h,$u,$p,$b,$requete_modification,true);
 	self::execRequete($h,$u,$p,$b,$requete_suppression,true);
+	print "<font color=\"green\">OK </font>" ;
 }
 
 
@@ -152,12 +234,11 @@ static function getRangForNavicat($navicat) {
 	 return 1 + (int) $r['rg'] ;
 }
 
-static function applyPatchs($relFic='meta/update.xml',$varRelFic='var/maj/ok.list') {
+
+static function applyPatchs($idsite,$relFic='meta/update.xml',$varRelFic='var/maj/ok.list') {
 	/*
 MAJ DES PATCHS
 */
-
-
 
 $xml = simplexml_load_file(URLLOCAL.$relFic);
 if(file_exists(URLLOCAL.$varRelFic))
@@ -167,6 +248,9 @@ else
 foreach ($xml->update as $update) {
 	//si déja appliquée
 	if(in_array($update['id'],$tabUpdateOk))
+		continue ;
+	//si pour un site particulier
+	if( $update['idsite'] && $idsite != $update['idsite'] )
 		continue ;
 	//sinon on applique les maj
 	print "<br /><font color=\"orange\">Application du patch ".$update['id'].": ".utf8_decode((string) $update->description[0])."</font>" ;
@@ -239,6 +323,39 @@ foreach ($xml->update as $update) {
 
 
 }
+
+static function genResultQueryConfigFile($file,$host,$base,$user,$pass)
+{
+	$dom      = new DOMDocument ( '1.0', 'utf8' ) ;
+	$result   = $dom->createElement ( 'result', '' ) ;
+	$result  -> setAttribute ( 'num', '1' ) ;
+	$element  = $dom->createElement ( 'element', '' ) ;
+	$id       = $dom -> createElement ( 'id', 1 ) ;
+	$nom      = $dom -> createElement ( 'nom', 'Local' ) ;
+	$type     = $dom -> createElement ( 'type', 'MySQL' ) ;
+	$host     = $dom -> createElement ( 'host', $host ) ;
+	$login    = $dom -> createElement ( 'login', $user ) ;
+	$password = $dom -> createElement ( 'password', $pass ) ;
+	$db       = $dom -> createElement ( 'db', $base ) ;
+	$env      = $dom -> createElement ( 'env', 'cfg' ) ;
+	$element -> appendChild ( $id ) ;
+	$element -> appendChild ( $nom ) ;
+	$element -> appendChild ( $type ) ;
+	$element -> appendChild ( $host ) ;
+	$element -> appendChild ( $login ) ;
+	$element -> appendChild ( $password ) ;
+	$element -> appendChild ( $db ) ;
+	$element -> appendChild ( $env ) ;
+	$result  -> appendChild ( $element ) ;
+	$dom     -> appendChild ( $result ) ;
+	$FIC      = fopen ($file, "w" ) ;
+	print "Creation du fichier '$file' => " ;
+	if ( fwrite ( $FIC, $dom->saveXML ( ) ) ) print "<font color=\"green\">OK</font>" ;
+	else print "<font color=\"red\">KO</font>" ;
+	fclose ( $FIC ) ;
+	print "<br />";
+}
+
 
 
 

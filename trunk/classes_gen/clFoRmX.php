@@ -206,7 +206,8 @@ class  clFoRmX {
   
   $this->debug("entrée dans le constructeur. arguments ids=$ids options=$options");
 
- $this->setTypes();
+ $this->debug("initialisation de l'objet liste");
+  $this->setTypes();
   $this->setPrefix();
   $this->setLngchmp();
   $this->setInvselect();
@@ -217,6 +218,7 @@ class  clFoRmX {
  
  $this->ImustDisapear = false ;
 
+  $this->debug("chargement de l'objet session");
   //vars d'environnement
   if( isset($formxSession) && is_object($formxSession) )
   {
@@ -448,12 +450,20 @@ function getRootDom()
 				$eleItem->appendChild($eleCond);
 			//si une condition existe déjà, on crée un OU entre la nouvelle condition et l'ancienne
 			} else {
-				
+                
 				//refactoriser ici le code qui "change" le nodeType d'un neud
 				$oldCond = $listeoldConds->item(0);
+                $op = 'or' ;
+                if( $oldCond->hasAttribute('prerequite') )
+                {
+                    $op = 'and' ;
+                } else
+                {
+                    $op = 'or' ;
+                }
 				$eleNewCond = $this->XMLDOM->createElement('Cond');
-				$eleNewCond->setAttribute('type','or');
-				if($eleCond->getAttribute('oblig') == 'y') $eleNewCond->setAttribut('oblig','y');
+				$eleNewCond->setAttribute('type',$op);
+				if($eleCond->getAttribute('oblig') == 'y') $eleNewCond->setAttribute('oblig','y');
 				
 				$suparg1 = $this->XMLDOM->createElement('Arg1');
 				$suparg1->appendChild($eleArg1);
@@ -561,7 +571,7 @@ function getRootDom()
   	if(! $ids) $ids = $this->ids ;
 	if(! $idformx) $idformx = $this->idformx ;
 	if(is_object($this->XMLDOM) && !isset( $this->XMLDOM->documentElement ))
-		 debug( "Le fichier XML ne s'est pas correctement chargé ou n'a pas été chargé.<br/>Une erreur fatale devrait suivre, consulter logs erreur aupres du service technique." ); 
+		 throw new Exception ( "Le fichier XML ne s'est pas correctement chargé ou n'a pas été chargé." );
 	if(! $titre) $titre = $this->supprMP( utf8_decode($this->XMLDOM->documentElement->getElementsByTagName('Libelle')->item(0)->nodeValue) );
 	$vals['ids']=$ids;
 	$vals['dt_creation']=date("Y-m-d H:i:s");
@@ -767,7 +777,11 @@ function getRootDom()
     $mod = new ModeliXe ( "FX_squeletteFoRmX.mxt" ) ;
     $mod -> SetModeliXe ( ) ;
     //recuperation des balises descriptives
-    $mod -> MxText ( "titre",$xml->Libelle[0]);
+    $htmlLibelle = $xml->Libelle[0] ;
+    if( $xml->Logo[0] )
+    $htmlLibelle = '<img alt="logo" src="'.$xml->Logo[0].'" />'.$htmlLibelle ;
+    $mod -> MxText ( "titre",$htmlLibelle);
+
     if ($xml->Objet[0]) 
     	$mod -> MxText ( "objet.libobj",$xml->Objet[0]); 
     else
@@ -1147,9 +1161,11 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
    /*on a plus qu'à l'afficher*/
    //--------------------------------------------FIN TRAITEMENT DOM
    //rechagement de simpleXML apres modifs via DOM
+
    	if( $this->mustICloseAfterValid() && $this->justClosed )
+    {
 		$this->affFoRmX(); //TODO : lorsque plus aucune regle métier dans affFoRmX, virer la ligne
-	else
+    } else
 		$this->af .=$this->affFoRmX();	
 		
 	$this->saveInstance();
@@ -1211,15 +1227,27 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
   }
 
   /*cloture un formulaire*/
-function close($etat='F') {
+function close() {
   $etapes = $this->XMLDOM->documentElement->getElementsByTagName('ETAPE');
-  foreach ($etapes as  $etape) { //on parcours les nodes
+  foreach ($etapes as  $etape)
+  { //on parcours les nodes
 	//eko("on regarde l'etape".$etape->Libelle[0]);
-    	$etape->setAttribute('etat','fini') ;
-        }
-  
-  formxTools::setDomState($this,$etat);   
+        $etape->setAttribute('etat','fini') ;
+   }
+   clFoRmXtOoLs::delFormToLoad($this->prefix,$this->idInstance); //supprime du pipeline des multiformulaires
+   if ( $this->XMLCore['disappear'] )
+   {
+    //si le form doit disparaitre apres finition
+        $this->rmInstanceForce();
+        return 1;
+    } elseif ( $this->XMLCore['phantom'] ) {
+        formxTools::setDomState($this,'H');
+    } else {
+        formxTools::setDomState($this,$this->traiterFini());
+    }
+  //formxTools::setDomState($this,$etat);
   $this->saveInstance();
+  $this->justClosed = true ;
   return 'oki';
   }
   
@@ -1513,7 +1541,6 @@ return false;
 	$tabtmp2 = explode('|',$elements_et);
 	$cond2 = '';
 	foreach ($tabtmp2 as $element_ou) {
-		//eko("test de l'élément $element_ou");
 		$litem = $this->getSXitembyId($etapeSX,$element_ou) ;
 		$cur_var = $litem->Val[0] ;
 		/*if ( ereg('^Â¤.*',$cur_var) ) {
@@ -2055,9 +2082,11 @@ $reg=array();
  	if($item->getElementsByTagname('Cond')->length > 0 ) { //si l'item a une condition d'affichage, on la met à jour
  		$this->majCondAffichage($item);
  	}
- 	
+
+
+
  	//si l'item est de type closer et que sa condition est vraie, on cloture le formulaire et on le ferme
- 	if($item->getAttribute('closer') &&   formxTools::isNotNullDomItem($item) ) {
+    if($item->getAttribute('closer') &&   $this->testCondDOM($item) ) {
  		$this->ImustDisapear = true ;
  		$this->close();
  	}
@@ -2257,7 +2286,7 @@ function testCond($cond){
 }
 
 /*Exexution d'un test d'une balise conditionelle en DOM*/
-/*attention, s'appelle un niveau AU DESSUS*/
+/*attention, s'appelle un niveau AU DESSUS (item) */
 function testCondDOM($cond){
 	$xml = $this->XMLDOM->saveXML($cond);
 	//eko("balise condition: <xmp>$xml</xmp>");
@@ -3181,16 +3210,28 @@ function getTabAllItemsValues($options='') {
 	$noNominativeData = false ;
 	if($options)
 	{
-		if($options['noNominativeData'])
-			$noNominativeData = true ;
+		if($options['noNominativeData'])  $noNominativeData = true ;
 	}
 	$res = array() ;
+    $res['ids'] = $this->getIDS() ;
+    $tabFirstCols = array() ;
+    if(isset($options['firstColsFunc']))
+    {
+        if(isset($options['firstColsFuncArgField']))
+            $arg = $this->getFormVar($options['firstColsFuncArgField']) ;
+        else
+        {
+            $arg = $this->getIDS() ;
+        }
+        eval ("\$tabFirstCols = ".$options['firstColsFunc']."('$arg') ; ");
+    }
+    
    	foreach (formxTools::domSearch($this->getRootDom(), 'ITEM') as $item)
 	{
 		if( ! $noNominativeData || ! $item->hasAttribute('nominativeData') )
 			$res[$item->getAttribute('id')]=formxTools::getValueDomItem($item);
    	}
-   	return $res;
+   	return $tabFirstCols + $res;
 }
 
 

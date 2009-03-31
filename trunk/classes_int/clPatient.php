@@ -182,6 +182,18 @@ class clPatient {
     return $this->patient[$lib] ;
   }
 
+  function getMiniExport()
+  {
+      $ret = array();
+      $ret['date_admission'] = $this->getDateAdmission();
+      $ret['DateExamen'] = $this->getDateExamen();
+      $ret['CodeDiagnostic'] = $this->getCodeDiagnostic();
+      $ret['TypeDestAttendue'] = $this->getTypeDestination();
+      $ret['mode_admission'] = $this->getTypeAdmission();
+      $ret['DateSortie'] = $this->getDateSortie();
+      return $ret ;
+  }
+
   function setAttribut ( $nom, $valeur ) {
     switch ( $nom ) {
     case 'ModeAdmission':        $data[mode_admission] = $valeur ;       break ;
@@ -313,9 +325,7 @@ class clPatient {
   function hasFormxPassage($idFormx,$options='')
   {
 	  if( ! $options ) $options = array() ;
-	  $ids = $this->getIDU() ;
-	  $idPassage = $this->getNSej();
-	  $tab = formxTools::exportsGetTabCw(" ids='$ids' AND idformx='$idFormx'   ",  $options + array('filterValues'  =>    array('id_passage' => $idPassage )  ));
+      $tab = formxTools::exportsGetTabIdsIdformFilterValue($this->getIDU(), $idFormx, 'id_passage', $this->getNSej());
 	  return (count($tab)?true:false) ;
   }
 
@@ -324,9 +334,8 @@ class clPatient {
   function hasFormx($idFormx,$options='')
   {
 	  if( ! $options ) $options = array() ;
-	  $ids = $this->getIDU() ;
-	  $tab = formxTools::exportsGetTabCw(" ids='$ids' AND idformx='$idFormx'   "   ,$options);
-	  return count($tab) ;
+      $tab = formxTools::exportsGetTabIdsIdform($this->getIDU(), $idFormx);
+	  return (count($tab)?true:false) ;
   }
 
   //renvoie un tableau avec les codes des actes (les NGAP commencent par NGAP )
@@ -500,6 +509,29 @@ class clPatient {
     // Récupération du code HTML généré.
     return $mod -> MxWrite ( "1" ) ;
   }
+/**
+ *
+ * @param <int> $idu
+ * @return clPatient
+ */
+  static function getObjPatientFromIdPassage($idpassage)
+  {
+      $req =" SELECT idpatient from patients_presents WHERE nsej = '$idpassage' " ;
+      $obReq = new clRequete( BDD, 'patients_presents');
+      $resTab = $obReq->exec_requete($req,'tab');
+      if(count($resTab)>0)
+        $idPatient = $resTab[0]['idpatient'] ;
+      else
+      {
+          $req =" SELECT idpatient from patients_sortis WHERE nsej = '$idpassage' " ;
+          $resTab = $obReq->exec_requete($req,'tab');
+          if(count($resTab) == 0)
+            return null ;
+          $idPatient = $resTab[0]['idpatient'] ;
+      }
+      return new clPatient($idPatient);
+  }
+  
 }
 
 ?>

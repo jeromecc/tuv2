@@ -1,5 +1,6 @@
-v2.19.7 
-instable pour l'instant
+v2.20.1
+ - Module d'enquêtes
+ - Corrections libelles masculin/féminin bons de radio (Emmanuel Cervetti)
 
 
 ********************************************************************************************************

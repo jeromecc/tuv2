@@ -194,9 +194,14 @@ static function genHtmlArray($listeitems,$nbcols) {
 //prend latin ou utf8, renvoie utf8
 static function clean2utf8($str)
 {
+	if( ! function_exists('mb_detect_encoding') )
+	{
+		formxSession::getInstance()->addErreur("Attention !! Le module PHP mbstring n'est pas installé : des problèmes d'encodage peuvent survenir.");
+		return $str ;
+	}
+
 	if(  mb_detect_encoding($str.'fixbug','UTF-8, ISO-8859-1') != 'UTF-8' )
 		return utf8_encode($str);
-	
 	return $str ;
 }
 
@@ -204,6 +209,12 @@ static function clean2utf8($str)
 //plus tard, mettre option pour encodage de sortie
 static function encode4web($str)
 {
+	if( ! function_exists('mb_detect_encoding') )
+	{
+		formxSession::getInstance()->addErreur("Attention !! Le module PHP mbstring n'est pas installé : des problèmes d'encodage peuvent survenir.");
+		return $str ;
+	}
+
 	if(  mb_detect_encoding($str.'fixbug','UTF-8, ISO-8859-1') != 'UTF-8' )
 		return $str ;
 	
@@ -231,6 +242,18 @@ static function decodeFromBdd($str)
 	//die ;
 	
 	return $str ;
+}
+
+/**
+ * renvoie l'id atomique d'un formx
+ * ex: enquetes/toto -> toto
+ */
+static public function strGetIdAtomiqueFx($str)
+{
+    //  zrezr/zerzer/zerzer/   zrz_e123rez
+    if( preg_match('/^.*\/([^\/]+)$/', $str,$tabMatch) )
+        return $tabMatch[1];
+    return $str ;
 }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -281,49 +304,74 @@ static function manipIsFormPresent() {
 //---------------------------------------------
 
 
+
+
 static public function exportsGetTabIds($ids,$options='')
 {
-	return self::exportsGetTabCw(" ids ='$ids'  ",$options);
+    if(is_array($options) && isset($options['cw']))
+        $cw = ' AND '.$options['cw'] ;
+    else
+        $cw = '' ;
+	return self::exportsGetTabCw(" ids ='$ids' $cw ",$options);
 }
+
 static public function exportsGetTabIdsIdform($ids,$idform,$options='')
 {
-	return self::exportsGetTabCw(" ids ='$ids'  AND idformx = '$idform' ",$options);
+    if(! $options) $options = array() ;
+    $idform = self::strGetIdAtomiqueFx($idform);
+	return self::exportsGetTabIds($ids,$options + array('cw' => " idformx = '$idform' "  ) );
 }
-static public function exportsGetTabIdform($ids,$idform,$options='')
+
+static public function exportsGetTabIdform($idform,$options='')
 {
-	return self::exportsGetTabCw("  idformx = '$idform' ",$options);
+    if(! $options) $options = array() ;
+    $idform = self::strGetIdAtomiqueFx($idform);
+    if(is_array($options) && isset($options['cw']))
+        $cw = ' AND '.$options['cw'] ;
+    else
+        $cw = '' ;
+	return self::exportsGetTabCw("  idformx = '$idform' $cw ",$options);
 }
+
 static public function exportsGetTabIdsIdformFilterValue($ids,$idform,$idItem,$val,$options='')
 {
 	if( ! $options ) $options = array() ;
-	return self::exportsGetTabCw("   ids ='$ids'  idformx = '$idform' ",$options +  array('filterValues'  =>    array($idItem => $val )  ) );
+	return self::exportsGetTabIdsIdform($ids,$idform,$options +  array('filterValues'  =>    array($idItem => $val )  ) );
 }
+
 static public function exportsGetTabIdformFilterValue($idform,$idItem,$val,$options='')
 {
-	if( ! $options ) $options = array() ;
-	return self::exportsGetTabCw("   idformx = '$idform' ",$options +  array('filterValues'  =>    array($idItem => $val )  ) );
+    if( ! $options ) $options = array() ;
+	return self::exportsGetTabIdform($idform,$options +  array('filterValues'  =>    array($idItem => $val )  ) );
 }
+
 
 //exportsGetTabCw(" ids='123' AND idformx='avc'   ",array('filterValues'  =>    array('id_passage' => 15678)  ))
 
 static public function exportsGetTabCw($cw,$options='')
 {
-	if(! $options)
+
+	if(! $options || ( is_array($options) && ( count($options) == 0 ) ) )
 	{
 		$options = array('noNominativeData' => true , 'etat' => array('I','E','F','H'));
 	}
-
-	$cw = "  ( $cw ) AND  etat IN '".implode("','".$options['etat'])."' "  ;
+	
+	//$cw = "  ( $cw ) AND  status IN   ('".implode(    "','"   ,   $options['etat']   ). "') "  ;
 
 	$requete = "SELECT id_instance ,idformx,ids FROM formx WHERE $cw ";
+
 	$obRequete = clFoRmXSession::getInstance()->getObjRequete();
 	$res = array();
+    
+    
 	foreach ( $obRequete->exec_requete($requete,'tab') as $ligne )
 	{
 		try {
+            
 			$formx = new clFoRmX($ligne['ids'],'NO_POST_THREAT');
 			$formx->loadInstance($ligne['id_instance']);
 			$okForExtract = false ;
+
 			if(isset($options['filterValues']))
 			{
 				foreach($options['filterValues'] as $idItem => $needValue)
@@ -341,10 +389,10 @@ static public function exportsGetTabCw($cw,$options='')
 			if($okForExtract)
 				$res[] = $formx->getTabAllItemsValues($options) ;
 		} catch (Exception $e) {
-			
+
 		}
+        
 	}
-	
 	return $res ;
 	
 }
@@ -352,9 +400,9 @@ static public function exportsGetTabCw($cw,$options='')
 
 
 
-static public function exportsGetCsvCw($cw,$nomFic)
+static public function exportsGetCsvCw($cw,$nomFic,$options)
 {
-	$data = clFoRmXtOoLs::exportsGetTabCw($cw);
+	$data = clFoRmXtOoLs::exportsGetTabCw($cw,$options);
 	return clFoRmXtOoLs::exportsGetCsvFromData($data,$nomFic);
 }
 
@@ -367,6 +415,7 @@ static public function exportsGetCsvCw($cw,$nomFic)
 
 static public function exportsGetCsvFromData(&$dataTab,$nomFic = '')
 {
+
 	$tabIndic = array() ;
 	if( ! $nomFic )
 	{
@@ -409,6 +458,7 @@ static public function exportsGetCsvFromData(&$dataTab,$nomFic = '')
 		fwrite($hFic, $ligneCsv);
 	}
 	fclose($hFic);
+
 	return clFoRmXSession::getInstance()->getWebUrlCache().$nomFic;
 
 }
@@ -633,6 +683,8 @@ static function genListFormsXml($ids) {
 
 static function helper_formatDatatype($item,$val)
 {
+    if($val  === '') return $val ;
+
 	if( ! $item->hasAttribute('datatype')) return $val ;
 	switch($item->getAttribute('datatype'))
 	{
@@ -648,15 +700,17 @@ static function helper_formatDatatype($item,$val)
 			break ;
 	}
 
-	if($val  == '') return $val ;
+	if($val  === '') return $val ;
+
+
 
 	if(  $item->hasAttribute('minvalue'))
 	{
-		$val = max($item->getAttribute('minvalue'),$val );
+		if ( $val < $item->getAttribute('minvalue') ) return '';
 	}
 	if(  $item->hasAttribute('maxvalue'))
 	{
-		$val = min($item->getAttribute('maxvalue'),$val );
+        if ( $val > $item->getAttribute('maxvalue') ) return '';
 	}
 	return $val;
 }

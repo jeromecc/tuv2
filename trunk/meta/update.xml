@@ -27,6 +27,15 @@
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1</requete>
 	</update>
 
-
+<update id="2">
+		<description>Création du menu de gestion des enquetes</description>
+		<menu_new>
+			<libelle>Gestion enquêtes</libelle>
+			<sub idUnique="160HBIbY11y6fqOR" /> <!--Administration-->
+			<cle cle="gestenquetes" />
+			<cletotale cle="administration|gestenquetes" />
+			<param option="" droit="Administration" visible="y" classe="clGestFormxTriggers" argument="''" /><!--Attention aux majuscules , argument entre simple quotes-->
+		</menu_new>
+	</update>
 
 </updates>

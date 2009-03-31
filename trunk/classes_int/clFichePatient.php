@@ -43,6 +43,8 @@ class clFichePatient {
     global $listeMedCCAM ;
     global $idpat ;
     $idpat = $idpatient ;
+
+    $this->isIMHBusy = false ;
     
     if ( $_REQUEST['FormX_to_open_'] ) {
   		$_REQUEST['FoRmX_chooseNew'][] = $_REQUEST['FormX_to_open_'] ;
@@ -769,6 +771,7 @@ class clFichePatient {
 					$session->setLogSup ( 'Question UHCD' ) ;
 					// Chargement du template ModeliXe.
 	    			$mod = new ModeliXe ( "ErreurUHCD.html" ) ;
+                    $this->setIHMBusy();
 	    			$mod -> SetModeliXe ( ) ;
 					/*
 					if ( $this->patient->getDateExamen ( ) != '0000-00-00 00:00:00' ) $dateMin = new clDate ( $this->patient->getDateExamen ( ) ) ;
@@ -813,6 +816,7 @@ class clFichePatient {
 					$session->setLogSup ( 'Question UHCD' ) ;
 					// Chargement du template ModeliXe.
 	    			$mod = new ModeliXe ( "ErreurUHCD.html" ) ;
+                    $this->setIHMBusy();
 	    			$mod -> SetModeliXe ( ) ;
 					/*
 					if ( $this->patient->getDateExamen ( ) != '0000-00-00 00:00:00' ) $dateMin = new clDate ( $this->patient->getDateExamen ( ) ) ;
@@ -880,6 +884,8 @@ class clFichePatient {
 					global $stopAffichage ;
 	    			$stopAffichage = 1 ;
 	    			header ( 'Location:index.php?navi='.$session->genNavi ( $session->getNavi(0), $session->getNavi(1), $session->getNavi(2)).$sm ) ;
+                    print "Erreur de relocation";
+                    die ;
 				}	
 			}
 		}
@@ -1267,7 +1273,7 @@ class clFichePatient {
 		if ( clTuFormxTrigger::getWatcher($this->patient)->isTriggersOnOut() ) 	{
 			$enquetes = clTuFormxTriggerWatcher::getInstance($this->patient)  ;
 			$enquetes->launchTriggersOnOut();
-			$this->af .= $enquetes->getHtml();
+            return '';
 		}  else if ( $contraintes -> runCheck ( ) ) {
 			
 	      $f .= $form -> genImage ( "Valider", "Valider", URLIMGVAL, 'style="border: 0px; background-color: #FFFF99;"' ) ;
@@ -1461,10 +1467,18 @@ class clFichePatient {
     return $mod -> MxWrite ( "1" ) ;
   }
 
+    //definit l'IHM dans un etat occupé
+    function setIHMBusy()
+    {
+        $this->isIMHBusy = true ;
+    }
 
 	//regarde si l'IHM de la fiche patient est occupée ou dispo . Utilisé par les triggers de formulaire pour savoir si on peut afficher ou non les formx
 	function isIHMDispo()
 	{
+        if ( $this->isIMHBusy )
+            return false ;
+
 		//eko($_POST);
 		//dans codage diag/Acte ?
 		if( isset($_POST['DetailDiagsActes_x']) && $_POST['DetailDiagsActes_x'] ) //demande de codage diag/Acte
