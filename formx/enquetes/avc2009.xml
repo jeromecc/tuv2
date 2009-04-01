@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8" standalone='yes'?>
+<FORMX id="avc2009" >
+<Libelle>Formulaire AVC</Libelle>
+<Objet>Cette enquête temporaire permet de recueuillir de l'information sur les AVC</Objet>
+
+<ETAPE id="1">
+
+         <ITEM id="id_passage" type="HIDDEN"><From>globalObject:patient->getNSej()</From></ITEM>
+        <ITEM id="refus" type="CHECK" onChangeSubmit='y' opt="y"><Libelle></Libelle>
+            <FromList>list:oui</FromList>
+            <FromListLibelles>list:Je refuse de répondre au formulaire (fermeture)</FromListLibelles>
+        </ITEM>
+
+
+    <ITEM type="RADIO" id="is_avc" oblig="y" onChangeSubmit='y'  >
+		<Libelle>Est-ce un AVC ?</Libelle>
+		<FromList>list:oui|non</FromList>
+        <FromListLibelles>list:Oui|Non (quitter)</FromListLibelles>
+	</ITEM>
+
+
+        <ITEM id="closer1" type="HIDDEN" readonly="y"  closer="y">
+            <Cond type="equal">
+                <Arg1>const:oui</Arg1>
+                <Arg2>formVar:refus</Arg2>
+            </Cond>
+        </ITEM>
+
+        <ITEM id="closer2" type="HIDDEN" readonly="y"  closer="y">
+            <Cond type="equal">
+                <Arg1>const:non</Arg1>
+                <Arg2>formVar:is_avc</Arg2>
+            </Cond>
+        </ITEM>
+
+
+	<Libelle>Administratif</Libelle>
+
+  	<ITEM type="TXT" id="nom" readonly="y" opt="y" nominativeData="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	<ITEM type="TXT" id="prenom" readonly="y" opt="y" nominativeData="y" >
+		<Libelle>Prenom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	<ITEM type="TXT" id="sexe" readonly="y" opt="y" >
+	<Libelle>Sexe</Libelle>
+		<From>globalObject:patient->getSexe()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="dtNaissance" opt="y"  readonly="y" >
+      <Libelle>Date de naissance</Libelle>
+      <From>date_simple|globalObject:patient->getDateNaissance()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="departement" opt="y"  readonly="y" >
+      <Libelle>Département</Libelle>
+      <From>dpt_from_cp|globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="departement" opt="y" readonly="y"   >
+      <Libelle>Département de PEC</Libelle>
+      <From>dpt_from_cp|option:BonFiness</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="ch" readonly="y" opt="y" >
+	<Libelle>Centre Hospitalier</Libelle>
+		<From>option:NomEtablissement</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="adresseur" readonly="y" opt="y"  resync="y">
+	<Libelle>Adresseur</Libelle>
+		<From>globalObject:patient->getAdresseur()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="moyen_arrivee" readonly="y" opt="y"  resync="y">
+	<Libelle>Moyen d'arrivée</Libelle>
+		<From>globalObject:patient->getModeAdmission()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="medurg" readonly="y" opt="y" >
+	<Libelle>Médecin Urgences</Libelle>
+		<From>globalObject:patient->getMedecin()</From>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="lateralite" link="lateralite"> 
+	<Libelle>Latéralité</Libelle>
+		<From>var:lateralite</From>
+		<FromList>list:gaucher|droitier</FromList>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="motif_consult" cols="2">
+	<Libelle>Motif de consultation</Libelle>
+		<From>globalObject:patient->getRecours()</From>
+		<FromXHAMList>Neurologie</FromXHAMList>
+	</ITEM>
+
+</ETAPE>
+
+
+
+<ETAPE id="2">
+
+	<Libelle>Chronologie</Libelle>
+
+	
+	<ITEM type="RADIO" id="is_heure_debut_symptoneuro">
+	<Libelle>L'heure de survenue des symptomes neurologiques est-elle connue ?</Libelle>
+		<ShowItemsOnVal>
+			<ListIdItems>list:debut_symptomes_neuro_jour|debut_symptomes_neuro_heure</ListIdItems>
+			<OnVal>const:oui</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:is_heure_debut_sympto</ListIdItems>
+			<OnVal>const:non</OnVal>
+		</ShowItemsOnVal>
+	<FromList>list:oui|non</FromList>
+	</ITEM>
+	
+	<ITEM type="CAL" id="debut_symptomes_neuro_jour" >
+		<Libelle>Jour de début de la symptomatologie neurologique</Libelle>
+		<From>func:getters/jour_moins_trois_heures</From>
+	</ITEM> 
+
+	<ITEM type="LISTE" id="debut_symptomes_neuro_heure">
+		<Libelle>Heure de début de la symptomatologie neurologique</Libelle>
+		<From>func:getters/heure_moins_trois</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM> 
+	
+	<ITEM type="RADIO" id="is_heure_debut_sympto">
+	<Libelle>Une heure de constatation des symptomes est-elle connue ?</Libelle>
+		<ShowItemsOnVal>
+			<ListIdItems>list:debut_symptomes_jour|debut_symptomes_heure</ListIdItems>
+			<OnVal>const:oui</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:date_asympt|heure_asympt</ListIdItems>
+			<OnVal>const:non</OnVal>
+		</ShowItemsOnVal>
+	<FromList>list:oui|non</FromList>
+	</ITEM>	
+	
+	
+	
+	
+	<ITEM type="CAL" id="debut_symptomes_jour">
+		<From>func:getters/jour_moins_trois_heures</From>
+		<Libelle>Jour de début de la constatation des symptômes</Libelle>
+	</ITEM> 
+
+	<ITEM type="LISTE" id="debut_symptomes_heure">
+		<Libelle>Heure de début de la constatation des symptômes</Libelle>
+		<From>func:getters/heure_moins_trois</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM> 
+	
+	<ITEM type="CAL" id="date_asympt" >
+		<Libelle>Date de vue asymptomatique</Libelle>
+		<From>func:getters/jour_moins_trois_heures</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_asympt" >
+		<FromFuncList>getters/list_hours</FromFuncList>
+		<From>func:getters/heure_moins_trois</From>
+		<Libelle>Heure de vue asymptomatique</Libelle>
+	</ITEM>
+	
+	
+	<ITEM type="CAL" id="date_arrivee_urgences">
+		<Libelle>Jour d'arrivée aux urgences</Libelle>
+		 <From>date_simple|globalObject:patient->getDateAdmission()</From>
+	</ITEM> 
+
+
+	<ITEM type="LISTE" id="heure_arrivee_urgences">
+		<Libelle>Heure d'arrivée aux urgences</Libelle>
+		<From>heure_simple|globalObject:patient->getDateAdmission()</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+		<ITEM type="CAL" id="date_pec_urgences">
+		<Libelle>Jour de prise en charge par IOA</Libelle>
+		 <From>date_simple|globalObject:patient->getDateAdmission()</From>
+	</ITEM> 
+
+
+	<ITEM type="LISTE" id="heure_pec_urgences">
+		<Libelle>Heure de prise en charge aux par IOA</Libelle>
+		<From>heure_simple|globalObject:patient->getDateAdmission()</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+</ETAPE>
+
+
+<ETAPE id="3">
+	<ITEM type="TXT" readonly='y' id="delta_heure" resync="y">
+		<Libelle>Delta calculé</Libelle>
+		<From>func:specifique/avc/delta_temps</From>
+	</ITEM>
+	<ITEM type="TXT" readonly='y' id="avertissement1" style="font-weight:bold;color:red;">
+		<Libelle></Libelle>
+		<Cond type="inf">
+			<Arg1>formVar:delta_heure</Arg1>
+			<Arg2>const:3</Arg2>
+		</Cond>
+		<From>const:alerte-*-Protocole des AVC avec PEC Thrombolyse-*-Tri IAO : rouge ou voir médecin réérant </From>
+	</ITEM>
+	<ITEM type="TXT" readonly='y' id="avertissement2" style="font-weight:bold;color:orange;">
+		<Libelle></Libelle>
+		<Cond type="sup_equal">
+			<Arg1>formVar:delta_heure</Arg1>
+			<Arg2>const:3</Arg2>
+		</Cond>
+		<From>const:Protocole des AVC avec PEC hors Thrombolyse-*-Tri IAO orange</From>
+	</ITEM>	
+	<ITEM type="TXT" id="Pouls" datatype="int" minvalue="40" maxvalue="180" >
+		<Libelle>Pouls (p/m)</Libelle>
+	</ITEM>	
+	<ITEM type="TXT" id="tas"   datatype="int" minvalue="10" maxvalue="999" >
+		<Libelle>Tension Artérielle Systolique (mmHg)</Libelle>
+	</ITEM>
+
+	<ITEM type="TXT" id="tad"   datatype="int" minvalue="10" maxvalue="99" >
+		<Libelle>Tension Artérielle Diastolique (mmHg)</Libelle>
+	</ITEM>
+
+	<ITEM type="TXT" id="tmp"  datatype="int" minvalue="33" maxvalue="41" >
+		<Libelle>Température (C°)</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="sao"   datatype="int" minvalue="50" maxvalue="100" >
+		<Libelle>SAO2 (%)</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="hgt"   datatype="float" minvalue="1" maxvalue="30" >
+		<Libelle>Hémoglucotest (mmol)</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="gcs"   datatype="int" minvalue="3" maxvalue="15" >
+		<Libelle>Glascow [3-15]</Libelle>
+	</ITEM>
+
+	<ITEM type="TXT" id="poids"   datatype="int" minvalue="10" maxvalue="999" >
+		<Libelle>Poids (kg)</Libelle>
+	</ITEM>
+	
+	<ITEM type="TXT" id="taille"   datatype="int" minvalue="10" maxvalue="300"   >
+		<Libelle>Taille (cm)</Libelle>
+	</ITEM>
+	
+
+	
+
+	
+</ETAPE>
+
+
+
+<ETAPE id="4">
+
+	<Libelle>Analyse des facteurs de risques</Libelle>
+
+	<ITEM type="RADIO" id="is_facteurs_risques">
+	<Libelle>Facteurs de risques ?</Libelle>
+		<ShowItemsOnVal>
+			<ListIdItems>list:fdr_cv</ListIdItems>
+			<OnVal>const:oui</OnVal>
+		</ShowItemsOnVal>
+	<FromList>list:oui|non</FromList>
+	</ITEM>	
+
+	<ITEM type="CHECK" id="fdr_cv" >
+		<Libelle>Facteurs de risques CardioVasculaires</Libelle>
+		<FromList>list:HTA|DNID|DID|Tabac|Dyslipidemie|Alcool|Obésité|Contraception orale|Hormonothérapie</FromList>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="is_antc">
+	<Libelle>Antécédents ?</Libelle>
+		<FromList>list:oui|non</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:atcd_cv</ListIdItems>
+			<OnVal>const:oui</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>	
+	
+
+	<ITEM type="CHECK" id="atcd_cv" >
+	
+		<Libelle>Antécédents</Libelle>
+		
+		<FromList>list:Perte d'autonomie|Neurologique|CV|Médicaux autres|Chirurgicaux</FromList>
+	
+		<ShowItemsOnVal>
+			<ListIdItems>list:autonomie_infos</ListIdItems>
+			<OnVal>const:Perte d'autonomie</OnVal>
+		</ShowItemsOnVal>
+		
+		<ShowItemsOnVal>
+			<ListIdItems>list:neurologique_infos</ListIdItems>
+			<OnVal>const:Neurologique</OnVal>
+		</ShowItemsOnVal>
+
+		<ShowItemsOnVal>
+			<ListIdItems>list:cv_infos</ListIdItems>
+			<OnVal>const:CV</OnVal>
+		</ShowItemsOnVal>
+		
+		<ShowItemsOnVal>
+			<ListIdItems>list:ma_infos</ListIdItems>
+			<OnVal>const:Médicaux autres</OnVal>
+		</ShowItemsOnVal>
+		
+		<ShowItemsOnVal>
+			<ListIdItems>list:chir_infos</ListIdItems>
+			<OnVal>const:Chirurgicaux</OnVal>
+		</ShowItemsOnVal>
+	
+	</ITEM>
+	
+	<ITEM type="CHECK" id="autonomie_infos" >
+	<Libelle>Autonomie</Libelle>
+	<FromList>list:Grabataire|Marche avec déambulateur|Ne peut sortir seul|Trouble de la mémoire</FromList>
+	</ITEM>
+
+	
+	<ITEM type="CHECK" id="neurologique_infos" >
+	<Libelle>Neurologique</Libelle>
+	<FromList>list:AIT|AVC ischémique|AVC hémorragique|Tumeur|Migraine</FromList>
+	</ITEM>
+
+	<ITEM type="CHECK" id="cv_infos" >
+		<Libelle>Cardiovasculaires</Libelle>
+		<FromList>list:IDM|AF/FA</FromList>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="ma_infos" >
+		<Libelle>Médicaux autres :</Libelle>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="chir_infos" >
+		<Libelle>Chirurgicaux :</Libelle>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="is_allergie">
+	<Libelle>Allergies ?</Libelle>
+		<ShowItemsOnVal>
+			<ListIdItems>list:allergies</ListIdItems>
+			<OnVal>const:oui</OnVal>
+		</ShowItemsOnVal>
+		<FromList>list:oui|non</FromList>
+	</ITEM>	
+	
+	<ITEM type="CHECK" id="allergies" >
+		<Libelle>Allergies</Libelle>
+		<FromList>list:Médicaments|Produit de constraste|Autre</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:allergies_infos</ListIdItems>
+			<OnVal>const:Médicaments</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:allergies_infos</ListIdItems>
+			<OnVal>const:Produit de constraste</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:allergies_infos</ListIdItems>
+			<OnVal>const:Autre</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="allergies_infos" >
+		<Libelle>Précisions allergies :</Libelle>
+	</ITEM>
+	
+	
+	
+</ETAPE>
+
+<ETAPE id="5">
+
+	<Libelle>Traitement en cours</Libelle>
+	
+	<ITEM type="CHECK" id="trt_en_cours" >
+		<Libelle>Traitement en cours</Libelle>
+		<FromList>list:AVK|Antithrombotique|Antihypertenseur|Antidiabétique</FromList>
+	</ITEM>
+
+
+	<ITEM type="CAL" id="date_pec_immediate" >
+		<Libelle>Delta inf.3 - Date PEC Immédiate</Libelle>
+		<Cond type="inf">
+			<Arg1>formVar:delta_heure</Arg1>
+			<Arg2>const:3</Arg2>
+		</Cond>
+		<From>formVar:date_pec_urgences</From>
+	</ITEM>
+
+	<ITEM type="LISTE" id="heure_pec_immediate">
+		<Libelle>Delta inf.3 - Heure PEC Immédiate</Libelle>
+		<Cond type="inf">
+			<Arg1>formVar:delta_heure</Arg1>
+			<Arg2>const:3</Arg2>
+		</Cond>
+		<From>func:getters/heure_now</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+		
+	<ITEM type="RADIO" id="is_decision_trombo" >
+		<Libelle>Score NIH inf. 4 et sup. 23 avec déficit non régressif ?</Libelle>
+		<Cond type="inf_equal">
+			<Arg1>formVar:delta_heure</Arg1>
+			<Arg2>const:3</Arg2>
+		</Cond>
+		<FromList>list:oui|non</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:trombo_is_indic</ListIdItems>
+			<OnVal>const:oui</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:jour_pec_tni|heure_pec_tni</ListIdItems>
+			<OnVal>const:non</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>
+
+	<ITEM type="RADIO" id="trombo_is_indic" >
+		<Libelle>Contre-indication trombolyse ?</Libelle>
+		<FromList>list:oui|non</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:date_c15|heure_c15</ListIdItems>
+			<OnVal>const:non</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:jour_pec_tni|heure_pec_tni</ListIdItems>
+			<OnVal>const:oui</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>
+
+	<ITEM type="CAL" id="date_c15">
+		<Libelle>Date appel C15 pour transfert</Libelle>
+		<From>formVar:date_pec_immediate</From>
+	</ITEM>	
+		
+	<ITEM type="LISTE" id="heure_c15">
+		<Libelle>Heure appel C15 pour transfert</Libelle>
+		<From>formVar:heure_pec_immediate</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+
+	<ITEM type="CAL" id="jour_pec_tni" >
+		<Libelle>Date PEC médicale (thrombolyse non indiquée)</Libelle>
+		<From>func:specifique/avc/get_jour_pecm_default</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_pec_tni" >
+		<Libelle>Heure PEC médicale (thrombolyse non indiquée)</Libelle>
+		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+
+	
+	<ITEM type="CAL" id="jour_pec_ds3" >
+		<Cond type="sup">
+			<Arg1>formVar:delta_heure</Arg1>
+			<Arg2>const:3</Arg2>
+		</Cond>
+		<Libelle>Date PEC médicale (delta sup. 3h)</Libelle>
+		<From>func:specifique/avc/get_jour_pecm_default</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_pec_ds3" >
+		<Cond type="sup">
+			<Arg1>formVar:delta_heure</Arg1>
+			<Arg2>const:3</Arg2>
+		</Cond>
+		<Libelle>Heure PEC médicale (delta sup. 3h)</Libelle>
+		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+
+
+
+	<ITEM type="CHECK" id="examen_radio" >
+		<Libelle>Examen Radiologique</Libelle>
+		<FromList>list:TDM cérébral sans injection|Angio TDM cérébrale|IRM Cérébrale|Non réalisé</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:jour_appel_tdm|jour_exam_tdm|heure_appel_tdm|heure_exam_tdm|resultat_radio</ListIdItems>
+			<OnVal>const:TDM cérébral sans injection</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:jour_appel_angio|jour_exam_angio|heure_appel_angio|heure_exam_angio|resultat_radio</ListIdItems>
+			<OnVal>const:Angio TDM cérébrale</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:jour_appel_irm|jour_exam_irm|heure_appel_irm|heure_exam_irm|resultat_radio</ListIdItems>
+			<OnVal>const:IRM Cérébrale</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>
+	
+
+	
+	<ITEM type="CAL" id="jour_appel_tdm">
+		<Libelle>Jour appel TDM cérébral</Libelle>
+		<From>func:specifique/avc/get_jour_pecm_default</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_appel_tdm">
+		<Libelle>Heure appel TDM cérébral</Libelle>
+		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+	<ITEM type="CAL" id="jour_exam_tdm">
+		<Libelle>Jour exam TDM cérébral</Libelle>
+		<From>func:specifique/avc/get_jour_pecm_default</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_exam_tdm">
+		<Libelle>Heure exam TDM cérébral</Libelle>
+		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+
+
+
+
+	<ITEM type="CAL" id="jour_appel_angio">
+		<Libelle>Jour appel Angio cérébral</Libelle>
+		<From>func:specifique/avc/get_jour_pecm_default</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_appel_angio">
+		<Libelle>Heure appel Angio cérébral</Libelle>
+		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+	<ITEM type="CAL" id="jour_exam_angio">
+		<Libelle>Jour exam Angio cérébral</Libelle>
+		<From>func:specifique/avc/get_jour_pecm_default</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_exam_angio">
+		<Libelle>Heure exam Angio cérébral</Libelle>
+		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+	
+	<ITEM type="CAL" id="jour_appel_irm">
+		<Libelle>Jour appel IRM cérébral</Libelle>
+		<From>func:specifique/avc/get_jour_pecm_default</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_appel_irm">
+		<Libelle>Heure appel IRM cérébral</Libelle>
+		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+	<ITEM type="CAL" id="jour_exam_irm">
+		<Libelle>Jour exam IRM cérébral</Libelle>
+		<From>func:specifique/avc/get_jour_pecm_default</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="heure_exam_irm">
+		<Libelle>Heure exam IRM cérébral</Libelle>
+		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+
+
+	
+	<ITEM type="CHECK" id="resultat_radio" >
+		<Libelle>Résultat</Libelle>
+		<FromList>list:Infarctus cérébral|Hémorragie cérébrale|Hémorragie sous arachnoïdienne|Territoire carotidien|Territoire vertébro-basilaire|Normal|Autre</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:autre_resultat_radio</ListIdItems>
+			<OnVal>const:Autre</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" id="autre_resultat_radio">
+		<Libelle>Autre résultat radio</Libelle>
+	</ITEM>	
+
+</ETAPE>
+
+<ETAPE id="6">
+
+	<Libelle>Examen</Libelle>
+	<ITEM type="RADIO" id="is_complication" >
+		<Libelle>Complication pendant la PEC aux urgences ?</Libelle>
+		<FromList>list:oui|non</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:complication</ListIdItems>
+			<OnVal>const:oui</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>
+	
+	<ITEM type="CHECK" id="complication" >
+		<Libelle>Type de complication:</Libelle>
+		<FromList>list:Hyperglycémie sup. 12 mmol|Hyperthermie inf. 37.5|Trouble de la vigilance|Convulsions|Autres</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:complication_autre</ListIdItems>
+			<OnVal>const:Autres</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:traitment_hyperglycemie</ListIdItems>
+			<OnVal>const:Hyperglycémie sup. 12 mmol</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:traitement_hyperthermie</ListIdItems>
+			<OnVal>const:Hyperthermie inf. 37.5</OnVal>
+		</ShowItemsOnVal>
+        <ShowItemsOnVal>
+			<ListIdItems>list:traitement_vigilance</ListIdItems>
+			<OnVal>const:Trouble de la vigilance</OnVal>
+		</ShowItemsOnVal>
+        <ShowItemsOnVal>
+			<ListIdItems>list:traitement_convulsions</ListIdItems>
+			<OnVal>const:Convulsions</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:traitement_autre</ListIdItems>
+			<OnVal>const:Autres</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>	
+	
+	<ITEM type="LONGTXT" id="complication_autre">
+		<Libelle>Autre complication:</Libelle>
+	</ITEM>	
+	
+	
+	<ITEM type="CHECK" id="traitment_urgences">
+		<Libelle>Traitement aux urgences</Libelle>
+		<FromList>list:Aspirine|HBPM à dose préventive|HNF</FromList>
+	</ITEM>
+
+<ITEM type="CHECK" id="traitment_hyperglycemie" opt="y">
+		<Libelle>Traitement de l'hyperglycémie</Libelle>
+		<FromList>list:Insuline</FromList>
+	</ITEM>
+
+<ITEM type="CHECK" id="traitement_hyperthermie" opt="y">
+		<Libelle>Traitement de l'hyperthermie</Libelle>
+		<FromList>list:Paracetamol</FromList>
+	</ITEM>
+
+    <ITEM type="CHECK" id="traitement_vigilance" opt="y">
+		<Libelle>Traitement de la vigilance</Libelle>
+		<FromList>list:intubation oro-trachéale</FromList>
+	</ITEM>
+
+<ITEM type="CHECK" id="traitement_convulsions" opt="y">
+		<Libelle>Traitement des convulsions</Libelle>
+		<FromList>list:anticomitiaux</FromList>
+	</ITEM>
+
+
+
+<ITEM type="TXT" id="traitement_autre">
+		<Libelle>Autre traitement:</Libelle>
+	</ITEM>
+
+</ETAPE>
+
+<ETAPE id="7">
+	<Libelle>Destination</Libelle>
+	
+
+
+
+	<ITEM type="CAL" id="jr_debut_transfert" opt="y">
+		<Libelle>Début du transfert (jour)</Libelle>
+		<From>func:getters/jour_arrivee_plus_trois_heures</From>
+	</ITEM> 
+
+	<ITEM type="LISTE" id="hr_debut_transfert" opt="y">
+		<Libelle>Début du transfert (heure)</Libelle>
+		<From>func:getters/heure_arrivee_plus_trois_heures</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+	<ITEM type="RADIO" id="is_samu" opt="y">
+		<Libelle>Transfert SAMU ?</Libelle>
+		<FromList>list:Oui|Non</FromList>
+	</ITEM>	
+	
+	<ITEM type="CAL" id="jr_arrivee_transfert" opt="y" default="today">
+		<Libelle>Arrivée du transfert (jour)</Libelle>
+	</ITEM> 
+
+	<ITEM type="LISTE" id="jr_arrivee_transfert" opt="y">
+		<Libelle>Arrivée du transfert (heure)</Libelle>
+		<From>func:getters/heure_now</From>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	
+	<ITEM type="TXT" id="hopi_dest" opt="y">
+		<Libelle>Hopital receveur</Libelle>
+	</ITEM>	
+	<ITEM type="LISTE" id="service_dest" opt="y">
+		<Libelle>Service receveur</Libelle>
+		<FromList>list:Médecine polyvalente|Neurologie|UNV|Neurochirurgie|Cardiologie|USI ou Réanimation|UHCD</FromList>
+	</ITEM>	
+	<ITEM type="RADIO" id="is_dc" >
+		<Libelle>DC du patient</Libelle>
+		<FromList>list:Oui|Non</FromList>
+		<FromVal>Non</FromVal>
+		<ShowItemsOnVal>
+			<ListIdItems>list:lieu_dc</ListIdItems>
+			<OnVal>const:Oui</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>	
+	<ITEM type="RADIO" id="lieu_dc">
+		<Libelle>Lieu de décès</Libelle>
+		<FromList>list:Urgences|Transfert|Service receveur</FromList>
+	</ITEM>	
+	
+</ETAPE>
+
+
+<ETAPE id="8">
+	<Libelle>Diagnostic (DIM)</Libelle>
+	<ITEM type="LISTE" id="diag">
+		<Libelle>Diagnostic</Libelle>
+		<FromList>list:AIT|AVC ischémique|Hémorragie cérébrale|Hémorragie sous arachnoïdienne|Thrombose veineuse cérébrale|Tumeur|HSD|Méningine/Encéphalite|Abcès|Migraine avec aura|Conversion hystérique|Hypoglycémie|Cause métabolique|Cause toxique|Autres</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:diag_autre</ListIdItems>
+			<OnVal>const:Autres</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>
+	<ITEM type="LONGTXT" id="diag_autre"  opt="y">
+		<Libelle>Autre diagnostic</Libelle>
+	</ITEM>	
+	<ITEM type="LONGTXT" id="complement_dossier_clinique" opt="y">
+		<Libelle>Complément dossier clinique</Libelle>
+	</ITEM>	
+	<ITEM type="LONGTXT" id="autres_traitements" opt="y">
+		<Libelle>Autres traitements</Libelle>
+	</ITEM>		
+	<ITEM type="LONGTXT" id="evolution_clinique" opt="y" >
+		<Libelle>Evolution clinique pendant le transfert</Libelle>
+	</ITEM>	
+	
+</ETAPE>
+
+</FORMX>
+	
+	

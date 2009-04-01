@@ -1,13 +1,15 @@
 #!/bin/bash
-echo -n "Damien Borel, do you remind have updated the version.txt file ? (y/n)" 
+echo -n "Damien Borel, do you remind have updated the version.txt file ? (y/n)"
 read rep
 if [[ $rep != 'y' ]]
 then
 exit ;
 fi
 
+#Ca c'est de la commande bash.
+absoluteScriptUrl="$(cd "${0%/*}" 2>/dev/null; echo "$PWD"/"${0##*/}")"
 
-location=/home/www/xham/terminal_urgences/
+location=`dirname ${absoluteScriptUrl}`/
 version=`cat ${location}version.txt`
 locationtmp=${location}install/
 
@@ -20,16 +22,21 @@ mkdir $locationtmp
 #Ajouts
 cp -frL ${location}patchs.txt    ${locationtmp}
 cp -frL ${location}index.php    ${locationtmp}
-cp -frL ${location}index.php    ${locationtmp}
+cp -frL ${location}install.php    ${locationtmp}
+cp -frL ${location}index.test.php    ${locationtmp}
 cp -frL ${location}define.php    ${locationtmp}
+cp -frL ${location}define.xml.default    ${locationtmp}
 cp -frL ${location}config.php    ${locationtmp}
 cp -frL ${location}version.txt    ${locationtmp}
 cp -frL ${location}ajax.js    ${locationtmp}
+cp -frL ${location}default.htaccess    ${locationtmp}default.htaccess
 cp -frL ${location}scripts.js    ${locationtmp}
 cp -frL ${location}templates_int/    ${locationtmp}
+cp -frL ${location}meta/    ${locationtmp}
 cp -frL ${location}templates_gen/    ${locationtmp}
 cp -frL ${location}classes_int/    ${locationtmp}
 cp -frL ${location}classes_gen/    ${locationtmp}
+cp -frL ${location}classes_ext/    ${locationtmp}
 cp -frL ${location}formx.js    ${locationtmp}
 cp -frL ${location}formx_scripts.js    ${locationtmp}
 cp -frL ${location}css/    ${locationtmp}
@@ -83,8 +90,7 @@ find -name '.svn' -exec rm -fr {} \;
 version=`cat ${location}version.txt`
 
 #On crée l'archive
-tar zcvf ${location}tu.maj.$version.tgz *
+tar zcvf ${location}var/dist/tu.maj.$version.tgz *
 
 #on nettoie
 rm -fr ${locationtmp}
-

@@ -11,6 +11,7 @@ set_time_limit(0);
 ini_set('memory_limit', '512M');
 
 
+
 function rmdir_recurse($path) {
 	$result = true ;
     $path= rtrim($path, '/').'/';
@@ -40,7 +41,7 @@ $version = str_replace('/', '', $version);
 
 require(URLLOCAL.'classes_ext/Tar.php');
 
-$ficArchive = URLLOCAL.'var/dist/'.$version.'.tgz';
+$ficArchive = URLLOCAL.'var/dist/'.PREFIXEARCHIVE.'.maj.'.$version.'.tgz';
 
 $tmpInflatePath =  URLLOCAL.'temp/installdist/' ;
 
@@ -96,7 +97,7 @@ listFiles($tmpInflatePath,$tabFics);
 $listeFicsKo = array() ;
 $listeDossiersKo = array() ;
 $listeDossiersKoDroits = array() ;
- //mkdir("dir1/dir2",0777,true);
+
 foreach($tabFics as $file)
 {
 	if( ! file_exists(dirname(URLLOCAL.$file)))

@@ -40,7 +40,13 @@ if ( (string)$xml->uniqIdSiteInstallation )
 	define ( 'IDSITE',      (string)$xml->uniqIdSiteInstallation ) ;
 else
 	define ( 'IDSITE','0') ;
-	
+
+if ( (string)$xml->branche )
+	define ( 'BRANCHE',      (string)$xml->branche ) ;
+else
+	define ( 'BRANCHE','stable') ;
+
+
 // Versions
 define ( 'CCAM_VERSION',"CCAM V11") ;
 define ( 'VERSIONAPPLICATION', file_get_contents( "version.txt" ) ) ;

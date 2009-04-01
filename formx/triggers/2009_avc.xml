@@ -9,7 +9,9 @@
 -->
 
 <root>
-	<trigger title="Enquete AVC " onEvent="Diag"  idForm="avc" maxDays="6" obligDays=""  autoStart="" ></trigger>
-	<trigger onOut="y" idForm="avc" dateStart="2008-01-01 00:00:00"  dateEnd="2009-06-01 00:00:00"  ></trigger>
-	<trigger title="Enquete AVC " onEvent="Diag"  idForm="avc" dateStart="2008-01-01 00:00:00"  dateEnd="2009-06-01 00:00:00"  maxDays="6" obligDays=""  autoStart="" ></trigger>
+	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="6" obligDays=""  autoStart="" >
+        <cond type="diag">
+            <diag code="all"></diag>
+        </cond>
+    </trigger>
 </root>
