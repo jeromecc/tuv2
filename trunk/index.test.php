@@ -186,7 +186,7 @@ if ($isSrvMaj )
 {
 	print "<br><br><hr><h4>Mise a jour de l'application</h4>" ;
 	$tabMatches = array();
-	preg_match('/_maj_(.*)_hash_(.*)_/', file_get_contents('http://www.orupaca.fr/ressources/tu/repository/last_version_stable.html'),$tabMatches);
+	preg_match('/_maj_(.*)_hash_(.*)_/', file_get_contents('http://www.orupaca.fr/ressources/tu/repository/last_version_'.BRANCHE.'.html'),$tabMatches) ;
 	$lastVersion = $tabMatches[1];
 	$currentVersion = file_get_contents(URLLOCAL.'version.txt');
 	$hash = $tabMatches[2];

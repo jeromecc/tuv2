@@ -363,7 +363,6 @@ static public function exportsGetTabCw($cw,$options='')
 	$obRequete = clFoRmXSession::getInstance()->getObjRequete();
 	$res = array();
     
-    
 	foreach ( $obRequete->exec_requete($requete,'tab') as $ligne )
 	{
 		try {
