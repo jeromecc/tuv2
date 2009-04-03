@@ -182,9 +182,18 @@ class clPatient {
     return $this->patient[$lib] ;
   }
 
+/**
+ * export minipal à fournir lors de l'export des formulaires
+ * @return array
+ */
   function getMiniExport()
   {
       $ret = array();
+      $ret['sexe'] = $this->getGenre();
+      $ret['date_naissance'] = $this->getDateNaissance();
+      $ret['provenance'] = $this->getProvenance();
+      $ret['adresseur'] = $this->getAdresseur();
+      $ret['mode_arrivee'] = $this->getModeAdmission();
       $ret['date_admission'] = $this->getDateAdmission();
       $ret['DateExamen'] = $this->getDateExamen();
       $ret['CodeDiagnostic'] = $this->getCodeDiagnostic();

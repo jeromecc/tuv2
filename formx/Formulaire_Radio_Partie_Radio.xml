@@ -86,7 +86,14 @@
 		<Libelle style="font-weight:bold;color:#094F13">RADIOGRAPHIES COTE GAUCHE</Libelle>
 		<FromXHAMList>Radio_Cote_Gauche</FromXHAMList>
 	</ITEM>
-	
+
+
+    <ITEM type="CHECK" id="controle" opt="y" >
+		  <Libelle>Contrôles</Libelle>
+      <FromList>list:Sous plâtre|Après réduction</FromList>
+	</ITEM>
+
+
 	<ITEM type="LONGTXT" rows="2" id="Val_F_RADIO_Autres_E" opt="y">
 		<Libelle style="font-weight:bold;color:#094F13">Autres examens</Libelle>
 		<From>const:Aucun.</From>
@@ -131,7 +138,6 @@
 			</Arg2>
 		</Cond>
 		<Libelle style="font-weight:bold;color:red">Enquête : Poumons de face</Libelle>
-		<From></From>
 	</ITEM>
 	<ITEM type="LONGTXT" id="Val_F_RADIO_Indication" opt="y" oblig="y">
 		<Cond type="and" oblig="y">
@@ -145,7 +151,6 @@
 			</Arg2>
 		</Cond>
 		<Libelle style="font-weight:bold;color:red">Indication</Libelle>
-		<From></From>
 	</ITEM>
 	<ITEM type="LONGTXT" id="Val_F_RADIO_Recherche" opt="y" oblig="y">
 		<Cond type="and" oblig="y">
@@ -159,8 +164,9 @@
 			</Arg2>
 		</Cond>
 		<Libelle style="font-weight:bold;color:red">Ce que vous recherchez</Libelle>
-		<From></From>
 	</ITEM>
+
+
 	
 	<ACTION type="formxproc" id_formxproc="Formulaire_Radio_MAJ_Table" />
 	
