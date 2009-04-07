@@ -12,6 +12,9 @@
 // Ouverture de la session.
 @session_start ( ) ;
 
+ini_set('default_charset','iso-8859-1');
+
+
 //ob_flush ( ) ; flush ( ) ;
 
 // fonction permettant de récupérer le temps écoulé depuis l'époque UNIX ( 1 - 1 1970 )
