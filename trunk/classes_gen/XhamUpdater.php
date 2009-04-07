@@ -176,6 +176,12 @@ function mysql_table_exists($table , $db) {
 }
 
 
+static function execSqlFileFromConfig($h,$u,$p,$b,$file) {
+    $rsql = mysql_connect($h,$u,$p);
+	mysql_select_db($b,$rsql);
+    self::execSqlFile($rsql,$file);
+}
+
 function execSqlFile($rsql,$file) {
 	$requetes = '' ;
 	$sql=file($file);
@@ -186,6 +192,7 @@ function execSqlFile($rsql,$file) {
 	}
 	$reqs = split(";[\n\r]+",$requetes);// on sépare les requêtes
 	foreach($reqs as $req){	// et on les éxécute
+        //print "<br />exécution de la requete ".$req;
 		if (!mysql_query($req,$rsql) && trim($req)!=""){
 			print("<br />ERROR : ".$req); // stop si erreur
 			print  "<br /><span style='color:red;'>".mysql_errno() . ": " . mysql_error() . "</span>";
@@ -239,7 +246,7 @@ static function applyPatchs($idsite,$relFic='meta/update.xml',$varRelFic='var/ma
 	/*
 MAJ DES PATCHS
 */
-
+$isCcamUpdated = false ;
 $xml = simplexml_load_file(URLLOCAL.$relFic);
 if(file_exists(URLLOCAL.$varRelFic))
 	$tabUpdateOk = explode(',',file_get_contents(URLLOCAL.$varRelFic));
@@ -311,6 +318,25 @@ foreach ($xml->update as $update) {
 			$b = MYSQL_XARH_BDD ;
  		}
  		self::execRequete($h,$u,$p,$b,utf8_decode((string) $requete),'1');
+ 	}
+
+        //ccam ( spécifique tuv2 )
+  	//exécution de requete précise
+ 	foreach($update->ccam as $ccam ) {
+        if( ! $isCcamUpdated )
+        {
+            $h = MYSQL_HOST ;
+            $u = MYSQL_USER ;
+            $p = MYSQL_PASS ;
+            $b = CCAM_BDD ;
+            self::execRequete($h,$u,$p,$b,"DELETE FROM `ccam_liste` WHERE `categorie` LIKE 'Diagnostics'" );
+            self::execSqlFileFromConfig($h,$u,$p,$b,URLLOCAL.'meta/refccam/ccam_liste.sql');
+            self::execRequete($h,$u,$p,$b," TRUNCATE `ccam_actes_diagnostic` " );
+            self::execRequete($h,$u,$p,$b," TRUNCATE `ccam_actes_domaine` " );
+            self::execRequete($h,$u,$p,$b," TRUNCATE `ccam_actes_pack` " );
+            self::execSqlFileFromConfig($h,$u,$p,$b,URLLOCAL.'meta/refccam/terminurg_zccam.sql');
+            $isCcamUpdated = true ;
+        }
  	}
 
 	//enregistrement

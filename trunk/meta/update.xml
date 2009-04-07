@@ -38,4 +38,10 @@
 		</menu_new>
 	</update>
 
+  <update id="3">
+		<description>Mise à jour du référentiel diags-sfmu/packs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+		<ccam />
+  </update>
+
+
 </updates>
