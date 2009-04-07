@@ -9,7 +9,7 @@
 -->
 
 <root>
-	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="6" obligDays=""  autoStart="" >
+	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="6" obligDays=""  autoStart="" dateStart="01/01/2009" >
         <cond type="diag">
             <diag code="all"></diag>
         </cond>

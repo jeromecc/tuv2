@@ -174,7 +174,7 @@
             <FromList>list:Numération</FromList>
         </ITEM>
 
-        <ITEM id="tranche_horaire" type="CHECK"  oblig="y">
+        <ITEM id="tranche_horaire" type="RADIO"  oblig="y">
             <Libelle>Tranche horaire de la prescription</Libelle>
             <FromList>list:0H-8H|8H-16H|16H-24H</FromList>
             <Cond  type="equal">
@@ -227,7 +227,7 @@
 
         <ITEM id="motif_transfu_urg" type="CHECK"  >
             <Libelle>Motif de la transfusion aux urgences</Libelle>
-            <FromList>list:Déchoquage en cours|Pas de place dans les services|Pas de médecin dans les services|Organisation de l'ES|Praticité</FromList>
+            <FromList>list:Déchoquage en cours|Pas de place dans les services|Pas de médecin dans les services|Organisation de l'ES|Il fallait bien que quelqu'un le fasse et çà arrangeait tout de monde.</FromList>
         </ITEM>
 
         <ITEM id="is_psl" type="RADIO"  >

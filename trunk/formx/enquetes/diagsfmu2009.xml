@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FORMX id="diagsfmu2009" phantom="y" closeAfterValid="y" >
 	<Libelle>Enquête Diagnostics SFMU</Libelle>
-    <Logo>http://www.sfmu.org/documents/communique/image/logo_sfmu_2007.jpg</Logo>
+    <Logo>http://www.orupaca.fr/ressources/tu/logos/sfmuoru.gif</Logo>
 	<Groupe>Enquêtes</Groupe>
 	<Objet>Enquête de qualité pour le TU</Objet>
 	<ETAPE id="1">
@@ -28,10 +28,22 @@
         <ITEM id="choix_satisfait" type="RADIO" oblig='y' >
             <Explication>Le libelle du diagnostic vous parait-il correspondre à la situation clinique ?</Explication>
             <FromList>list:oui|non</FromList>
+             <ShowItemsOnVal>
+                <ListIdItems>list:oui_lib</ListIdItems>
+                <OnVal>const:oui</OnVal>
+            </ShowItemsOnVal>
+             <ShowItemsOnVal>
+                <ListIdItems>list:non_lib</ListIdItems>
+                <OnVal>const:non</OnVal>
+            </ShowItemsOnVal>
         </ITEM>
 
-        <ITEM id="autre_lib" type="LONGTXT" opt='y' >
-            <Explication>Dans le cadre de cette étude, pour affiner le thésaurus SFMU, pouvez-vous nous donner le libellé diagnostic qui vous semble le plus adapté ?</Explication>
+        <ITEM id="non_lib" type="LONGTXT"  >
+            <Libelle>Dans le cadre de cette étude, pour affiner le thésaurus SFMU, pouvez-vous nous donner le libellé diagnostic qui vous semble le plus adapté ?</Libelle>
+        </ITEM>
+
+        <ITEM id="oui_lib" type="LONGTXT" opt='y' >
+            <Libelle>Remarque complémentaire optionnelle ?</Libelle>
         </ITEM>
 
      </ETAPE>
