@@ -9,9 +9,34 @@
 -->
 
 <root>
-	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="6" obligDays=""  autoStart="" dateStart="01/01/2009" >
-        <cond type="diag">
-            <diag code="all"></diag>
-        </cond>
+	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="6" obligDays=""  autoStart=""  >
+        <cond type="and">
+            <cond type="diag">
+                <diag code="all"></diag>
+            </cond>
+            <cond type="motif">
+                <motif code="R47.0"></motif>
+                <motif code="R27.0"></motif>
+                <motif code="G45.9"></motif>
+                <motif code="I64"></motif>
+                <motif code="R51"></motif>
+                <motif code="R40.2"></motif>
+                <motif code="R41.0"></motif>
+                <motif code="G31.2"></motif>
+                <motif code="G40.9"></motif>
+                <motif code="G81"></motif>
+                <motif code="I60.8"></motif>
+                <motif code="R29.1"></motif>
+                <motif code="R25.8"></motif>
+                <motif code="G51.0"></motif>
+                <motif code="G82.2"></motif>
+                <motif code="R40.0"></motif>
+                <motif code="G82.5"></motif>
+                <motif code="R26.2"></motif>
+                <motif code="R20.8"></motif>
+                <motif code="H53"></motif>
+                <motif code="R42"></motif>
+            </cond>
+         </cond>
     </trigger>
 </root>

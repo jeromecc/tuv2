@@ -390,8 +390,9 @@ static function getFinEnquete($idEnquete)
 		foreach( self::getAllTriggers() as $trigger )
 		{
 			if( $trigger->mustBegin() )
+            {
 				$trigger->start();
-
+            }
 			if( $trigger->mustClose() )
 			{
 				$trigger->close();
@@ -438,6 +439,21 @@ function getType()
 			$diag1 = str_replace(array('.','+'), array('',''), $diag['code']);
 			$diag2 = str_replace(array('.','+'), array('',''), $codeDiagPatient);
 			if( $diag1 == $diag2 || ( $diag2 && $diag1=='all' ) )
+			{
+				return true ;
+			}
+		}
+		return false ;
+	}
+
+
+    function hasMotif($codeMotifPatient)
+    {
+		foreach( $this->getSxDef()->motif as $motif )
+		{
+			$motif1 = str_replace(array('.','+'), array('',''), $motif['code']);
+			$motif2 = str_replace(array('.','+'), array('',''), $codeMotifPatient);
+			if( $motif1 == $motif2 || ( $motif2 && $motif1=='all' ) )
 			{
 				return true ;
 			}
@@ -499,6 +515,16 @@ function getType()
 		}
 	}
 
+    function getTabSubConds()
+    {
+        $tabConds = array() ;
+        foreach( $this->getSxDef()->cond as $sxCond )
+		{
+            $tabConds[] = new clTuFormxTriggerCondition($this->getTrigger(),$sxCond) ;
+        }
+        return $tabConds ;
+    }
+
 	function getDxDefAttributeVal($id)
 	{
 		return $this->sxDef[$id] ;
@@ -554,6 +580,28 @@ class clTuFormxTriggerWatcher
 		return $this->checkCond($trigger->getCondition() , $options );	
 	}
 
+    function multiOr($tabConds,$options)
+    {
+        foreach($tabConds as $cond)
+        {
+            if($this->checkCond($cond,$options))
+                return true ;
+        }
+        return false ;
+    }
+
+    function multiAnd($tabConds,$options)
+    {
+        foreach($tabConds as $cond)
+        {
+            if( ! $this->checkCond($cond,$options))
+                return false ;
+        }
+        return true ;
+    }
+
+
+
 
 	private function checkCond(clTuFormxTriggerCondition $condition,$options)
 	{
@@ -563,9 +611,9 @@ class clTuFormxTriggerWatcher
 		switch($condition->getType())
 		{
 		case 'and':
-			return $this->checkCond($condition->getFirstSubCond(),$options) && $this->checkCond($condition->getSecondSubCond() ,$options) ;
+			return $this->multiAnd($condition->getTabSubConds(), $options) ;
 		case 'or':
-			return $this->checkCond($condition->getFirstSubCond(),$options) or $this->checkCond($condition->getSecondSubCond() ,$options) ;
+            return $this->multiOr($condition->getTabSubConds(), $options) ;
 		case 'not':
 			return ! $this->checkCond($condition->getFirstSubCond(),$options) ;
 		case 'xor':
@@ -580,6 +628,13 @@ class clTuFormxTriggerWatcher
 		case 'diag':
 			//est-ce que le diagnostic du patient est concerné par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
 			if($condition->hasDiag($this->getPatient()->getCodeDiagnostic()) &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
+			{
+				return true ;
+			}
+			return false ;
+        case 'motif':
+			//est-ce que le motif du patient est concerné par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
+			if($condition->hasMotif($this->getPatient()->getCodeRecours()) &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
 			{
 				return true ;
 			}

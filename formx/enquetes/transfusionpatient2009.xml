@@ -27,15 +27,15 @@
             <Libelle>Type de produit</Libelle>
             <FromList>list:CGR|Plasma|Plaquettes</FromList>
             <ShowItemsOnVal>
-                <ListIdItems>list:cgr_indication|cgr_terrain|cgr_mtc|cgr_cb</ListIdItems>
+                <ListIdItems>list:cgr_indication|cgr_terrain|cgr_mtc|hemo|plaquettes|tp</ListIdItems>
                 <OnVal>const:CGR</OnVal>
             </ShowItemsOnVal>
              <ShowItemsOnVal>
-                <ListIdItems>list:plasma_indication|plasma_terrain|plasma_cb</ListIdItems>
+                <ListIdItems>list:plasma_indication|plasma_terrain|tp</ListIdItems>
                 <OnVal>const:Plasma</OnVal>
             </ShowItemsOnVal>
             <ShowItemsOnVal>
-                <ListIdItems>list:plaquettes_indication|plaquettes_terrain|plaquettes_mtc|plaquettes_cb</ListIdItems>
+                <ListIdItems>list:plaquettes_indication|plaquettes_terrain|plaquettes_mtc|hemo|plaquettes|tp</ListIdItems>
                 <OnVal>const:Plaquettes</OnVal>
             </ShowItemsOnVal>
             <Cond  type="equal">
@@ -86,10 +86,6 @@
             <Libelle>CGR : mauvaise tolérance clinique autre</Libelle>
         </ITEM>
 
-         <ITEM id="cgr_cb" type="CHECK"  >
-            <Libelle>CGR : critère biologique</Libelle>
-            <FromList>list:Numération</FromList>
-        </ITEM>
 
         <!-- plasma -->
 
@@ -121,11 +117,6 @@
         </ITEM>
 
 
-
-         <ITEM id="plasma_cb" type="CHECK"  >
-            <Libelle>Plasma : critère biologique</Libelle>
-            <FromList>list:TP</FromList>
-        </ITEM>
 
         <!-- Plaquettes -->
 
@@ -169,9 +160,16 @@
             <Libelle>Plaquettes : mauvaise tolérance clinique autre</Libelle>
         </ITEM>
 
-         <ITEM id="plaquettes_cb" type="CHECK"  >
-            <Libelle>Plaquettes : critère biologique</Libelle>
-            <FromList>list:Numération</FromList>
+        <ITEM id="hemo" type="TXT"  >
+            <Libelle>hemoglobine (g/100ml)</Libelle>
+        </ITEM>
+
+        <ITEM id="plaquettes" type="TXT"  >
+            <Libelle>plaquettes (/mm3)</Libelle>
+        </ITEM>
+
+        <ITEM id="tp" type="TXT" datatype="float" >
+            <Libelle>TP (%)</Libelle>
         </ITEM>
 
         <ITEM id="tranche_horaire" type="RADIO"  oblig="y">
@@ -225,9 +223,9 @@
             <FromList>list:0H-8H|8H-16H|16H-24H</FromList>
         </ITEM>
 
-        <ITEM id="motif_transfu_urg" type="CHECK"  >
+        <ITEM id="motif_transfu_urg" type="RADIO"  >
             <Libelle>Motif de la transfusion aux urgences</Libelle>
-            <FromList>list:Déchoquage en cours|Pas de place dans les services|Pas de médecin dans les services|Organisation de l'ES|Il fallait bien que quelqu'un le fasse et çà arrangeait tout de monde.</FromList>
+            <FromList>list:Déchoquage en cours|Pas de place dans les services|Pas de médecin dans les services|Organisation de l'ES|Il fallait bien que quelqu'un le fasse et ça arrangeait tout de monde.</FromList>
         </ITEM>
 
         <ITEM id="is_psl" type="RADIO"  >

@@ -74,7 +74,7 @@ static function testModule($module)
 	else
 	{
 		print "<font color=\"red\">KO</font>" ;
-				die ;
+			//	die ;
 	}
 }
 

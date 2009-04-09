@@ -11,6 +11,9 @@ include_once ( "config.php" ) ;
 //parametres apache/php par default
 if ( ! file_exists(URLLOCAL.'.htaccess'))
 	copy(URLLOCAL.'default.htaccess',URLLOCAL. '.htacess');
+if ( ! file_exists('define.xml.php'))
+	copy(URLLOCAL.'define.xml.default',URLLOCAL. 'define.xml.php');
+
 
 print "<h3>Procédure de vérification</h3>" ;
 print "<hr />" ;
@@ -107,7 +110,7 @@ clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,CCAM_BDD);
 
 //Installation des bases si vides
 clUpdater::installBase(BASEXHAM,URLLOCAL.'meta/install/terminal_xham.sql','logs',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
-clUpdater::installBase(BDD,URLLOCAL.'meta/install/terminal_appli.sql','patients_presents',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
+clUpdater::installBase(BDD,URLLOCAL.'meta/install/terminal_tuv2.sql','patients_presents',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
 clUpdater::installBase(CCAM_BDD,URLLOCAL.'meta/install/terminal_ccam.sql','ccam_liste',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
 
 print "<br>Test du parametre mysql server 'lower_case_table_names = 1 ' ";
@@ -182,6 +185,15 @@ if($errors) {
 }
 
 
+
+
+
+print "<br><br><hr><h4>Mise a jour des bases de données</h4>" ;
+	
+clUpdater::applyPatchs(IDSITE);
+
+
+
 if ($isSrvMaj )
 {
 	print "<br><br><hr><h4>Mise a jour de l'application</h4>" ;
@@ -198,23 +210,32 @@ if ($isSrvMaj )
         if( md5($archive) == $hash )
         {
             file_put_contents($archive,URLLOCAL."var/dist/". $lastVersion .      '.tgz'   );
-            print "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version</a>";
-            die ;
+            print "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version (expérimental)</a>";
         }
         else
         {
             print "<font color=\"red\">KO (problème lors du téléchargement)</font>";
         }
-		
-		
 	}
-	
+    else
+    {
+        print "<br />Votre T.U est à jour.";
+    }
+
 }
 
 
-print "<br><br><hr><h4>Mise a jour des bases de données</h4>" ;
-	
-clUpdater::applyPatchs(IDSITE);
+
+
+
+
+
+
+
+
+
+
+
 
 print "<font color=\"green\">Votre TU est à jour.</font>";
 

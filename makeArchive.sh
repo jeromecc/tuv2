@@ -33,6 +33,8 @@ cp -frL ${location}default.htaccess    ${locationtmp}default.htaccess
 cp -frL ${location}scripts.js    ${locationtmp}
 cp -frL ${location}templates_int/    ${locationtmp}
 cp -frL ${location}meta/    ${locationtmp}
+cp -frL ${location}queries_int/    ${locationtmp}
+cp -frL ${location}queries_gen/    ${locationtmp}
 cp -frL ${location}templates_gen/    ${locationtmp}
 cp -frL ${location}classes_int/    ${locationtmp}
 cp -frL ${location}classes_gen/    ${locationtmp}
@@ -57,6 +59,14 @@ cp -frL ${location}formx/Formulaire_Radio_Partie_*    ${locationtmp}formx/
 cp -frL ${location}formx/Formulaire_Bio.xml    ${locationtmp}formx/
 cp -frL ${location}formx/Formulaire_Radio.xml    ${locationtmp}formx/
 cp -frL ${location}formx/Formulaire_Consultation_Specialisee.xml    ${locationtmp}formx/
+
+#enquetes
+mkdir ${locationtmp}formx/triggers
+mkdir ${locationtmp}formx/enquetes
+cp -frL ${location}formx/triggers/2009_avc.xml    ${locationtmp}formx/triggers/
+cp -frL ${location}formx/triggers/2009_qualite_diag_sfmu.xml    ${locationtmp}formx/triggers/
+cp -frL ${location}formx/triggers/2009_transfu_patient.xml    ${locationtmp}formx/triggers/
+cp -frL ${location}formx/enquetes/*.xml    ${locationtmp}formx/enquetes/
 
 #fonctions utilitaires FX-TU
 mkdir ${locationtmp}formx/functions/helpers
@@ -91,6 +101,31 @@ version=`cat ${location}version.txt`
 
 #On crée l'archive
 tar zcvf ${location}var/dist/tu.maj.$version.tgz *
+
+md5=`md5sum ${location}var/dist/tu.maj.$version.tgz | cut -f1 -d\ `
+
+
+
+#publication dans le repository stable
+if [[ $1 == 'publishstable' ]]
+then
+    HOST='www.orupaca.fr'
+    USER='orupaca'
+    PASS=`cat ${location}pass.ftp.repository`
+    REP='ressources/tu/repository'
+    cd ${location}var/dist/
+    echo _maj_${version}_hash_${md5}_ > ${location}var/dist/last_version_stable.html
+    ftp -v -n $HOST <<EOF
+user $USER $PASS
+cd $REP
+bin
+prompt
+put tu.maj.$version.tgz
+put last_version_stable.html
+quit
+EOF
+
+fi
 
 #on nettoie
 rm -fr ${locationtmp}

@@ -124,7 +124,10 @@ class clRPU {
 			
 			// Diagnostic principal
 			$mod -> MxText ( 'rpu.dp', $diags['identifiant'][0] ) ;
-			
+
+            // Hash de l'IDU
+            $mod -> MxText ( 'rpu.idpatientetab', sha1( $res['idu'][$i]) ) ;
+
 			// Affichage des diagnostics secondaires.
 			if ( $diags['INDIC_SVC'][2] <= 1 ) $mod -> MxBloc ( 'rpu.da', 'delete' ) ;
 			else {

@@ -38189,7 +38189,8 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (1099, 'ZZJH003', 'Drainage d''une collection d''un organe profond, par voie transcutanée avec guidage scanographique', '', 0, 2, '0000-00-00', 1),
 (1100, 'ZZJJ008', 'Drainage d''une collection d''un organe profond, par voie transcutanée avec guidage échographique', '', 0, 2, '0000-00-00', 1),
 (1101, 'ZZQH002', 'Radiographie d''une fistule [Fistulographie]', '', 0, 2, '0000-00-00', 1),
-(1102, 'ZZQP004', 'Restitution tridimensionnelle des images acquises par scanographie', '', 0, 2, '0000-00-00', 1);
+(1102, 'ZZQP004', 'Restitution tridimensionnelle des images acquises par scanographie', '', 0, 2, '0000-00-00', 1),
+(1104, 'NGAP159', 'Consultation Urgentiste Spécialisée (!)', 'CS 1', 1, 1, '0000-00-00', 1);
 
 --
 -- Contenu de la table `ccam_actes_pack`
