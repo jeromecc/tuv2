@@ -330,6 +330,11 @@ class clPatient {
     else return 0 ;
   }
 
+    function getHashIDU( )
+    {
+        return $this->getHashIDU($this->getIDU()) ;
+    }
+
   //Regarde si le patient a un formulaire pour le passage
   function hasFormxPassage($idFormx,$options='')
   {

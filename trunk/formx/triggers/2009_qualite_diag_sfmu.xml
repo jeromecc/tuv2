@@ -9,7 +9,7 @@
 -->
 
 <root>
-    <trigger title="Enquete Diag SFMU" autostart="y" onEvent="Diag"  idForm="enquetes/diagsfmu2009" maxDays="3"  passageLinked="y"  dateStart="01/01/2009"  >
+    <trigger title="Enquete Diag SFMU" autostart="y" onEvent="Diag"  idForm="enquetes/diagsfmu2009" maxDays="3"  passageLinked="y"  dateStart="22/04/2009"  >
         <cond type="diag">
             <diag code="all"></diag>
         </cond>

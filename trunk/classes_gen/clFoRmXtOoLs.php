@@ -252,7 +252,10 @@ static public function strGetIdAtomiqueFx($str)
 {
     //  zrezr/zerzer/zerzer/   zrz_e123rez
     if( preg_match('/^.*\/([^\/]+)$/', $str,$tabMatch) )
-        return $tabMatch[1];
+        $str = $tabMatch[1];
+    if( preg_match('/^(.*)\.xml$/', $str,$tabMatch) )
+        $str = $tabMatch[1];
+
     return $str ;
 }
 
