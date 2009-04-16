@@ -212,7 +212,7 @@ class clRPU {
 			if ( ! $options->getOption ( 'RPU_SansCryptEnvoi' ) ) {
 				// Cryptage du fichier RPU.
 				$mailE = $options->getOption('RPU_Envoi_Mail') ;
-				$gpg = new gnuPG();
+				$gpg = new gnuPG(false,GNUPG);
 				$gpg -> EncryptFile ( $mailE, $nomFicC ) ;
 				if ( ! $gpg -> error ) 
 					$this->message .= "<font color=\"green\">Le cryptage du fichier ($nomFicC.gpg) s'est bien déroulé.<br/></font>" ;

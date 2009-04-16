@@ -46,6 +46,9 @@ if ( (string)$xml->branche )
 else
 	define ( 'BRANCHE','stable') ;
 
+if ( (string)$xml->gnupg )
+    define ( 'GNUPG', (string)$xml->gnupg ) ;
+else define ( 'GNUPG', false ) ;
 
 // Versions
 define ( 'CCAM_VERSION',"CCAM V11") ;

@@ -134,7 +134,7 @@ class clEnvoiARH {
 			
 			// Cryptage du fichier.
 			$mailE = $options->getOption('RPU_Envoi_Mail') ;
-			$gpg = new gnuPG();
+			$gpg = new gnuPG(false,GNUPG);
 			$gpg -> EncryptFile ( $mailE, $nom_fic_export ) ;
 			if ( ! $gpg -> error ) 
 				$this->message .= "<font color=\"green\">Le cryptage du fichier ($nom_fic_export.gpg) s'est bien déroulé.<br/></font>" ;
