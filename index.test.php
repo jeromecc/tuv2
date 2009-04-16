@@ -161,7 +161,7 @@ else
 
 print "<br />Test de cryptage avec la clé publique ARH => " ;
 //$gpg = new gnuPG(PGPLOCATION,HOMEGPG);
-$gpg = new gnuPG();
+$gpg = new gnuPG(false,GNUPG);
 $gpg->EncryptFile('import@veille-arh-paca.com',URLLOCAL.'index.php');
 $errors=$gpg->error;
 if($errors) {
