@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone='yes'?>
 <FORMX id="avc2009" >
 <Libelle>Formulaire AVC</Libelle>
-<Objet>Cette enquête temporaire permet de recueuillir de l'information sur les AVC</Objet>
+<Objet>Formulaire AVC</Objet>
 
 <ETAPE id="1">
 
@@ -90,10 +90,9 @@
 		<FromList>list:gaucher|droitier</FromList>
 	</ITEM>
 	
-	<ITEM type="CHECK" id="motif_consult" cols="2">
+	<ITEM type="CHECK" id="motif_consult">
 	<Libelle>Motif de consultation</Libelle>
-		<From>globalObject:patient->getRecours()</From>
-		<FromXHAMList>Neurologie</FromXHAMList>
+		<FromList>list:Déficit moteur asymétrique|instabilité ou trouble de la marche|Asymétrie faciale|Difficulté d'élocution|Trouble de la parole (aphasie)|Amputation du champ visuel|Installation brutale des symptômes|Céphalées brutale|Cervicalgie|PdC/Syncope|Crise comitiale|Vertige associé avec un autre symptôme neurologique</FromList>
 	</ITEM>
 
 </ETAPE>

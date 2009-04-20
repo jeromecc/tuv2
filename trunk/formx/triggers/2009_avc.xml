@@ -9,30 +9,57 @@
 -->
 
 <root>
-	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="6" obligDays=""  autoStart=""  >
-        <cond type="and">
+	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="" obligDays=""  autoStart=""  >
+        <cond type="or">
             <cond type="diag">
-                <diag code="all"></diag>
+                <diag code="R27.0"></diag>
+                <diag code="R40.2"></diag>
+                <diag code="R41.0"></diag>
+                <diag code="R56.8"></diag>
+                <diag code="R26.2"></diag>
+                <diag code="H53.2"></diag>
+                <diag code="R25.8"></diag>
+                <diag code="G45.9"></diag>
+                <diag code="I64"></diag>
+                <diag code="G40.9"></diag>
+                <diag code="I61.9"></diag>
+                <diag code="I60.9"></diag>
+                <diag code="I62.9"></diag>
+                <diag code="I63.9"></diag>
+                <diag code="G82.2"></diag>
+                <diag code="G83.9"></diag>
+                <diag code="G82.5"></diag>
+                <diag code="R20.8"></diag>
+                <diag code="H81.4"></diag>
             </cond>
             <cond type="motif">
+                <motif code="R45.1"></motif>
+                <motif code="H91.9"></motif>
                 <motif code="R47.0"></motif>
+                <motif code="H53.9"></motif>
+                <motif code="R55"></motif>
+                <motif code="O"></motif>
+                <motif code="R26.80"></motif>
+                <motif code="R55"></motif>
+                <motif code="S06.6"></motif>
+                <motif code="S069"></motif>
                 <motif code="R27.0"></motif>
                 <motif code="G45.9"></motif>
                 <motif code="I64"></motif>
                 <motif code="R51"></motif>
+                <motif code="R56.8"></motif>
                 <motif code="R40.2"></motif>
                 <motif code="R41.0"></motif>
-                <motif code="G31.2"></motif>
                 <motif code="G40.9"></motif>
                 <motif code="G81"></motif>
                 <motif code="I60.8"></motif>
-                <motif code="R29.1"></motif>
                 <motif code="R25.8"></motif>
                 <motif code="G51.0"></motif>
                 <motif code="G82.2"></motif>
                 <motif code="R40.0"></motif>
                 <motif code="G82.5"></motif>
                 <motif code="R26.2"></motif>
+                <motif code="R40.0"></motif>
                 <motif code="R20.8"></motif>
                 <motif code="H53"></motif>
                 <motif code="R42"></motif>
