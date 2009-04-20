@@ -173,7 +173,7 @@ class clHprimXML {
     	$mod -> SetModeliXe ( ) ;
 		$tabActe = explode ( '|', XhamTools::sansAccent($res['CONTENU'][$deb]) ) ;
 		$type = $res['TYPE'][$deb] ; $idpass = $tabActe[0] ; $idu = $tabActe[1] ; $nomu = $tabActe[2] ; $pren = $tabActe[3] ;
-		$sexe = $tabActe[4] ; $dtnai = $tabActe[5] ; $dtdem = $tabActe[6] ;	$hhdem = $tabActe[7] ; $ufd = $tabActe[8] ;
+		$sexe = $tabActe[4] ; $dtnai = $tabActe[5] ; $dtdem = $tabActe[6] ;	$hhdem = $tabActe[7] ; $ufd = $tabActe[8] ; $action = $tabActe[9] ;
 		$date = new clDate ( $dtdem.' '.$hhdem ) ;
         $date = new clDate (  ) ;
         if ( $options -> getOption ( "HprimXML_UF" ) ) {
@@ -223,7 +223,9 @@ class clHprimXML {
 		  $mod -> MxText ( 'patientNaissance', $dtnai ) ;
 		else
 		  $mod -> MxText ( 'patientNaissance', "" ) ;
-		
+		$pati = new clPatient ( $res['DISCR'][$deb], ($action=='suppression'?'':'Sortis')  ) ;
+        //$pati -> debugInfos ( ) ;
+        //eko ( "UUUUUUUUUUUUUUUUUUUUUUUUFFFFFFFFFFFFFFFFFF : ".$pati->getInformation('uf').' pour '.$pati->getDateNaissance() ) ;
     $mod -> MxText ( 'venueEmetteur', $idpass ) ;
 		$mod -> MxText ( 'venueRecepteur', $idpass ) ;
 		$mod -> MxText ( 'venueDate', $dtdem ) ;
@@ -233,14 +235,15 @@ class clHprimXML {
 		$mod -> MxText ( 'interventionEmetteur', $emetti ) ;
 		$mod -> MxText ( 'interventionDemandeDate', $dtdem ) ;
 		$mod -> MxText ( 'interventionDemandeHeure', $hhdem ) ;
-		$mod -> MxText ( 'interventionUF', $ufd ) ;
+		$mod -> MxText ( 'interventionUF',  $pati->getUF () ) ;
 		$nbngap = 0 ;
 		$nbccam = 0 ;
-	    	$patient = new clPatient ( $res['DISCR'][$deb] ) ;
-	    	$datenai = new clDate ( $patient->getDateNaissance() ) ;
+
+	    	$datenai = new clDate ( $pati->getDateNaissance() ) ;
 	    	$duree = new clDuree ( $datenai->getTimestamp ( ) ) ;
+            $duree -> getDuree ( $datenai->getTimestamp ( ) ) ;
 	    	$ageannees = $duree -> getYears ( ) ;
-		eko ( $ageannees ) ;
+		//eko ( $ageannees ) ;
 		for ( $i = $deb ; $i <= $max ; $i++ ) {
 			$tabActe = explode ( '|', XhamTools::sansAccent($res['CONTENU'][$i]) ) ;
 			$type    = $res['TYPE'][$i] ; $idpass = $tabActe[0]  ; $idu    = $tabActe[1]  ; $nomu    = $tabActe[2]  ; $pren    = $tabActe[3] ;
@@ -288,7 +291,8 @@ class clHprimXML {
   					$mod -> MxText ( 'actesngap.ngap.medecinADELI', $adeli ) ;
   					$mod -> MxText ( 'actesngap.ngap.medecinCode', $codeade ) ;
   					$mod -> MxText ( 'actesngap.ngap.medecinNom', $nomumed ) ;
-  					$mod -> MxText ( 'actesngap.ngap.medecinUF', $ufr ) ;
+                    if ( $ngapl == 'CS' ) $mod -> MxText ( 'actesngap.ngap.medecinUF', $ufr ) ;
+  					else $mod -> MxText ( 'actesngap.ngap.medecinUF', $pati->getUF () ) ;
   					$mod -> MxBloc ( 'actesngap.ngap', 'loop' ) ;
   					$nbngap++;
   					if ( $ngapl == 'ATU' ) $repfic = "atuxml/" ;
@@ -312,7 +316,8 @@ class clHprimXML {
 	   			$mod -> MxText ( 'actesccam.ccam.medecinADELI', $adeli ) ;
 				$mod -> MxText ( 'actesccam.ccam.medecinCode', $codeade ) ;
 				$mod -> MxText ( 'actesccam.ccam.medecinNom', $nomumed ) ;
-				$mod -> MxText ( 'actesccam.ccam.medecinUF', $ufr ) ;
+				//$mod -> MxText ( 'actesccam.ccam.medecinUF', $ufr ) ;
+                $mod -> MxText ( 'actesccam.ccam.medecinUF', $pati->getUF () ) ;
 				if ( $options -> getOption ( 'HprimXML_AssoNonVide' ) ) $asso = ($cdasso==''?1:$cdasso) ;
 				else $asso = $cdasso ;
 				$mod -> MxText ( 'actesccam.ccam.codeAssociationNonPrevue', $asso ) ;
@@ -360,7 +365,8 @@ class clHprimXML {
 		if ( $options->getOption('HprimXML_NomFic') ) $nomFic = $options->getOption('HprimXML_NomFic').'_'.$res['ID'][$i].'' ;
 		else $nomFic = 'fic'.$options->getOption('HprimXML_ChaineFic').'TV2_'.$res['ID'][$i].'' ;
 		$num = $res['ID'][$i] ;
-		
+		$pati = new clPatient ( $res['DISCR'][$i], ($action=='suppression'?'':'Sortis')  ) ;
+        
 		$mod = new ModeliXe ( "HprimXMLDiag.html" ) ;
     	$mod -> SetModeliXe ( ) ;
     	$mod -> MxText ( 'identifiantMessage', $res['ID'][$i] ) ;
@@ -386,7 +392,8 @@ class clHprimXML {
     	$mod -> MxText ( 'rumEmetteur', $idpass ) ;
 		$mod -> MxText ( 'rumDate', $dtr ) ;
     	$mod -> MxText ( 'ADELI', $adeli ) ;
-    	$mod -> MxText ( 'rumUF', $ufr ) ;
+    	//$mod -> MxText ( 'rumUF', $ufr ) ;
+        $mod -> MxText ( 'rumUF', $pati->getUF () ) ;
     	$mod -> MxText ( 'rumUFDate', $dtdem ) ;
     	$mod -> MxText ( 'rumUFHeure', $hhdem ) ;
     	

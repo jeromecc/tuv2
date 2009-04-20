@@ -366,7 +366,6 @@ class clListesGenerales {
 		$data2['P'] = "Partie sans attendre prise en charge" ;
 		$data2['R'] = "Réorientation directe sans soins" ;
 		$data2['X'] = "Erreur (sans ATU)" ;
-	
 		$mod -> MxSelect( "formType.typeF", "typeF", $res['localisation'][0], $data2 , '', '', "size=\"1\"") ;
 		if ( $nomListe == "Destinations attendues" ) {
 			$destpmsi = $res['libre'][0][0] ;
