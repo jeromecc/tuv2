@@ -182,6 +182,10 @@ class clPatient {
     return $this->patient[$lib] ;
   }
 
+  function debugInfos ( ) {
+      eko ( $this->patient ) ;
+  }
+
 /**
  * export minipal à fournir lors de l'export des formulaires
  * @return array
