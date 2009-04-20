@@ -335,6 +335,12 @@ foreach ($xml->update as $update) {
             self::execRequete($h,$u,$p,$b," TRUNCATE `ccam_actes_domaine` " );
             self::execRequete($h,$u,$p,$b," TRUNCATE `ccam_actes_pack` " );
             self::execSqlFileFromConfig($h,$u,$p,$b,URLLOCAL.'meta/refccam/terminurg_zccam.sql');
+            $h = MYSQL_HOST ;
+            $u = MYSQL_USER ;
+            $p = MYSQL_PASS ;
+            $b = BASEXHAM ;
+            self::execRequete($h,$u,$p,$b,"DELETE FROM `listes` WHERE `categorie` = 'recours' " );
+            self::execSqlFileFromConfig($h,$u,$p,$b,URLLOCAL.'meta/refccam/motifs.sql');
             $isCcamUpdated = true ;
         }
  	}

@@ -48,6 +48,9 @@ cp -frL ${location}modules/CCAM    ${locationtmp}modules/
 cp -frL ${location}modules/mouvements    ${locationtmp}modules/
 cp -frL ${location}modules/wz_dragdrop.js ${locationtmp}modules/
 
+#duplication d'un fichier pour éviter un bug
+cp -frL ${location}classes_gen/clListeRadios.php    ${locationtmp}classes_int/clListeRadios.php
+
 #copie formulaires et fonctions formx
 mkdir ${locationtmp}formx
 mkdir ${locationtmp}formx/functions
@@ -78,12 +81,20 @@ cp -frL ${location}formx/functions/getters/*    ${locationtmp}formx/functions/ge
 cp -frL ${location}formx/functions/setters/*    ${locationtmp}formx/functions/setters/
 
 
+#ce fichier peut être spécialisé sur les sites
+mv ${locationtmp}queries_int/getHistorique.qry  ${locationtmp}queries_int/getHistorique.qry.base
+
+#Suppressions des fichiers de config queries gen
+rm -f ${locationtmp}queries_gen/*.cfg
 
 #Suppressions des plugins de mouvements spécifiques en dev
 rm -f ${locationtmp}modules/mouvements/enabled/*
 
 #Sauf pour ceux ci qui sont des plugins globaux
 cp -fL ${location}modules/mouvements/avalaible/sortie_enquetes.php ${locationtmp}modules/mouvements/enabled/
+
+#suppressions dev ponctuels  à ne pas diffuser
+rm -f ${locationtmp}meta/tools/*
 
 #pour que les droits, ce ne soit plus notre problème:
 chown -R www $locationtmp

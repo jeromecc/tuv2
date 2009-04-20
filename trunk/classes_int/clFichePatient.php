@@ -496,7 +496,11 @@ class clFichePatient {
     $bloq = '' ;
     $this->defineParamCCAM ( ) ;
     if ( $options -> getOption ( "Module_CCAM" ) and ($session -> getDroit ( "CCAM_ACTES_".$this->type,"r" ) or $session -> getDroit ( "CCAM_CONSULT_".$this->type,"r" )) and $this->patient->getDateExamen ( ) <> "0000-00-00 00:00:00" and $this->patient->getMatriculeMedecin ( ) ) {
-	//tweak : cervetti
+
+      $cotationActes = new clCCAMCotationActesDiags ( $this->paramCCAM ) ;
+      $mod -> MxText ( "cotationCCAM", $cotationActes -> cotationActes ( ).$bloq ) ;
+
+    //tweak : cervetti
 	//si sortie de ccam détectée, redirection vers une url saine qui ne se cumule pas le "ccam" en navi3 (bugogène )
 	//je le fais ici pour éviter de modifier la classe cacam
 	if( ( isset($_POST['lesion']) && isset($_POST['sortir_x'] ) ) || (isset($_POST['listeGauche'])   &&  isset($_POST['sortir_x']) ) ) {
@@ -504,8 +508,7 @@ class clFichePatient {
 		header('Location: '.URLNAVI.$saneNavi);
 		die ;
 	}
-      $cotationActes = new clCCAMCotationActesDiags ( $this->paramCCAM ) ;
-      $mod -> MxText ( "cotationCCAM", $cotationActes -> cotationActes ( ).$bloq ) ;
+
     }    
     //////////////////////// FIN CCAM ///////////////////////////
     if ( $_POST['sendMessage'] ) { $_POST['type'] = "virus" ; $_POST['Envoyer'] =  1 ; $this->newMessage ( 'Mails Alerte Virus' ) ; }
