@@ -14,6 +14,10 @@ if ( ! file_exists(URLLOCAL.'.htaccess'))
 if ( ! file_exists('define.xml.php'))
 	copy(URLLOCAL.'define.xml.default',URLLOCAL. 'define.xml.php');
 
+if ( ! file_exists(URLLOCAL.'queries_int/getHistorique.qry'))
+    copy(URLLOCAL.'queries_int/getHistorique.qry.base',URLLOCAL.'queries_int/getHistorique.qry');
+
+
 
 print "<h3>Procédure de vérification</h3>" ;
 print "<hr />" ;
@@ -109,9 +113,9 @@ clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,CCAM_BDD);
 
 
 //Installation des bases si vides
-clUpdater::installBase(BASEXHAM,URLLOCAL.'meta/install/terminal_xham.sql','logs',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
-clUpdater::installBase(BDD,URLLOCAL.'meta/install/terminal_tuv2.sql','patients_presents',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
-clUpdater::installBase(CCAM_BDD,URLLOCAL.'meta/install/terminal_ccam.sql','ccam_liste',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
+clUpdater::installBase(BASEXHAM,URLLOCAL.'meta/install/tuv2_xham.sql','logs',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
+clUpdater::installBase(BDD,URLLOCAL.'meta/install/tuv2_tuv2.sql','patients_presents',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
+clUpdater::installBase(CCAM_BDD,URLLOCAL.'meta/install/tuv2_ccam.sql','ccam_liste',MYSQL_USER,MYSQL_PASS,MYSQL_HOST);ob_flush();flush();
 
 print "<br>Test du parametre mysql server 'lower_case_table_names = 1 ' ";
 if (clUpdater::mysql_table_exists('R_ACTE_IVITE_PHASE',CCAM_BDD)) print "<font color=\"green\">OK</font>" ;
