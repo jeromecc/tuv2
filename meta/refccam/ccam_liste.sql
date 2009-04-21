@@ -2,9 +2,8 @@
 -- version 2.11.6
 -- http://www.phpmyadmin.net
 --
-
 -- Serveur: localhost
--- Généré le : Lun 20 Avril 2009 à 16:45
+-- Généré le : Mar 21 Avril 2009 à 10:12
 -- Version du serveur: 5.0.32
 -- Version de PHP: 5.2.0-8+etch13
 
