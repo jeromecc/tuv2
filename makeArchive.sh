@@ -13,6 +13,7 @@ location=`dirname ${absoluteScriptUrl}`/
 version=`cat ${location}version.txt`
 locationtmp=${location}install/
 
+
 if [ -d $locationtmp ]
 then
 	rm -fr $locationtmp
