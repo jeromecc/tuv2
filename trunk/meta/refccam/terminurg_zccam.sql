@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 20 Avril 2009 à 16:51
+-- Généré le : Mar 21 Avril 2009 à 10:11
 -- Version du serveur: 5.0.32
 -- Version de PHP: 5.2.0-8+etch13
 
@@ -37947,7 +37947,7 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (827, 'PACK010', 'Examen SF 2 = SF1+bilan', '', 0, 1, '0000-00-00', 1),
 (826, 'PACK009', 'Examen SF 1 = Consult+BU+Monito', '', 0, 1, '0000-00-00', 1),
 (825, 'PACK008', 'non attrib', '', 0, 1, '0000-00-00', 1),
-(824, 'PACK007', 'Examen 6 et scope => passer manuellement le patient en UHCD', '', 0, 1, '0000-00-00', 1),
+(824, 'PACK007', 'Examen 6+scope => passer manuellement en UHCD', '', 0, 1, '0000-00-00', 1),
 (823, 'PACK006', 'Examen 6 = C+bilan+ECG+VVP', '', 0, 1, '0000-00-00', 1),
 (822, 'PACK005', 'Examen 5 = C+Bilan+ECG', '', 0, 1, '0000-00-00', 1),
 (821, 'PACK004', 'Examen 4 = Consultation +ECG', '', 0, 1, '0000-00-00', 1),

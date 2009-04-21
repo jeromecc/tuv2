@@ -131,7 +131,7 @@ print "<br />Test de connexion FTP vers serveur de veille  (ftp://www.veille-arh
 $ftp_server = 'veille-arh-paca.com' ;
 $ftp_user_name = 'importsrv' ;
 $ftp_user_pass = '4dS#3!b';
-$conn_id = ftp_connect($ftp_server);
+$conn_id = ftp_connect($ftp_server,21,10);
 if(! $conn_id) {
 		 print "<font color=\"red\">Connexion impossible</font>";
 } else {
@@ -165,6 +165,9 @@ else
 
 print "<br />Test de cryptage avec la clé publique ARH => " ;
 //$gpg = new gnuPG(PGPLOCATION,HOMEGPG);
+if( file_exists( URLLOCAL.'index.php.gpg' ))
+    unlink(URLLOCAL.'index.php.gpg');
+
 $gpg = new gnuPG(false,GNUPG);
 $gpg->EncryptFile('import@veille-arh-paca.com',URLLOCAL.'index.php');
 $errors=$gpg->error;
@@ -210,20 +213,27 @@ if ($isSrvMaj )
 	{
 		print "<br />Une nouvelle version:  $lastVersion est disponible. <br />Téléchargement dans ".URLLOCAL."var/dist/   ..." ;
 		ob_flush() ; flush() ;
-		$archive = @file_get_contents('http://www.orupaca.fr/ressources/tu/repository/'.$lastVersion.'.tgz');
-        if( md5($archive) == $hash )
+        $hashvide = md5('') ;
+        $nomFic = PREFIXEARCHIVE.'.maj.'.$lastVersion.'.tgz';
+        $ficArchive = URLLOCAL.'var/dist/'.$nomFic ;
+        print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
+		$archive = @file_get_contents('http://www.orupaca.fr/ressources/tu/repository/'.$nomFic);
+        $hashrecu = md5($archive) ;
+        if( $hashrecu == $hash )
         {
-            file_put_contents($archive,URLLOCAL."var/dist/". $lastVersion .      '.tgz'   );
-            print "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version (expérimental)</a>";
+            file_put_contents($archive,$ficArchive );
+            print "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version (expérimental)</a><br /><br />";
         }
         else
         {
-            print "<font color=\"red\">KO (problème lors du téléchargement)</font>";
+            if( $hashvide == $hashrecu )
+                $plusInfos = "Fichier reçu vide" ;
+            print "<font color=\"red\">KO (problème lors du téléchargement) hash attendu $hash , hash reçu $hashrecu  $plusInfos</font>";
         }
 	}
     else
     {
-        print "<br />Votre T.U est à jour.";
+        print "<font color=\"green\">Votre TU est à jour.</font>";
     }
 
 }
@@ -241,6 +251,6 @@ if ($isSrvMaj )
 
 
 
-print "<font color=\"green\">Votre TU est à jour.</font>";
+
 
 ?>

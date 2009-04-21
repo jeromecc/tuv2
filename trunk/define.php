@@ -50,6 +50,12 @@ if ( (string)$xml->gnupg )
     define ( 'GNUPG', (string)$xml->gnupg ) ;
 else define ( 'GNUPG', false ) ;
 
+if ( (string)$xml->prefixearchive )
+    define ( 'PREFIXEARCHIVE', (string)$xml->prefixearchive ) ;
+else define ( 'PREFIXEARCHIVE', "tu" ) ;
+
+
+
 // Versions
 define ( 'CCAM_VERSION',"CCAM V11") ;
 define ( 'VERSIONAPPLICATION', file_get_contents( "version.txt" ) ) ;
