@@ -55,7 +55,7 @@ static function testNoNoNoNoNoNoThereIsNoLimit($memory)
 	}
 	print "<br />Test de l'augmentation de la mémoire allouée à  $memory ";
 	ini_set('memory_limit', $memory);
-	if(  ini_get('memory_limit') == $memory  )
+	if( ! ini_get('memory_limit') || (int) ini_get('memory_limit') <= (int) $memory  )
 		print "<font color=\"green\">OK</font>" ;
 	else
 	{
