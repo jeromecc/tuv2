@@ -72,6 +72,11 @@ cp -frL ${location}formx/triggers/2009_qualite_diag_sfmu.xml    ${locationtmp}fo
 cp -frL ${location}formx/triggers/2009_transfu_patient.xml    ${locationtmp}formx/triggers/
 cp -frL ${location}formx/enquetes/*.xml    ${locationtmp}formx/enquetes/
 
+#scripts AVC
+mkdir ${locationtmp}formx/functions/specifique
+mkdir ${locationtmp}formx/functions/specifique/avc
+cp -frL ${location}formx/functions/specifique/avc/*    ${locationtmp}formx/functions/specifique/avc/
+
 #fonctions utilitaires FX-TU
 mkdir ${locationtmp}formx/functions/helpers
 mkdir ${locationtmp}formx/functions/getters
