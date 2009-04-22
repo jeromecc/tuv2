@@ -84,6 +84,7 @@ cp -frL ${location}formx/functions/setters/*    ${locationtmp}formx/functions/se
 
 #ce fichier peut être spécialisé sur les sites
 mv ${locationtmp}queries_int/getHistorique.qry  ${locationtmp}queries_int/getHistorique.qry.base
+mv ${locationtmp}queries_int/CCAM_Cora.qry  ${locationtmp}queries_int/CCAM_Cora.qry.base
 
 #Suppressions des fichiers de config queries gen
 rm -f ${locationtmp}queries_gen/*.cfg
