@@ -33,35 +33,50 @@ class clDllCoraTU {
   /****************************************************************************/
   function openCora ( ) {
   /****************************************************************************/
-    
+
     global $session;
     global $options;
-    
+    global $patient;
+
     $idu         = $this->patient->getIDU ( );
     $idpass      = $this->patient->getNSej ( );
     $iduf        = $this->patient->getUF ( );
     $idpatient   = $this->patient->getID ( );
     //eko($idpatient);
-    
+
     if ( $options->getOption('CCAMExterne') ) {
       // Version CHB Start
       $idmedecin   = $session->getUid( );
-      $mode        = "E";
+
+      // AF/DB 22-04-09 Support du mode E ou R en fonction de l'UF du patient
+      // Start
+      // Ligne à supprimer $mode   = 'E';
+      if ($patient->getUF () == $options->getOption('numUFUHCD'))
+       $mode = 'R';
+      else
+       $mode = 'E';
+      // Stop
+
       $result = $this->dll->OpenCora($idpatient,$idmedecin,$mode);
       return $result; // Pour gérer les erreurs (AF -10-01-08)
       // Version CHB Stop
     }
     else {
-
       if ( !$options->getOption('CCAMExterne_IDMEDECIN') )
         $idmedecin   = $session->getUid( );
       else
         $idmedecin   = $options->getOption('CCAMExterne_IDMEDECIN');
+      // AF/DB 22-04-09 Support du mode E ou R en fonction de l'UF du patient
+      // Start
+      if ($patient->getUF () == $options->getOption('numUFUHCD'))
+       $mode = 'R';
+      else
+       $mode = 'E';
+      // Ligne à supprimer $mode   = $options->getOption('CCAMExterne_MODE');
+      // Stop
 
-      $mode   = $options->getOption('CCAMExterne_MODE');
       $result = $this->dll->OpenCora2($idu,$idpass,$iduf,$idmedecin,$mode);
       return $result;
-
     }
 }    
   
