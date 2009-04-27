@@ -537,17 +537,23 @@ class clPatient {
       $req =" SELECT idpatient from patients_presents WHERE nsej = '$idpassage' " ;
       $obReq = new clRequete( BDD, 'patients_presents');
       $resTab = $obReq->exec_requete($req,'tab');
+	  $idPatient = 1 ;
+	  $etat = 'Presents' ;
       if(count($resTab)>0)
+	  {
+		$etat = 'Presents' ;
         $idPatient = $resTab[0]['idpatient'] ;
+	  }
       else
       {
+		  $etat = 'Sortis' ;
           $req =" SELECT idpatient from patients_sortis WHERE nsej = '$idpassage' " ;
           $resTab = $obReq->exec_requete($req,'tab');
           if(count($resTab) == 0)
             return null ;
           $idPatient = $resTab[0]['idpatient'] ;
       }
-      return new clPatient($idPatient);
+      return new clPatient($idPatient,$etat);
   }
   
 }

@@ -80,7 +80,6 @@ class clGestFormxTriggers
 			$af .=" au ".clDate::getInstance($tabEnquete['date_fin'])->getSimpleDate();
 			$af .= ' '.clTools::genLinkPost($link,"Exporter",array('export'=>$tabEnquete['id_enquete']));
 		}
-
 		return $af ;
 	}
 }
