@@ -89,10 +89,13 @@ cp -frL ${location}formx/functions/setters/*    ${locationtmp}formx/functions/se
 
 #ce fichier peut être spécialisé sur les sites
 mv ${locationtmp}queries_int/getHistorique.qry  ${locationtmp}queries_int/getHistorique.qry.base
+mv ${locationtmp}queries_int/getHistoriqueDocs.qry  ${locationtmp}queries_int/getHistoriqueDocs.qry.base
+
 mv ${locationtmp}queries_int/CCAM_Cora.qry  ${locationtmp}queries_int/CCAM_Cora.qry.base
 
-#Suppressions des fichiers de config queries gen
+#Suppressions des fichiers de config 
 rm -f ${locationtmp}queries_gen/*.cfg
+rm -f ${locationtmp}queries_int/*.cfg
 
 #Suppressions des plugins de mouvements spécifiques en dev
 rm -f ${locationtmp}modules/mouvements/enabled/*
