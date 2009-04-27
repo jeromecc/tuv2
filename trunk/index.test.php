@@ -181,17 +181,17 @@ if($errors) {
 	print "<font color=\"red\">KO : $errors</font>";
 	print "<br /><br /><code>Pour installer la clé publique, exécutez en tant que user apache: ";
 	//print "<br />su ".$_ENV["APACHE_RUN_USER"];
-	print "<br />gpg -import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
-	print "<br />gpg -edit-key import@veille-arh-paca.com";
-	print "<br />     -trust";
+	print "<br />gpg --import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
+	print "<br />gpg --edit-key import@veille-arh-paca.com";
+	print "<br />     trust";
 	print "<br />    choisir 'je donne une confiance ultime'";
-	print "<br />    -quit";
+	print "<br />    quit";
 	print "<br /><br />Exécutez également en tant que root";
-	print "<br />gpg -import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
-	print "<br />gpg -edit-key import@veille-arh-paca.com";
-	print "<br />     -trust";
+	print "<br />gpg --import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
+	print "<br />gpg --edit-key import@veille-arh-paca.com";
+	print "<br />     trust";
 	print "<br />    choisir 'je donne une confiance ultime'";
-	print "<br />    -quit</code>";
+	print "<br />    quit</code>";
 
 } else {
 	print "<font color=\"green\">OK</font>";
