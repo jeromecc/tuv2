@@ -72,14 +72,14 @@ class clGestFormxTriggers
 		}
 		$af .= '<h2>Enquetes finies</h2>';
 		$af .='L\'export peut parfois se révéler assez long. C\'est un comportement normal.<br />';
+
 		foreach(clTuFormxTrigger::getTabEnquetesFinies() as $tabEnquete)
 		{
 			$trigger = new  clTuFormxTrigger($tabEnquete['id_trigger']) ;
 			$af .= '<br />'.utf8_decode($trigger->getNomEnquete())." du ".clDate::getInstance($tabEnquete['date_debut'])->getSimpleDate();
 			$af .=" au ".clDate::getInstance($tabEnquete['date_fin'])->getSimpleDate();
-			$af .= ' '.clTools::genLinkPost($link,"Export CSV",array('export'=>$tabEnquete['id_enquete']));
+			$af .= ' '.clTools::genLinkPost($link,"Exporter",array('export'=>$tabEnquete['id_enquete']));
 		}
-
 
 		return $af ;
 	}
