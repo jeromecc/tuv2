@@ -11,7 +11,9 @@
     <mysqlhost>localhost</mysqlhost>
     <mysqluser>root</mysqluser>
     <mysqlpass/>
-    <prefixearchives>tuv2</prefixearchives>
+    <gnupg/>
+    <proxy/>
+    <uniqIdSiteInstallation/>
     <branche>stable</branche>
     <basexham>tuv2_xham</basexham>
     <basetuv2>tuv2_tuv2</basetuv2>

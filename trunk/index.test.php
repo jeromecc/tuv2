@@ -17,6 +17,9 @@ if ( ! file_exists('define.xml.php'))
 if ( ! file_exists(URLLOCAL.'queries_int/getHistorique.qry'))
     copy(URLLOCAL.'queries_int/getHistorique.qry.base',URLLOCAL.'queries_int/getHistorique.qry');
 
+if ( ! file_exists(URLLOCAL.'queries_int/getHistoriqueDocs.qry'))
+    copy(URLLOCAL.'queries_int/getHistoriqueDocs.qry.base',URLLOCAL.'queries_int/getHistoriqueDocs.qry');
+
 
 
 print "<h3>Procédure de vérification</h3>" ;
@@ -128,14 +131,14 @@ print "<br><br><hr><h4>Communication</h4>" ;
 
 //Test connexion FTP vers serveur de veille
 print "<br />Test de connexion FTP vers serveur de veille  (ftp://www.veille-arh-paca.com)  =>" ;ob_flush();flush();
-$ftp_server = 'veille-arh-paca.com' ;
+$ftp_server = 'www.veille-arh-paca.com' ;
 $ftp_user_name = 'importsrv' ;
 $ftp_user_pass = '4dS#3!b';
-$conn_id = ftp_connect($ftp_server,21,10);
+$conn_id = ftp_connect($ftp_server,21,20);
 if(! $conn_id) {
 		 print "<font color=\"red\">Connexion impossible</font>";
 } else {
-	ftp_set_option($conn_id, FTP_TIMEOUT_SEC, 10);
+	ftp_set_option($conn_id, FTP_TIMEOUT_SEC, 20);
 	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 	if(! $login_result) {
 		 print "<font color=\"red\">Identification refusée</font>";
@@ -151,7 +154,10 @@ if(! $conn_id) {
 
 
 print "<br />Test de connexion au serveur de mises à jour (www.orupaca.fr:80) => " ;ob_flush();flush();
-if(false !== strpos(@file_get_contents('http://www.orupaca.fr/test_tu.html'), 'ok'  ))
+
+
+
+if(false !== strpos(@file_get_contents(PROTO.'www.orupaca.fr/test_tu.html', false, $context), 'ok'  ))
 {
 	$isSrvMaj = true ;
 	print "<font color=\"green\">OK</font>";
@@ -173,14 +179,14 @@ $gpg->EncryptFile('import@veille-arh-paca.com',URLLOCAL.'index.php');
 $errors=$gpg->error;
 if($errors) {
 	print "<font color=\"red\">KO : $errors</font>";
-	print "<br /><br /><code>Pour installer la clé publique, exécutez en tant que root: ";
-	print "<br />su ".$_ENV["APACHE_RUN_USER"];
+	print "<br /><br /><code>Pour installer la clé publique, exécutez en tant que user apache: ";
+	//print "<br />su ".$_ENV["APACHE_RUN_USER"];
 	print "<br />gpg -import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
 	print "<br />gpg -edit-key import@veille-arh-paca.com";
 	print "<br />     -trust";
 	print "<br />    choisir 'je donne une confiance ultime'";
 	print "<br />    -quit";
-	print "<br />exit";
+	print "<br /><br />Exécutez également en tant que root";
 	print "<br />gpg -import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
 	print "<br />gpg -edit-key import@veille-arh-paca.com";
 	print "<br />     -trust";
@@ -216,7 +222,7 @@ if ($isSrvMaj )
         $hashvide = md5('') ;
         $nomFic = PREFIXEARCHIVE.'.maj.'.$lastVersion.'.tgz';
         $ficArchive = URLLOCAL.'var/dist/'.$nomFic ;
-        print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
+        //print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
 		$archive = @file_get_contents('http://www.orupaca.fr/ressources/tu/repository/'.$nomFic);
         $hashrecu = md5($archive) ;
         if( $hashrecu == $hash )

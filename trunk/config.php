@@ -32,6 +32,17 @@ include ( "define.php" ) ;
 //include_once ( URLLOCAL."classes_ext/adodb-time.inc.php" ) ;
 
 
+if(PROXY)
+{
+	require_once(URLLOCAL.'classes_ext/proxy.class.php');
+	list($host,$port) = explode(':',PROXY);
+	HttpProxyStream::$proxy_host = $host;
+	HttpProxyStream::$proxy_port = $port;
+	define('PROTO','proxy://');
+} else {
+	define('PROTO','http://');
+}
+
 
 $stopAffichage = '' ;
 

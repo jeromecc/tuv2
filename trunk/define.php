@@ -47,12 +47,12 @@ else
 	define ( 'BRANCHE','stable') ;
 
 if ( (string)$xml->gnupg )
-    define ( 'GNUPG', (string)$xml->gnupg ) ;
+    define ( 'GNUPG', rtrim( (string)$xml->gnupg,'/' ) ) ;
 else define ( 'GNUPG', false ) ;
 
-if ( (string)$xml->prefixearchive )
-    define ( 'PREFIXEARCHIVE', (string)$xml->prefixearchive ) ;
-else define ( 'PREFIXEARCHIVE', "tu" ) ;
+if ( (string)$xml->proxy )
+    define ( 'PROXY', (string) $xml->proxy  ) ;
+else define ( 'PROXY', false ) ;
 
 
 
@@ -136,6 +136,9 @@ define ( 'IMGALERTE',    "<img src=\"".URLIMG."cligne.gif\" alt=\"A\" />&nbsp;" 
 // Modules
 define ( 'MODULE_CCAM', URLLOCAL."modules/CCAM/" ) ;
 define ( 'CCAM_IDDOMAINE', 1 ) ;
+
+
+define ( 'PREFIXEARCHIVE', "tu" ) ;
 
 // Informations sur la base de données.
 define ( 'TABLELOGS', "logs" ) ;
