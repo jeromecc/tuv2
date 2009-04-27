@@ -123,7 +123,7 @@ class clTuFormxTrigger {
 
 	function mustBegin()
 	{
-		if (  $this->isAutostart()  &&  $this->isValide() && ! $this->isActive() )
+		if (  $this->isAutostart()  &&  $this->isValide() && ! $this->isActive() && ! $this->hasBeenPreviouslyLaunched() )
 			return true ;
 		return false ;
 	}
@@ -155,6 +155,23 @@ function getIdEnquete()
 			return $res[0]['id_enquete'] ;
 		return false ;
 }
+
+
+function hasBeenPreviouslyLaunched()
+{
+	$requete = "SELECT * FROM enquetes WHERE  id_trigger = '".$this->idTrigger."' "   ;
+	$obRequete = new clRequete(BDD,'enquetes');
+		$res = $obRequete->exec_requete($requete, 'tab');
+		if(count($res) > 0 )
+			return true ;
+		return false ;
+}
+
+
+
+
+//hasBeenPreviouslyLaunched
+
 
 /**
  *
