@@ -457,7 +457,8 @@ function getRootDom()
                 if( $oldCond->hasAttribute('prerequite') )
                 {
                     $op = 'and' ;
-                } else
+                }
+                else
                 {
                     $op = 'or' ;
                 }
@@ -3223,7 +3224,12 @@ function getTabAllItemsValues($options='') {
         {
             $arg = $this->getIDS() ;
         }
-        eval ("\$tabFirstCols = ".$options['firstColsFunc']."('$arg') ; ");
+		try
+		{
+			eval ("\$tabFirstCols = ".$options['firstColsFunc']."('$arg') ; ");
+		} catch (Exception $e)  {
+			return array() ;
+		}
     }
     
    	foreach (formxTools::domSearch($this->getRootDom(), 'ITEM') as $item)
