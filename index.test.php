@@ -227,7 +227,7 @@ if ($isSrvMaj )
         $hashrecu = md5($archive) ;
         if( $hashrecu == $hash )
         {
-            file_put_contents($archive,$ficArchive );
+            file_put_contents($ficArchive,$archive );
             print "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version (expérimental)</a><br /><br />";
         }
         else
