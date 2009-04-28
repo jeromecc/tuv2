@@ -47,7 +47,7 @@ else
 	define ( 'BRANCHE','stable') ;
 
 if ( (string)$xml->gnupg )
-    define ( 'GNUPG', rtrim( (string)$xml->gnupg,'/' ) ) ;
+    define ( 'GNUPG', rtrim( (string)$xml->gnupg,'/' ).'/' ) ;
 else define ( 'GNUPG', false ) ;
 
 if ( (string)$xml->proxy )
