@@ -150,7 +150,12 @@ foreach($tabFics as $file)
 //pas de pb ? suppression de la décompression
 rmdir_recurse($tmpInflatePath);
 
-print "<br />Votre installation de TU est à jour<a href='index.test.php'>Mettre à jour la base de données</a>" ;
+
+print '
+<script type="text/javascript">
+document.location.href="index.test.php";
+</script><noscript>Votre installation de TU est à jour<a href="http://index.test.php">Mettre à jour la BDD</a></noscript>
+';
 
 
 ?>
