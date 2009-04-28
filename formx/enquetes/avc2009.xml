@@ -60,7 +60,7 @@
 	</ITEM>
 	
 	<ITEM type="TXT" id="departement" opt="y" readonly="y"   >
-      <Libelle>Département de PEC</Libelle>
+      <Libelle>Département de prise en charge</Libelle>
       <From>dpt_from_cp|option:BonFiness</From>
 	</ITEM>
 	
@@ -179,7 +179,7 @@
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 	
-		<ITEM type="CAL" id="date_pec_urgences">
+	<ITEM type="CAL" id="date_pec_urgences">
 		<Libelle>Jour de prise en charge par IOA</Libelle>
 		 <From>date_simple|globalObject:patient->getDateAdmission()</From>
 	</ITEM> 
@@ -381,7 +381,7 @@
 
 	<Libelle>Traitement en cours</Libelle>
 	
-	<ITEM type="CHECK" id="trt_en_cours" >
+	<ITEM type="CHECK" id="trt_en_cours" opt="y" >
 		<Libelle>Traitement en cours</Libelle>
 		<FromList>list:AVK|Antithrombotique|Antihypertenseur|Antidiabétique</FromList>
 	</ITEM>
@@ -396,13 +396,15 @@
 		<From>formVar:date_pec_urgences</From>
 	</ITEM>
 
+
+
 	<ITEM type="LISTE" id="heure_pec_immediate">
 		<Libelle>Delta inf.3 - Heure PEC Immédiate</Libelle>
 		<Cond type="inf">
 			<Arg1>formVar:delta_heure</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
-		<From>func:getters/heure_now</From>
+		<From>formVar:heure_pec_urgences</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 		
@@ -438,23 +440,23 @@
 
 	<ITEM type="CAL" id="date_c15">
 		<Libelle>Date appel C15 pour transfert</Libelle>
-		<From>formVar:date_pec_immediate</From>
+		<From>formVar:date_pec_urgences</From>
 	</ITEM>	
 		
 	<ITEM type="LISTE" id="heure_c15">
 		<Libelle>Heure appel C15 pour transfert</Libelle>
-		<From>formVar:heure_pec_immediate</From>
+		<From>formVar:heure_pec_urgences</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 
 	<ITEM type="CAL" id="jour_pec_tni" >
 		<Libelle>Date PEC médicale (thrombolyse non indiquée)</Libelle>
-		<From>func:specifique/avc/get_jour_pecm_default</From>
+		<From>formVar:date_pec_urgences</From>
 	</ITEM>
 	
 	<ITEM type="LISTE" id="heure_pec_tni" >
 		<Libelle>Heure PEC médicale (thrombolyse non indiquée)</Libelle>
-		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<From>formVar:heure_pec_urgences</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 	
@@ -466,7 +468,7 @@
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<Libelle>Date PEC médicale (delta sup. 3h)</Libelle>
-		<From>func:specifique/avc/get_jour_pecm_default</From>
+		<From>formVar:date_pec_urgences</From>
 	</ITEM>
 	
 	<ITEM type="LISTE" id="heure_pec_ds3" >
@@ -475,7 +477,7 @@
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<Libelle>Heure PEC médicale (delta sup. 3h)</Libelle>
-		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<From>formVar:heure_pec_urgences</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 
@@ -502,12 +504,12 @@
 	
 	<ITEM type="CAL" id="jour_appel_tdm">
 		<Libelle>Jour appel TDM cérébral</Libelle>
-		<From>func:specifique/avc/get_jour_pecm_default</From>
+		<From>formVar:date_pec_urgences</From>
 	</ITEM>
 	
 	<ITEM type="LISTE" id="heure_appel_tdm">
 		<Libelle>Heure appel TDM cérébral</Libelle>
-		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<From>formVar:heure_pec_urgences</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 	
@@ -527,12 +529,12 @@
 
 	<ITEM type="CAL" id="jour_appel_angio">
 		<Libelle>Jour appel Angio cérébral</Libelle>
-		<From>func:specifique/avc/get_jour_pecm_default</From>
+		<From>formVar:date_pec_urgences</From>
 	</ITEM>
 	
 	<ITEM type="LISTE" id="heure_appel_angio">
 		<Libelle>Heure appel Angio cérébral</Libelle>
-		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<From>formVar:heure_pec_urgences</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 	
@@ -550,12 +552,12 @@
 	
 	<ITEM type="CAL" id="jour_appel_irm">
 		<Libelle>Jour appel IRM cérébral</Libelle>
-		<From>func:specifique/avc/get_jour_pecm_default</From>
+		<From>formVar:date_pec_urgences</From>
 	</ITEM>
 	
 	<ITEM type="LISTE" id="heure_appel_irm">
 		<Libelle>Heure appel IRM cérébral</Libelle>
-		<From>func:specifique/avc/get_heure_pecm_default</From>
+		<From>formVar:heure_pec_urgences</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 	
@@ -601,7 +603,7 @@
 	
 	<ITEM type="CHECK" id="complication" >
 		<Libelle>Type de complication:</Libelle>
-		<FromList>list:Hyperglycémie sup. 12 mmol|Hyperthermie inf. 37.5|Trouble de la vigilance|Convulsions|Autres</FromList>
+		<FromList>list:Hyperglycémie sup. 12 mmol|Hyperthermie sup. 37.5|Trouble de la vigilance|Convulsions|Autres</FromList>
 		<ShowItemsOnVal>
 			<ListIdItems>list:complication_autre</ListIdItems>
 			<OnVal>const:Autres</OnVal>
@@ -612,7 +614,7 @@
 		</ShowItemsOnVal>
 		<ShowItemsOnVal>
 			<ListIdItems>list:traitement_hyperthermie</ListIdItems>
-			<OnVal>const:Hyperthermie inf. 37.5</OnVal>
+			<OnVal>const:Hyperthermie sup. 37.5</OnVal>
 		</ShowItemsOnVal>
         <ShowItemsOnVal>
 			<ListIdItems>list:traitement_vigilance</ListIdItems>
@@ -674,12 +676,12 @@
 
 	<ITEM type="CAL" id="jr_debut_transfert" opt="y">
 		<Libelle>Début du transfert (jour)</Libelle>
-		<From>func:getters/jour_arrivee_plus_trois_heures</From>
+		<From>formVar:date_pec_urgences</From>
 	</ITEM> 
 
 	<ITEM type="LISTE" id="hr_debut_transfert" opt="y">
 		<Libelle>Début du transfert (heure)</Libelle>
-		<From>func:getters/heure_arrivee_plus_trois_heures</From>
+		<From>formVar:heure_pec_urgences</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 	
