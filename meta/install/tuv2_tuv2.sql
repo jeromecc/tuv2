@@ -1,8 +1,8 @@
 -- MySQL dump 10.11
 --
--- Host: localhost    Database: tuv2_tuv2
+-- Host: localhost    Database: terminal_tuv2
 -- ------------------------------------------------------
--- Server version	5.0.67-0ubuntu6
+-- Server version	5.0.32-Debian_7etch6
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -20,8 +20,6 @@
 --
 
 DROP TABLE IF EXISTS `bal`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `bal` (
   `id` int(16) NOT NULL auto_increment,
   `type` varchar(16) NOT NULL default '',
@@ -38,8 +36,7 @@ CREATE TABLE `bal` (
   `etat` varchar(32) NOT NULL default '',
   `iduser` varchar(32) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bal`
@@ -47,6 +44,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `bal` WRITE;
 /*!40000 ALTER TABLE `bal` DISABLE KEYS */;
+INSERT INTO `bal` VALUES (1,'UHCD','2008-04-08 11:50:10','1','MANU1','MANU1','MANU1','2701','','test','MARS - CH Timone - Médecine','Passage en UF UHCD','','gviudes'),(2,'Sortie','2008-08-19 09:20:47','1','MANU1','MANU1','MANU1','2702','','test','MARS - CH Timone - Médecine','Sortie du patient','','admin');
 /*!40000 ALTER TABLE `bal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,8 +53,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `documents`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `documents` (
   `iddocument` int(6) NOT NULL auto_increment,
   `categorie` varchar(128) NOT NULL default '',
@@ -67,7 +63,6 @@ CREATE TABLE `documents` (
   `version` int(5) NOT NULL default '1',
   PRIMARY KEY  (`iddocument`)
 ) ENGINE=MyISAM AUTO_INCREMENT=177 DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `documents`
@@ -84,8 +79,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `editions`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `editions` (
   `idedition` int(8) NOT NULL auto_increment,
   `iddocument` int(8) NOT NULL default '0',
@@ -96,7 +89,6 @@ CREATE TABLE `editions` (
   `iduser` varchar(32) NOT NULL default '',
   PRIMARY KEY  (`idedition`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `editions`
@@ -112,8 +104,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `export`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `export` (
   `idpatient` int(8) NOT NULL,
   `etat1` smallint(1) NOT NULL,
@@ -127,7 +117,6 @@ CREATE TABLE `export` (
   `iduser3` varchar(128) NOT NULL,
   PRIMARY KEY  (`idpatient`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `export`
@@ -135,6 +124,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `export` WRITE;
 /*!40000 ALTER TABLE `export` DISABLE KEYS */;
+INSERT INTO `export` VALUES (1,0,'2008-08-19 09:21:00','admin',0,'2008-08-19 09:21:01','admin',0,'2008-08-19 09:21:02','admin');
 /*!40000 ALTER TABLE `export` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,8 +133,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `formx`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `formx` (
   `id_instance` int(11) NOT NULL auto_increment,
   `ids` varchar(64) NOT NULL default '',
@@ -158,7 +146,6 @@ CREATE TABLE `formx` (
   `author` varchar(64) default NULL,
   PRIMARY KEY  (`id_instance`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `formx`
@@ -174,14 +161,11 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `formx_globvars`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `formx_globvars` (
   `ids` varchar(64) NOT NULL default '',
   `data` text NOT NULL,
   PRIMARY KEY  (`ids`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `formx_globvars`
@@ -189,6 +173,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `formx_globvars` WRITE;
 /*!40000 ALTER TABLE `formx_globvars` DISABLE KEYS */;
+INSERT INTO `formx_globvars` VALUES ('MANU1','<?xml version=\"1.0\"?>\n<GLOBVARS><ITEM id=\"ids\"><Val>MANU1</Val></ITEM></GLOBVARS>\n'),('MANU3','<?xml version=\"1.0\"?>\n<GLOBVARS><ITEM id=\"ids\"><Val>MANU3</Val></ITEM></GLOBVARS>\n');
 /*!40000 ALTER TABLE `formx_globvars` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,8 +182,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `imports`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `imports` (
   `idimport` int(16) NOT NULL auto_increment,
   `idu` varchar(16) NOT NULL default '',
@@ -223,7 +206,6 @@ CREATE TABLE `imports` (
   `dt_traitement` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`idimport`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 PACK_KEYS=0;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `imports`
@@ -239,8 +221,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `logs_mails`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `logs_mails` (
   `idmail` int(5) NOT NULL auto_increment,
   `idpatient` int(16) NOT NULL default '0',
@@ -252,8 +232,7 @@ CREATE TABLE `logs_mails` (
   `erreur` int(1) NOT NULL default '0',
   `positif` int(1) NOT NULL default '0',
   PRIMARY KEY  (`idmail`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+) ENGINE=MyISAM AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `logs_mails`
@@ -261,6 +240,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `logs_mails` WRITE;
 /*!40000 ALTER TABLE `logs_mails` DISABLE KEYS */;
+INSERT INTO `logs_mails` VALUES (1,1,'2008-02-07 09:37:05','Médecins urgences : A remplir<br />Concerne le patient : M test  (9 jours)<br/>Numéro de séjour : MANU1<br />ILP : MANU1<br />Médecin traitant : <br /><hr />Admis aux urgences le : 29-01-2008 à 12:43<br />Pour  (0)<br />Heure Examen : 29-01-2008 à 12:47<br />Dest. confirmée : MARS - CH Timone - Médecine<br />Message : <hr />','MANU1','non uhcd',0,0,0),(71,0,'2008-03-11 12:27:05','Médecins urgences : BENMILOUD<br />Concerne le patient : M Damien BOREL (4 jours)<br/>Numéro de séjour : MANU3<br />ILP : MANU3<br />Médecin traitant : <br /><hr />Admis aux urgences le : 07-03-2008 à 16:26<br />Pour  (0)<br />Heure Examen : 07-03-2008 à 16:27<br />Dest. confirmée : --<br />Message : <hr />','MANU3','non uhcd',0,0,0),(72,0,'2008-03-11 12:27:52','Médecins urgences : BENMILOUD<br />Concerne le patient : M Damien BOREL (4 jours)<br/>Numéro de séjour : MANU3<br />ILP : MANU3<br />Médecin traitant : <br /><hr />Admis aux urgences le : 07-03-2008 à 16:26<br />Pour  (0)<br />Heure Examen : 07-03-2008 à 16:27<br />Dest. confirmée : --<br />Message : <hr />','MANU3','non uhcd',0,0,0),(73,0,'2008-03-13 14:21:38','Médecins urgences : BENMILOUD<br />Concerne le patient : M Damien BOREL (6 jours)<br/>Numéro de séjour : MANU3<br />ILP : MANU3<br />Médecin traitant : <br /><hr />Admis aux urgences le : 07-03-2008 à 16:26<br />Pour  (0)<br />Heure Examen : 07-03-2008 à 16:27<br />Dest. confirmée : --<br />Message : <hr />','MANU3','non uhcd',0,0,0),(74,0,'2008-03-13 14:40:36','Médecins urgences : BENMILOUD<br />Concerne le patient : M Damien BOREL (6 jours)<br/>Numéro de séjour : MANU3<br />ILP : MANU3<br />Médecin traitant : <br /><hr />Admis aux urgences le : 07-03-2008 à 16:26<br />Pour  (0)<br />Heure Examen : 07-03-2008 à 16:27<br />Dest. confirmée : --<br />Message : <hr />','MANU3','non uhcd',0,0,0),(75,0,'2008-03-13 14:40:53','Médecins urgences : BENMILOUD<br />Concerne le patient : M Damien BOREL (6 jours)<br/>Numéro de séjour : MANU3<br />ILP : MANU3<br />Médecin traitant : <br /><hr />Admis aux urgences le : 07-03-2008 à 16:26<br />Pour  (0)<br />Heure Examen : 07-03-2008 à 16:27<br />Dest. confirmée : --<br />Message : <hr />','MANU3','non uhcd',0,0,0),(76,0,'2008-03-13 14:43:15','Médecins urgences : BENMILOUD<br />Concerne le patient : M Damien BOREL (6 jours)<br/>Numéro de séjour : MANU3<br />ILP : MANU3<br />Médecin traitant : <br /><hr />Admis aux urgences le : 07-03-2008 à 16:26<br />Pour  (0)<br />Heure Examen : 07-03-2008 à 16:27<br />Dest. confirmée : --<br />Message : <hr />','MANU3','non uhcd',0,0,0),(77,0,'2008-03-13 15:26:46','Médecins urgences : BENMILOUD<br />Concerne le patient : M Damien BOREL (6 jours)<br/>Numéro de séjour : MANU3<br />ILP : MANU3<br />Médecin traitant : <br /><hr />Admis aux urgences le : 07-03-2008 à 16:26<br />Pour  (0)<br />Heure Examen : 07-03-2008 à 16:27<br />Dest. confirmée : --<br />Message : <hr />','MANU3','non uhcd',0,0,0),(78,1,'2008-08-19 09:20:47','Médecins urgences : MEDECIN LIBERAL<br />Concerne le patient : M test  (6 mois)<br/>Numéro de séjour : MANU1<br />ILP : MANU1<br />Médecin traitant : <br /><hr />Admis aux urgences le : 29-01-2008 à 12:43<br />Pour Douleur thoracique précordiale (Cardio-Vasculaire)<br />Heure Examen : 29-01-2008 à 12:47<br />Dest. confirmée : MARS - CH Timone - Médecine<br />Message : <hr />','MANU1','sortie forcée',0,0,0);
 /*!40000 ALTER TABLE `logs_mails` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,8 +249,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `patients_attendus`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `patients_attendus` (
   `idpatient` int(8) NOT NULL auto_increment,
   `date` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -284,7 +262,6 @@ CREATE TABLE `patients_attendus` (
   `iduser` varchar(32) NOT NULL default '',
   PRIMARY KEY  (`idpatient`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `patients_attendus`
@@ -300,8 +277,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `patients_presents`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `patients_presents` (
   `idpatient` int(8) NOT NULL auto_increment,
   `idu` varchar(16) NOT NULL default '',
@@ -351,8 +326,7 @@ CREATE TABLE `patients_presents` (
   `manuel` int(1) NOT NULL default '0',
   `valide` varchar(1) NOT NULL default '2',
   PRIMARY KEY  (`idpatient`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `patients_presents`
@@ -360,7 +334,6 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `patients_presents` WRITE;
 /*!40000 ALTER TABLE `patients_presents` DISABLE KEYS */;
-INSERT INTO `patients_presents` VALUES (1,'MANU1','MANU1','MANU1','2701','ramirez','robert','M','2009-03-25 00:00:00','','','','','','','2009-03-25 14:03:16','','','0000-00-00 00:00:00','0','','0','','','','','','0','0','','','0000-00-00 00:00:00','','0','','','','','','0000-00-00 00:00:00','0','','','','',1,'2');
 /*!40000 ALTER TABLE `patients_presents` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,8 +342,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `patients_sortis`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `patients_sortis` (
   `idpatient` int(8) NOT NULL default '0',
   `idu` varchar(16) NOT NULL default '',
@@ -421,7 +392,6 @@ CREATE TABLE `patients_sortis` (
   `valide` varchar(1) NOT NULL default '2',
   PRIMARY KEY  (`idpatient`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `patients_sortis`
@@ -429,6 +399,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `patients_sortis` WRITE;
 /*!40000 ALTER TABLE `patients_sortis` DISABLE KEYS */;
+INSERT INTO `patients_sortis` VALUES (1,'MANU1','MANU1','MANU1','2702','','test','M','2008-01-29 00:00:00','','','','','','','2008-01-29 12:43:15','','0','2008-01-29 12:47:50','MEDECIN LIBERAL','IDE POOL','0','Douleur thoracique précordiale','0','0','','','0','MARS - CH Timone - Médecine','','','2008-08-19 09:20:47','R07.2','Cardio-Vasculaire','T','','','','okTransfert','2008-04-08 11:50:10','0','0','1','MED','',1,'2');
 /*!40000 ALTER TABLE `patients_sortis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,8 +408,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `radios`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `radios` (
   `idradio` int(10) NOT NULL auto_increment,
   `etat` varchar(10) NOT NULL default '',
@@ -458,7 +427,6 @@ CREATE TABLE `radios` (
   `ccam` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`idradio`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `radios`
@@ -474,8 +442,6 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `radios_enquetes`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
 CREATE TABLE `radios_enquetes` (
   `idradio` int(10) NOT NULL,
   `enquete` varchar(64) NOT NULL,
@@ -504,7 +470,6 @@ CREATE TABLE `radios_enquetes` (
   `idUser` varchar(64) NOT NULL,
   PRIMARY KEY  (`idradio`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `radios_enquetes`
@@ -524,4 +489,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-03-25 13:36:19
+-- Dump completed on 2009-04-28 14:05:59
