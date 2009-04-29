@@ -10,10 +10,14 @@
 
 <root>
 <trigger title="Enquete Transfusion patient" onOut="y"  idForm="enquetes/transfusionpatient2009" maxDays="" obligDays=""  autoStart="" >
-    <cond type="ccmu">
-        <ccmu val="3" />
-        <ccmu val="4" />
-        <ccmu val="5" />
-    </cond>
+    
+	<cond type="not">
+		<cond type="ccmu">
+			<ccmu val="1" />
+			<ccmu val="2" />
+			<ccmu val="P" />
+			<ccmu val="D" />
+		</cond>
+	</cond>
 </trigger>
 </root>
