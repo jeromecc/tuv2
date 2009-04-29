@@ -20,6 +20,9 @@ if ( ! file_exists(URLLOCAL.'queries_int/getHistorique.qry'))
 if ( ! file_exists(URLLOCAL.'queries_int/getHistoriqueDocs.qry'))
     copy(URLLOCAL.'queries_int/getHistoriqueDocs.qry.base',URLLOCAL.'queries_int/getHistoriqueDocs.qry');
 
+if ( ! file_exists(URLLOCAL.'queries_int/getHistoriqueDoc.qry'))
+    copy(URLLOCAL.'queries_int/getHistoriqueDoc.qry.base',URLLOCAL.'queries_int/getHistoriqueDoc.qry');
+
 
 
 print "<h3>Procédure de vérification</h3>" ;
