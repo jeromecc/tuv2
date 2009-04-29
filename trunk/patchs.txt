@@ -1,33 +1,41 @@
 ********************************************************************************************************
+**************************** 2009-04-29 11:00:00 : V 2.20.7 ********************************************
+********************************************************************************************************
+
+- La fenêtre d'authentification reste affichée si personne n'est connecté et 
+  si l'option masquageMenu est paramétrée sur onclick.				(Damien Borel)
+
+
+********************************************************************************************************
 **************************** 2009-04-20 11:00:00 : V 2.20.5 ********************************************
 ********************************************************************************************************
--debug crash AVC (cervetti)
--debug détection mémoire windows (cervetti)
+
+- Debug crash AVC								(Emmanuel Cervetti)
+- Debug détection mémoire windows						(Emmanuel Cervetti)
 
 ********************************************************************************************************
 **************************** 2009-04-20 11:00:00 : V 2.20.4 ********************************************
 ********************************************************************************************************
--Mise à jour AVC
--Forcage UF dans HprimXml ( bug actes UHCD )
--Mise à jour SFMU des diags / recours packs
 
+- Mise à jour AVC								(Emmanuel Cervetti)
+- Forcage UF dans HprimXml ( bug actes UHCD )					(Emmanuel Cervetti)
+- Mise à jour SFMU des diags / recours packs					(Emmanuel Cervetti)
 
 ********************************************************************************************************
 **************************** 2009-03-04 11:00:00 : V 2.20.3 ********************************************
 ********************************************************************************************************
 
-
--bon de radio : ajout d'un champ pour fréjus
--ajout balise idetabpatient envoi rpu : hash sh1
--3 formulaires d'enquetes implémentés
--Mise à jour SFMU des diags / recours packs
+- Bon de radio : ajout d'un champ pour fréjus					(Emmanuel Cervetti)
+- Ajout balise idetabpatient envoi rpu : hash sh1				(Emmanuel Cervetti)
+- 3 formulaires d'enquetes implémentés						(Emmanuel Cervetti)	
+- Mise à jour SFMU des diags / recours packs					(Emmanuel Cervetti)
 
 ********************************************************************************************************
 **************************** 2009-03-04 11:00:00 : V 2.20.2 ********************************************
 ********************************************************************************************************
 
- - Module d'enquêtes (Emmanuel Cervetti)
- - Corrections libelles masculin/féminin dans les bons de radio (Emmanuel Cervetti)
+- Module d'enquêtes 								(Emmanuel Cervetti)
+- Corrections libelles masculin/féminin dans les bons de radio 			(Emmanuel Cervetti)
 
 ********************************************************************************************************
 **************************** 2009-03-04 11:00:00 : V 2.19.6 ********************************************
