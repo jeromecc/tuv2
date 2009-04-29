@@ -52,6 +52,7 @@ if ( ! $stopAffichage AND $session->getNavi ( 2 ) != "voirDoc" AND  $session->ge
   <title><?php print NOMAPPLICATION." ".VERSIONAPPLICATION; ?></title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="stylesheet" type="text/css" href="css/style.css"></link>
+  <?php if ( $session->getType() == 'Echec' ) print '<link rel="stylesheet" type="text/css" href="css/auth.css"></link>' ; ?>
   <link rel="shortcut icon" href="images/favicon.ico" type="image/ico" />
   <link rel="stylesheet" type="text/css" href="<?=URL?>css/FoRmX_terminurge.css"></link>
   <link rel="stylesheet" type="text/css" href="<?=URL?>css/FoRmX.css"></link>
