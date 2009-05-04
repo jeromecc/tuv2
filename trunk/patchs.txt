@@ -4,6 +4,12 @@
 
 - La fenêtre d'authentification reste affichée si personne n'est connecté et 
   si l'option masquageMenu est paramétrée sur onclick.				(Damien Borel)
+- Correction des logs manquants dans le module UHCD (la réponse à la question 
+  UHCD est correctement enregistrement maintenant).				(Damien Borel)
+- Amélioration du module de fusion : les formulaires sont aussi inclus.		(Damien Borel)
+- Correction dans le module HL7 pour gérer les messages du DPI (APHM).		(Damien Borel)
+- HprimXML : correction sur la date d'intervention qui était parfois envoyée
+  avec la valeur "1999-12-31" si elle n'était pas saisie.			(Damien Borel)
 
 
 ********************************************************************************************************

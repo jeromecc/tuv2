@@ -260,6 +260,8 @@ class clHL7 {
 		        // Date d'admission.
 	        	$evenement = explode ( $sep1, $evenements[$i] ) ;
 				$d         = $evenement[6];
+                if ( !$d ) $d = $unit[6] ;
+                if ( !$d ) $d = $evenement[2];
 				//eko($d);
 				$date      = substr($d,0,4).'-'.substr($d,4,2).'-'.substr($d,6,2).' '.substr($d,8,2).':'.substr($d,10,2).':00' ;
 				//eko($date);
@@ -291,8 +293,8 @@ class clHL7 {
 	    
 	    		if ( $teleprevenir[0] != "" )
 	      			$data['prevenir'] .= " Tél:".$teleprevenir[0];
-	    
-	        	if ( $data['nsej'] ) {
+
+            	if ( $data['nsej'] ) {
 	          		if ( ! defined ( "DOUBLESERVICE" ) OR ( $data['uf'] != UF2  AND $data['uf'] != UF3 AND $data['uf'] != UF4 AND $data['uf'] != UF5 ) ) {
 	          			
 	          			$param2['table'] = PPRESENTS ;
