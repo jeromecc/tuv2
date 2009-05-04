@@ -650,6 +650,36 @@ class clFichePatient {
   		return $af ;
 	}
 
+    // Gestion de la chirurgie
+	function genChirurgie ( ) {
+		global $session ;
+  		global $options ;
+        global $logs ;
+  		$ufExec = $options->getOption ( 'numUFexec' ) ;
+		$ufChir   = $options->getOption ( 'numUFChirurgie' ) ;
+		$af = '' ;
+  		if ( $options -> getOption ( "numUFChirurgie" ) ) {
+  			if ( eregi ( 'Dr CHIR', $this->patient->getMedecin ( ) ) ) {
+  				if ( ! $this->patient->isChirurgie ( ) ) {
+  						$logs -> addLog ( "chir", $session->getNaviFull ( ), 'Passage en UF de Chirurgie (le nom du médecin commence par "Dr CHIR")' ) ;
+  						$this->addBAL ( 'chir', 'chir' ) ;
+						$this->patient->setAttribut ( 'UF', $ufChir ) ;
+						$this->patient->setAttribut ( 'EtatUHCD', 'nonChir' ) ;
+						header ( 'Location:index.php?navi='.$session->genNavi ( $session->getNavi(0), $session->getNavi(1), $session->getNavi(2)) ) ;
+  				}
+  			} else {
+  				if ( $this->patient->isChirurgie ( ) ) {
+  					$logs -> addLog ( "chir", $session->getNaviFull ( ), 'Annulation du passage en UF de Chirurgie (le nom du médecin ne commence pas par "Dr CHIR")' ) ;
+  					$this->addBAL ( 'achir', 'achir' ) ;
+					$this->patient->setAttribut ( 'UF', $ufExec ) ;
+					$this->patient->setAttribut ( 'EtatUHCD', '' ) ;
+					header ( 'Location:index.php?navi='.$session->genNavi ( $session->getNavi(0), $session->getNavi(1), $session->getNavi(2)) ) ;
+  				}
+  			}
+  		}
+  		return $af ;
+	}
+
 	// Gestion de l'UHCD
 	function genUHCD ( ) {
 		global $options ;
@@ -658,9 +688,12 @@ class clFichePatient {
 		
 		// Appel du module de soins continus
 		$this->genSC ( ) ;
-		
-		// Si le patient n'est pas en soins continus, alors on gère l'UHCD.
-		if ( ! $this->patient->isSoinsContinus ( ) AND $options -> getOption ( 'GestionUHCD' ) ) {
+        
+		// Appel du module de chirurgie
+		$this->genChirurgie ( ) ;
+
+		// Si le patient n'est pas en soins continus ou en chirurgie, alors on gère l'UHCD.
+		if ( ! $this->patient->isSoinsContinus ( ) AND ! $this->patient->isChirurgie ( ) AND $options -> getOption ( 'GestionUHCD' ) ) {
 		
 			$ufExec       = $options->getOption ( 'numUFexec' ) ;
 			$ufUHCD       = $options->getOption ( 'numUFUHCD' ) ;
@@ -885,6 +918,8 @@ class clFichePatient {
 			if ( $type == 'urg' ) $data['action'] = 'Annulation du passage en UF UHCD' ;
 			elseif ( $type == 'asc' ) $data['action'] = 'Annulation du passage en UF Soins Continus' ;
 			elseif ( $type == 'sc' ) $data['action'] = 'Passage en UF Soins Continus' ;
+			elseif ( $type == 'achir' ) $data['action'] = 'Annulation du passage en UF de Chirurgie (le nom du médecin ne commence pas par "Dr CHIR")' ;
+			elseif ( $type == 'chir' ) $data['action'] = 'Passage en UF de Chirurgie (le nom du médecin commence par "Dr CHIR")' ;
 			elseif ( $type == 'uhcdrepere') $data['action'] = 'Passage en UF UHCD repéré' ;
 			elseif ( $type == 'anonrpu' ) $data['action'] = 'Annulation du passage en UF '.$options->getOption ( 'numUFnonRPU' ) ;
 			elseif ( $type == 'nonrpu' ) $data['action'] = 'Passage en UF '.$options->getOption ( 'numUFnonRPU' ) ;
@@ -1053,6 +1088,7 @@ class clFichePatient {
       elseif ( $this->patient->getUF ( ) == $options->getOption ( "numUFUHCDrepere" ) AND $options->getOption ( "numUFUHCDrepere" ) ) 
       	$mod -> MxText ( "etatUHCD", " (UHCD repéré $link)" ) ;
       elseif ( ! $this->patient->getUF ( ) ) $mod -> MxText ( "etatUHCD", " (Aucune UF)" ) ;
+      elseif ( $this->patient->isChirurgie ( ) ) $mod -> MxText ( "etatUHCD", " (Chirurgie)" ) ;
       else $mod -> MxText ( "etatUHCD", " (Urgences $link)" ) ;
     }
     if ( $options -> getOption ( "ModuleEtiquettes" ) == "Non" ) $mod -> MxText ( "etiquettes", "" ) ;
