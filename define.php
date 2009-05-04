@@ -35,6 +35,7 @@ define ( 'Erreurs_MailApp', (string)$xml->erreursfrom ) ;
 define ( 'Erreurs_Mail', 	(string)$xml->erreursto ) ;
 if ( (string)$xml->baseformx ) 
 	define ( 'FX_BDD',      (string)$xml->baseformx ) ;
+else define ( 'FX_BDD', BDD ) ;
 
 if ( (string)$xml->uniqIdSiteInstallation )
 	define ( 'IDSITE',      (string)$xml->uniqIdSiteInstallation ) ;

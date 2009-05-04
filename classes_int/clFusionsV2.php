@@ -234,7 +234,16 @@ class clFusionsV2 {
 				// Exécution de la requete.
 				$requete->delRecord ( "idpatient='".$auto."'" ) ;
 				$this->infos .= "Fusion du patient (".$res['sexe'][0].") ".ucfirst(strtolower($res['prenom'][0]))." ".strtoupper($res['nom'][0])." effectuée.<br />" ;
-				
+
+                // Mise à jour de la table formx : FX_BDD
+                $dataf['ids'] = $res['idu'][0] ;
+                $requete = new clRequete ( FX_BDD, 'formx', $dataf ) ;
+				// Exécution de la requete.
+				$requete->updRecord ( "ids='".$ras['idu'][0]."'" ) ;
+                $requete = new clRequete ( FX_BDD, 'formx_globvars', $dataf ) ;
+				// Exécution de la requete.
+				$requete->updRecord ( "ids='".$ras['idu'][0]."'" ) ;
+
 				if ( $options -> getOption ( "Module_CCAM" ) ) {
 			    	$fusion = 1;
 			    	$ccam = new clCCAMCotationActesDiags ( Array ( ) ) ;
