@@ -334,6 +334,14 @@ class clPatient {
     else return 0 ;
   }
 
+  function isChirurgie ( ) {
+  	global $options;
+    $uf     = $this->getUF ( ) ;
+    $ufChirurgie = $options->getOption ( 'numUFChirurgie' ) ;
+    if ( $ufChirurgie && ereg ( $ufChirurgie, $uf ) ) return 1 ;
+    else return 0 ;
+  }
+
     function getHashIDU( )
     {
         return $this->getHashIDU($this->getIDU()) ;

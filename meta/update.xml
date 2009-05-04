@@ -47,5 +47,13 @@
 		<description>Mise à jour du référentiel diags-sfmu/packs rc2 + motifs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
 		<ccam />
   </update>
+  <update id="8">
+                <description>Ajout de l'option pour la gestion de l'UF de chirurgie (APHM)</description>
+                <option_new>
+                        <categorie>UF</categorie>
+                        <cle>numUFChirurgie</cle>
+                        <libelle>Le patient passera dans cette UF si le nom du médecin commence par "Dr CHIR"</libelle>
+                </option_new>
+  </update>
 
 </updates>
