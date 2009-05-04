@@ -413,7 +413,12 @@ class clHprimXML {
     			
     	$mod -> MxText ( 'cim10princ', $cdccam ) ;
     	$tabd = explode ( '~', $cddiags ) ;
-        if ( count ( $tabd ) < 1 ) $mod -> MxBloc ( 'diagsign', 'replace', '<diagnosticSignificatif><codeCim10/></diagnosticSignificatif>' ) ;
+        eko ( count ( $tabd ).' : '.$cddiags );
+        if ( count ( $tabd ) < 1 OR $cddiags == '~' OR $cddiags == '' ) {
+            //$mod -> MxBloc ( 'diagsign', 'replace', '<diagnosticSignificatif><codeCim10/></diagnosticSignificatif>' ) ;
+                    eko ( "ici" ) ;
+            $mod -> MxBloc ( 'diagssign', 'replace', ' ' ) ;
+        }
         else for ( $i = 0 ; isset($tabd[$i]) ; $i++ ) {
         	switch( $options->getOption ( 'HprimXML_CIM10_encodage' )) {
     		case 'alphanum' :
@@ -426,8 +431,8 @@ class clHprimXML {
 		    	$codeCim10sign = $tabd[$i] ;
 		    	break ;	
     		}
-    		$mod -> MxText ( 'diagsign.codeCim10sign',$codeCim10sign ) ;
-    		$mod -> MxBloc ( 'diagsign', 'loop' ) ;
+    		$mod -> MxText ( 'diagssign.diagsign.codeCim10sign',$codeCim10sign ) ;
+    		$mod -> MxBloc ( 'diagssign.diagsign', 'loop' ) ;
         }
 		$this->genFile ( $mod -> MxWrite ( "1" ), $num, $nomFic, array(), "diagxml/" ) ;
 	}
