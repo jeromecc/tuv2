@@ -136,12 +136,13 @@ class clHprim {
 			    $this->readHPRIM ( "hprim/$fic" ) ;
 			    $date = new clDate ( ) ;
 			    $tmpDate = $date -> getTimestamp ( ) ;
-
+/*
 			    rename ( "hprim/$fic", "hprim/ok/".$tmpDate.$fic ) ;
 			    if ( file_exists ( "hprim/".$tmp[0].'.OK' ) )
 			    	rename ( "hprim/".$tmp[0].".OK", "hprim/ok/".$tmpDate.$tmp[0].".OK" ) ;
 			    elseif ( file_exists ( "hprim/".$tmp[0].'.ok' ) )
 			    	rename ( "hprim/".$tmp[0].".ok", "hprim/ok/".$tmpDate.$tmp[0].".ok" ) ;
+ */
 			  }
       		}
       	  }
@@ -181,7 +182,8 @@ class clHprim {
 						unset ( $patient[count($patient)-1] ) ;
 						unset ( $patient2[0] ) ;
 						$final = array_merge($patient,$patient2) ;
-						//eko ( $final ) ;
+						$final = explode ( $sep1, $patients[$i].substr($patients[$i+1],2,strlen($patients[$i+1])-2) ) ;
+                        eko ( $final ) ;
 						$patient = $final ;
 						$i++ ;
 					}
