@@ -654,6 +654,7 @@ class clFichePatient {
 	function genUHCD ( ) {
 		global $options ;
 		global $session ;
+        global $logs ;
 		
 		// Appel du module de soins continus
 		$this->genSC ( ) ;
@@ -709,10 +710,12 @@ class clFichePatient {
                 if ( $oldUF != $ufUHCD AND $oldUF != $ufUHCDrepere ) {
                     if ( ! $ufUHCDrepere OR ereg ( $salleUHCD, $this->patient->getSalle ( ) ) ) {
                         $this->addBAL ( $rep, 'uhcd' ) ;
+                        $logs -> addLog ( "uhcd", $session->getNaviFull ( ), "Passage automatique en UHCD (code > 3)" ) ;
                         $this->patient->setAttribut ( 'DateUHCD', $dateC ) ;
                         $this->patient->setAttribut ( 'UF', $ufUHCD ) ;
                     } else {
                         $this->addBAL ( $rep, 'uhcdrepere' ) ;
+                        $logs -> addLog ( "uhcd", $session->getNaviFull ( ), "Passage automatique en UHCD repéré (code > 3)" ) ;
                         $this->patient->setAttribut ( 'DateUHCD', $dateC ) ;
                         $this->patient->setAttribut ( 'UF', $ufUHCDrepere ) ;
                     }
@@ -740,7 +743,7 @@ class clFichePatient {
 			if ( $CCMU45 ) {
 				$rep = 'okCCMU45' ;
 				$uf = $ufUHCD ;
-			
+                $logs -> addLog ( "uhcd", $session->getNaviFull ( ), "Passage automatique en UHCD (code > 3)" ) ;
 			} elseif ( $this->patient->getTypeDestination ( ) == 'T' ) {
 				$rep = 'okTransfert' ;
 				$uf = $ufUHCD ;
@@ -764,10 +767,12 @@ class clFichePatient {
 			if ( $rep == 'okDuree' ) {
 				if ( $_POST['valider'] == 'Oui' ) {
 					$session->setLogSup ( 'UHCD réponse : Oui' ) ;
+                    $logs -> addLog ( "uhcd", $session->getNaviFull ( ), "UHCD réponse : Oui" ) ;
 					$rep = 'okCriteres' ;
 					$uf = $ufUHCD ;
 				} elseif ( $_POST['valider'] == 'Non' ) {
 					$session->setLogSup ( 'UHCD réponse : Non' ) ;
+					$logs -> addLog ( "uhcd", $session->getNaviFull ( ), "UHCD réponse : Non" ) ;
 					$rep = 'noCriteres' ;
 					$uf = $ufExec ;
 				} elseif ( $etat != 'okCriteres' AND $etat != 'noCriteres' ) {
@@ -776,28 +781,6 @@ class clFichePatient {
 	    			$mod = new ModeliXe ( "ErreurUHCD.html" ) ;
                     $this->setIHMBusy();
 	    			$mod -> SetModeliXe ( ) ;
-					/*
-					if ( $this->patient->getDateExamen ( ) != '0000-00-00 00:00:00' ) $dateMin = new clDate ( $this->patient->getDateExamen ( ) ) ;
-	      			else $dateMin = new clDate ( $this->patient->getDateAdmission ( ) ) ;
-	    			$dateNow = new clDate ( ) ;
-	  				$minutes = $dateNow -> getMinutes ( ) ;
-	  				$minutesless = ( $minutes % 5 ) ;
-	  				$dateNow -> addMinutes ( -$minutesless ) ;
-	    			$data[now] = 'Maintenant' ;
-	    			$min = $dateMin -> getTimestamp ( ) ;
-	    			$t = $dateNow -> getTimestamp ( ) ;
-	    			$data[$t] = $dateNow -> getDate ( "d-m-Y H:i" ) ; 
-	    			// On parcourt les dates en fonctions des options.
-					for ( $i = 0 ; $dateNow -> getTimestamp ( ) >= $min ; $i += 5 ) {
-		  				$t = $dateNow -> getTimestamp ( ) ;
-		  				$data[$t] = $dateNow -> getDate ( "d-m-Y H:i" ) ; 
-		  				$dateNow -> addMinutes ( -5 ) ;
-					}
-			
-					$mod -> MxSelect ( 'dateUHCD', 'dateUHCD', 'now', $data ) ;
-					
-					$mod -> MxText ( "errs", "Le patient présente-t-il les critères d'hospitalisation UHCD?" ) ;
-					*/
 	        		// Récupération du code HTML généré.  
 	        		$mod -> MxHidden ( "hidden", "navi=".$session -> genNavi ( $session->getNavi(0), $session->getNavi(1), $session->getNavi(2) ) ) ;
 	    			return $mod -> MxWrite ( "1" ) ;
@@ -808,39 +791,20 @@ class clFichePatient {
 			if ( $rep == 'okCCMU3' ) {
 				if ( $_POST['valider'] == 'Oui' ) {
 					$session->setLogSup ( 'UHCD réponse : Oui' ) ;
+                    $logs -> addLog ( "uhcd", $session->getNaviFull ( ), "UHCD réponse : Oui" ) ;
 					$rep = 'okActes' ;
 					$uf = $ufUHCD ;
 				} elseif ( $_POST['valider'] == 'Non' ) {
 					$session->setLogSup ( 'UHCD réponse : Non' ) ;
-					$rep = 'noActes' ;
+					$logs -> addLog ( "uhcd", $session->getNaviFull ( ), "UHCD réponse : Non" ) ;
+                    $rep = 'noActes' ;
 					$uf = $ufExec ;
 				} elseif ( $etat != 'okActes' AND $etat != 'noActes' ) {
-					$session->setLogSup ( 'UHCD question : actes lourds?' ) ;
 					$session->setLogSup ( 'Question UHCD' ) ;
 					// Chargement du template ModeliXe.
 	    			$mod = new ModeliXe ( "ErreurUHCD.html" ) ;
                     $this->setIHMBusy();
 	    			$mod -> SetModeliXe ( ) ;
-					/*
-					if ( $this->patient->getDateExamen ( ) != '0000-00-00 00:00:00' ) $dateMin = new clDate ( $this->patient->getDateExamen ( ) ) ;
-	      			else $dateMin = new clDate ( $this->patient->getDateAdmission ( ) ) ;
-	    			$dateNow = new clDate ( ) ;
-	  				$minutes = $dateNow -> getMinutes ( ) ;
-	  				$minutesless = ( $minutes % 5 ) ;
-	  				$dateNow -> addMinutes ( -$minutesless ) ;
-	    			$data[now] = 'Maintenant' ;
-	    			$min = $dateMin -> getTimestamp ( ) ;
-	    			$t = $dateNow -> getTimestamp ( ) ;
-	    			$data[$t] = $dateNow -> getDate ( "d-m-Y H:i" ) ; 
-	    			// On parcourt les dates en fonctions des options.
-					for ( $i = 0 ; $dateNow -> getTimestamp ( ) >= $min ; $i += 5 ) {
-		  				$t = $dateNow -> getTimestamp ( ) ;
-		  				$data[$t] = $dateNow -> getDate ( "d-m-Y H:i" ) ; 
-		  				$dateNow -> addMinutes ( -5 ) ;
-					}
-					$mod -> MxSelect ( 'dateUHCD', 'dateUHCD', 'now', $data ) ;
-					$mod -> MxText ( "errs", "Le patient a-t-il des actes lourds?" ) ;
-					*/
 	        		// Récupération du code HTML généré.  
 	        		$mod -> MxHidden ( "hidden", "navi=".$session -> genNavi ( $session->getNavi(0), $session->getNavi(1), $session->getNavi(2) ) ) ;
 	    			return $mod -> MxWrite ( "1" ) ;
@@ -861,10 +825,12 @@ class clFichePatient {
 					if ( $oldUF != $ufUHCD AND $oldUF != $ufUHCDrepere ) {
 						if ( ! $ufUHCDrepere OR ereg ( $salleUHCD, $this->patient->getSalle ( ) ) ) {
 							$this->addBAL ( $rep, 'uhcd' ) ;
+                            //$logs -> addLog ( "uhcd", $session->getNaviFull ( ), "Passage automatique en UHCD (code > 3)" ) ;
 							$this->patient->setAttribut ( 'DateUHCD', $dateC ) ;					
 							$this->patient->setAttribut ( 'UF', $ufUHCD ) ;
 						} else {
 							$this->addBAL ( $rep, 'uhcdrepere' ) ;
+                            //$logs -> addLog ( "uhcd", $session->getNaviFull ( ), "Passage automatique en UHCD repéré (code > 3)" ) ;
 							$this->patient->setAttribut ( 'DateUHCD', $dateC ) ;					
 							$this->patient->setAttribut ( 'UF', $ufUHCDrepere ) ;	
 						}					
@@ -873,6 +839,7 @@ class clFichePatient {
 				} elseif ( $rep == 'noCCMU3' OR $rep == 'noCriteres' OR $rep == 'noActes' ) {
 					if ( $oldUF AND ( $oldUF == $ufUHCD OR $oldUF == $ufUHCDrepere ) ) {
 						$this->addBAL ( $rep, 'urg' ) ;
+                        $logs -> addLog ( "uhcd", $session->getNaviFull ( ), "Annulation du passage en UHCD (code < 3)" ) ;
 						$this->patient->setAttribut ( 'DateUHCD', $dateC ) ;					
 						$this->patient->setAttribut ( 'UF', $ufExec ) ;
 					}
