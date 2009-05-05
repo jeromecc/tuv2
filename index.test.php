@@ -20,7 +20,7 @@ if ( ! file_exists(URLLOCAL.'queries_int/getHistorique.qry'))
 if ( ! file_exists(URLLOCAL.'queries_int/getHistoriqueDocs.qry'))
     copy(URLLOCAL.'queries_int/getHistoriqueDocs.qry.base',URLLOCAL.'queries_int/getHistoriqueDocs.qry');
 
-if ( ! file_exists(URLLOCAL.'queries_int/getHistoriqueDoc.qry'))
+if ( ! file_exists(URLLOCAL.'queries_int/getHistoriqueDoc.qry') AND file_exists(URLLOCAL.'queries_int/getHistoriqueDoc.qry.base'))
     copy(URLLOCAL.'queries_int/getHistoriqueDoc.qry.base',URLLOCAL.'queries_int/getHistoriqueDoc.qry');
 
 
@@ -216,8 +216,11 @@ if ($isSrvMaj )
 	$tabMatches = array();
 	preg_match('/_maj_(.*)_hash_(.*)_/', file_get_contents('http://www.orupaca.fr/ressources/tu/repository/last_version_'.BRANCHE.'.html'),$tabMatches) ;
 	$lastVersion = $tabMatches[1];
-	$currentVersion = file_get_contents(URLLOCAL.'version.txt');
+	$currentVersion = str_replace("/n/r",'  ', file_get_contents(URLLOCAL.'version.txt'));
 	$hash = $tabMatches[2];
+
+	//print strlen($currentVersion).'*'.$currentVersion.'*'.$lastVersion.strlen($lastVersion);
+
 	if ( version_compare($lastVersion,$currentVersion,'>'))
 	{
 		print "<br />Une nouvelle version:  $lastVersion est disponible. <br />Téléchargement dans ".URLLOCAL."var/dist/   ..." ;
@@ -226,6 +229,9 @@ if ($isSrvMaj )
         $nomFic = PREFIXEARCHIVE.'.maj.'.$lastVersion.'.tgz';
         $ficArchive = URLLOCAL.'var/dist/'.$nomFic ;
         //print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
+
+		
+
 		$archive = @file_get_contents('http://www.orupaca.fr/ressources/tu/repository/'.$nomFic);
         $hashrecu = md5($archive) ;
         if( $hashrecu == $hash )
