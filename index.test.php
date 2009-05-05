@@ -216,10 +216,11 @@ if ($isSrvMaj )
 	$tabMatches = array();
 	preg_match('/_maj_(.*)_hash_(.*)_/', file_get_contents('http://www.orupaca.fr/ressources/tu/repository/last_version_'.BRANCHE.'.html'),$tabMatches) ;
 	$lastVersion = $tabMatches[1];
-	$currentVersion = str_replace("/n/r",'  ', file_get_contents(URLLOCAL.'version.txt'));
+	$currentVersion = str_replace("\n",'', file_get_contents(URLLOCAL.'version.txt'));
+	$currentVersion = str_replace("\r",'', $currentVersion);
 	$hash = $tabMatches[2];
 
-	//print strlen($currentVersion).'*'.$currentVersion.'*'.$lastVersion.strlen($lastVersion);
+	//print strlen($currentVersion).'*'.$currentVersion.'*'.$lastVersion.'*'.strlen($lastVersion);
 
 	if ( version_compare($lastVersion,$currentVersion,'>'))
 	{
