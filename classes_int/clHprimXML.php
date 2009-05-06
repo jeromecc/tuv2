@@ -226,6 +226,26 @@ class clHprimXML {
 		$pati = new clPatient ( $res['DISCR'][$deb], ($action=='suppression'?'':'Sortis')  ) ;
         //$pati -> debugInfos ( ) ;
         //eko ( "UUUUUUUUUUUUUUUUUUUUUUUUFFFFFFFFFFFFFFFFFF : ".$pati->getInformation('uf').' pour '.$pati->getDateNaissance() ) ;
+        // Correction date foireuse module ccam
+        $datadmi = new clDate ( $pati->getDateAdmission ( ) ) ;
+        $datexam = new clDate ( $pati->getDateExamen ( ) ) ;
+        $datsort = new clDate ( $pati->getDateSortie ( ) ) ;
+        if ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'admission" ) $datdema = $dateadmi ;
+        elseif ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'examen" ) $datdema = $datexam ;
+        elseif ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure de sorti" ) $datdema = $datsort ;
+        else {
+
+            if (  $datadmi->getDatetime ( ) != '1999-12-31 00:00:00' AND $datsort->getDatetime ( ) != '1999-12-31 00:00:00' )
+                $time = (int) ( $datadmi->getTimestamp ( ) / 2 ) + ( $datsort->getTimestamp ( ) / 2 ) ;
+            elseif ( $datadmi->getDatetime ( ) != '1999-12-31 00:00:00' ) $time = $datadmi->getTimestamp ( ) ;
+            else $time = $datsort->getTimestamp ( ) ;
+            $datdema = new clDate ( $time ) ;
+            eko ( $datadmi->getTimestamp ( ).' + '.$datsort->getTimestamp ( ).' = '.$time.' = '.$datdema -> getTimestamp ( ) ) ;
+            eko ( $datadmi->getDatetime ( ).' + '.$datsort->getDatetime ( ).' = '.$time.' = '.$datdema -> getDatetime ( ) ) ;
+        }
+        $dtdem = $datdema -> getDate ( 'd/m/Y' ) ;
+        $hhdem = $datdema -> getDate ( 'H:i' ) ;
+
     $mod -> MxText ( 'venueEmetteur', $idpass ) ;
 		$mod -> MxText ( 'venueRecepteur', $idpass ) ;
 		$mod -> MxText ( 'venueDate', $dtdem ) ;
@@ -270,8 +290,10 @@ class clHprimXML {
 			if ( $options->getOption('LettreCleCSPsy') AND $ngapl == 'CNPSY' ) $ngapl = $options->getOption('LettreCleCSPsy') ;
 
 		  //$mod -> MxText ( 'identifiantMessage', $res['ID'][$deb] ) ;
-    		
-        
+
+        // Correction date foireuse module ccam
+        $dtdem = $datdema -> getDate ( 'd/m/Y' ) ;
+        $hhdem = $datdema -> getDate ( 'H:i' ) ;
         
         if ( $type == 'NGAP' ) {
 				if ( $ngapl == 'MNO' AND $ageannees > 2 ) $erreurngap = 1 ;
