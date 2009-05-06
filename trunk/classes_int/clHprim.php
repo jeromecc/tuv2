@@ -136,13 +136,13 @@ class clHprim {
 			    $this->readHPRIM ( "hprim/$fic" ) ;
 			    $date = new clDate ( ) ;
 			    $tmpDate = $date -> getTimestamp ( ) ;
-/*
+
 			    rename ( "hprim/$fic", "hprim/ok/".$tmpDate.$fic ) ;
 			    if ( file_exists ( "hprim/".$tmp[0].'.OK' ) )
 			    	rename ( "hprim/".$tmp[0].".OK", "hprim/ok/".$tmpDate.$tmp[0].".OK" ) ;
 			    elseif ( file_exists ( "hprim/".$tmp[0].'.ok' ) )
 			    	rename ( "hprim/".$tmp[0].".ok", "hprim/ok/".$tmpDate.$tmp[0].".ok" ) ;
- */
+
 			  }
       		}
       	  }
