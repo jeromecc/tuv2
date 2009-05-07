@@ -306,12 +306,12 @@ foreach ($xml->update as $update) {
  		$requeted = " UPDATE `options` SET ";
 		$requetef = " WHERE libelle='".$option_upd->cle."'" ;
 		
-		$categorie = utf8_decode((string) $option_upd->categorie) ;
 		$set  = "libelle='".(string) $option_upd->cle."'" ;
 		$set .= (string) $option_upd->libelle ? ",description='".utf8_decode(addslashes((string) $option_upd->libelle))."'" : '' ;
         $set .= (string) $option_upd->type ? ",type='".utf8_decode(addslashes((string) $option_upd->type))."'" : '' ;
 		$set .= (string) $option_upd->choix ? ",choix='".utf8_decode(addslashes((string) $option_upd->choix))."'" : '' ;
-		$set .= (string) $option_upd->valeur ? ",valeur='".utf8_decode(addslashes((string) $option_upd->valeur))."'" : '' ;
+		$set .= (string) $option_upd->value ? ",valeur='".utf8_decode(addslashes((string) $option_upd->value))."'" : '' ;
+		$set .= (string) $option_upd->categorie ? ",categorie='".utf8_decode(addslashes((string) $option_upd->categorie))."'" : '' ;
 		$set .= (string) $option_upd->administrateur ? ",administrateur='".((string) $option_upd->administrateur=='true'?1:0)."'" : '' ;
 
 		$requete = $requeted.$set.$requetef ;

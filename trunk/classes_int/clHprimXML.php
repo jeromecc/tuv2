@@ -240,8 +240,8 @@ class clHprimXML {
             elseif ( $datadmi->getDatetime ( ) != '1999-12-31 00:00:00' ) $time = $datadmi->getTimestamp ( ) ;
             else $time = $datsort->getTimestamp ( ) ;
             $datdema = new clDate ( $time ) ;
-            eko ( $datadmi->getTimestamp ( ).' + '.$datsort->getTimestamp ( ).' = '.$time.' = '.$datdema -> getTimestamp ( ) ) ;
-            eko ( $datadmi->getDatetime ( ).' + '.$datsort->getDatetime ( ).' = '.$time.' = '.$datdema -> getDatetime ( ) ) ;
+            //eko ( $datadmi->getTimestamp ( ).' + '.$datsort->getTimestamp ( ).' = '.$time.' = '.$datdema -> getTimestamp ( ) ) ;
+            //eko ( $datadmi->getDatetime ( ).' + '.$datsort->getDatetime ( ).' = '.$time.' = '.$datdema -> getDatetime ( ) ) ;
         }
         $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
         $hhdem = $datdema -> getDate ( 'H:i' ) ;
@@ -278,7 +278,9 @@ class clHprimXML {
             }
 			if ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI' ) $codeade = $adeli; 
       elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'NOMMED' ) $codeade = $nomumed;
+       elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI9' ) $codeade = sprintf('%09d',$adeli);
       else $codeade = 'x' ;
+            eko ( "CODE MEDECIN : $codeade" ) ;
 			if ( $options -> getOption ( "HprimXML_ExecPrinc" ) ) $medExec = ' principal="oui"' ; else $medExec = '' ;
 			if ( $options->getOption ( 'HprimXML_StatutFT' ) ) $modStatut = ' statut="ft"' ; else $modStatut = '' ;	
 			if ( $action == 'creation' ) $action = utf8_encode ( 'création' ) ;
@@ -381,7 +383,8 @@ class clHprimXML {
 		$sexe  = $tabActe[4]      ; $dtnai  = $tabActe[5]  ; $dtdem   = $tabActe[6]  ; $hhdem = $tabActe[7]  ; $action = $tabActe[9] ;
 		$idact = $tabActe[10]     ; $cdccam = $tabActe[11] ; $cddiags = $tabActe[12] ; $dtr   = $tabActe[15] ; $hhr    = $tabActe[16] ;
 		$adeli = $tabActe[19]     ; $ufr    = $tabActe[20] ;
-		$this->adeliMedecin = $adeli ;
+        if ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI9' ) $this->adeliMedecin = sprintf('%09d',$adeli);
+		else $this->adeliMedecin = $adeli ;
     if ( $action == 'creation' ) $action = utf8_encode ( 'création' ) ;
 		$date = new clDate ( ) ;
 		if ( $options->getOption('HprimXML_NomFic') ) $nomFic = $options->getOption('HprimXML_NomFic').'_'.$res['ID'][$i].'' ;
@@ -413,7 +416,7 @@ class clHprimXML {
     	$mod -> MxText ( 'action', $action ) ;
     	$mod -> MxText ( 'rumEmetteur', $idpass ) ;
 		$mod -> MxText ( 'rumDate', $dtr ) ;
-    	$mod -> MxText ( 'ADELI', $adeli ) ;
+    	$mod -> MxText ( 'ADELI', $this->adeliMedecin ) ;
     	//$mod -> MxText ( 'rumUF', $ufr ) ;
         $mod -> MxText ( 'rumUF', $pati->getUF () ) ;
     	$mod -> MxText ( 'rumUFDate', $dtdem ) ;
