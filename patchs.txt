@@ -1,4 +1,14 @@
 ********************************************************************************************************
+**************************** 2009-05-07 13:00:00 : V 2.20.12 *******************************************
+********************************************************************************************************
+
+- Correction d'un bug sur le calcul de la date médiane en HprimXML.		(Damien Borel)
+- Nouveau mode de génération des nom des fichiers HprimXML si l'option 
+  HprimXML_nom est saisie : le nom commencera par la valeur de l'option.	(Damien Borel)
+- Si l'option HprimXML_modulo est activée alors le numéro dans les noms de
+  fichiers HprimXML tournera en boucle entre 0 et 999 (Draguignan).		(Damien Borel)
+
+********************************************************************************************************
 **************************** 2009-05-06 14:00:00 : V 2.20.11 *******************************************
 ********************************************************************************************************
 
