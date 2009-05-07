@@ -367,7 +367,7 @@ class clHprimXML {
 		} else $numfic = $res['ID'][$deb] ;
 		if ( $options->getOption('HprimXML_NomFic') ) $nomFic = $options->getOption('HprimXML_NomFic').'_'.$numfic.'' ;
 		else $nomFic = 'fic'.$options->getOption('HprimXML_ChaineFic').'TV2_'.$numfic.'' ;
-		
+		if ( $options->getOption('HprimXML_NomFic') AND $options->getOption('HprimXML_NomModulo') ) $nomFic = $options->getOption('HprimXML_NomFic').sprintf('%03d',$res['ID'][$deb]%1000) ;
     	$num = $res['ID'][$deb] ;
 		$this->genFile ( $mod -> MxWrite ( "1" ), $num, $nomFic, $listeTraited, $repfic ) ;
 	}
@@ -459,6 +459,8 @@ class clHprimXML {
     		$mod -> MxText ( 'diagssign.diagsign.codeCim10sign',$codeCim10sign ) ;
     		$mod -> MxBloc ( 'diagssign.diagsign', 'loop' ) ;
         }
+        if ( $options->getOption('HprimXML_NomFic') AND $options->getOption('HprimXML_NomModulo') ) $nomFic = $options->getOption('HprimXML_NomFic').sprintf('%03d',$res['ID'][$deb]%1000) ;
+    	
 		$this->genFile ( $mod -> MxWrite ( "1" ), $num, $nomFic, array(), "diagxml/" ) ;
 	}
   	
