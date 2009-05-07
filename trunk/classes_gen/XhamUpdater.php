@@ -252,6 +252,7 @@ if(file_exists(URLLOCAL.$varRelFic))
 	$tabUpdateOk = explode(',',file_get_contents(URLLOCAL.$varRelFic));
 else
 	$tabUpdateOk = array();
+    
 foreach ($xml->update as $update) {
 	//si déja appliquée
 	if(in_array($update['id'],$tabUpdateOk))
@@ -297,6 +298,23 @@ foreach ($xml->update as $update) {
 		$choix =  (string) $option_new->choix ? (string) $option_new->choix : '';
 		$defaultValue = utf8_decode(addslashes((string) $option_new->defaultValue)) ;
 		$requete = sprintf($requete,$idApplication,$categorie,$cle,$libelle,$type,$choix,$defaultValue);
+		self::execRequete(MYSQL_HOST,MYSQL_USER,MYSQL_PASS,BASEXHAM,$requete,'1');
+ 	}
+
+    //update d'option
+ 	foreach($update->option_upd as $option_upd ) {
+ 		$requeted = " UPDATE `options` SET ";
+		$requetef = " WHERE libelle='".$option_upd->cle."'" ;
+		
+		$categorie = utf8_decode((string) $option_upd->categorie) ;
+		$set  = "libelle='".(string) $option_upd->cle."'" ;
+		$set .= (string) $option_upd->libelle ? ",description='".utf8_decode(addslashes((string) $option_upd->libelle))."'" : '' ;
+        $set .= (string) $option_upd->type ? ",type='".utf8_decode(addslashes((string) $option_upd->type))."'" : '' ;
+		$set .= (string) $option_upd->choix ? ",choix='".utf8_decode(addslashes((string) $option_upd->choix))."'" : '' ;
+		$set .= (string) $option_upd->valeur ? ",valeur='".utf8_decode(addslashes((string) $option_upd->valeur))."'" : '' ;
+		$set .= (string) $option_upd->administrateur ? ",administrateur='".((string) $option_upd->administrateur=='true'?1:0)."'" : '' ;
+
+		$requete = $requeted.$set.$requetef ;
 		self::execRequete(MYSQL_HOST,MYSQL_USER,MYSQL_PASS,BASEXHAM,$requete,'1');
  	}
 
