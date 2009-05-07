@@ -243,7 +243,7 @@ class clHprimXML {
             eko ( $datadmi->getTimestamp ( ).' + '.$datsort->getTimestamp ( ).' = '.$time.' = '.$datdema -> getTimestamp ( ) ) ;
             eko ( $datadmi->getDatetime ( ).' + '.$datsort->getDatetime ( ).' = '.$time.' = '.$datdema -> getDatetime ( ) ) ;
         }
-        $dtdem = $datdema -> getDate ( 'd/m/Y' ) ;
+        $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
         $hhdem = $datdema -> getDate ( 'H:i' ) ;
 
     $mod -> MxText ( 'venueEmetteur', $idpass ) ;
@@ -292,7 +292,7 @@ class clHprimXML {
 		  //$mod -> MxText ( 'identifiantMessage', $res['ID'][$deb] ) ;
 
         // Correction date foireuse module ccam
-        $dtdem = $datdema -> getDate ( 'd/m/Y' ) ;
+        $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
         $hhdem = $datdema -> getDate ( 'H:i' ) ;
         
         if ( $type == 'NGAP' ) {
