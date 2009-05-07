@@ -56,4 +56,32 @@
                 </option_new>
   </update>
 
+
+  <update id="15">
+                <description>Mise à jour de l'option HprimXML_CodeMedecin</description>
+		<option_upd>
+			<cle>HprimXML_CodeMedecin</cle>
+			<choix>x|ADELI|ADELI9|NOMMED</choix>
+		</option_upd>	
+  </update>
+
+  <update id="10">
+        <description>Création de l'option HprimXML_NomModulo</description>
+	<option_new>
+               <categorie>CCAM</categorie>
+               <cle>HprimXML_NomModulo</cle>
+               <libelle>Le numéro dans le nom du fichier est codé sur 3 caractères de 000 à 999.</libelle>
+	       <type>bool</type>
+        </option_new>
+  </update>
+
+  <update id="11">
+        <description>Création de l'option HprimXML_NomFicDeb</description>
+        <option_new>
+               <categorie>CCAM</categorie>
+               <cle>HprimXML_NomFicDeb</cle>
+               <libelle>Si cette option est saisie alors le nom des fichiers commencera par cette valeur.</libelle>
+        </option_new>
+  </update>
+
 </updates>

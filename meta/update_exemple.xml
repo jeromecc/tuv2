@@ -118,6 +118,19 @@
 		<ccam />
   </update>
 
+	<update id="25">
+                <description>Mise à jour des champs d'une option</description>
+                <option_upd> <!-- toutes les balises suivantes sont optionnelles sauf <cle> -->
+			<cle>nomoption</cle> <!-- l'update va se faire par rapport à cette clé -->
+                        <categorie>Catégorie/categorie> 
+                        <libelle>Description</libelle> 
+			<choix>1|2|3</choix>
+			<type>combo</type>
+                        <value></value>
+			<administrateur>true</administrateur> <!-- ou false... -->
+                </option_upd>
+        </update>
+
 
 
 </updates>
