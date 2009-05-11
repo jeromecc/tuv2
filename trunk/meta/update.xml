@@ -65,7 +65,7 @@
 		</option_upd>	
   </update>
 
-  <update id="10">
+  <update id="17">
         <description>Création de l'option HprimXML_NomModulo</description>
 	<option_new>
                <categorie>CCAM</categorie>
@@ -75,13 +75,5 @@
         </option_new>
   </update>
 
-  <update id="11">
-        <description>Création de l'option HprimXML_NomFicDeb</description>
-        <option_new>
-               <categorie>CCAM</categorie>
-               <cle>HprimXML_NomFicDeb</cle>
-               <libelle>Si cette option est saisie alors le nom des fichiers commencera par cette valeur.</libelle>
-        </option_new>
-  </update>
 
 </updates>
