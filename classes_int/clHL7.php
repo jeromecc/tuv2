@@ -229,6 +229,8 @@ class clHL7 {
 				$unit           = explode ( $sep1, $unite[$i] ) ;
 				//eko($unit);
 	        	$data['uf']     = $unit[5];
+                if ( ! $data['uf'] ) $data['uf'] = $unit[3] ;
+                if ( ! $data['uf'] ) $data['uf'] = $unit[1] ;
 	        	//eko($data['uf']);
 					
 	        	// Etat civil du patient.
@@ -261,6 +263,8 @@ class clHL7 {
 	        	$evenement = explode ( $sep1, $evenements[$i] ) ;
 				$d         = $evenement[6];
                 if ( !$d ) $d = $unit[6] ;
+                if ( !$d ) $d = $unit[4] ;
+                if ( !$d ) $d = $unit[2] ;
                 if ( !$d ) $d = $evenement[2];
 				//eko($d);
 				$date      = substr($d,0,4).'-'.substr($d,4,2).'-'.substr($d,6,2).' '.substr($d,8,2).':'.substr($d,10,2).':00' ;
