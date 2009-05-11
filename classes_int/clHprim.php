@@ -234,7 +234,7 @@ class clHprim {
 					$data['dt_admission'] = $date ;
 				// Informations fixes supplémentaires.
 				// $data['prevenir'] = '' ;
-				$data['mode_admission'] = '' ;	
+				//$data['mode_admission'] = '' ;
 				$data['iduser'] = "IMPORT" ;	
 				$data['manuel'] = 0 ;
 				// eko ( $data ) ;
@@ -261,7 +261,7 @@ class clHprim {
 					}
 				} else {
                 	unset ( $data['dt_admission'] ) ;
-                    unset ( $data['mode_admission'] ) ;
+                    //unset ( $data['mode_admission'] ) ;
                     unset ( $data['telephone'] ) ;
                     unset ( $data['uf'] ) ;
                     if ( $sta == 'MI' ) {
