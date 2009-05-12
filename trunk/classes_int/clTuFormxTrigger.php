@@ -50,6 +50,29 @@ class clTuFormxTrigger {
 		return true ;
 	}
 
+	function hasFunc()
+	{
+		if( $this->getDxDefAttributeVal('func') )
+			return true ;
+		return false ;
+	}
+
+	function launchFunc($objPatient)
+	{
+		$fonction = $this->getDxDefAttributeVal('func') ;
+		try
+		{
+			require(URLLOCAL.'formx/triggers/functions/'.$fonction.'.php');
+			eval(' $r = '.$fonction.'($objPatient);' );
+		}
+		catch(Exception $e)
+		{
+			eko("Problème lors du chargement de la fonction $fonction ");
+		}
+		return false ;
+	}
+
+
 	function isOnOut()
 	{
 		if( $this->getDxDefAttributeVal('onOut') )
@@ -690,8 +713,16 @@ class clTuFormxTriggerWatcher
 			//le patient est il elligible ? Si en sortie, est-ce bien un trigger de sortie ?
 			if( $this->isElligible($trigger)  and ( ! $trigger ->isOnOut() or ( $typeAppel == 'onOut' && $trigger ->isOnOut()  ) ) )
 			{
-				//on le marque comme à afficher
-				$this->markLaunching($trigger->getIdTrigger() );
+				//appel de fonction
+				if( $trigger->hasFunc() )
+				{
+					$trigger->launchFunc($this->getPatient()) ;
+				}
+				else
+				{
+					//on le marque comme à afficher
+					$this->markLaunching($trigger->getIdTrigger() );
+				}
 			}
 		}
 	}
