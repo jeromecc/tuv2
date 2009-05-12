@@ -517,7 +517,7 @@ function getRootDom()
    	$this->dt_modif = $res['dt_modif'][0];
    	$this->libelle = $res['libelle'][0];
    	$this->author = $res['author'][0];
-   	if(isset($this->session->idApplication))
+   	if(isset($res['id_application']))
    		$this->session->idApplication = $res['id_application'][0];
   	//on crée l'objet DOM
 	$this->XMLDOM = new DomDocument ();
@@ -574,6 +574,7 @@ function getRootDom()
 	if(is_object($this->XMLDOM) && !isset( $this->XMLDOM->documentElement ))
 		 throw new Exception ( "Le fichier XML ne s'est pas correctement chargé ou n'a pas été chargé." );
 	if(! $titre) $titre = $this->supprMP( utf8_decode($this->XMLDOM->documentElement->getElementsByTagName('Libelle')->item(0)->nodeValue) );
+	$vals = array();
 	$vals['ids']=$ids;
 	$vals['dt_creation']=date("Y-m-d H:i:s");
 	$vals['dt_modif']=date("Y-m-d H:i:s");
@@ -585,11 +586,12 @@ function getRootDom()
 	$vals['author']=$formxSession->getUser();
 	$vals['data']=utf8_decode($this->XMLDOM->saveXML());
 	//Test si la colonne idApplication existe
-	$requete = new clRequete ( $this->session->baseInstances, $this->session->tableInstances , $vals ) ;
+	
+	$requete = formxSession::getInstance()->getObjRequete($vals) ;
 	$infos = $requete->descTable();
 	if (array_key_exists ('id_application',$infos)) {
 		$vals['id_application']=$this->session->idApplication;
-		$requete = new clRequete ( $this->session->baseInstances, $this->session->tableInstances , $vals ) ;
+		$requete = formxSession::getInstance()->getObjRequete($vals) ;
 	}
 
 	//si l'attribut uniq est présent, c'est qu'on ne peut avoit qu'une seule instance de ce type
@@ -1203,7 +1205,6 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
   $vals['dt_modif'] = $this->dt_modif ;  
   $vals['libelle'] = $this->supprMP( utf8_decode( formxTools::getTagValue($this->XMLDOM->documentElement,'Libelle') ));
   if(( $vals['status'] ) != 'F' || $this->justClosed ) $vals['dt_modif']=date("Y-m-d H:i:s");
-  //$req = new clResultQuery ;
   $this->debug("SAUVEGARDE de l'instance ".$this->idInstance." dans la table ".$this->session->tableInstances." avec le status ".$vals['status']);
   $requete = $this->session->getObjRequete($vals);
   $resu = $requete->updRecord (" id_instance = '".$this->idInstance."'  ") ;
@@ -3043,6 +3044,7 @@ function detectHeresie() {
    //on s'arrête à la dernière étape non validée
    $notTheFirst = '';
    $etape_memo_prec='';
+   $etape_current = '' ;
    foreach ($etapes as  $etape) { //on parcours les nodes
    	if(isset($etape_current) )
 		$notTheLast = 'oui';
@@ -3211,7 +3213,7 @@ function getTabAllItemsValues($options='') {
 	$noNominativeData = false ;
 	if($options)
 	{
-		if($options['noNominativeData'])  $noNominativeData = true ;
+		if(isset($options['noNominativeData']) && $options['noNominativeData'])  $noNominativeData = true ;
 	}
 	$res = array() ;
     $res['ids'] = $this->getIDS() ;
