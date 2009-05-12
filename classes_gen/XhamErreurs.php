@@ -146,9 +146,9 @@ function stopCatch(){
     }
   }
 
-    //va chercher quel fichier et à quelle ligne on était deux piles plus haut. Simplifie le nom du fic
-    function upCodeInfo()
-    	{
+ //va chercher quel fichier et à quelle ligne on était deux piles plus haut. Simplifie le nom du fic
+ function upCodeInfo()
+ {
 	$infoDebug = debug_backtrace();
 	$infofic = $infoDebug[2]["file"] ;
 	/*Virer les lignes suivantes pour affichage total du nom du fic*/
@@ -156,7 +156,7 @@ function stopCatch(){
 	$infofic = array_pop($Tfic);
 	/*-----------*/
 	return " ".$infofic." L".$infoDebug[2]["line"]." ";
-	}
+ }
     
 function whereAmI($mode='',$nivorecu=666,$debut=0) {
 	$i=$debut;
@@ -221,8 +221,8 @@ function whereAmI($mode='',$nivorecu=666,$debut=0) {
 
 	// Préparation du titre, des images, des urls...
 	$mod -> MxText ( "contenu", $this->messages ) ;
-	$mod -> MxHidden ( "cache", "navi=".$xham->getNaviFull() ) ;
-	$mod -> MxHidden ( "vider","vider=oui");
+	//$mod -> MxHidden ( "cache", "navi=".$xham->getNaviFull() ) ;
+	//$mod -> MxHidden ( "vider","vider=oui");
 	return $mod -> MxWrite ( "1" ) ;
 	}
 	
