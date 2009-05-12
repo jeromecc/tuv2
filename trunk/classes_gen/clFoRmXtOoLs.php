@@ -307,7 +307,24 @@ static function manipIsFormPresent() {
 //---------------------------------------------
 
 
-
+static public function exportsFormxDispos($options='')
+{
+	$dos = opendir(formxSession::getInstance()->getFxLocalPath()) ;
+	$liste = array();
+	while ($fich = readdir($dos)) {
+	if (ereg("^.*\.xml$",$fich)) {
+		//on ouvre le fichier pour en trouver les caracteristiques principales
+		$xml =  simplexml_load_file(FORMX_LOCATION.$fich);
+		if (! $xml) {
+			//eko("pb chargement de l'instance");
+		} else {
+			if($xml['hide']=='y') continue;
+			$liste[(string) $xml['id']] = utf8_decode((string) $xml->Libelle) ;
+		}
+	}
+	};
+ return $liste;
+}
 
 static public function exportsGetTabIds($ids,$options='')
 {
@@ -350,7 +367,12 @@ static public function exportsGetTabIdformFilterValue($idform,$idItem,$val,$opti
 
 
 //exportsGetTabCw(" ids='123' AND idformx='avc'   ",array('filterValues'  =>    array('id_passage' => 15678)  ))
-
+/**
+ *
+ * @param <type> $cw
+ * @param <type> $options basic, basicOnly , noNominativeData , etat , order=recentFirst
+ * @return <type>
+ */
 static public function exportsGetTabCw($cw,$options='')
 {
 
@@ -358,16 +380,40 @@ static public function exportsGetTabCw($cw,$options='')
 	{
 		$options = array('noNominativeData' => true , 'etat' => array('I','E','F','H'));
 	}
+
+	if( isset($options['order'] ) && $options['order'] == 'recentFirst' )
+		$cw .= " ORDER BY id_instance DESC ";
 	
 	//$cw = "  ( $cw ) AND  status IN   ('".implode(    "','"   ,   $options['etat']   ). "') "  ;
 
-	$requete = "SELECT id_instance ,idformx,ids FROM formx WHERE $cw ";
+	$requete = "SELECT id_instance ,idformx,ids , dt_creation, dt_modif, idformx, libelle, status, author FROM formx WHERE $cw ";
 
 	$obRequete = clFoRmXSession::getInstance()->getObjRequete();
 	$res = array();
     
 	foreach ( $obRequete->exec_requete($requete,'tab') as $ligne )
 	{
+		//on veut les infos basiques du formulaire
+		$tabBasic = array() ;
+		if( ( isset($options['basic']) && $options['basic'] ) || ( isset($options['basicOnly']) && $options['basicOnly'] ) )
+		{
+			$tabBasic['idInstance'] = $ligne['id_instance'];
+			$tabBasic['ids'] = $ligne['ids'];
+			$tabBasic['dtCreation'] = $ligne['dt_creation'] ;
+			$tabBasic['dtModif'] = $ligne['dt_modif'] ;
+			$tabBasic['idFormx'] = $ligne['idformx'] ;
+			$tabBasic['libelle'] = $ligne['libelle'] ;
+			$tabBasic['status'] = $ligne['status'] ;
+			$tabBasic['author'] = $ligne['author'] ;
+		}
+
+		if(  ( isset($options['basicOnly']) && $options['basicOnly'] ) )
+		{
+			$res[] = $tabBasic ;
+			continue ;
+
+		}
+
 		try {
             
 			$formx = new clFoRmX($ligne['ids'],'NO_POST_THREAT');
@@ -389,7 +435,10 @@ static public function exportsGetTabCw($cw,$options='')
 				$okForExtract = true ;
 			}
 			if($okForExtract)
-				$res[] = $formx->getTabAllItemsValues($options) ;
+			{
+				$resLigne = $tabBasic + $formx->getTabAllItemsValues($options) ;
+				$res[] = $resLigne ;
+			}
 		} catch (Exception $e) {
 
 		}
