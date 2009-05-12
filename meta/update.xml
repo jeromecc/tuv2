@@ -75,5 +75,55 @@
         </option_new>
   </update>
 
+  <update id="18">
+        <description>Création de l'option Pacs_Actif</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>Pacs_Actif</cle>
+               <libelle>L'appel contextuel vers le pacs est actif ou non.</libelle>
+               <type>bool</type>
+	       <admin>1</admin>
+        </option_new>
+  </update>
 
+  <update id="19">
+        <description>Création de l'option Pacs_Droit</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>Pacs_Droit</cle>
+               <libelle>L'appel contextuel vers le pacs est actif ou non.</libelle>
+               <type>bool</type>
+	       <admin>1</admin>
+        </option_new>
+  </update>
+
+   <update id="20">
+        <description>Création de l'option Pacs_URL</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>Pacs_URL</cle>
+               <libelle>URL de l'application appelée.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
+   <update id="21">
+        <description>Création de l'option Pacs_User</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>Pacs_User</cle>
+               <libelle>L'utilisateur utilisé pour l'appel contextuel du pacs.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
+   <update id="22">
+        <description>Création de l'option Pacs_Pass</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>Pacs_Pass</cle>
+               <libelle>Le mot de passe utilisé pour l'appel contextuel du pacs.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
 </updates>
