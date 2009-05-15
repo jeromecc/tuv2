@@ -8,7 +8,7 @@
 
 /* G�n�ral */
 html, body  { background-color:#FFFFFF; font-size: 12px; color:#000066; text-decoration: none;  }
-select, input, textarea { border: #93d2c2 solid 1px; font-size: 90%; background-color : #CCCCCC ; }
+select, input, textarea { color:#000066; border: #93d2c2 solid 1px; font-size: 90%; background-color : #CCCCCC ; }
 input:hover, textarea:hover, select:hover { background-color : #EEEEEE ; }
 img { border: 0px; }
 form { display: inline; }
