@@ -50,6 +50,7 @@ class XhamBluePig {
 		$app[] = $this->genMedisLabo ( ) ;
 		$app[] = $this->genBlueMedi ( ) ;
 		$app[] = $this->genCarpentrasExcel ( ) ;
+        $app[] = $this->genPacs ( ) ;
 		
 		for ( $i = 0 ; $i < count($app) ; $i++ ) {
 			if ( $app[$i] ) {
@@ -92,6 +93,29 @@ class XhamBluePig {
 			else $lien = '<img src="'.$img.'" style="border: 0px;" alt="Clinicom" />' ;
 			$inf = XhamTools::genInfoBulle ( "Lancement de Clinicom" ) ;
 			return '<a href="'.URLNAVI.$this->navi->genNaviFull().'&appelerClinicom=1" '.$inf.'>'.$lien.'</a>' ;
+	 }
+	}
+
+    function genPacs ( $img='images/pacs.gif', $text='' ) {
+		$pref = "Pacs" ;
+		if ( $this->options->getOption ( $pref."_Actif" ) AND ( ! $this->options->getOption ( $pref."_Droit" ) OR $this->droits->getDroit ( $this->options->getOption ( $pref."_Droit" ) ) ) ) {
+			if ( $_GET['appelerPacs'] ) {
+				$user = $this->options->getOption ( $pref."_User" ) ;
+                if ( ! $user ) $user = $this->user->getUid ( ) ;
+    			//$pass = $this->options->getOption ( $pref."_Pass" ) ;
+				//$dll = new cRPC ( $_SERVER[REMOTE_ADDR], $this->options->getOption('BPS_PORT'), $this->options->getOption ( 'BPS_TIMEOUT' ) );
+				//eko ( $this->user->getPassword ( ) ) ;
+				// Open ( $type, $idu, $idpass, $iduf, $idmedecin, $mode, $pass ) {
+				//$result = $dll -> Open ( "clinicom", $this->idu, $this->sej, $this->uf, $user, "MOZAIC", $this->user->getPassword ( ) ) ;
+				global $fenetreBloquante ;
+				$fenetreBloquante = XhamTools::genFenetreBloquante("fenetreFermerPacs.html") ;
+                $act = '<script type="text/javascript">java.lang.Runtime.getRuntime().exec("xeyes");</script>' ;
+
+			}
+			if ( $text ) $lien = $text ;
+			else $lien = '<img src="'.$img.'" style="border: 0px;" alt="Pacs" />' ;
+			$inf = XhamTools::genInfoBulle ( "Lancement du Pacs" ) ;
+			return '<a href="'.URLNAVI.$this->navi->genNaviFull().'&appelerPacs=1" '.$inf.'>'.$lien.'</a>'.$act ;
 	 }
 	}
 	
