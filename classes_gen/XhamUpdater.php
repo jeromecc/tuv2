@@ -289,7 +289,7 @@ foreach ($xml->update as $update) {
  	//création d'option
  	foreach($update->option_new as $option_new ) {
  		$requete = " INSERT INTO `options` ( `idapplication`, `categorie`, `libelle`, `description`, `type`, `choix`, `valeur`, `administrateur`) VALUES ";
-		$requete.= "( %s, '%s', '%s', '%s', '%s', '%s', '%s', 0)";
+		$requete.= "( %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
 		$idApplication = (string) IDAPPLICATION ;
 		$categorie = utf8_decode((string) $option_new->categorie) ;
 		$cle = (string) $option_new->cle ;
@@ -297,7 +297,8 @@ foreach ($xml->update as $update) {
 		$type  =  (string) $option_new->type ? (string) $option_new->type : 'text';
 		$choix =  (string) $option_new->choix ? (string) $option_new->choix : '';
 		$defaultValue = utf8_decode(addslashes((string) $option_new->defaultValue)) ;
-		$requete = sprintf($requete,$idApplication,$categorie,$cle,$libelle,$type,$choix,$defaultValue);
+        $admin =  (string) $option_new->admin ? 1 : 0 ;
+		$requete = sprintf($requete,$idApplication,$categorie,$cle,$libelle,$type,$choix,$defaultValue,$admin);
 		self::execRequete(MYSQL_HOST,MYSQL_USER,MYSQL_PASS,BASEXHAM,$requete,'1');
  	}
 
