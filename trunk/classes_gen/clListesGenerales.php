@@ -199,7 +199,7 @@ class clListesGenerales {
 	    // Mise à jour du nom de l'item dans la base.
 	    $data['nomitem'] = $_POST['nomItemF'] ;
 	    $requete = new clRequete ( BASEXHAM, "listes", $data ) ;
-	    $requete->updRecord ( "iditem='".$idItem."'" ) ;
+	    eko ( $requete->updRecord ( "iditem='".$idItem."'" ) ) ;
 	    // Message d'information.
 	    $this->infos .= "L'item \"".$res1['nomitem'][0]."\" de la liste \"".stripslashes($nomListe)."\" a changé de nom : \"".stripslashes($_POST['nomItemF'])."\".<br />" ;
 	  } else {
@@ -226,7 +226,7 @@ class clListesGenerales {
       		$requete->updRecord ( "iditem='".$res1['iditem'][0]."'" ) ;
       	} else {
 	      // On vérifie si le champs libre a été changé.
-	      if ( $res1['libre'][0] != (isset($_POST['libreF'])?$_POST['libreF']:'') ) {
+	      if ( strcmp ( $res1['libre'][0] , (isset($_POST['libreF'])?$_POST['libreF']:'') ) ) {
 			$data2['libre'] = $_POST['libreF'] ;
 			$requete = new clRequete ( BASEXHAM, "listes", $data2 ) ;
 			if ( $options -> getOption ( $nomListe." Id" ) OR $nomListe == "Médecins" OR $nomListe == "I.D.E." ) {
