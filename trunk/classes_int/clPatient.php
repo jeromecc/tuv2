@@ -20,6 +20,7 @@ class clPatient {
   function __construct ( $idpatient, $etat='', $base=BDD ) {
     if ( $etat == "Sortis" ) $this->table = PSORTIS ;
     else $this->table = PPRESENTS ;
+    $this->etatPatient = $etat ;
     $this->base = $base ;
     $this->idpatient = $idpatient ;
     $this->getPatient ( ) ;
@@ -272,6 +273,8 @@ class clPatient {
     else
       return 0;
   }
+  
+  function getEtatPatient ( ) { eko ( $this->etatPatient ) ; return $this->etatPatient ; }
 
   function getID                   ( ) { return $this->idpatient                                 ; }
   function getIDU                  ( ) { return $this->getInformation ( "idu"                  ) ; }
