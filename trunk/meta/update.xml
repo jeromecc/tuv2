@@ -128,13 +128,13 @@
   </update>
 
 
-     <update id="23">
+     <update id="24">
         <description>Création de l'option Activite4_desactiver_controle</description>
         <option_new>
                <categorie>CCAM</categorie>
                <cle>Activite4_desactiver_controle</cle>
                <libelle>Désactive le contrôle bloquant de la saisie de l'anesthesie</libelle>
-               <admin>1</admin>
+			   <type>bool</type>
         </option_new>
   </update>
 
