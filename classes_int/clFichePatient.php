@@ -495,7 +495,9 @@ class clFichePatient {
     */
     $bloq = '' ;
     $this->defineParamCCAM ( ) ;
-    if ( $options -> getOption ( "Module_CCAM" ) and ($session -> getDroit ( "CCAM_ACTES_".$this->type,"r" ) or $session -> getDroit ( "CCAM_CONSULT_".$this->type,"r" )) and $this->patient->getDateExamen ( ) <> "0000-00-00 00:00:00" and $this->patient->getMatriculeMedecin ( ) ) {
+    if ( ( $options -> getOption ( "Module_CCAM" ) and ($session -> getDroit ( "CCAM_ACTES_".$this->type,"r" ) or $session -> getDroit ( "CCAM_CONSULT_".$this->type,"r" ))
+        and $this->patient->getDateExamen ( ) <> "0000-00-00 00:00:00" and $this->patient->getMatriculeMedecin ( ) ) OR ($options -> getOption ( "Module_CCAM" ) and ($session -> getDroit ( "CCAM_ACTES_".$this->type,"r" ) or $session -> getDroit ( "CCAM_CONSULT_".$this->type,"r" ))
+         AND $this->patient->getEtatPatient() == 'Sortis' ) ) {
 
       $cotationActes = new clCCAMCotationActesDiags ( $this->paramCCAM ) ;
       $mod -> MxText ( "cotationCCAM", $cotationActes -> cotationActes ( ).$bloq ) ;
