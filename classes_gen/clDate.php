@@ -202,9 +202,25 @@ class clDate {
   	return $nouvelleDate ;
   }
   
+  /**
+   * test if it's the same day than the argument
+   * @param clDate $obDate
+   * @return bool
+   */
+  function isSameDay(clDate $obDate)
+  {
+	  if( ( $this->getYear() == $obDate->getYear() ) &&  ( $this->getDayYear() ==  $obDate->getDayYear()  ) )
+	  {
+		  return true ;
+	  }
+	  return false ;
+  }
+
 
   // Retourne 1 si c'est un jour férié.
   function isHoliday ( ) {
+
+
     // Donner un timestamp unix en paramètre
     // Retourne si jour_férié ou week-end
     $jour = date("d", $this->timestamp);
@@ -224,29 +240,45 @@ class clDate {
     $jour_paques = date("d", $date_paques);
     $mois_paques = date("m", $date_paques);
     if($jour_paques == $jour && $mois_paques == $mois) return 1; // Pâques
-    
-    $date_ascension = mktime(date("H", $date_paques),
-			     date("i", $date_paques),
-			     date("s", $date_paques),
-			     date("m", $date_paques),
-			     date("d", $date_paques) + 38,
-			     date("Y", $date_paques)
-                             );
-    $jour_ascension = date("d", $date_ascension);
-    $mois_ascension = date("m", $date_ascension);
-    if($jour_ascension == $jour && $mois_ascension == $mois) return 1; // Ascension
-    
-    $date_pentecote = mktime( date("H", $date_ascension),
-			     date("i", $date_ascension),
-			     date("s", $date_ascension),
-			     date("m", $date_ascension),
-			     date("d", $date_ascension) + 11,
-			     date("Y", $date_ascension)
-                             );
 
-    $jour_pentecote = date("d", $date_pentecote);
-    $mois_pentecote = date("m", $date_pentecote);
-    if($jour_pentecote == $jour && $mois_pentecote == $mois) return 1; // Pentecote
+	$obDatePaques = clDate::getInstance($date_paques) ;
+	$obDatLundiPaques = $obDatePaques->addDaysClone(1);
+
+	if( $obDatLundiPaques->isSameDay($this) ) // lundi de pacques
+	{
+		return true ;
+	}
+
+	$datesAscension = array(
+		'21/05/2009',
+		'13/05/2010',
+		'02/06/2011',
+		'17/05/2012',
+		'09/05/2013',
+		'29/05/2014',
+		'14/05/2015'
+	);
+	foreach( $datesAscension as $dateAscension )
+	{
+		if( clDate::getInstance($dateAscension)->isSameDay($this) ) // jeudi de ascension
+			return true ;
+	}
+	$datesPentecote = array(
+		'31/05/2009',
+		'23/05/2010',
+		'12/06/2011',
+		'27/05/2012',
+		'19/05/2013',
+		'08/06/2014',
+		'24/05/2015'
+	);
+	foreach( $datesPentecote as $pentecote )
+	{
+		if(  clDate::getInstance($pentecote)->isSameDay($this) ) //pentecote
+			return true ;
+		if(  clDate::getInstance($pentecote)->addDays(1)->isSameDay($this) ) //lundi de pentecote
+			return true ;
+	}
     
   }
 
@@ -379,8 +411,14 @@ class clDate {
   }
   
   // Ajoute $days jours à la date sans modifier this, renvoie la nouvelle date changée
-  function addDaysClone( $days ) {
-  	$newdate = clone this;
+  /**
+   *
+   * @param clDate $days
+   * @return clDate
+   */
+  function addDaysClone( $days )
+  {
+  	$newdate = clone $this;
     	if ( $days > 0 ) $sign = '+' ; else $sign = '' ;
     $newdate->timestamp = strtotime ( "$sign$days days", $newdate->getTimestamp ( ) ) ;
     return $newdate ;
