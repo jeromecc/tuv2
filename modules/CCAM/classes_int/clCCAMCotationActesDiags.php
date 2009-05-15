@@ -1733,7 +1733,7 @@ if ( $activ4!="O" and $_POST['anesthesiste']!="aucun#" and $res4["INDIC_SVC"][2]
     }
   }
 
-if ($activ4=="O" and $_POST['anesthesiste']=="aucun#") {
+if ( ! $options->getOption("Activite4_desactiver_controle")  and $activ4=="O" and $_POST['anesthesiste']=="aucun#") {
   
   $message = "L'anesthésiste doit être précisé pour l'acte '$codeActe'. L'acte n'a donc pu être affecté au patient.";
   
