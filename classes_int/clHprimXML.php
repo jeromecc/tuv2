@@ -230,7 +230,7 @@ class clHprimXML {
         $datadmi = new clDate ( $pati->getDateAdmission ( ) ) ;
         $datexam = new clDate ( $pati->getDateExamen ( ) ) ;
         $datsort = new clDate ( $pati->getDateSortie ( ) ) ;
-        if ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'admission" ) $datdema = $dateadmi ;
+        if ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'admission" ) $datdema = $datadmi ;
         elseif ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'examen" ) $datdema = $datexam ;
         elseif ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure de sorti" ) $datdema = $datsort ;
         else {
@@ -244,7 +244,7 @@ class clHprimXML {
             //eko ( $datadmi->getDatetime ( ).' + '.$datsort->getDatetime ( ).' = '.$time.' = '.$datdema -> getDatetime ( ) ) ;
         }
         $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
-        $hhdem = $datdema -> getDate ( 'H:i' ) ;
+        $hhdem = $datdema -> getDate ( 'H:i:s' ) ;
 
     $mod -> MxText ( 'venueEmetteur', $idpass ) ;
 		$mod -> MxText ( 'venueRecepteur', $idpass ) ;
@@ -295,7 +295,7 @@ class clHprimXML {
 
         // Correction date foireuse module ccam
         $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
-        $hhdem = $datdema -> getDate ( 'H:i' ) ;
+        $hhdem = $datdema -> getDate ( 'H:i:s' ) ;
         
         if ( $type == 'NGAP' ) {
 				if ( $ngapl == 'MNO' AND $ageannees > 2 ) $erreurngap = 1 ;
