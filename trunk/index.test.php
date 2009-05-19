@@ -214,7 +214,7 @@ if ( $isSrvMaj )
 {
 	print "<br><br><hr><h4>Mise a jour de l'application</h4>" ;
 	$tabMatches = array();
-	preg_match('/_maj_(.*)_hash_(.*)_/', file_get_contents('http://www.orupaca.fr/ressources/tu/repository/last_version_'.BRANCHE.'.html'),$tabMatches) ;
+	preg_match('/_maj_(.*)_hash_(.*)_/', file_get_contents(PROTO.'www.orupaca.fr/ressources/tu/repository/last_version_'.BRANCHE.'.html'),$tabMatches) ;
 	$lastVersion = $tabMatches[1];
 	$currentVersion = str_replace("\n",'', file_get_contents(URLLOCAL.'version.txt'));
 	$currentVersion = str_replace("\r",'', $currentVersion);
@@ -233,7 +233,7 @@ if ( $isSrvMaj )
 
 		
 
-		$archive = @file_get_contents('http://www.orupaca.fr/ressources/tu/repository/'.$nomFic);
+		$archive = @file_get_contents(PROTO.'www.orupaca.fr/ressources/tu/repository/'.$nomFic);
         $hashrecu = md5($archive) ;
         if( $hashrecu == $hash )
         {
