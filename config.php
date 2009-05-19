@@ -34,10 +34,28 @@ include ( "define.php" ) ;
 
 if(PROXY)
 {
+	//lapin:jambon@192.168.1.2:3128
 	require_once(URLLOCAL.'classes_ext/proxy.class.php');
-	list($host,$port) = explode(':',PROXY);
-	HttpProxyStream::$proxy_host = $host;
-	HttpProxyStream::$proxy_port = $port;
+
+	$tabMatch = array() ;
+
+	if ( preg_match('/([^:]+):([^@]+)@([^:]+):([^:]+)/', PROXY,$tabMatch) )
+	{
+		$user = $tabMatch[1];
+		$pass = $tabMatch[2];
+		$host = $tabMatch[3];
+		$port = $tabMatch[4];
+		HttpProxyStream::$proxy_host = $host;
+		HttpProxyStream::$proxy_port = $port;
+		HttpProxyStream::$proxy_user = $user;
+		HttpProxyStream::$proxy_pass = $pass;
+	}
+	else
+	{
+		list($host,$port) = explode(':',PROXY);
+		HttpProxyStream::$proxy_host = $host;
+		HttpProxyStream::$proxy_port = $port;
+	}
 	define('PROTO','proxy://');
 } else {
 	define('PROTO','http://');
