@@ -6,6 +6,9 @@
 	// CONFIGURE
 	HttpProxyStream::$proxy_host = 'your_proxy';
 	HttpProxyStream::$proxy_port = 8080;
+
+	HttpProxyStream::$proxy_user = 'lapin' ;
+	HttpProxyStream::$proxy_pass = 'jambon' ;
 	
 	// OPEN NORMALY A URL
 	$f = fopen('proxy://www.google.fr','r');

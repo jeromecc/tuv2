@@ -210,7 +210,7 @@ clUpdater::applyPatchs(IDSITE);
 
 
 
-if ($isSrvMaj )
+if ( $isSrvMaj )
 {
 	print "<br><br><hr><h4>Mise a jour de l'application</h4>" ;
 	$tabMatches = array();
