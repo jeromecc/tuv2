@@ -51,7 +51,8 @@ class XhamBluePig {
 		$app[] = $this->genBlueMedi ( ) ;
 		$app[] = $this->genCarpentrasExcel ( ) ;
         $app[] = $this->genPacs ( ) ;
-		
+		$app[] = $this->genDxCare ( ) ;
+
 		for ( $i = 0 ; $i < count($app) ; $i++ ) {
 			if ( $app[$i] ) {
 				$mod -> MxText ( "appels.lienAppel", $app[$i] ) ;
@@ -174,6 +175,22 @@ class XhamBluePig {
 			$inf = XhamTools::genInfoBulle ( "Lancement de Medis : résultats de laboratoire" ) ;
 			return '<a href="'.URLNAVI.$this->navi->genNaviFull().'&appelerMedisLabo=1" '.$inf.'>'.$lien.'</a>' ;
 	 }
+	}
+
+    function genDxCare ( $img='images/cyberlab.gif', $text='' ) {
+		$pref = "DxCare" ;
+		if ( $this->options->getOption ( $pref."_Actif" ) AND ( ! $this->options->getOption ( $pref."_Droit" ) OR $this->droits->getDroit ( $this->options->getOption ( $pref."_Droit" ) ) ) ) {
+    		$user = $this->options->getOption ( $pref."_User" ) ;
+    		if ( ! $user ) $user = $this->user->getMail () ;
+    		$pass = $this->options->getOption ( $pref."_Pass" ) ;
+		if ( ! $pass ) $pass = $this->user->getPassword ( ) ;
+    		$urls = $this->options->getOption ( $pref."_URL" ) ;
+    		$url = $urls."?Mat=$user&password=$pass&NDA=".$this->idu."&NIP=".$this->sej ;
+			if ( $text ) $lien = $text ;
+			else $lien = '<img src="'.$img.'" style="border: 0px;" alt="Labo" />' ;
+			$inf = XhamTools::genInfoBulle ( "Lancement de Cyberlab : résultats" ) ;
+			return '<a target="_blank" href="'.$url.'" '.$inf.'>'.$lien.'</a>' ;
+    	}
 	}
 
 	function genCyberlab ( $img='images/cyberlab.gif', $text='' ) {
