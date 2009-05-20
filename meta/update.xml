@@ -138,7 +138,57 @@
         </option_new>
   </update>
 
+  <update id="25">
+        <description>Création de l'option DxCare_Actif</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_Actif</cle>
+               <libelle>L'appel contextuel vers DxCare est actif ou non.</libelle>
+               <type>bool</type>
+               <admin>1</admin>
+        </option_new>
+  </update>
 
+  <update id="26">
+        <description>Création de l'option DxCare_Droit</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_Droit</cle>
+               <libelle>L'appel contextuel vers DxCare est actif ou non.</libelle>
+               <type>bool</type>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
+   <update id="27">
+        <description>Création de l'option DxCare_URL</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_URL</cle>
+               <libelle>URL de l'application appelée.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
+   <update id="28">
+        <description>Création de l'option DxCare_User</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_User</cle>
+               <libelle>L'utilisateur utilisé pour l'appel contextuel de DxCare.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
+   <update id="29">
+        <description>Création de l'option DxCare_Pass</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_Pass</cle>
+               <libelle>Le mot de passe utilisé pour l'appel contextuel de DxCare.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
 
 
 </updates>
