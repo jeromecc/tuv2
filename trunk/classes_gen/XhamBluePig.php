@@ -185,10 +185,10 @@ class XhamBluePig {
     		$pass = $this->options->getOption ( $pref."_Pass" ) ;
 		if ( ! $pass ) $pass = $this->user->getPassword ( ) ;
     		$urls = $this->options->getOption ( $pref."_URL" ) ;
-    		$url = $urls."?Mat=$user&password=$pass&NDA=".$this->idu."&NIP=".$this->sej ;
+    		$url = $urls."?type=portail&menu=F&Mat=$user&password=$pass&NDA=".$this->idu."&NIP=".$this->sej ;
 			if ( $text ) $lien = $text ;
 			else $lien = '<img src="'.$img.'" style="border: 0px;" alt="Labo" />' ;
-			$inf = XhamTools::genInfoBulle ( "Lancement de Cyberlab : résultats" ) ;
+			$inf = XhamTools::genInfoBulle ( "Lancement de DxCare" ) ;
 			return '<a target="_blank" href="'.$url.'" '.$inf.'>'.$lien.'</a>' ;
     	}
 	}
