@@ -256,10 +256,6 @@ if ( $isSrvMaj )
 
 
 
-print XhamUpdater::do_post_request('http://www.boblastic.com','pouet=gnouf' );
-
-
-
 
 
 
