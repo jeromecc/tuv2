@@ -190,5 +190,54 @@
         </option_new>
   </update>
 
+  <update id="30">
+        <description>Création de l'option DxCare_URL_Prescription</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_URL_Prescription</cle>
+               <libelle>URL de l'application appelée.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
 
+  <update id="31">
+        <description>Création de l'option DxCare_URL_QuestUrg</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_URL_QuestUrg</cle>
+               <libelle>URL de l'application appelée.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
+  <update id="32">
+        <description>Création de l'option DxCare_URL_Synthese</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_URL_Synthese</cle>
+               <libelle>URL de l'application appelée.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
+  <update id="33">
+        <description>Création de l'option DxCare_URL_Bilan</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_URL_Bilan</cle>
+               <libelle>URL de l'application appelée.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
+  <update id="34">
+        <description>Création de l'option DxCare_URL_PlanSoins</description>
+        <option_new>
+               <categorie>Appels contextuels</categorie>
+               <cle>DxCare_URL_PlanSoins</cle>
+               <libelle>URL de l'application appelée.</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+  
 </updates>
