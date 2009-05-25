@@ -185,23 +185,23 @@ class XhamBluePig {
     		$pass = $this->options->getOption ( $pref."_Pass" ) ;
 		if ( ! $pass ) $pass = $this->user->getPassword ( ) ;
     		$urls = $this->options->getOption ( $pref."_URL_Prescription" ) ;
-    		$url1 = $urls."&mat=$user&password=$pass&NDA=".$this->idu."&NIP=".$this->sej ;
+    		$url1 = $urls."&mat=$user&password=$pass&NIP=".$this->idu."&NDA=".$this->sej ;
     		$lie1 = '<img src="images/dxcareprescription.gif" style="border: 0px;" alt="DxCare" />' ;
 			$inf1 = XhamTools::genInfoBulle ( "Lancement de la prescription DxCare" ) ;
 			$urls = $this->options->getOption ( $pref."_URL_QuestUrg" ) ;
-    		$url2 = $urls."&mat=$user&password=$pass&NDA=".$this->idu."&NIP=".$this->sej ;
+    		$url2 = $urls."&mat=$user&password=$pass&NIP=".$this->idu."&NDA=".$this->sej ;
             $lie2 = '<img src="images/dxcarequesturg.gif" style="border: 0px;" alt="DxCare" />' ;
 			$inf2 = XhamTools::genInfoBulle ( "Lancement du questionnaire urgence de DxCare" ) ;
 			$urls = $this->options->getOption ( $pref."_URL_Synthese" ) ;
-    		$url3 = $urls."&mat=$user&password=$pass&NDA=".$this->idu."&NIP=".$this->sej ;
+    		$url3 = $urls."&mat=$user&password=$pass&NIP=".$this->idu."&NDA=".$this->sej ;
             $lie3 = '<img src="images/dxcaresynthese.gif" style="border: 0px;" alt="DxCare" />' ;
 			$inf3 = XhamTools::genInfoBulle ( "Lancement de la synthèse DxCare" ) ;
 			$urls = $this->options->getOption ( $pref."_URL_Bilan" ) ;
-    		$url4 = $urls."&mat=$user&password=$pass&NDA=".$this->idu."&NIP=".$this->sej ;
+    		$url4 = $urls."&mat=$user&password=$pass&NIP=".$this->idu."&NDA=".$this->sej ;
             $lie4 = '<img src="images/dxcarebilan.gif" style="border: 0px;" alt="DxCare" />' ;
 			$inf4 = XhamTools::genInfoBulle ( "Lancement du bilan DxCare" ) ;
 			$urls = $this->options->getOption ( $pref."_URL_PlanSoins" ) ;
-    		$url5 = $urls."&mat=$user&password=$pass&NDA=".$this->idu."&NIP=".$this->sej ;
+    		$url5 = $urls."&mat=$user&password=$pass&NIP=".$this->idu."&NDA=".$this->sej ;
             $lie5 = '<img src="images/dxcareplansoins.gif" style="border: 0px;" alt="DxCare" />' ;
 			$inf5 = XhamTools::genInfoBulle ( "Lancement du plan de soin DxCare" ) ;
 			return '<a target="_blank" href="'.$url1.'" '.$inf1.'>'.$lie1.'</a><br/><a target="_blank" href="'.$url2.'" '.$inf2.'>'.$lie2.'</a><br/>

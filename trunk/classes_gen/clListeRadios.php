@@ -998,11 +998,11 @@ class clListeRadios {
     			$and = $reqDate ;
     		break;
     	}
-    	$param['cw'] = 'where 1=1 '.$and ;
+    	$param['cw'] = 'where 1=1 '.$and.' ORDER BY dt_fin' ;
     	//$param['cw2'] = 'where r.idpatient=p.idpatient' ;
 		// Exécution de la requête.
       	$res = $req -> Execute ( "Fichier", "getRadiosGlob", $param, "ResultQuery" ) ;
-		
+		//eko ( $res['INDIC_SVC'] ) ;
 		
 		return $res ;
 	}
