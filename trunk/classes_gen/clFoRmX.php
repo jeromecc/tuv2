@@ -602,15 +602,15 @@ function getRootDom()
 	//<---------------
 	
   	$resu = $requete->addRecord () ;
-	
+
 	//recuperation de l'identifiant d'instance attribué
 	$this->idInstance = $resu['cur_id'];
 	
 	//kill the zombie
 	$this->makeBalVal($this->XMLDOM->documentElement,"STATUS",'I');
 	$this->killTheZombie();
-	
 	return $resu['cur_id'];
+	
   }
   
 
@@ -3038,31 +3038,26 @@ function killTheZombie()
 }
 
 //detetction comportement anormal
-function detectHeresie() {
- $etapes = $this->getRootDom()->getElementsByTagName('ETAPE');	//liste de nodes
+ function detectHeresie()
+ {
+
+	$etapes = $this->getRootDom()->getElementsByTagName('ETAPE');	//liste de nodes
    
    //on s'arrête à la dernière étape non validée
-   $notTheFirst = '';
-   $etape_memo_prec='';
-   $etape_current = '' ;
-   foreach ($etapes as  $etape) { //on parcours les nodes
-   	if(isset($etape_current) )
-		$notTheLast = 'oui';
-	else
-		if ($etape->getAttribute('etat') != 'fini') { 
-			"trouve etape pas finie";
-			$etape_current = $etape ;
-			$etape_prec = $etape_memo_prec ;
-			}
-	$etape_memo_prec = $etape ;
-	if(! isset($etape_current) )
-		$notTheFirst = 'oui';
+	$derniereEtapeNonFinie = null ;
+	foreach ($etapes as  $etape)
+	{
+		if ($etape->getAttribute('etat') != 'fini')
+		{
+			$derniereEtapeNonFinie = $etape ;
+		}
 	}
-   $etape = $etape_current;
-   //detection heresie non finitude
-   $oldstate = formxTools::getDomState($this);
-   if(! $etape_current && $oldstate != 'F' && $oldstate != 'H' && $state = $this->getAndCloseState() ) 
-   {
+
+	//detection heresie non finitude
+	$oldstate = formxTools::getDomState($this);
+	if(! $derniereEtapeNonFinie && $oldstate != 'F' && $oldstate != 'H'  )
+	{
+		$state = $this->getAndCloseState() ;
    		formxTools::setDomState($this,$state);
 		$this->saveInstance();
    }

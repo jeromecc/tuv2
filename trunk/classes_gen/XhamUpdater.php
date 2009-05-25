@@ -14,33 +14,6 @@
  */
 class XhamUpdater {
 
-/**
- * envoie des données POST sur une url
- * @param <type> $url
- * @param <type> $data
- * @param <type> $optional_headers
- * @return <type>
- */
-static function do_post_request($url, $data, $optional_headers = null)
-{
-     $params = array('http' => array(
-                  'method' => 'POST',
-                  'content' => $data
-               ));
-     if ($optional_headers !== null) {
-        $params['http']['header'] = $optional_headers;
-     }
-     $ctx = stream_context_create($params);
-     $fp = @fopen($url, 'rb', false, $ctx);
-     if (!$fp) {
-        throw new Exception("Problem with $url, $php_errormsg");
-     }
-     $response = stream_get_contents($fp);
-     if ($response === false) {
-        throw new Exception("Problem reading data from $url, $php_errormsg");
-     }
-     return $response;
-}
 
 
 static function testSafeMode()
@@ -421,7 +394,92 @@ static function genResultQueryConfigFile($file,$host,$base,$user,$pass)
 }
 
 
+/**
+ * Send post data to a URL, handle proxy authentification and anonymous proxies
+ * if needed,  PROXY must be formated as  toto:titi@192.168.1.10:8080 or  192.168.1.10:8080
+ * do not define PROXY in case of direct connection
+ * @param string $url the url
+ * @param array $tabData the array with data that must be sended
+ * @return string the server body response ( without response headers )
+ */
+static function sendPostData($fullUrl,$tabDataPost)
+{
+	$tabMatch = array() ;
+	//we parse the server and the relative url script
+	if ( preg_match('/http:\/\/([^\/]+)(\/.*)/', $fullUrl,$tabMatch) )
+	{
+		$server = $tabMatch[1];
+		$url = $tabMatch[2];
+	}
+	else
+	{
+		$server = '127.0.0.1';
+		$url = $fullUrl ;
+		//TODO: alternative port at the end of the URL handling
+	}
+	//proxy parsing
+	$proxy_port = $proxy = '' ;
+	if( defined('PROXY') && PROXY )
+	{
+		if ( preg_match('/([^:]+):([^@]+)@([^:]+):([^:]+)/', PROXY,$tabMatch) )
+		{
+			$proxy_login = $tabMatch[1];
+			$proxy_pass = $tabMatch[2];
+			$proxy = $tabMatch[3];
+			$proxy_port = $tabMatch[4];
+		}
+		else
+		{
+			list($proxy,$proxy_port) = explode(':',PROXY);
+			$proxy_login = '';
+			$proxy_pass = '';
+		}
+		$serverTalker = $proxy ;
+		$serverTalkerPort = $proxy_port ;
+	}
+	else
+	{
+		$serverTalker = $server ;
+		$serverTalkerPort = 80 ;
+	}
+	//buidling of the headers to send
+	$content = http_build_query($tabDataPost);
+	$content_length = strlen($content);
 
+	$headers= "POST http://$server$url HTTP/1.0\r\nContent-type: application/x-www-form-urlencoded\r\nHost: $server\r\nContent-length: $content_length\r\n";
+	//$headers= "GET http://$server$url HTTP/1.0\r\nHost: $server\r\n";
+	if( $proxy )
+		$headers.='Proxy-Authorization: Basic '.base64_encode($proxy_login.':'.$proxy_pass)."\r\n";
+	$headers.="\r\n";
+	//opening the connection
+	$fp = fsockopen($serverTalker, $serverTalkerPort, $errno, $errstr);
+	if (!$fp)
+	{
+		throw new Exception("ERREUR : $errno - $errstr");
+		return false;
+	}
+	//we send the data
+	fputs($fp, $headers);
+	fputs($fp, $content);
+	//we retrieve the server headers
+	$headerServer = '' ;
+	$str = '_' ;
+	while($str  )
+	{
+		$str =  trim(fgets($fp, 1024));
+		$headerServer .= $str;
+	}
+	//we retrieve the body
+	$ret = "";
+	while (!feof($fp))
+	{
+		$str= fgets($fp, 1024);
+		$ret.= $str ;
+	}
+
+	fclose($fp);
+	return $ret ;
+}
 
 
 

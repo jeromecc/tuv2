@@ -197,6 +197,7 @@ if($errors) {
 	print "<br />    quit</code>";
 
 } else {
+	unlink(URLLOCAL.'index.php.gpg');
 	print "<font color=\"green\">OK</font>";
 }
 
@@ -253,12 +254,6 @@ if ( $isSrvMaj )
     }
 
 }
-
-
-
-
-
-
 
 
 
