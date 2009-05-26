@@ -141,8 +141,9 @@ class clHprimXML {
 	  						while ( list ( $key, $val ) = each ( $tab ) ) {
 	  								$this->af .= " - Envoi du fichier '$key' -> " ;
 	  								//eko ( 'hprim/xml/'.$key.'.xml' ) ;
-	  								$put1 = ftp_put ( $con, $key.".xml", 'hprim/xml/'.$rep.$key.'.xml', FTP_ASCII ) ;
-	  								$put2 = ftp_put ( $con, $key.".ok", 'hprim/xml/'.$rep.$key.'.ok', FTP_ASCII ) ;
+                                    $repd = $options->getOption ( 'HprimXML_FTPRepd' ) ;
+	  								$put1 = ftp_put ( $con, $repd.$key.".xml", 'hprim/xml/'.$rep.$key.'.xml', FTP_ASCII ) ;
+	  								$put2 = ftp_put ( $con, $repd.$key.".ok", 'hprim/xml/'.$rep.$key.'.ok', FTP_ASCII ) ;
 	  								
 	  								if ( ! $put1 OR ! $put2 ) {
 	  									$this->af .= "<font color='red'>KO</font><br/>" ;

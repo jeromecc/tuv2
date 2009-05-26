@@ -239,5 +239,15 @@
                <admin>1</admin>
         </option_new>
   </update>
-  
+
+  <update id="35">
+        <description>Création de l'option HprimXML_FTPRepd (utilisé pour gérer les envois vers AS400)</description>
+        <option_new>
+               <categorie>CCAM</categorie>
+               <cle>HprimXML_FTPRepd</cle>
+               <libelle>URL distante où se trouveront les fichiers envoyés (spécifique AS400, laisser vide sinon)</libelle>
+               <admin>1</admin>
+        </option_new>
+  </update>
+
 </updates>
