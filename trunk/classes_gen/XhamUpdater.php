@@ -51,15 +51,20 @@ static function testNoNoNoNoNoNoThereIsNoLimit($memory)
 }
 
 
-static function testModule($module)
+static function testModule($module,$bloquant=true)
 {
 	print "<br />Test de la présence du module PHP $module  ";
+
+	$couleur = 'rouge' ;
+
+	if( ! $bloquant )
+		$couleur = 'orange';
 
 	if( extension_loaded($module) )
 		print "<font color=\"green\">OK</font>" ;
 	else
 	{
-		print "<font color=\"red\">KO</font>" ;
+		print "<font color=\"$couleur\">KO</font>" ;
 			//	die ;
 	}
 }
@@ -486,18 +491,37 @@ static function sendPostData($fullUrl,$tabDataPost)
 			$proxy_pass = '';
 		}
 	}
-// Récupération du contenu de l'url passée en paramètres.
-static function getDataWithCurl ( $url ) {
-    $ch = curl_init();
-    curl_setopt($ch,CURLOPT_URL,$url);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-    // Si le timeout est à 0, il n'y a pas de limite de temps de connexion et
-    // le téléchargement ne devrait pas échouer en théorie...
-    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,0);
-    $data = curl_exec($ch);
-    curl_close($ch);
-    return $data;
-}
+
+/**
+ *
+ * @param <type> $url
+ * @param <type> $fileAbsoluteLocalUrl
+ * @param <type> $message
+ * @return bool
+ */
+	static function downloadFile_curl ($url,$fileAbsoluteLocalUrl,&$message)
+	{
+		$ch = curl_init();
+		if( defined('PROXY') && PROXY )
+		{
+				$proxy_port = $proxy_host = $proxy_login = $proxy_pass = '' ;
+				self::getProxyParams($proxy_host,$proxy_port,$proxy_login,$proxy_pass);
+				curl_setopt($ch, CURLOPT_PROXY, "$proxy_host:$proxy_port");
+				if ( $proxy_login )
+					curl_setopt($ch, CURLOPT_PROXYUSERPWD, "$proxy_login:$proxy_pass");
+		}
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		// Si le timeout est à 0, il n'y a pas de limite de temps de connexion et
+		// le téléchargement ne devrait pas échouer en théorie...
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,0);
+		$data = curl_exec($ch);
+		$message = curl_error($ch);
+		$errorNumber = curl_errno($ch);
+		curl_close($ch);
+		file_put_contents($fileAbsoluteLocalUrl,$data);
+		return (  $errorNumber== 0 );
+	}
 
 
 
@@ -525,6 +549,8 @@ static function getDataWithCurl ( $url ) {
 				return self::downloadFile_wget($url,$fileAbsoluteLocalUrl,$message);
 			case 'php':
 				return file_put_contents($fileAbsoluteLocalUrl, file_get_contents($url));
+			case 'curl':
+				return downloadFile_curl($url,$fileAbsoluteLocalUrl,$message);
 			case 'xham':
 			default :
 				return file_put_contents($fileAbsoluteLocalUrl,self::sendPostData($url,array()));
