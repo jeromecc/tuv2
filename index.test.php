@@ -1,5 +1,5 @@
 <?php 
-// Ce fichier doit ï¿½tre appellï¿½ ï¿½ l'installation et apres chaque mise ï¿½ jour
+// Ce fichier doit étre appellé é l'installation et apres chaque mise é jour
 // 
 
 
@@ -25,7 +25,7 @@ if ( ! file_exists(URLLOCAL.'queries_int/getHistoriqueDoc.qry') AND file_exists(
 
 
 
-print "<h3>Procï¿½dure de vï¿½rification</h3>" ;
+print "<h3>Procédure de vérification</h3>" ;
 print "<hr />" ;
 
 print "<h4>Configuration php basique</h4>" ;
@@ -49,7 +49,7 @@ clUpdater::testNoNoNoNoNoNoThereIsNoLimit('512M');
 
 print "<hr />" ;
 
-print "<h4>Modules php nï¿½cessaires</h4>" ;
+print "<h4>Modules php nécessaires</h4>" ;
 clUpdater::testModule('soap');
 clUpdater::testModule('xsl');
 clUpdater::testModule('xml');
@@ -61,10 +61,14 @@ clUpdater::testModule('zlib');
 clUpdater::testModule('ftp');
 clUpdater::testModule('mbstring');
 clUpdater::testModule('sockets');
-clUpdater::testModule('curl');
+
+print "<h4>Modules php pour fonctionalités étendues</h4>" ;
+
+clUpdater::testModule('curl',false);
+clUpdater::testModule('openssl',false);
 print "<hr/>";
 
-print "<h4>Vï¿½rification des rï¿½pertoires</h4>" ;
+print "<h4>Vérification des répertoires</h4>" ;
 
 
 clUpdater::testEcritureDossier(URLCACHE);
@@ -82,7 +86,7 @@ clUpdater::testEcritureDossier(URLLOCAL.'var/dist/');
 
 print "<hr/>";
 
-print "<h4>Crï¿½ation des fichiers de configuration MySQL</h4>" ;
+print "<h4>Création des fichiers de configuration MySQL</h4>" ;
 
 
 clUpdater::genResultQueryConfigFile(URLLOCAL. "queries_int/config_xham.cfg",MYSQL_HOST,BASEXHAM,MYSQL_USER,MYSQL_PASS);
@@ -98,19 +102,19 @@ $res = mysql_pconnect ( MYSQL_HOST, MYSQL_USER, MYSQL_PASS ) ;
 if ( $res ) print "<font color=\"green\">OK</font>" ;
 else  {  print "<font color=\"red\">KO</font>" ; die ; }
 
-print "<br>Connexion ï¿½ la base '".BASEXHAM."' => " ;
+print "<br>Connexion é la base '".BASEXHAM."' => " ;
 if ( mysql_select_db ( BASEXHAM ) ) print "<font color=\"green\">OK</font>" ;
 else  {  print "<font color=\"red\">KO</font>" ; die ; }
 
 clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,BASEXHAM);
 
-print "<br>Connexion ï¿½  la base '".BDD."' => " ;
+print "<br>Connexion é  la base '".BDD."' => " ;
 if ( mysql_select_db ( BDD ) ) print "<font color=\"green\">OK</font>" ;
 else {  print "<font color=\"red\">KO</font>" ; die ; }
 
 clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,BDD);
 
-print "<br>Connexion ï¿½ la base '".CCAM_BDD."' => " ;
+print "<br>Connexion é la base '".CCAM_BDD."' => " ;
 if ( mysql_select_db ( CCAM_BDD ) ) print "<font color=\"green\">OK</font>" ;
 else  {  print "<font color=\"red\">KO</font>" ; die ; }
 
@@ -145,19 +149,19 @@ if(! $conn_id) {
 	ftp_set_option($conn_id, FTP_TIMEOUT_SEC, 20);
 	$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 	if(! $login_result) {
-		 print "<font color=\"red\">Identification refusï¿½e</font>";
+		 print "<font color=\"red\">Identification refusée</font>";
 	} else {
 		$fp = fopen(URLLOCAL.'index.php', 'r');
 		if (ftp_fput($conn_id, 'test_tu.txt', $fp, FTP_BINARY)) {
 			print "<font color=\"green\">OK</font>";
 		} else {
-			print "<font color=\"red\">Problï¿½me lors du transfert</font>";
+			print "<font color=\"red\">Probléme lors du transfert</font>";
 		}
 	}
 }
 
 
-print "<br />Test de connexion au serveur de mises ï¿½ jour (www.orupaca.fr:80) => " ;ob_flush();flush();
+print "<br />Test de connexion au serveur de mises à jour (www.orupaca.fr:80) => " ;ob_flush();flush();
 
 
 
@@ -174,7 +178,7 @@ else
 }
 
 
-print "<br />Test de cryptage avec la clï¿½ publique ARH => " ;
+print "<br />Test de cryptage avec la clé publique ARH => " ;
 //$gpg = new gnuPG(PGPLOCATION,HOMEGPG);
 if( file_exists( URLLOCAL.'index.php.gpg' ))
     unlink(URLLOCAL.'index.php.gpg');
@@ -184,14 +188,14 @@ $gpg->EncryptFile('import@veille-arh-paca.com',URLLOCAL.'index.php');
 $errors=$gpg->error;
 if($errors) {
 	print "<font color=\"red\">KO : $errors</font>";
-	print "<br /><br /><code>Pour installer la clï¿½ publique, exï¿½cutez en tant que user apache: ";
+	print "<br /><br /><code>Pour installer la clé publique, exécutez en tant que user apache: ";
 	//print "<br />su ".$_ENV["APACHE_RUN_USER"];
 	print "<br />gpg --import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
 	print "<br />gpg --edit-key import@veille-arh-paca.com";
 	print "<br />     trust";
 	print "<br />    choisir 'je donne une confiance ultime'";
 	print "<br />    quit";
-	print "<br /><br />Exï¿½cutez ï¿½galement en tant que root";
+	print "<br /><br />Exécutez également en tant que root";
 	print "<br />gpg --import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key";
 	print "<br />gpg --edit-key import@veille-arh-paca.com";
 	print "<br />     trust";
@@ -207,7 +211,7 @@ if($errors) {
 
 
 
-print "<br><br><hr><h4>Mise a jour des bases de donnï¿½es</h4>" ;
+print "<br><br><hr><h4>Mise a jour des bases de données</h4>" ;
 	
 clUpdater::applyPatchs(IDSITE);
 //$message = '' ;
@@ -228,7 +232,7 @@ if ( $isSrvMaj )
 
 	if ( version_compare($lastVersion,$currentVersion,'>'))
 	{
-		print "<br />Une nouvelle version:  $lastVersion est disponible. <br />Tï¿½lï¿½chargement dans ".URLLOCAL."var/dist/... <br />" ;
+		print "<br />Une nouvelle version:  $lastVersion est disponible. <br />Téléchargement dans ".URLLOCAL."var/dist/... <br />" ;
 		ob_flush() ; flush() ;
         $hashvide = md5('') ;
         $nomFic = PREFIXEARCHIVE.'.maj.'.$lastVersion.'.tgz';
