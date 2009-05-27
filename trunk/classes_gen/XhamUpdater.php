@@ -418,22 +418,10 @@ static function sendPostData($fullUrl,$tabDataPost)
 		//TODO: alternative port at the end of the URL handling
 	}
 	//proxy parsing
-	$proxy_port = $proxy = '' ;
+	$proxy_port = $proxy = $proxy_login = $proxy_pass = '' ;
 	if( defined('PROXY') && PROXY )
 	{
-		if ( preg_match('/([^:]+):([^@]+)@([^:]+):([^:]+)/', PROXY,$tabMatch) )
-		{
-			$proxy_login = $tabMatch[1];
-			$proxy_pass = $tabMatch[2];
-			$proxy = $tabMatch[3];
-			$proxy_port = $tabMatch[4];
-		}
-		else
-		{
-			list($proxy,$proxy_port) = explode(':',PROXY);
-			$proxy_login = '';
-			$proxy_pass = '';
-		}
+		self::getProxyParams($proxy,$proxy_port,$proxy_login,$proxy_pass);
 		$serverTalker = $proxy ;
 		$serverTalkerPort = $proxy_port ;
 	}
@@ -481,6 +469,23 @@ static function sendPostData($fullUrl,$tabDataPost)
 	return $ret ;
 }
 
+
+	private static function getProxyParams(&$proxy_host,&$proxy_port,&$proxy_login,&$proxy_pass)
+	{
+		if ( preg_match('/([^:]+):([^@]+)@([^:]+):([^:]+)/', PROXY,$tabMatch) )
+		{
+			$proxy_login = $tabMatch[1];
+			$proxy_pass = $tabMatch[2];
+			$proxy_host = $tabMatch[3];
+			$proxy_port = $tabMatch[4];
+		}
+		else
+		{
+			list($proxy_host,$proxy_port) = explode(':',PROXY);
+			$proxy_login = '';
+			$proxy_pass = '';
+		}
+	}
 // Récupération du contenu de l'url passée en paramètres.
 static function getDataWithCurl ( $url ) {
     $ch = curl_init();
@@ -493,6 +498,47 @@ static function getDataWithCurl ( $url ) {
     curl_close($ch);
     return $data;
 }
+
+
+
+
+	static function downloadFile_wget($url,$fileAbsoluteLocalUrl,&$message)
+	{
+		$proxyOpts = '' ;
+		if( defined('PROXY') && PROXY )
+		{
+			$proxy_port = $proxy_host = $proxy_login = $proxy_pass = '' ;
+			self::getProxyParams($proxy_host,$proxy_port,$proxy_login,$proxy_pass);
+			$proxyOpts = "  " ;
+			if ( $proxy_login )
+				$proxyOpts .= " --proxy-user=$proxy_login --proxy-password=$proxy_pass "  ;
+		}	
+		return XhamTools::_fork_process("wget $url $proxyOpts -O $fileAbsoluteLocalUrl", $message,$message,false,null,	array('http_proxy'=>"http://$proxy_host:$proxy_port"));
+	}
+
+
+	static function downloadFile($url,$fileAbsoluteLocalUrl,&$message='')
+	{
+		switch(HTTP_DOWNLOAD_CLIENT)
+		{
+			case 'wget':
+				return self::downloadFile_wget($url,$fileAbsoluteLocalUrl,$message);
+			case 'php':
+				return file_put_contents($fileAbsoluteLocalUrl, file_get_contents($url));
+			case 'xham':
+			default :
+				return file_put_contents($fileAbsoluteLocalUrl,self::sendPostData($url,array()));
+		}
+	}
+
+
+	static function getUrlContents($url)
+	{
+		$message = '';
+		$tmpFic = URLLOCAL.'temp/tmp'.rand(1,999999999999999);
+		self::downloadFile($url,$tmpFic,$message);
+		return file_get_contents($tmpFic);
+	}
 
 
 }
