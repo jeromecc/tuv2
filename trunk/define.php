@@ -55,7 +55,9 @@ if ( (string)$xml->proxy )
     define ( 'PROXY', (string) $xml->proxy  ) ;
 else define ( 'PROXY', false ) ;
 
-
+if ( (string)$xml->http_download_client )
+    define ( 'HTTP_DOWNLOAD_CLIENT', (string) $xml->http_download_client  ) ;
+else define ( 'HTTP_DOWNLOAD_CLIENT', 'php' ) ;
 
 // Versions
 define ( 'CCAM_VERSION',"CCAM V11") ;

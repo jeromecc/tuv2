@@ -424,5 +424,62 @@
 			return $js ;
 		else return "$js1 $js2" ;
 	}
+
+
+/**
+ * execute une commande systeme
+ * @param string $command
+ * @param string $input
+ * @param string $output
+ * @return bool result of process execution
+ */
+	static function _fork_process($command, &$output_data, &$output_message = false,$input = false,$repTravail=null,$envTabVars = null)
+	{
+		if( ! $output_message )
+			$output_message = &$output_data ;
+
+		// define the redirection pipes
+		$descriptorspec = array(
+			0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
+			1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
+			2 => array("pipe", "w")   // stderr is a pipe that the child will write to
+		);
+		$pipes = null;
+
+		// calls the process
+
+
+		$process = proc_open($command, $descriptorspec, $pipes,$repTravail,$envTabVars);
+		if (is_resource($process)) {
+			// writes the input
+			if (!empty($input)) fwrite($pipes[0], $input);
+			fclose($pipes[0]);
+
+			// reads the output
+			while (!feof($pipes[1])) {
+				$data = fread($pipes[1], 1024);
+				if (strlen($data) == 0) break;
+				$output_data .= $data;
+			}
+			fclose($pipes[1]);
+
+			// reads the error message
+			$result = '';
+			while (!feof($pipes[2])) {
+				$data = fread($pipes[2], 1024);
+				if (strlen($data) == 0) break;
+				$output_message .= $data;
+			}
+			fclose($pipes[2]);
+
+			// close the process
+			$status = proc_close($process);
+
+			return ($status == 0);
+		} else {
+			$output_message .= 'PHP: Unable to fork the command';
+			return false;
+		}
+	}
 }
 ?>
