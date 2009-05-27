@@ -11,6 +11,8 @@
     <mysqlhost>localhost</mysqlhost>
     <mysqluser>root</mysqluser>
     <mysqlpass/>
+	<proxy>lapin:jambon@192.168.2.201:3128</proxy>
+	<http_download_client >wget</http_download_client> <!-- default : php .  xham , wget, curl gerent les proxy , wget fait un appel externe -->
     <basexham>tuv2_xham</basexham>
     <basetuv2>tuv2_tuv2</basetuv2>
     <baseccam>tuv2_ccam</baseccam>
