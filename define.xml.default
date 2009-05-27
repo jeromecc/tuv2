@@ -12,7 +12,8 @@
     <mysqluser>root</mysqluser>
     <mysqlpass/>
     <gnupg/>
-    <proxy/>
+    <proxy/> <!-- titi:toto@192.168.2.100:8080 ou 192.168.2.100:8080 ou rien si connexion directe -->
+    <http_download_client /> <!-- default : php .  xham , wget gerent les proxy , wget fait un appel externe -->
     <uniqIdSiteInstallation/>
     <branche>stable</branche>
     <basexham>tuv2_xham</basexham>
