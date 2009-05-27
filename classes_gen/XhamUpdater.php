@@ -481,7 +481,18 @@ static function sendPostData($fullUrl,$tabDataPost)
 	return $ret ;
 }
 
-
+// Récupération du contenu de l'url passée en paramètres.
+static function getDataWithCurl ( $url ) {
+    $ch = curl_init();
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+    // Si le timeout est à 0, il n'y a pas de limite de temps de connexion et
+    // le téléchargement ne devrait pas échouer en théorie...
+    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,0);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+}
 
 
 }

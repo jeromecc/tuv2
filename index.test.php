@@ -61,6 +61,7 @@ clUpdater::testModule('zlib');
 clUpdater::testModule('ftp');
 clUpdater::testModule('mbstring');
 clUpdater::testModule('sockets');
+clUpdater::testModule('curl');
 print "<hr/>";
 
 print "<h4>Vérification des répertoires</h4>" ;
@@ -233,8 +234,9 @@ if ( $isSrvMaj )
         //print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
 
 		
-
-		$archive = @file_get_contents(PROTO.'www.orupaca.fr/ressources/tu/repository/'.$nomFic);
+        // Si l'exention curl est disponible, on télécharge la mise à jour avec curl.
+        if ( extension_loaded ( 'curl' ) ) $archive = XhamUpdater::getDataWithCurl(PROTO.'www.orupaca.fr/ressources/tu/repository/'.$nomFic);
+        else $archive = @file_get_contents(PROTO.'www.orupaca.fr/ressources/tu/repository/'.$nomFic);
         $hashrecu = md5($archive) ;
         if( $hashrecu == $hash )
         {
