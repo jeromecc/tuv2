@@ -60,7 +60,7 @@ if ( (string)$xml->http_download_client )
 else define ( 'HTTP_DOWNLOAD_CLIENT', 'php' ) ;
 
 // Versions
-define ( 'CCAM_VERSION',"CCAM V11") ;
+define ( 'CCAM_VERSION',"CCAM V16") ;
 define ( 'VERSIONAPPLICATION', file_get_contents( "version.txt" ) ) ;
 
 // Activation du débugage.
