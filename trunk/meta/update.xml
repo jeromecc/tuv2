@@ -250,4 +250,11 @@
         </option_new>
   </update>
 
+
+  <update id="36">
+        <description>Création de la table des diagnostics interdits</description>
+        <requete base="ccam" file="meta/refccam/codescim10interdits.sql" />
+  </update>
+
+
 </updates>
