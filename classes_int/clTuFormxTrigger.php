@@ -67,7 +67,7 @@ class clTuFormxTrigger {
 		}
 		catch(Exception $e)
 		{
-			eko("Problème lors du chargement de la fonction $fonction ");
+			//eko("Problème lors du chargement de la fonction $fonction ");
 		}
 		return false ;
 	}
@@ -624,7 +624,7 @@ class clTuFormxTriggerWatcher
     {
         foreach($tabConds as $cond)
         {
-            if($this->checkCond($cond,$options))
+			if($this->checkCondRecursive($cond,$options))
                 return true ;
         }
         return false ;
@@ -634,16 +634,14 @@ class clTuFormxTriggerWatcher
     {
         foreach($tabConds as $cond)
         {
-            if( ! $this->checkCond($cond,$options))
+            if( ! $this->checkCondRecursive($cond,$options))
                 return false ;
         }
         return true ;
     }
 
 
-
-
-	private function checkCond(clTuFormxTriggerCondition $condition,$options)
+	private function checkCondRecursive(clTuFormxTriggerCondition $condition,$options)
 	{
 		if( ! $condition )
 			return true ;
@@ -655,33 +653,33 @@ class clTuFormxTriggerWatcher
 		case 'or':
             return $this->multiOr($condition->getTabSubConds(), $options) ;
 		case 'not':
-			return ! $this->checkCond($condition->getFirstSubCond(),$options) ;
+			return ! $this->checkCondRecursive($condition->getFirstSubCond(),$options) ;
 		case 'xor':
-			return  $this->checkCond($condition->getFirstSubCond(),$options) XOR  $this->checkCond( $condition->getSecondSubCond() ,$options) ;
+			return  $this->checkCondRecursive($condition->getFirstSubCond(),$options) XOR  $this->checkCond( $condition->getSecondSubCond() ,$options) ;
 		case 'ccmu':
 			//est-ce que le diagnostic du patient est concerné par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
-            if($condition->hasCcmu($this->getPatient()->getCCMU()) &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
+            if($condition->hasCcmu($this->getPatient()->getCCMU())  )
 			{
 				return true ;
 			}
 			return false ;
 		case 'diag':
 			//est-ce que le diagnostic du patient est concerné par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
-			if($condition->hasDiag($this->getPatient()->getCodeDiagnostic()) &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
+			if($condition->hasDiag($this->getPatient()->getCodeDiagnostic()) )
 			{
 				return true ;
 			}
 			return false ;
         case 'motif':
 			//est-ce que le motif du patient est concerné par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
-			if($condition->hasMotif($this->getPatient()->getCodeRecours()) &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
+			if($condition->hasMotif($this->getPatient()->getCodeRecours())  )
 			{
 				return true ;
 			}
 			return false ;
 		case 'acte':
 			//est-ce que les actes du patient sont concernés par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
-			if($condition->hasActes($this->getPatient()->getTabActes()  )  &&  ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) )  )
+			if( $condition->hasActes($this->getPatient()->getTabActes()  )   )
 			{
 				return true ;
 			}
@@ -700,10 +698,36 @@ class clTuFormxTriggerWatcher
 		}
 	}
 
+
+	private function checkCond(clTuFormxTriggerCondition $condition,$options)
+	{
+		if( ! $condition )
+			return true ;
+
+		switch($condition->getType())
+		{
+		case 'and':
+		case 'or':
+		case 'not':
+		case 'xor':
+		case 'ccmu':
+		case 'diag':
+        case 'motif':
+		case 'acte':
+
+			if ( ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
+				return $this->checkCondRecursive($condition , $options) ;
+			else
+				return false ;
+		default :
+			return $this->checkCondRecursive($condition , $options) ;
+		}
+	}
+
 	//on regarde si le patient est elligible à des trigger diags, si c'est le cas on marque le déclenchement du trigger pour qu'il s'affiche des que l'affichage est dispo
 	function launchTriggers($typeAppel='onPresent')
 	{
-
+		global $errs;
 		//est-ce qu'il y a des enquetes  en cours ?
 		if ( !  clTuFormxTrigger::isTriggersActive() )
 			return false ;
@@ -721,6 +745,8 @@ class clTuFormxTriggerWatcher
 				else
 				{
 					//on le marque comme à afficher
+					//eko("on pose le marqueur ".$trigger->getIdTrigger()."type appel =$typeAppel " );
+					$errs->whereAmI();
 					$this->markLaunching($trigger->getIdTrigger() );
 				}
 			}
@@ -742,6 +768,8 @@ class clTuFormxTriggerWatcher
 
 	function delLaunching($idTriggerAsk)
 	{
+		//eko("on enleve le marqueur $idTriggerAsk ");
+
 		foreach ( $_SESSION['tuFxTriggersWatcher'][$this->getPatient()->getIDU() ]['launchers'] as $index => $idTrigger )
 		{
 			if ( $idTriggerAsk == $idTrigger )
@@ -776,6 +804,7 @@ class clTuFormxTriggerWatcher
 			//on reteste si entre temps la condition est toujours valide (autre acces parallele par exemple) , mais sans tester si le launcher est déjà activé cette fois ci
 			if( $this->isElligible($trigger,array('checkLauchers' => false )))
 			{
+				//eko("affichage d'un trigger marqué $idTrigger");
 				$formx = new clFoRmX_manip($this->getPatient());
 				$formx->loadForm($trigger->getIdFormx());
 				$formx->initInstance();
@@ -795,7 +824,7 @@ class clTuFormxTriggerWatcher
 		foreach( clTuFormxTrigger::getTriggersActive() as $trigger )
 		{
 			// Est-ce un trigger de sortie ?  Concerne-t-il le patient ?
-			if( $this->isElligible($trigger)  &&  $trigger ->isOnOut()   )
+			if( $trigger ->isOnOut() && $this->isElligible($trigger) )
 			{
 				return true ;
 			}

@@ -255,12 +255,21 @@ class clPatient {
     }
     $this->setPatient ( $data ) ;
   }
-  
+
+  /**
+   * le patient est dans la SALLE UHCD (géographiquement)
+   * @return bool
+   */
   function isUHCD ( ) {
     $salle = $this->getSalle ( ) ;
     if ( ereg ( "UHCD", $salle ) ) return 1 ;
   }
-  
+
+
+  /**
+   * le patient est  UHCD (facturation)
+   * @return bool
+   */
   function ifInUHCD ( ) {
     
     global $options;
@@ -273,6 +282,25 @@ class clPatient {
     else
       return 0;
   }
+
+  /**
+   *  le patient est  UHCD (facturation) , alias de ifInUHCD
+   */
+
+ function isInUHCD ( ) { return $this->ifInUHCD() ; }
+
+
+
+  /**
+   * le patient est hospitalise ?
+   */
+  function isHospitalise()
+  {
+	  if( $this->getTypeDestination() == 'H' )
+		return true ;
+	  return false ;
+  }
+
   
   function getEtatPatient ( ) { eko ( $this->etatPatient ) ; return $this->etatPatient ; }
 
@@ -315,7 +343,6 @@ class clPatient {
   function getDateSortie           ( ) { return $this->getInformation ( "dt_sortie"            ) ; }
   function getCodeRecours          ( ) { return $this->getInformation ( "recours_code"         ) ; }
   function getCategorieRecours     ( ) { return $this->getInformation ( "recours_categorie"    ) ; }
-  function getTypeDestination      ( ) { return $this->getInformation ( "type_destination"     ) ; }
   function getCategorieDiagnostic  ( ) { return $this->getInformation ( "diagnostic_categorie" ) ; }
   function getLibelleDiagnostic    ( ) { return $this->getInformation ( "diagnostic_libelle"   ) ; }
   function getCodeDiagnostic       ( ) { return $this->getInformation ( "diagnostic_code"      ) ; }
@@ -324,11 +351,26 @@ class clPatient {
   function getDateUHCD			   ( ) { return $this->getInformation ( "dt_UHCD"              ) ; }
   function getEtatUHCD             ( ) { return $this->getInformation ( "etatUHCD"             ) ; }
   function getProvenance		   ( ) { return $this->getInformation ( "provenance"           ) ; }
-  function getDestPMSI			   ( ) { return $this->getInformation ( "dest_pmsi"            ) ; }
   function getOrientation		   ( ) { return $this->getInformation ( "orientation"          ) ; }
   function getTISS				   ( ) { return $this->getInformation ( "tiss"                 ) ; }
   function getValide 			   ( ) { return $this->getInformation ( "valide"               ) ; }
-  
+
+
+  /**
+   * spécialisation PMSI du type de destination attendue, configurée en dur dans clListesGenerales
+   * @return int 1 => MCO , 2=> SSR, 3=>SMD , 4 =>PSY
+   */
+  function getDestPMSI			   ( ) { return $this->getInformation ( "dest_pmsi"            ) ; }
+
+
+  /**
+   * type de destination du patient
+   * @return string  T = "Transfert" ,H = "Hospitalisation" ,D = "Décès",E = "Externe", 6 = "Hospitalisation à domicile" ;7 = "Structure d'hébergement médicosociale" ;F = "Fugue" ;S = "Sortie contre avis médical" ;P = "Partie sans attendre prise en charge" ;R = "Réorientation directe sans soins" ;X = "Erreur (sans ATU)" ;
+   */
+  function getTypeDestination      ( ) { return $this->getInformation ( "type_destination"     ) ; }
+
+
+
   function isSoinsContinus ( ) {
   	global $options;
     $uf     = $this->getUF ( ) ;
