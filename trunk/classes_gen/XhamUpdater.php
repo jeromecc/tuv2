@@ -321,13 +321,21 @@ foreach ($xml->update as $update) {
 			$u = MYSQL_USER ;
 			$p = MYSQL_PASS ;
 			$b = BASEXHAM ;
+		} else if ( $requete['base'] == 'ccam' ) {
+		 	$h = MYSQL_HOST ;
+			$u = MYSQL_USER ;
+			$p = MYSQL_PASS ;
+			$b = CCAM_BDD ;
  		} else if ($requete['base'] == 'stats' ) {
  			$h = MYSQL_XARH_HOST ;
 			$u = MYSQL_XARH_USER ;
 			$p = MYSQL_XARH_PASS ;
 			$b = MYSQL_XARH_BDD ;
  		}
- 		self::execRequete($h,$u,$p,$b,utf8_decode((string) $requete),'1');
+		if( $requete['file'] )
+			self::execSqlFileFromConfig($h,$u,$p,$b,URLLOCAL.$requete['file']);
+		else
+			self::execRequete($h,$u,$p,$b,utf8_decode((string) $requete),'1');
  	}
 
         //ccam ( spécifique tuv2 )
@@ -529,6 +537,7 @@ static function sendPostData($fullUrl,$tabDataPost)
 	static function downloadFile_wget($url,$fileAbsoluteLocalUrl,&$message)
 	{
 		$proxyOpts = '' ;
+		$optionsEnv = null ;
 		if( defined('PROXY') && PROXY )
 		{
 			$proxy_port = $proxy_host = $proxy_login = $proxy_pass = '' ;
@@ -536,8 +545,9 @@ static function sendPostData($fullUrl,$tabDataPost)
 			$proxyOpts = "  " ;
 			if ( $proxy_login )
 				$proxyOpts .= " --proxy-user=$proxy_login --proxy-password=$proxy_pass "  ;
-		}
-		return XhamTools::_fork_process("wget $url $proxyOpts -O $fileAbsoluteLocalUrl", $message,$message,false,null,	array('http_proxy'=>"http://$proxy_host:$proxy_port"));
+			$optionsEnv = array('http_proxy'=>"http://$proxy_host:$proxy_port");
+		}	
+		return XhamTools::_fork_process("wget $url $proxyOpts -O $fileAbsoluteLocalUrl", $message,$message,false,null,$optionsEnv);
 	}
 
 
