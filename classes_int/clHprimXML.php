@@ -22,11 +22,12 @@ class clHprimXML {
   		$param['cw'] = "where etat='P' group by discr" ;
      	$res = $req -> Execute ( "Fichier", "CCAM_getActesBAL", $param, "ResultQuery" ) ;
      //eko($res);
-     	
+     	if ( ! $options -> getOption ( 'EnvoiATU' ) ) $nonATU = " AND contenu NOT LIKE '%|ATU|%' " ; else $nonATU = "" ;
       for ( $i = 0 ; isset ( $res['ID'][$i] ) ; $i++ ) {
       //for ( $i = 0 ; $i < 10 ; $i++ ) {
+        
         // On récupère les actes NGAP et CCAM
-        $param['cw'] = "where etat='P' AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i]." order by type, ID" ;
+        $param['cw'] = "where etat='P' AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i].$nonATU." order by type, ID" ;
 	     	$resccamngap = $req -> Execute ( "Fichier", "CCAM_getActesBAL", $param, "ResultQuery" ) ;
         //eko($resccamngap);
         // On récupère les diags
@@ -43,7 +44,7 @@ class clHprimXML {
            		if ( $options -> getOption ( "HprimXML_EnvoiGroupeParIntervenant" ) ) {
                   // On envoie les actes par internant :  1 intervenant = 1 fichier
                   unset($paramRq);
-                  $paramRq["cw"] = "(type='ACTE') and idEvent=".$res['DISCR'][$i]." and idDomaine=".CCAM_IDDOMAINE." group by envoi_matriculeIntervenant";
+                  $paramRq["cw"] = "(type='ACTE') and idEvent=".$res['DISCR'][$i]." and idDomaine=".CCAM_IDDOMAINE.$nonATU." group by envoi_matriculeIntervenant";
                   $req           = new clResultQuery;
                   $res2          = $req->Execute("Fichier","CCAM_getActesDiagsCotation2",$paramRq,"ResultQuery");
                   //eko($res2);
@@ -59,11 +60,11 @@ class clHprimXML {
                   //eko ($temp2);
                   if ( is_array($temp2) ) 
                   	while ( list ( $key, $val ) = each ( $temp2 ) ) {
-                    $param['cw'] = "where (contenu LIKE '%||".$val."|%' AND etat='P' AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i].") order by type, ID" ;
+                    $param['cw'] = "where (contenu LIKE '%||".$val."|%' AND etat='P' AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i].") $nonATU order by type, ID" ;
 	              	  $resparintervenant = $req -> Execute ( "Fichier", "CCAM_getActesBAL", $param, "ResultQuery" ) ;
 	              	  
 	              	  
-	              	  $param['cw'] = "where (contenu LIKE '%||".$val."|%' AND (etat='P' or etat='W') AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i].") order by ID asc" ;
+	              	  $param['cw'] = "where (contenu LIKE '%||".$val."|%' AND (etat='P' or etat='W') AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i].") $nonATU order by ID asc" ;
 	              	  $resid = $req -> Execute ( "Fichier", "CCAM_getActesBAL", $param, "ResultQuery" ) ;
 	              	  //eko($resid);
                     //eko($resid["ID"][0]);
@@ -224,7 +225,9 @@ class clHprimXML {
 		  $mod -> MxText ( 'patientNaissance', $dtnai ) ;
 		else
 		  $mod -> MxText ( 'patientNaissance', "" ) ;
-		$pati = new clPatient ( $res['DISCR'][$deb], ($action=='suppression'?'':'Sortis')  ) ;
+		$pati = new clPatient ( $res['DISCR'][$deb], '' ) ;
+        if ( ! $pati -> getID ( ) ) $pati = new clPatient ( $res['DISCR'][$deb], 'Sortis' ) ;
+        
         //$pati -> debugInfos ( ) ;
         //eko ( "UUUUUUUUUUUUUUUUUUUUUUUUFFFFFFFFFFFFFFFFFF : ".$pati->getInformation('uf').' pour '.$pati->getDateNaissance() ) ;
         // Correction date foireuse module ccam
@@ -281,7 +284,7 @@ class clHprimXML {
       elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'NOMMED' ) $codeade = $nomumed;
        elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI9' ) $codeade = sprintf('%09d',$adeli);
       else $codeade = 'x' ;
-            eko ( "CODE MEDECIN : $codeade" ) ;
+            //eko ( "CODE MEDECIN : $codeade" ) ;
 			if ( $options -> getOption ( "HprimXML_ExecPrinc" ) ) $medExec = ' principal="oui"' ; else $medExec = '' ;
 			if ( $options->getOption ( 'HprimXML_StatutFT' ) ) $modStatut = ' statut="ft"' ; else $modStatut = '' ;	
 			if ( $action == 'creation' ) $action = utf8_encode ( 'création' ) ;
@@ -391,7 +394,26 @@ class clHprimXML {
 		if ( $options->getOption('HprimXML_NomFic') ) $nomFic = $options->getOption('HprimXML_NomFic').'_'.$res['ID'][$i].'' ;
 		else $nomFic = 'fic'.$options->getOption('HprimXML_ChaineFic').'TV2_'.$res['ID'][$i].'' ;
 		$num = $res['ID'][$i] ;
-		$pati = new clPatient ( $res['DISCR'][$i], ($action=='suppression'?'':'Sortis')  ) ;
+		$pati = new clPatient ( $res['DISCR'][$i], '' ) ;
+        if ( ! $pati -> getID ( ) ) $pati = new clPatient ( $res['DISCR'][$i], 'Sortis' ) ;
+        $datadmi = new clDate ( $pati->getDateAdmission ( ) ) ;
+        $datexam = new clDate ( $pati->getDateExamen ( ) ) ;
+        $datsort = new clDate ( $pati->getDateSortie ( ) ) ;
+        if ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'admission" ) $datdema = $datadmi ;
+        elseif ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'examen" ) $datdema = $datexam ;
+        elseif ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure de sorti" ) $datdema = $datsort ;
+        else {
+
+            if (  $datadmi->getDatetime ( ) != '1999-12-31 00:00:00' AND $datsort->getDatetime ( ) != '1999-12-31 00:00:00' )
+                $time = (int) ( $datadmi->getTimestamp ( ) / 2 ) + ( $datsort->getTimestamp ( ) / 2 ) ;
+            elseif ( $datadmi->getDatetime ( ) != '1999-12-31 00:00:00' ) $time = $datadmi->getTimestamp ( ) ;
+            else $time = $datsort->getTimestamp ( ) ;
+            $datdema = new clDate ( $time ) ;
+            //eko ( $datadmi->getTimestamp ( ).' + '.$datsort->getTimestamp ( ).' = '.$time.' = '.$datdema -> getTimestamp ( ) ) ;
+            //eko ( $datadmi->getDatetime ( ).' + '.$datsort->getDatetime ( ).' = '.$time.' = '.$datdema -> getDatetime ( ) ) ;
+        }
+        $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
+        $hhdem = $datdema -> getDate ( 'H:i:s' ) ;
         
 		$mod = new ModeliXe ( "HprimXMLDiag.html" ) ;
     	$mod -> SetModeliXe ( ) ;

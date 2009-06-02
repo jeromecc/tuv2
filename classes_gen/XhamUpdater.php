@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -47,7 +47,7 @@ static function testNoNoNoNoNoNoThereIsNoLimit($memory)
 	{
 		print "<font color=\"red\">KO</font>" ;
 				die ;
-	}	
+	}
 }
 
 
@@ -87,7 +87,7 @@ static function checkPHPVersion($version)
 
 static function installBase($base,$file,$table,$login,$pass,$host)
  {
-	 
+
 	$link = mysql_connect($host,$login,$pass);
 	mysql_select_db($base,$link);
 
@@ -97,7 +97,7 @@ static function installBase($base,$file,$table,$login,$pass,$host)
 		self::execSqlFile($link,$file);
 		print "<font color=\"green\">OK</font>" ;
 	 }
-	
+
 }
 
 /**
@@ -116,7 +116,7 @@ static function testEcritureDossier($dir)
 			print "<font color=\"red\">KO (creation impossible)</font>" ;
 			die ;
 		}
-		else 
+		else
 		{
 			$precisionCree = '(Créé)' ;
 		}
@@ -196,7 +196,7 @@ function execSqlFile($rsql,$file) {
  * @param string $h
  * @param string $u
  * @param string $p
- * @param string $b 
+ * @param string $b
  * @return bool
  */
 static function testGrantOnBase($h,$u,$p,$b) {
@@ -243,7 +243,7 @@ if(file_exists(URLLOCAL.$varRelFic))
 	$tabUpdateOk = explode(',',file_get_contents(URLLOCAL.$varRelFic));
 else
 	$tabUpdateOk = array();
-    
+
 foreach ($xml->update as $update) {
 	//si déja appliquée
 	if(in_array($update['id'],$tabUpdateOk))
@@ -297,7 +297,7 @@ foreach ($xml->update as $update) {
  	foreach($update->option_upd as $option_upd ) {
  		$requeted = " UPDATE `options` SET ";
 		$requetef = " WHERE libelle='".$option_upd->cle."'" ;
-		
+
 		$set  = "libelle='".(string) $option_upd->cle."'" ;
 		$set .= (string) $option_upd->libelle ? ",description='".utf8_decode(addslashes((string) $option_upd->libelle))."'" : '' ;
         $set .= (string) $option_upd->type ? ",type='".utf8_decode(addslashes((string) $option_upd->type))."'" : '' ;
@@ -536,7 +536,7 @@ static function sendPostData($fullUrl,$tabDataPost)
 			$proxyOpts = "  " ;
 			if ( $proxy_login )
 				$proxyOpts .= " --proxy-user=$proxy_login --proxy-password=$proxy_pass "  ;
-		}	
+		}
 		return XhamTools::_fork_process("wget $url $proxyOpts -O $fileAbsoluteLocalUrl", $message,$message,false,null,	array('http_proxy'=>"http://$proxy_host:$proxy_port"));
 	}
 

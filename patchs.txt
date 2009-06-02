@@ -1,8 +1,19 @@
 ********************************************************************************************************
+**************************** 2009-06-02 11:00:00 : V 2.20.32 *******************************************
+********************************************************************************************************
+
+- Correction sur un problème de date dans les envois HprimXML (Diags et actes).	(Damien Borel)
+- Correction du bug suivant : parfois, les ATU étaient envoyé malgré l'option
+  EnvoiATU qui était paramétrée "Non".						(Damien Borel)
+
+
+********************************************************************************************************
 **************************** 2009-05-26 18:00:00 : V 2.20.31 *******************************************
 ********************************************************************************************************
-- Les téléchargements des mises à jour peuvent se faire nativement ou via curl ou  wget (Emmanuel Cervetti)
-- Ajout du test sur la présence de la libraire open-ssl (Emmanuel Cervetti)
+
+- Les téléchargements des mises à jour peuvent se faire nativement ou via 
+  curl ou  wget.								(Emmanuel Cervetti)
+- Ajout du test sur la présence de la libraire open-ssl.			(Emmanuel Cervetti)
 
 ********************************************************************************************************
 **************************** 2009-05-26 15:00:00 : V 2.20.30 *******************************************
