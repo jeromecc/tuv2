@@ -103,6 +103,7 @@ rm -f ${locationtmp}modules/mouvements/enabled/*
 
 #Sauf pour ceux ci qui sont des plugins globaux
 cp -fL ${location}modules/mouvements/avalaible/sortie_enquetes.php ${locationtmp}modules/mouvements/enabled/
+cp -fL ${location}modules/mouvements/avalaible/contraintes_dp_cim10.php ${locationtmp}modules/mouvements/enabled/
 
 #suppressions dev ponctuels  à ne pas diffuser
 rm -f ${locationtmp}meta/tools/*
@@ -129,7 +130,7 @@ md5=`md5sum ${location}var/dist/tu.maj.$version.tgz | cut -f1 -d\ `
 
 
 #publication dans le repository stable
-if [[ $1 == 'publishstable' ]]
+if [[ $1 == 'publish' ]]
 then
     HOST='www.orupaca.fr'
     USER='orupaca'
