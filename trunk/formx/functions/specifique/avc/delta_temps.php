@@ -15,13 +15,13 @@ function delta_temps($formx) {
 	$obDateDebutVueAsympt = new clDate($formx->getFormVar('date_asympt').' '.$formx->getFormVar('heure_asympt'));
 	
 	if($formx->getFormVar('is_heure_debut_symptoneuro') == 'oui')
-		return floor($obDatePecIoa->getDifference($obDateDebutSymptNeuro)/3600);
+		return $obDatePecIoa->getDifference($obDateDebutSymptNeuro)/3600;
 	if($formx->getFormVar('is_heure_debut_sympto') == 'oui') {
-		return floor($obDatePecIoa->getDifference($obDateDebutSympt)/3600);
+		return $obDatePecIoa->getDifference($obDateDebutSympt)/3600;
 		
 	}
 	if($formx->getFormVar('is_heure_debut_sympto') == 'non')
-		return floor($obDatePecIoa->getDifference($obDateDebutVueAsympt)/3600);	
+		return $obDatePecIoa->getDifference($obDateDebutVueAsympt)/3600;	
 	
 	
 }
