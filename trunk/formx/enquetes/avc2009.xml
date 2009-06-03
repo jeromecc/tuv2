@@ -14,8 +14,8 @@
 
     <ITEM type="RADIO" id="is_avc" oblig="y" onChangeSubmit='y'  >
 		<Libelle>Est-ce un AVC ?</Libelle>
-		<FromList>list:oui|non</FromList>
-        <FromListLibelles>list:Oui|Non (quitter)</FromListLibelles>
+		<FromList>list:oui|non|probable</FromList>
+        <FromListLibelles>list:Oui|Non (quitter)|Probable</FromListLibelles>
 	</ITEM>
 
 
@@ -84,15 +84,16 @@
 		<From>globalObject:patient->getMedecin()</From>
 	</ITEM>
 	
-	<ITEM type="RADIO" id="lateralite" link="lateralite"> 
-	<Libelle>Latéralité</Libelle>
-		<From>var:lateralite</From>
-		<FromList>list:gaucher|droitier</FromList>
-	</ITEM>
 	
 	<ITEM type="CHECK" id="motif_consult">
 	<Libelle>Motif de consultation</Libelle>
 		<FromList>list:Déficit moteur asymétrique|instabilité ou trouble de la marche|Asymétrie faciale|Difficulté d'élocution|Trouble de la parole (aphasie)|Amputation du champ visuel|Installation brutale des symptômes|Céphalées brutale|Cervicalgie|PdC/Syncope|Crise comitiale|Vertige associé avec un autre symptôme neurologique</FromList>
+	</ITEM>
+
+	<ITEM type="RADIO" id="lateralite" link="lateralite">
+	<Libelle>Latéralité</Libelle>
+		<From>var:lateralite</From>
+		<FromList>list:gaucher|droitier</FromList>
 	</ITEM>
 
 </ETAPE>
@@ -197,7 +198,7 @@
 <ETAPE id="3">
 	<ITEM type="TXT" readonly='y' id="delta_heure" resync="y">
 		<Libelle>Delta calculé</Libelle>
-		<From>func:specifique/avc/delta_temps</From>
+		<From>heure_2_heuremin|func:specifique/avc/delta_temps</From>
 	</ITEM>
 	<ITEM type="TXT" readonly='y' id="avertissement1" style="font-weight:bold;color:red;">
 		<Libelle></Libelle>
@@ -205,7 +206,7 @@
 			<Arg1>formVar:delta_heure</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
-		<From>const:alerte-*-Protocole des AVC avec PEC Thrombolyse-*-Tri IAO : rouge ou voir médecin réérant </From>
+		<From>const:-*-Urgence thrombolyse-*-Tri IAO : rouge ou voir médecin référant </From>
 	</ITEM>
 	<ITEM type="TXT" readonly='y' id="avertissement2" style="font-weight:bold;color:orange;">
 		<Libelle></Libelle>
@@ -222,7 +223,7 @@
 		<Libelle>Tension Artérielle Systolique (mmHg)</Libelle>
 	</ITEM>
 
-	<ITEM type="TXT" id="tad"   datatype="int" minvalue="10" maxvalue="99" >
+	<ITEM type="TXT" id="tad"   datatype="int" minvalue="10" maxvalue="999" >
 		<Libelle>Tension Artérielle Diastolique (mmHg)</Libelle>
 	</ITEM>
 
@@ -408,34 +409,31 @@
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 		
-	<ITEM type="RADIO" id="is_decision_trombo" >
-		<Libelle>Score NIH inf. 4 et sup. 23 avec déficit non régressif ?</Libelle>
+	<ITEM type="CHECK" id="nih_deficit" >
+		<Libelle>Score NIH et déficit</Libelle>
 		<Cond type="inf_equal">
 			<Arg1>formVar:delta_heure</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
-		<FromList>list:oui|non</FromList>
-		<ShowItemsOnVal>
-			<ListIdItems>list:trombo_is_indic</ListIdItems>
-			<OnVal>const:oui</OnVal>
-		</ShowItemsOnVal>
-		<ShowItemsOnVal>
-			<ListIdItems>list:jour_pec_tni|heure_pec_tni</ListIdItems>
-			<OnVal>const:non</OnVal>
-		</ShowItemsOnVal>
+		<FromList>list:sup4|inf22|is_regressif</FromList>
+		<FromListLibelles>list:NIH sup. 4|NIH inf. 22|Déficit régressif</FromListLibelles>
 	</ITEM>
 
 	<ITEM type="RADIO" id="trombo_is_indic" >
-		<Libelle>Contre-indication trombolyse ?</Libelle>
+		<Libelle>Trombolyse ?</Libelle>
 		<FromList>list:oui|non</FromList>
 		<ShowItemsOnVal>
 			<ListIdItems>list:date_c15|heure_c15</ListIdItems>
-			<OnVal>const:non</OnVal>
+			<OnVal>const:oui</OnVal>
 		</ShowItemsOnVal>
 		<ShowItemsOnVal>
 			<ListIdItems>list:jour_pec_tni|heure_pec_tni</ListIdItems>
-			<OnVal>const:oui</OnVal>
+			<OnVal>const:non</OnVal>
 		</ShowItemsOnVal>
+		<Cond type="inf_equal">
+			<Arg1>formVar:delta_heure</Arg1>
+			<Arg2>const:3</Arg2>
+		</Cond>
 	</ITEM>
 
 	<ITEM type="CAL" id="date_c15">
@@ -603,7 +601,7 @@
 	
 	<ITEM type="CHECK" id="complication" >
 		<Libelle>Type de complication:</Libelle>
-		<FromList>list:Hyperglycémie sup. 12 mmol|Hyperthermie sup. 37.5|Trouble de la vigilance|Convulsions|Autres</FromList>
+		<FromList>list:Hyperglycémie sup. 12 mmol|Hyperthermie sup. 37.5|Trouble de la vigilance|Convulsions|Troubles hémodynamiques|Autres</FromList>
 		<ShowItemsOnVal>
 			<ListIdItems>list:complication_autre</ListIdItems>
 			<OnVal>const:Autres</OnVal>
@@ -625,6 +623,10 @@
 			<OnVal>const:Convulsions</OnVal>
 		</ShowItemsOnVal>
 		<ShowItemsOnVal>
+			<ListIdItems>list:traitement_hemodynamiques</ListIdItems>
+			<OnVal>const:Troubles hémodynamiques</OnVal>
+		</ShowItemsOnVal>
+		<ShowItemsOnVal>
 			<ListIdItems>list:traitement_autre</ListIdItems>
 			<OnVal>const:Autres</OnVal>
 		</ShowItemsOnVal>
@@ -635,9 +637,9 @@
 	</ITEM>	
 	
 	
-	<ITEM type="CHECK" id="traitment_urgences">
+	<ITEM type="CHECK" id="traitment_urgences" opt="y" >
 		<Libelle>Traitement aux urgences</Libelle>
-		<FromList>list:Aspirine|HBPM à dose préventive|HNF</FromList>
+		<FromList>list:Aspirine|HBPM à dose préventive|HNF|Sans</FromList>
 	</ITEM>
 
 <ITEM type="CHECK" id="traitment_hyperglycemie" opt="y">
@@ -661,6 +663,9 @@
 	</ITEM>
 
 
+<ITEM type="TXT" id="traitement_hemodynamiques">
+		<Libelle>Traitement hémodynamiques:</Libelle>
+	</ITEM>
 
 <ITEM type="TXT" id="traitement_autre">
 		<Libelle>Autre traitement:</Libelle>
