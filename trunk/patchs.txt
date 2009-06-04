@@ -1,15 +1,24 @@
 ********************************************************************************************************
-**************************** 2009-06-04 18:00:00 : V 2.21.2  *******************************************
+**************************** 2009-06-04 11:00:00 : V 2.21.3  *******************************************
 ********************************************************************************************************
--Problème de genre sur les presciptions biologiques corrigé. (Emmanuel Cervetti)
+
+- Correction d'un bug dans le connecteur Hprim 2.1 : le segment A était mal
+  géré lorsque la coupure se faisait sur le dernier champs du segment P.	(Damien Borel)
+
+********************************************************************************************************
+**************************** 2009-06-04 10:00:00 : V 2.21.2  *******************************************
+********************************************************************************************************
+
+- Problème de genre sur les presciptions biologiques corrigé. 			(Emmanuel Cervetti)
 
 ********************************************************************************************************
 **************************** 2009-06-02 18:00:00 : V 2.21.1  *******************************************
 ********************************************************************************************************
--Validation de la CCAM en V16 (Emmanuel Cervetti)
--Correction de bug sur l'enquete transfusion (Emmanuel Cervetti)
--Contrainte sur les diagnostics interdits (Emmanuel Cervetti)
--Nouvelle table avec diagnostics interdits en DP (Emmanuel Cervetti)
+
+- Validation de la CCAM en V16.							(Emmanuel Cervetti)
+- Correction de bug sur l'enquete transfusion.					(Emmanuel Cervetti)
+- Contrainte sur les diagnostics interdits.					(Emmanuel Cervetti)
+- Nouvelle table avec diagnostics interdits en DP.				(Emmanuel Cervetti)
 
 ********************************************************************************************************
 **************************** 2009-06-02 11:00:00 : V 2.20.32 *******************************************

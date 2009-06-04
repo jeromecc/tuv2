@@ -136,13 +136,13 @@ class clHprim {
 			    $this->readHPRIM ( "hprim/$fic" ) ;
 			    $date = new clDate ( ) ;
 			    $tmpDate = $date -> getTimestamp ( ) ;
-
+/*
 			    rename ( "hprim/$fic", "hprim/ok/".$tmpDate.$fic ) ;
 			    if ( file_exists ( "hprim/".$tmp[0].'.OK' ) )
 			    	rename ( "hprim/".$tmp[0].".OK", "hprim/ok/".$tmpDate.$tmp[0].".OK" ) ;
 			    elseif ( file_exists ( "hprim/".$tmp[0].'.ok' ) )
 			    	rename ( "hprim/".$tmp[0].".ok", "hprim/ok/".$tmpDate.$tmp[0].".ok" ) ;
-
+*/
 			  }
       		}
       	  }
@@ -173,7 +173,8 @@ class clHprim {
 			// Parcours des différents patients contenus dans le fichier HPR/
 			for ( $i = 0 ; isset ( $patients[$i] ) ; $i++ ) {
 				$patient = explode ( $sep1, $patients[$i] ) ;
-				if ( count ( $patient ) < 34 AND $patient[0] == 'P' ) {
+                // 2009-06-04 : ajout du cas où la coupure se fait sur le dernier champs...
+				if ( ( count ( $patient ) < 34 AND $patient[0] == 'P' ) OR ( count($patient)==34 AND strlen($patient[33]) < 12)) {
 					$patient2 = explode ( $sep1, $patients[$i+1] ) ;
 					if ( $patient2[0] == 'A' ) {
 						//eko ( "On fusionne" ) ;
