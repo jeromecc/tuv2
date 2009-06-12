@@ -103,15 +103,9 @@ class XhamBluePig {
 			if ( $_GET['appelerPacs'] ) {
 				$user = $this->options->getOption ( $pref."_User" ) ;
                 if ( ! $user ) $user = $this->user->getUid ( ) ;
-    			//$pass = $this->options->getOption ( $pref."_Pass" ) ;
-				//$dll = new cRPC ( $_SERVER[REMOTE_ADDR], $this->options->getOption('BPS_PORT'), $this->options->getOption ( 'BPS_TIMEOUT' ) );
-				//eko ( $this->user->getPassword ( ) ) ;
-				// Open ( $type, $idu, $idpass, $iduf, $idmedecin, $mode, $pass ) {
-				//$result = $dll -> Open ( "clinicom", $this->idu, $this->sej, $this->uf, $user, "MOZAIC", $this->user->getPassword ( ) ) ;
-				global $fenetreBloquante ;
-				$fenetreBloquante = XhamTools::genFenetreBloquante("fenetreFermerPacs.html") ;
-                $act = '<script type="text/javascript">java.lang.Runtime.getRuntime().exec("xeyes");</script>' ;
-
+                // C:\wscript.exe oemcall.vbs us=medsen pw=Cosmos10! pi=@IPP
+                //XhamBluePig::sendJNLP ( "PacsWeb", '"C:\Program Files\Foxit Software\Foxit Reader\Foxit Reader.exe"' ) ;
+                XhamBluePig::sendJNLP ( "PacsWeb", '"c:\wscript.exe"', 'oemcall.vbs', 'us=medsen', 'pw=Cosmos10!', 'pi='.$this->idu  ) ;
 			}
 			if ( $text ) $lien = $text ;
 			else $lien = '<img src="'.$img.'" style="border: 0px;" alt="Pacs" />' ;
@@ -379,7 +373,34 @@ class XhamBluePig {
     	}
     	*/
 	}
-	
+
+    static function sendJNLP ( ) {
+        $mod = new ModeliXe ( "exec.jnlp" ) ;
+    	$mod -> SetModeliXe ( ) ;
+
+        // Récupération du nombre d'arguments de la fonction.
+        $n = func_num_args ( ) ;
+        // Pour chaque argument, on le concatène au précédent avec le séparateur |.
+        for ( $i = 1 ; $i < $n ; $i++ ) {
+            $argi = func_get_arg ( $i ) ;
+            $mod -> MxText ( 'arg.arg', $argi ) ;
+            $mod -> MxBloc ( 'arg', 'loop' ) ;
+        }
+        $nom = 'open'.XhamTools::getAlea(16).'.jnlp' ;
+        $url = URLCACHEWEB ;
+        $mod -> MxText ( 'nom', $nom ) ;
+        $mod -> MxText ( 'url', $url ) ;
+        $mod -> MxText ( 'urls', URL ) ;
+        $arg0 = func_get_arg ( 0 ) ;
+        $mod -> MxText ( 'editeur', $arg0 ) ;
+        $arg1 = func_get_arg ( 1 ) ;
+        $mod -> MxText ( 'titre', $arg1 ) ;
+        $f = fopen ( URLCACHE.$nom, 'w' ) ;
+        fwrite ( $f, $mod -> MxWrite ( "1" ) ) ;
+        fclose ( $f ) ;
+        header ( 'Location:'.$url.$nom ) ;
+    }
+
 		
 	function getAffichage ( ) {
 		global $uniqBP ;
@@ -397,7 +418,7 @@ class XhamBluePig {
  * Requête utile pour créer un nouveau lot d'options...
  INSERT INTO `options` ( `idapplication`, `categorie`, `libelle`, `description`, `type`, `choix`, `valeur`, `administrateur`) VALUES
 ( 1, 'Appels contextuels', '_Actif', 'Le lien externe vers  est activé.', 'bool', '', '', 1),
-( 1, 'Appels contextuels', '_User', 'L''utilisateur pour se connecter à .', 'text', '', '', 1),
+( 1, 'Appels contextuels', '_User', 'L''utilisateur pour se connecter à .', 'text', '', '', 1),.
 ( 1, 'Appels contextuels', '_Pass', 'Le mot de passe utilisé pour se connecter à .', 'text', '', '', 1),
 ( 1, 'Appels contextuels', '_Droit', 'Le droit nécessaire pour voir le lien .', 'text', '', '', 1),
 ( 1, 'Appels contextuels', '_URL', 'URL d''appel à .', 'text', '', '', 1);
