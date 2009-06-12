@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+"
+      codebase="<mx:text id="url" />" 
+      href="<mx:text id="nom" />">
+   <information>
+      <title><mx:text id="titre" /></title>
+      <vendor><mx:text id="editeur" /></vendor>
+   </information>
+   <update check="always" policy="always"/>
+   <resources>
+   	<jar href="<mx:text id="urls" />modules/execjnlp.jar"/>
+	<j2se version="1.6+"/>
+   </resources>
+   <application-desc main-class="hello.Main">
+	<mx:bloc id="arg">
+	   	<argument><mx:text id="arg" /></argument>
+	</mx:bloc id="arg">
+   <application-desc/>
+</jnlp>
+

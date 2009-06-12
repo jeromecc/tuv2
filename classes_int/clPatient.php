@@ -302,7 +302,10 @@ class clPatient {
   }
 
   
-  function getEtatPatient ( ) { eko ( $this->etatPatient ) ; return $this->etatPatient ; }
+  function getEtatPatient ( ) {
+       //eko ( $this->etatPatient ) ;
+       return $this->etatPatient ;
+   }
 
   function getID                   ( ) { return $this->idpatient                                 ; }
   function getIDU                  ( ) { return $this->getInformation ( "idu"                  ) ; }

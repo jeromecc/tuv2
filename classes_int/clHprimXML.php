@@ -259,7 +259,7 @@ class clHprimXML {
 		$mod -> MxText ( 'interventionEmetteur', $emetti ) ;
 		$mod -> MxText ( 'interventionDemandeDate', $dtdem ) ;
 		$mod -> MxText ( 'interventionDemandeHeure', $hhdem ) ;
-		$mod -> MxText ( 'interventionUF',  $pati->getUF () ) ;
+		$mod -> MxText ( 'interventionUF',  ($pati->getUF ()?$pati->getUF ():$ufr) ) ;
 		$nbngap = 0 ;
 		$nbccam = 0 ;
 
@@ -320,7 +320,7 @@ class clHprimXML {
   					$mod -> MxText ( 'actesngap.ngap.medecinCode', $codeade ) ;
   					$mod -> MxText ( 'actesngap.ngap.medecinNom', $nomumed ) ;
                     if ( $ngapl == 'CS' ) $mod -> MxText ( 'actesngap.ngap.medecinUF', $ufr ) ;
-  					else $mod -> MxText ( 'actesngap.ngap.medecinUF', $pati->getUF () ) ;
+  					else $mod -> MxText ( 'actesngap.ngap.medecinUF', ($pati->getUF ()?$pati->getUF ():$ufr) ) ;
   					$mod -> MxBloc ( 'actesngap.ngap', 'loop' ) ;
   					$nbngap++;
   					if ( $ngapl == 'ATU' ) $repfic = "atuxml/" ;
@@ -345,7 +345,7 @@ class clHprimXML {
 				$mod -> MxText ( 'actesccam.ccam.medecinCode', $codeade ) ;
 				$mod -> MxText ( 'actesccam.ccam.medecinNom', $nomumed ) ;
 				//$mod -> MxText ( 'actesccam.ccam.medecinUF', $ufr ) ;
-                $mod -> MxText ( 'actesccam.ccam.medecinUF', $pati->getUF () ) ;
+                $mod -> MxText ( 'actesccam.ccam.medecinUF', ($pati->getUF ()?$pati->getUF ():$ufr) ) ;
 				if ( $options -> getOption ( 'HprimXML_AssoNonVide' ) ) $asso = ($cdasso==''?1:$cdasso) ;
 				else $asso = $cdasso ;
 				$mod -> MxText ( 'actesccam.ccam.codeAssociationNonPrevue', $asso ) ;
@@ -441,7 +441,7 @@ class clHprimXML {
 		$mod -> MxText ( 'rumDate', $dtr ) ;
     	$mod -> MxText ( 'ADELI', $this->adeliMedecin ) ;
     	//$mod -> MxText ( 'rumUF', $ufr ) ;
-        $mod -> MxText ( 'rumUF', $pati->getUF () ) ;
+        $mod -> MxText ( 'rumUF', ($pati->getUF ()?$pati->getUF ():$ufr) ) ;
     	$mod -> MxText ( 'rumUFDate', $dtdem ) ;
     	$mod -> MxText ( 'rumUFHeure', $hhdem ) ;
     	

@@ -7,7 +7,7 @@
     <datestats>2005-06-02 00:00:00</datestats>
     <nomapplication>Terminal des urgences (dev)</nomapplication>
     <nomlogo>logohyeres.jpg</nomlogo>
-    <url/>
+    <url>http://192.168.2.101/tuv2/trunk/</url>
     <mysqlhost>localhost</mysqlhost>
     <mysqluser>root</mysqluser>
     <mysqlpass/>
