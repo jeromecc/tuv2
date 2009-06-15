@@ -21,6 +21,7 @@ define ( 'DATESTATS', 		(string)$xml->datestats ) ;
 define ( 'NOMAPPLICATION', 	(string)$xml->nomapplication ) ;
 define ( 'URLIMGLOGO',  	"images/villes/".(string)$xml->nomlogo ) ;
 define ( 'URL',         	(string)$xml->url ) ;
+define ( 'URLWEBIMGLOGO',  	URL."images/villes/".(string)$xml->nomlogo ) ;
 define ( 'URLLOCAL',    realpath(dirname(__FILE__)).'/' 	) ;
 define ( 'MYSQL_HOST', 		(string)$xml->mysqlhost ) ;
 define ( 'MYSQL_USER', 		(string)$xml->mysqluser ) ;
@@ -58,6 +59,12 @@ else define ( 'PROXY', false ) ;
 if ( (string)$xml->http_download_client )
     define ( 'HTTP_DOWNLOAD_CLIENT', (string) $xml->http_download_client  ) ;
 else define ( 'HTTP_DOWNLOAD_CLIENT', 'php' ) ;
+
+if ( (string)$xml->no_ccam_update )
+    define ( 'NO_CCAM_UPDATE', true  ) ;
+else define ( 'NO_CCAM_UPDATE', false ) ;
+
+
 
 // Versions
 define ( 'CCAM_VERSION',"CCAM V16") ;
@@ -173,6 +180,7 @@ define('FX_URL',			URL);
 define('FX_URLCACHE',		URLCACHE);
 define('FX_URLCACHEWEB',	URLCACHEWEB);
 define('FX_URLIMGLOGO',		URLIMGLOGO);
+define('FX_URLIMGLOGOWEB',		URLWEBIMGLOGO);
 define('FX_URLDOCS',		URLDOCS);
 define('FX_URLDOCUMENT', "http://cypres.ch-hyeres.fr/xham/terminal_urgences/"."formx/docs/" );
 define('FX_URLIMGVAL',		URLIMG."valider.gif"  ) ;
