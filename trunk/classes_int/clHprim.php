@@ -233,7 +233,7 @@ class clHprim {
 				$date = substr($d,0,4).'-'.substr($d,4,2).'-'.substr($d,6,2).' '.substr($d,8,2).':'.substr($d,10,2).':00' ;
 				if ( $d )
 					$data['dt_admission'] = $date ;
-                else $date = date ( 'Y-m-d H:i:s' ) ;
+                else $data['dt_admission'] = date ( 'Y-m-d H:i:s' ) ;
 				// Informations fixes supplémentaires.
 				// $data['prevenir'] = '' ;
 				//$data['mode_admission'] = '' ;
