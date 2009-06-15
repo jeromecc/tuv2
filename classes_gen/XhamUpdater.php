@@ -339,7 +339,8 @@ foreach ($xml->update as $update) {
  	}
 
         //ccam ( spécifique tuv2 )
-  	//exécution de requete précise
+  	//mise à jour CCAM
+	if( ! defined('NO_CCAM_UPDATE') || !  NO_CCAM_UPDATE)
  	foreach($update->ccam as $ccam ) {
         if( ! $isCcamUpdated )
         {
