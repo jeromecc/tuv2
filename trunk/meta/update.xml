@@ -256,5 +256,13 @@
         <requete base="ccam" file="meta/refccam/codescim10interdits.sql" />
   </update>
 
+<update id="37">
+        <description>Extension du nombre de carateres autorisés pour le code diag</description>
+        <requete base="ccam"  >ALTER TABLE `ccam_liste` CHANGE `nomitem` `nomitem` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL</requete>
+  </update>
+
+
+
+
 
 </updates>
