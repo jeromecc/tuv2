@@ -32,6 +32,10 @@ cp -frL ${location}version.txt    ${locationtmp}
 cp -frL ${location}ajax.js    ${locationtmp}
 cp -frL ${location}default.htaccess    ${locationtmp}default.htaccess
 cp -frL ${location}scripts.js    ${locationtmp}
+
+cp -frL ${location}extraction2008.php    ${locationtmp}
+cp -frL ${location}extraction2009.php    ${locationtmp}
+
 cp -frL ${location}templates_int/    ${locationtmp}
 cp -frL ${location}meta/    ${locationtmp}
 cp -frL ${location}queries_int/    ${locationtmp}
@@ -71,6 +75,8 @@ cp -frL ${location}formx/triggers/2009_avc.xml    ${locationtmp}formx/triggers/
 cp -frL ${location}formx/triggers/2009_qualite_diag_sfmu.xml    ${locationtmp}formx/triggers/
 cp -frL ${location}formx/triggers/2009_transfu_patient.xml    ${locationtmp}formx/triggers/
 cp -frL ${location}formx/enquetes/*.xml    ${locationtmp}formx/enquetes/
+mkdir ${locationtmp}formx/templates
+cp -frL ${location}formx/templates/*.tpl.php    ${locationtmp}formx/templates/
 
 #scripts AVC
 mkdir ${locationtmp}formx/functions/specifique
