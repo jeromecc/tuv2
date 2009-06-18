@@ -14,13 +14,13 @@
 									<form name="valEtape" id="valEtape">
 									<mx:select id="valeurEtape" />
 									<mx:hidden id="hidden" />
-									<img name="ValiderEtape" <mx:text id="ajaxVal" /> src="images/valider.gif" alt="Valider" style="pointer: hand; cursor: pointer;"/>
+									<img name="ValiderEtape" <mx:text id="ajaxVal" /> onmouseover="return overlib('Valider cette étape.', WIDTH, 120, BGCOLOR,'#11AAEE', FGCOLOR, '#EFFDFF' );" onmouseout="return nd();"src="images/valider.gif" alt="Valider" style="pointer: hand; cursor: pointer;"/>
 									</form>
 								</mx:bloc id="formEtape">
 								<mx:bloc id="annulerEtape">
 									<form name="annEtape" id="annEtape">
 									<mx:hidden id="hidden" />
-									<img name="AnnulerEtape" <mx:text id="ajaxAnn" /> src="images/annuler.gif" alt="Annuler" style="pointer: hand; cursor: pointer;"/>
+									<img name="AnnulerEtape" <mx:text id="ajaxAnn" /> onmouseover="return overlib('Retourner à l\'étape précédente.', WIDTH, 200, BGCOLOR,'#11AAEE', FGCOLOR, '#EFFDFF' );" onmouseout="return nd();" src="images/annuler.gif" alt="Annuler" style="pointer: hand; cursor: pointer;"/>
 									</form>
 								</mx:bloc id="annulerEtape">
 		                	                </td>
@@ -28,6 +28,17 @@
 					</mx:bloc id="etape">
 	                        </table>
 			</fieldset>
+            <fieldset>
+		                <legend>Commentaire <span onclick="activerCommentaireRadio(1)" id="noteactions"></span></legend>
+                        <form name="valCommentaire" id="valCommentaire">
+                        <table id="notemod" onclick="activerCommentaireRadio()">
+                            <tr><td>
+                                <input type="hidden" name="idradio" id="idradio" value="<mx:text id="idradio" />" />
+                                <textarea name="note" id="notetext" style="display:inline; width:390px; height:60px;"><mx:text id="commentaire_radio" /></textarea>
+                            </td></tr>
+                        </table>
+                        </form>
+            </fieldset>
 			<mx:bloc id="cotation">
 			<fieldset>
 				<legend>Cotation</legend>

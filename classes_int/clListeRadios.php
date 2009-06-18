@@ -51,6 +51,8 @@ class clListeRadios {
 				$this->updateModificateurs ( ) ;
 			elseif ( $session->getNavi ( 1 ) == 'modRadiosEnquetes' )
 				$this->modRadiosEnquetes ( ) ;
+			elseif ( $session->getNavi ( 1 ) == 'setComRadio' )
+				$this->setComRadio ( ) ;
 			else $this->af = $this->genMod ( ) ;
 			
 		} else {
@@ -60,6 +62,16 @@ class clListeRadios {
 			//$pi->addMove ( 'mod', 'handMod' ) ;
 		}
   	}
+
+    // Enregistrement du commentaire de la radio
+    function setComRadio ( ) {
+        global $session ;
+		if ( $session->getDroit ( "Liste_Radio", "m" ) ) {
+			$data['commentaire_radio'] = $_REQUEST['note'] ;
+			$requete = new clRequete ( BDD, "radios", $data ) ;
+		    $requete->updRecord ( "idradio='".$_REQUEST['idradio']."'" ) ;
+		}
+    }
 
 	// Validation du formulaire d'enquete.
 	function valEnquete ( $idradio ) {
@@ -800,7 +812,10 @@ class clListeRadios {
 	    	}
 	    	$mod -> MxText ( "etape.dateEtape", $dateD ) ;
 	   		$mod -> MxBloc ( "etape", "loop" ) ;
-	
+
+            $mod -> MxText ( 'idradio', $res['idradio'][0] ) ;
+            $mod -> MxText ( 'commentaire_radio', $res['commentaire_radio'][0] ) ;
+
 			if ( $options -> getOption ( "RadioCCAM" ) ) {
 				$listeGen = new clListesGenerales ( "recup" ) ;
 				$listeRadiologues = $listeGen -> getListeItemsV2 ( "Radiologues", "1", '', '1' ) ;
@@ -842,11 +857,14 @@ class clListeRadios {
       	$l = '' ;
       	if ( $res['INDIC_SVC'][2] ) {
       		switch ( $res['etat'][0] ) {
-      			case 'a': $text = '<b>Statut : <b> Demande de radio effectuée.' ; $l = 'A' ; break ;
-      			case 'b': $text = '<b>Statut : <b> Patient pris en charge à la radio.' ; $l = 'B' ; break ;
-      			case 'c': $text = '<b>Statut : <b> Radio en cours...' ; $l = 'C' ; break ;
-      			case 'd': $text = '<b>Statut : <b> Radio terminée...' ; $l = 'D' ; break ;
+      			case 'a': $text = '<b>Statut : </b> Demande de radio effectuée.' ; $l = 'A' ; break ;
+      			case 'b': $text = '<b>Statut : </b> Patient pris en charge à la radio.' ; $l = 'B' ; break ;
+      			case 'c': $text = '<b>Statut : </b> Radio en cours...' ; $l = 'C' ; break ;
+      			case 'd': $text = '<b>Statut : </b> Radio terminée...' ; $l = 'D' ; break ;
       		}
+            if ( $res['commentaire_radio'][0] ) $comm = "<br/><b>Commentaire : </b>".addslashes(htmlentities(nl2br($res['commentaire_radio'][0]))) ;
+            else $comm = '' ;
+            $text = $text.$comm ;
       		return '<img src="images/radio'.$l.'.png" alt="radio" onmouseover="return overlib(\''.$text.'\');" onmouseout="return nd();" />' ;
       	} else return '' ;
 	}

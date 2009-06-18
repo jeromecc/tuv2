@@ -250,19 +250,36 @@
         </option_new>
   </update>
 
-
   <update id="36">
         <description>Création de la table des diagnostics interdits</description>
         <requete base="ccam" file="meta/refccam/codescim10interdits.sql" />
   </update>
 
-<update id="37">
+  <update id="37">
         <description>Extension du nombre de carateres autorisés pour le code diag</description>
         <requete base="ccam"  >ALTER TABLE `ccam_liste` CHANGE `nomitem` `nomitem` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL</requete>
   </update>
 
+  <update id="38">
+		<description>Ajout d'une colonne "commentaire radio" dans la table radio.</description>
+		<requete>ALTER TABLE `radios` ADD `commentaire_radio` VARCHAR( 255 ) NOT NULL</requete>
+  </update>
+
+  <update id="40">
+		<description>Ajout de l'entrée AJAX pour la mise à jour du commentaire de la radio.</description>
+		<menu_new>
+			<libelle>setComRadio</libelle>
+			<sub idUnique="81iJ03ii5pIjLteB" /> <!--Statistiques-->
+			<cle cle="setComRadio" />
+			<cletotale cle="Ajax|setComRadio" />
+            <param option="" droit="" visible="y" classe="clListeRadios" argument="'ajax'" />
+		</menu_new>
+  </update>
+
+=======
 
 
 
 
+>>>>>>> .r148
 </updates>

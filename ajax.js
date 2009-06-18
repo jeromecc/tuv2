@@ -110,6 +110,28 @@ function fusion ( result ) {
 // ************************** Radios **************************** //
 // ************************************************************** //
 
+var bn = false ;
+
+function activerCommentaireRadio  ( enr ) {
+	if ( bn && enr ) {
+		bn = false ;
+		document.getElementById('notetext').style.background='#EEEEEE';
+                document.getElementById('notemod').style.border='1px solid #EEEEEE';
+		setDiv ( 'noteactions', '' ) ;
+		enregistrerCommentaireRadio ( ) ;
+	} else {
+		bn = true ;
+		document.getElementById('notetext').style.background='#FFFFFF';
+		document.getElementById('notemod').style.border='1px solid red';
+		setDiv ( 'noteactions', '[Cliquez ici pour enregistrer]' ) ;
+	}
+}
+
+function enregistrerCommentaireRadio ( ) {
+	var note = document.getElementById('notetext').value ;
+	var idradio = document.getElementById('idradio').value ;
+    request('index.php?navi=QWpheHxzZXRDb21SYWRpbw==&ajax=1&note='+note+'&idradio='+idradio,null,'') ;
+}
 
 
 // Prépare les résultats de la recherche à envoyer.
