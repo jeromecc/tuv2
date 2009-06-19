@@ -142,7 +142,7 @@ class clHprim {
 			    	rename ( "hprim/".$tmp[0].".OK", "hprim/ok/".$tmpDate.$tmp[0].".OK" ) ;
 			    elseif ( file_exists ( "hprim/".$tmp[0].'.ok' ) )
 			    	rename ( "hprim/".$tmp[0].".ok", "hprim/ok/".$tmpDate.$tmp[0].".ok" ) ;
-
+                
 			  }
       		}
       	  }
@@ -182,6 +182,7 @@ class clHprim {
 						//eko ( $patient2 ) ;
 						unset ( $patient[count($patient)-1] ) ;
 						unset ( $patient2[0] ) ;
+                        //eko ( $patient[count($patient)-1] ) ;
 						$final = array_merge($patient,$patient2) ;
 						$final = explode ( $sep1, $patients[$i].substr($patients[$i+1],2,strlen($patients[$i+1])-2) ) ;
                         eko ( $final ) ;
@@ -229,11 +230,17 @@ class clHprim {
 				// Statut
 				$sta = $patient[24] ;
 				// Date d'admission.
-				$d = $patient[23] ;
-				$date = substr($d,0,4).'-'.substr($d,4,2).'-'.substr($d,6,2).' '.substr($d,8,2).':'.substr($d,10,2).':00' ;
-				if ( $d )
-					$data['dt_admission'] = $date ;
-                else $data['dt_admission'] = date ( 'Y-m-d H:i:s' ) ;
+				$d = str_replace('<br />','zeze',nl2br(nl2br($patient[23]))) ;
+                $d = str_replace(CHR(10),'',str_replace(CHR(13),"",$patient[23]));
+                if ( strlen ( $d ) <= 5 ) $date = date ('Y-m-d').' '.substr($d,0,2).':'.substr($d,2,2).':00' ;
+				else $date = substr($d,0,4).'-'.substr($d,4,2).'-'.substr($d,6,2).' '.substr($d,8,2).':'.substr($d,10,2).':00' ;
+				if ( $d ) {
+                    $dateadmin = new clDate ( $date ) ;
+                    $data['dt_admission'] = $dateadmin -> getDatetime ( ) ;
+                } else {
+                    $data['dt_admission'] = date ( 'Y-m-d H:i:s' ) ;
+                }
+                //eko ( $data['dt_admission'] ) ;
 				// Informations fixes supplémentaires.
 				// $data['prevenir'] = '' ;
 				//$data['mode_admission'] = '' ;
