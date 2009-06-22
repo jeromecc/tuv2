@@ -187,7 +187,12 @@ class  clFoRmX {
   }
   
   
-
+	function getVersionForm()
+	{
+		if( ! $this->getRootDom()->hasAttribute('version') )
+			return 10 ;
+		return (int) $this->getRootDom()->getAttribute('version') ;
+	}
   
   // Construction.------------------------------
   function __construct ($ids='',$options='') { 	
@@ -343,7 +348,10 @@ function setListes() {
   	return clFoRmXtOoLs::ListFromIds($this->ids,$status);
     }
   
-
+/**
+ *
+ * @return DOMElement
+ */
 function getRootDom()
   {
 	if(! is_object($this->XMLDOM->documentElement))
@@ -680,7 +688,7 @@ function getRootDom()
   return 1;
   }
   
- function rmInstanceForce($idinstance='') {
+ public function rmInstanceForce($idinstance='') {
   if(!$idinstance) $idinstance = $this->idInstance ;
   if($idinstance == $this->idInstance &&  $this->XMLDOM->getElementsByTagName('FORMX')->item(0)->hasAttribute('onDelete')) {
   	$callProc = $this->XMLDOM->getElementsByTagName('FORMX')->item(0)->getAttribute('onDelete');
@@ -692,7 +700,7 @@ function getRootDom()
   
   /*  Genere un popup contenant la version pdf du formulaire
   affFoRmX() doit être généré avant*/
-  function genPdf() {
+  public function genPdf() {
   //vidage du cache
   $mapoub = new clPoubelle();
   $mapoub ->setRepertoire ($this->session->urlCache) ;
@@ -727,7 +735,7 @@ function getRootDom()
    /*  Genere un popup contenant la version html du formulaire et lance le module
    d'impression du Navigateur
   affFoRmX() doit être généré avant*/
-  function genPrint($buffer) {
+ public  function genPrint($buffer) {
   
   $this->debug("entrée dans genPrint()");
   //vidage du cache
@@ -747,7 +755,8 @@ function getRootDom()
   		$mod -> MxAttribut('FoRmX_css_mail', $this->session->url.'css/FoRmX_print.css');
 		$mod -> MxAttribut('FoRmX_css', $this->session->url.'css/FoRmX.css');
 		}
-	$mod -> MxAttribut('piclogo', $this->session->urlImglogo);
+		//eko($this->getSession()->);
+	$mod -> MxAttribut('piclogo', $this->session->getWebUrlLogo());
   	$mod -> MxText('contenu', $buffer);
 	$buffer = $mod -> MxWrite ( "1" ) ;
 	
@@ -763,13 +772,43 @@ function getRootDom()
 		fclose($fp);
 		}
    unset($buffer,$buffer2);
-  $this->af .= "<SCRIPT LANGUAGE=\"JavaScript\">window.open('".$this->session->urlCacheWeb.$fic_html."','_blank','toolbar=0, location=0, directories=0,width=800, status=0, scrollbars=0, resizable=0, copyhistory=0, menuBar=0' );</SCRIPT>";
-  } 
+	$this->af .= "<SCRIPT LANGUAGE=\"JavaScript\">window.open('".$this->session->urlCacheWeb.$fic_html."','_blank','toolbar=0, location=0, directories=0,width=800, status=0, scrollbars=0, resizable=0, copyhistory=0, menuBar=0' );</SCRIPT>";
+  }
+
+   /**
+    * Génère un fichier contenant la version HTML du formulaire
+    * lance un popup dans le navigateur qui se charge de l'imprimmer
+    */
+ public  function genPrint2($buffer)
+  {
+	$mapoub = new clPoubelle($this->session->urlCache);
+	$mapoub ->purgerRepertoire(1);
+	$session = formxSession::getInstance() ;
+
+	$data['titre']= $this->getTitre() ;
+	$data['urlCss']=$session->getWebUrlCss().'formxv2_print.css' ;
+	$data['urlLogo']= $session->getWebUrlLogo();
+	$data['htmlFormulaire']= $buffer;
+	$contents = clFoRmXtOoLs::helpers_readTemplate('impression_page',$data);
+	$fic_html = date('y-m-j-h-i-s-').rand(1,1000).'.html';
+	file_put_contents($session->getLocalUrlCache().$fic_html, utf8_decode($contents));
+	$this->af .= "<SCRIPT LANGUAGE=\"JavaScript\">window.open('".$session->getWebUrlCache().$fic_html."','_blank','toolbar=0, location=0, directories=0,width=800, status=0, scrollbars=0, resizable=0, copyhistory=0, menuBar=0' );</SCRIPT>";
+  }
+
+/**
+ * titre du formulaire
+ * @return string titre UTF8
+ */
+  public function getTitre()
+  {
+	  return $this->getRootDom()->getElementsByTagName('Libelle')->item(0)->nodeValue;
+  }
   
   
    
    /*   Affiche le formulaire, avec saisie   */
-  function affFoRmX($store=false) {  
+ public  function affFoRmX($store=false)
+  {
   //pour commodité d'ecriture
     $formxSession = $this->session ;
     $xml = & $this->XMLCore ;
@@ -809,9 +848,10 @@ function getRootDom()
     //puis on parcourt les balises ETAPE jusqu'on en trouve une non achevée
     
     foreach ($xml->ETAPE as $etape) {
-    	if ( ( ! $etape['access'] ) || (  $formxSession->getDroit(utf8_decode((string) $etape['access']),'r' ))) 
-		$this->printEtape($mod,$etape);
-	if ($etape['etat'] != 'fini') break ;
+    	if ( ( ! $etape['access'] ) || (  $formxSession->getDroit(utf8_decode((string) $etape['access']),'r' )))
+			
+				$this->printEtape($mod,$etape);
+			if ($etape['etat'] != 'fini') break ;
         }
         
      //puis on parcourt les balises fusion 
@@ -860,18 +900,14 @@ function getRootDom()
 			$fusion->Libelle[0] = $libelle_default ;
 			unset($this->current_fusion);
 		}
+		
      }
-        
-        
-        
-        
-        
-        
-	//on indique en caché la référence de formulaire pour traitemenent ulterieur des données POST	
+
+	//on indique en caché la référence de formulaire pour traitemenent ulterieur des données POST
     $mod->MxHidden('hidden1',$this->prefix."INSTANCE=".$this->idInstance);
     $mod->MxHidden('hidden2','navi='.$formxSession->genNavi($formxSession->getNavi(0),$formxSession->getNavi(1),$formxSession->getNavi(2),$formxSession->getNavi(3)));
     if( ! $this->ya_un_cal ) $mod -> MxBloc ( "JavaCAL", "delete" ) ;
-    
+
     //javascript dynamique global au formulaire
     $mod -> MxText ( "js",$this->js);
     $af = $mod -> MxWrite ( "1" ) ;
@@ -879,14 +915,108 @@ function getRootDom()
 	//tout affichage peut impliquer une mise à jour en base
 	//( 1er affichage charge les valeurs nom prenoms)
 	//il y a eu un changement d'adresse...
-	
-	//2009/01 : je commente la ligne suivante qui me semble obsolete, à recetter.    
+
+	//2009/01 : je commente la ligne suivante qui me semble obsolete, à recetter.
    // $this->saveInstance();
     return $af; 
   }
-  
+        
+
+
+    /*   Affiche le formulaire, avec saisie, v2  */
+   function getHtmlImpressionContenu()
+  {
+	//pour commodité d'ecriture
+	//$formxSession = formxSession::getInstance() ;
+    //$xml = & $this->XMLCore ;
+    //$this->debug("Entrée dans affFoRmX(), générateur de l'affichage.");
+	if ( $this->getRootDom()->hasAttribute('access')  &&  ! $this->getSession()->getDroit( $this->getRootDom()->getAttribute('access')  )  )   return '';
+	$af = '' ;
+
+
+    //instanciation modelixe
+    //$mod = new ModeliXe ( "FX_squeletteFoRmX.mxt" ) ;
+    //$mod -> SetModeliXe ( ) ;
+    //recuperation des balises descriptives
+    //$htmlLibelle = $xml->Libelle[0] ;
+    //if( $xml->Logo[0] )
+    //$htmlLibelle = '<img alt="logo" src="'.$xml->Logo[0].'" />'.$htmlLibelle ;
+    //$mod -> MxText ( "titre",$htmlLibelle);
+
+    //if ($xml->Objet[0])
+    //	$mod -> MxText ( "objet.libobj",$xml->Objet[0]);
+    //else
+   // 	$mod -> MxBloc("objet","delete");
+    //if ($xml->Explication[0]) {
+   // 	$mod -> MxText ( "explication.explication",$xml->Explication[0]);
+	//} else {
+	//$mod -> MxBloc("explication","delete");
+	//}
+
+
+
+    //boutton de fermeture
+    //if($this->isWindowClose)
+    //	$mod->MxFormField("windowClose","image",$this->prefix."close","on","value='on'  src=\"".FX_URLIMGCLO."\"");
+    //if( ! (string) $xml['dontPrintPrinter'] )
+    //	$mod->MxFormField("windowPrint","image",$this->prefix."print","on","value='on'  src=\"".FX_URLIMGEDI."\"");
+
+
+
+
+    //puis on parcourt les balises ETAPE jusqu'on en trouve une non achevée
+
+		foreach ( $this->getRootDom()->getElementsByTagName('ETAPE') as $etape)
+		{
+			if ( ( ! $etape->hasAttribute('access') ) || (  $formxSession->getDroit(utf8_decode( $etape->getAttribute('access') ),'r' )))
+				$af .=$this->getHtmlImpressionEtape($etape);
+			if ($etape->getAttribute('etat') != 'fini') break ;
+        }
+
+/*
+     //puis on parcourt les balises fusion
+ 	//On parcourt les balises FUSION
+    foreach ($xml->FUSION as $fusion) {
+    	//eko("Entre fusion");
+    	$libelle_default = (string) $fusion->Libelle[0] ;
+    	if ( ( ! $fusion['access'] ) || (  $formxSession->getDroit(utf8_decode((string) $fusion['access']),'r' )))
+		$fusion['etat']='fini';
+		//$libelle = (string) $fusion->Libelle ;
+		$vars = array();
+		foreach ($fusion->Recup as $recup) {
+			$vars[] = (string) $recup['var'] ;
+			}
+		//debug comportement bizarre de simpleXml
+		if(count($vars)==1 & ! $vars[0])
+			$vars = array() ;
+	}
+*/
+
+	//on indique en caché la référence de formulaire pour traitemenent ulterieur des données POST
+    //$mod->MxHidden('hidden1',$this->prefix."INSTANCE=".$this->idInstance);
+    //$mod->MxHidden('hidden2','navi='.$formxSession->genNavi($formxSession->getNavi(0),$formxSession->getNavi(1),$formxSession->getNavi(2),$formxSession->getNavi(3)));
+    //if( ! $this->ya_un_cal ) $mod -> MxBloc ( "JavaCAL", "delete" ) ;
+
+    //javascript dynamique global au formulaire
+    //$mod -> MxText ( "js",$this->js);
+    //$af = $mod -> MxWrite ( "1" ) ;
+    //if($store) $this->af .= $af;
+	//tout affichage peut impliquer une mise à jour en base
+	//( 1er affichage charge les valeurs nom prenoms)
+	//il y a eu un changement d'adresse...
+
+	//2009/01 : je commente la ligne suivante qui me semble obsolete, à recetter.
+   // $this->saveInstance();
+    return $af;
+  }
+
+
+
+
+
+
 // fonction qui empeche erreurs notice poour variable non instanciée $_POST
-function regPost($vars)
+public function regPost($vars)
     {
 	   	foreach ($vars as $value) {
     	if (! isset($_POST[$value])) $_POST[$value] ='';
@@ -895,7 +1025,7 @@ function regPost($vars)
   
   
   /*traite les postData pour mettre à jour l'instance du formulaire*/
-  function TraiterPost() {
+ public  function TraiterPost() {
   
   global $formxSession;
   global $errs;
@@ -910,7 +1040,8 @@ function regPost($vars)
    $this->regPost(array('FormX_ext_goto_','FoRmX_step_next_x','FoRmX_step_prev_x','FoRmX_step_cancel_x','FoRmX_selCancel_x','FoRmX_step_next_x','FoRmX_step_prev_x','FoRmX_print_x','FoRmX_close_x','FoRmX_selValid_x','FormX_ext_goto_'));
   	
     if($_POST['FormX_ext_goto_']  ) {
-    $this->debug('trouvé Commande $_POST[\'FormX_ext_goto_\'] ='.$_POST['FormX_ext_goto_']);
+   
+	$this->debug('trouvé Commande $_POST[\'FormX_ext_goto_\'] ='.$_POST['FormX_ext_goto_']);
 	$this->isuseraction=true;
    
    	//si on va vers la selection d'un nouveau type de formulaire
@@ -952,6 +1083,7 @@ function regPost($vars)
 	
 	//sinon, chargement d'instance donné
 	if ( ! isset($goOn) ||  ! $goOn) {
+		 
 		$this->loadInstance($_POST['FormX_ext_goto_']);
 		if(! isset($validForce) || ! $validForce)
 			$this->detectHeresie();
@@ -964,8 +1096,10 @@ function regPost($vars)
    			$id_instance = $this->initInstance($this->ids);
    			$this->loadInstance($id_instance);
    		  }
-    	} 
+    	}
+		
 		$this->af .=$this->affFoRmX();
+		
 		return;
 		}
 	} else {
@@ -1000,6 +1134,8 @@ function regPost($vars)
 	}
 	return '';
    }
+   
+
   //recherche un formulaire présent dans les données POST
   //un formulaire etait déja affiché précédement
   foreach ($_POST as $cle => $valeur) {
@@ -1034,7 +1170,10 @@ function regPost($vars)
    if( $_POST[$this->prefix.'print_x']) {
 	$this->isuseraction=true;
 	$this->modeImpression = true;
-	$this->genPrint($this->affFoRmX());
+	if( $this->getVersionForm() >= 11 )
+		$this->genPrint2($this->getHtmlImpressionContenu() );
+	else
+		$this->genPrint($this->affFoRmX());
 	$this->modeImpression = false;
 	$this->af .= $this->affFoRmX();
 	return 1;
@@ -1170,7 +1309,9 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
 		$this->affFoRmX(); //TODO : lorsque plus aucune regle métier dans affFoRmX, virer la ligne
     } else
 		$this->af .=$this->affFoRmX();	
-		
+
+	
+
 	$this->saveInstance();
 	
    if($this->justClosed && $id2load =clFoRmXtOoLs::isFormToLoad($this->prefix) ) {
@@ -1185,7 +1326,7 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
   
   
    //doit-je me fermer tout seul apres une validation ?
-   function mustICloseAfterValid()
+  public  function mustICloseAfterValid()
    {
    		if( $this->getRootDom()->getAttribute('closeAfterValid') || $this->ImustDisapear )
    			return true ;
@@ -1196,7 +1337,7 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
   
   
   /*sauve l'instance en BDD*/
-  function saveInstance() {
+ public  function saveInstance() {
   	global $errs ;
   //eko( $errs->whereAmI() )	;
   $vals = array();
@@ -1211,7 +1352,7 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
  }
   
   //definir dans la classe héritée
-  function traiterFini() {
+ public   function traiterFini() {
   return 'F';
   }
   
@@ -1229,7 +1370,7 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
   }
 
   /*cloture un formulaire*/
-function close() {
+public function close() {
   $etapes = $this->XMLDOM->documentElement->getElementsByTagName('ETAPE');
   foreach ($etapes as  $etape)
   { //on parcours les nodes
@@ -1254,12 +1395,12 @@ function close() {
   }
   
 //cloture une etape sans appliquer les actions
-function closeEtape($objDomEtape) {
+public function closeEtape($objDomEtape) {
 	$objDomEtape-> setAttribute('etat','fini') ;	
 }
 
   /*decloture un formulaire*/
-function  unclose() {
+public function  unclose() {
   //test si pas fini, fait rien
    if (in_array(formxTools::getDomState($this),array('E','I')))
 	return '';
@@ -1273,7 +1414,7 @@ function  unclose() {
 
 //retourne l'etat que doit avoir le formulaire en base apres avoir appliqué les
 //dernieres actions qui doivent avoir eu lieu
-function getAndCloseState() {
+public  function getAndCloseState() {
  if ( $this->XMLCore['disappear'] ) {
 	//si le form doit disparaitre apres finition
 	$this->rmInstanceForce();
@@ -1286,7 +1427,7 @@ function getAndCloseState() {
 }	
 
   /*Applique les actions d'une étape validée*/
-  function applyActions($etape) {
+ public  function applyActions($etape) {
   
   global $formxSession;
   $actions = $etape->getElementsByTagName('ACTION'); 
@@ -1369,10 +1510,10 @@ function getAndCloseState() {
 		else
 			$from='diffusion-system@FoRmX.ch-hyeres.fr';
 		$head="From :$from\n".$content_type."\n";
-		$message=utf8_decode($this->convMP($action->getElementsByTagName('Message')->item(0)->nodeValue));
+		$message=utf8_decode(formxTools::helper_str_mef($action->getElementsByTagName('Message')->item(0)->nodeValue));
 		
 		if($action->getAttribute('joindreForm')) {
-			$htmlform=utf8_decode($this->convMP($this->affFoRmX()));
+			$htmlform=utf8_decode(formxTools::helper_str_mef($this->affFoRmX()));
 			$filename="css/FoRmX_mail.css";
 			$handle=fopen($filename,'r');
 			$style=fread($handle,filesize($filename));
@@ -1446,7 +1587,7 @@ function getAndCloseState() {
   
   //genere la chaine logique qui va représenter les items à chercher
   //va chercher l'etape SXML equivalente
-  function genLogicStringItems($etape,&$etapeSX) {
+public   function genLogicStringItems($etape,&$etapeSX) {
   	   $id_etape=$etape->getAttribute('id');
   //rechagement de simpleXML apres modifs via DOM
   //$this->updtXML();
@@ -1521,7 +1662,7 @@ return false;
   
   
   
-  function testEtape($etape) {
+ public  function testEtape($etape) {
 	
 	$this->debug("Entrée dans testEtape");
 	$etapeSX = '';
@@ -1573,7 +1714,7 @@ return false;
   }
   
   /*tester la complétude d'un tableau*/
-  function testTab($litem) {
+ public  function testTab($litem) {
   $val = (string) $litem->Val ;
   $tab = explode('|',$val);
     foreach($tab as $val) {
@@ -1583,14 +1724,14 @@ return false;
   }
 
   /*obtenir, à l'interieur d'une etape en objet simpleXML, l'item d'id $id*/
-  function getSXitembyId($etape,$id){
+ public  function getSXitembyId($etape,$id){
   	foreach ($etape->ITEM as $item) {
 	if ( $item['id'] == $id)  return $item ;
 	}
   }
   
   //met à à jour un attribut dans la valeur SXML et DOM-XML, à partir de l'item SXLK
-  function makeSXMLItemAttribute($item,$var,$val) {
+ public  function makeSXMLItemAttribute($item,$var,$val) {
   
   $id=$item['id'];
   $pere = $this->XMLDOM ;
@@ -1605,7 +1746,7 @@ return false;
    $itemDOM->setAttribute($var,$val);
     }
     
-   function getDomItemFromId($id,$pere='') {
+  public  function getDomItemFromId($id,$pere='') {
    	if ( ! $pere ) $pere = $this->XMLDOM ;
    	$ok=false;
    	foreach ( $pere->getElementsByTagName('ITEM') as $itemDOM ) {
@@ -1619,7 +1760,7 @@ return false;
    	return false;
    }
   
-     function getDomEtapeFromId($id) {
+    public  function getDomEtapeFromId($id) {
    	$pere = $this->XMLDOM ;
    	$ok=false;
    	foreach ( $pere->getElementsByTagName('ETAPE') as $itemDOM ) {
@@ -1640,7 +1781,7 @@ return false;
    * l'item sera créé juste avant
   */
   //$this->cloneItem($activI->getAttribute('idItem'),$etape,$activI);
-  function cloneItem($id,$pere,$frere='') {
+  public function cloneItem($id,$pere,$frere='') {
    if (!$pere ) $pere = $this->XMLDOM ;
   
   foreach ( $pere->getElementsByTagName('ITEM') as $item ) {
@@ -1686,7 +1827,7 @@ return false;
   
   
     //clone l'etape id apres l'etape afterid, remet les val à vide éventuellement
-  function cloneEtape($id,$afterid,$options="") {
+  public function cloneEtape($id,$afterid,$options="") {
   	if($id == '')
   		return false;
 	$pere = $this->XMLDOM->getElementsByTagName("FORMX")->item(0) ;
@@ -1761,7 +1902,7 @@ return false;
   /*Verifie qu'une balise de nom $bal existe dans un item,la crée éventuellement, et lui donne la valeur $val
    * 
   */
-  function makeBalVal($item,$bal='Val',$val,$xmlobj='') 
+  public function makeBalVal($item,$bal='Val',$val,$xmlobj='')
  {
  	if(! $xmlobj) $xmlobj = $this->XMLDOM ;
  	formxTools::createTagValue($item, $bal, $val, $xmlobj);
@@ -1796,7 +1937,7 @@ return false;
  }
     
  //teste si dans les données post des infos sont présentes pour remplir cet item
- function isPostValueForItem(/*objet DOM*/  $item) {
+ public function isPostValueForItem(/*objet DOM*/  $item) {
 	switch($item->getAttribute('type')) {
   		case 'LISTEN':
 			if(isset($_POST[$this->prefix.$item->getAttribute('id').'_LISTEN_0']))
@@ -1829,7 +1970,7 @@ return false;
     
     
   /*verifie la validité d'un champ de formulaire avant de le transformer et de l'affecter dans l'objet XML*/
-  function affectPost2XML($item) {  
+ public  function affectPost2XML($item) {
   
   global $formxSession;
   //Certains items ne peuvent être instanciés
@@ -2120,7 +2261,7 @@ $reg=array();
   /*
   affiche la maquette d'un formulaire pour prévisualisation
   */
-  function affMaquette() {
+  public function affMaquette() {
     //pour commodité d'ecriture
     $xml = & $this->XMLCore ;
     //instanciation modelixe  
@@ -2140,7 +2281,7 @@ $reg=array();
     return $mod -> MxWrite ( "1" ) ;
   }
   
-  function printActions(& $mod, $etape) {
+  public function printActions(& $mod, $etape) {
   //si pas d'actions pour cette étape
   if (!  isset($etape->ACTION) ) {
   	$mod -> Mxbloc( "etape.actions", "delete" );	
@@ -2191,9 +2332,96 @@ $reg=array();
      else $mod -> Mxbloc( "etape.actions", "delete" );
      }	
   }
-  
+
+  public function getNbEtapes()
+  {
+	if( ! $this->getRootDom()->hasAttribute('nb_etapes') )
+		return false ;
+	return $this->getRootDom()->getAttribute('nb_etapes');
+  }
+
+
+  public function getHtmlImpressionEtape($etape)
+  {
+	  /* @var $etape DOMElement */
+
+	  if ($etape->hasAttribute('access')  &&  !  $this->getSession()->getDroit(utf8_decode( $etape->getAttribut('access')),'r' ) ) return '';
+
+		$formxSession = $this->getSession() ;
+		//eko($etape->getAttribute('id'));
+		//eko($etape->getElementsByTagname('Libelle')->item(0)->nodeValue);
+		$data ['titre_etape'] = $etape->getElementsByTagname('Libelle')->item(0)->nodeValue ;
+		//eko($data ['titre_etape']);
+		$data ['idEtape'] = $etape->getAttribute('id');
+		if( ! $this->getRootDom()->hasAttribute('dontPrintNavi') && $this->getRootDom()->hasAttribute('nb_etapes') )
+			$data ['navigation'] = '('.$data ['idEtape'].'/'. $this->getNbEtapes().')';
+		else
+			$data ['navigation'] = false ;
+
+	$data['contenu'] = '' ;
+
+   /* boutons de validation ou d'annulation de l'etape	*/
+   	//si l'etape est achevée, on enleve le bloc dans le template et on affiche les actions prises
+
+
+   if ( $etape->getAttribute('etat') != "fini" )
+   {
+	   /*
+   	foreach ($etape->ITEM as $item){
+   		$optimize=$etape['optimize']?'y':'';
+		$this->printItem($mod,$item,'RW',$domEtape,$optimize);
+		}
+	//si présence d'un item non validé
+		if(isset($this->lastNonValidItem) && $this->lastNonValidItem) {
+		$mod->MxText("etape.infoNoValid.infoNoValid","<span style='color:red;'>".clFoRmXtOoLs::u8message("infoNoValid1")
+				.$this->lastNonValidItem->Libelle[0]
+				.clFoRmXtOoLs::u8message("infoNoValid2"))."</span>";
+		} else {
+				$mod->MxBloc( "etape.infoNoValid", "delete" ) ;
+		}
+
+	//on affiche les bouttons et vire les actions
+   	$mod->MxFormField("etape.valid_bouttons.etapeCancel","image",$this->prefix."step_cancel","on","value='on' src=\"".FX_URLIMGANNMINI."\"");
+  	$mod->MxFormField("etape.valid_bouttons.etapeValid","image",$this->prefix."step_valid_".$etape['id'],"on","value='on' src=\"".FX_URLIMGVAL."\"");
+	//on va chercher le droit general du formlaire
+	if ($this->XMLCore['access'] ) {
+    		$droit = utf8_decode((string) $this->XMLCore['access']);
+   	} else { //sinon on va chercher celui par defaut
+   		$droit = $this->session->droit ;
+		}
+	if ($formxSession->getDroit($droit,'m'))
+		$mod->MxFormField("etape.valid_bouttons.etapePrev","image",$this->prefix."step_prev","<-","value='on' src=\"".FX_URLIMGPREV."\"");
+	if ($formxSession->getDroit($droit,'a'))
+	$mod->MxFormField("etape.valid_bouttons.etapeNext","image",$this->prefix."step_next","->","value='on' src=\"".FX_URLIMGNEXT."\"");
+
+   	$mod -> MxBloc ( "etape.actions", "delete" ) ;
+*/
+		  return '' ;
+	}
+	else
+	{
+	//affichage des items en lecture seule
+	foreach ($etape->getElementsByTagname('ITEM') as $item )
+	{
+		//$optimize=$etape['optimize']?'y':'';
+		$data['contenu'] .= $this->getHtmlImpressionItem($item) ;
+		//$this->debug("Sorti de printItem");
+	}
+	//$this->printActions($mod, $etape);
+	//on vire les bouttons
+	//$mod -> MxBloc ( "etape.valid_bouttons", "delete" ) ;
+	}
+
+
+	return clFoRmXtOoLs::helpers_readTemplate('impression_etape',$data) ;
+
+     //$mod -> MxBloc ( "etape", "loop" ) ;
+     //$this->useCache = false ;
+  }
+
+
   /*Affiche le bloc etape*/
-  function printEtape(& $mod, & $etape) {
+  public function printEtape(& $mod, & $etape) {
   global $formxSession ;
   if ($etape['optimize'] == 'y' ) {
   	$this->useCache = true ;
@@ -2256,7 +2484,7 @@ $reg=array();
 
 
 /*Exexution d'un test d'une balise conditionelle en simpleXML*/
-function testCond($cond){
+public function testCond($cond){
 
 	switch($cond['type']) {
 	case 'equal':
@@ -2289,7 +2517,7 @@ function testCond($cond){
 
 /*Exexution d'un test d'une balise conditionelle en DOM*/
 /*attention, s'appelle un niveau AU DESSUS (item) */
-function testCondDOM($cond){
+public function testCondDOM($cond){
 	$xml = $this->XMLDOM->saveXML($cond);
 	//eko("balise condition: <xmp>$xml</xmp>");
 	return $this->testCond(simplexml_load_string($xml)->Cond);
@@ -2299,7 +2527,7 @@ function testCondDOM($cond){
 
 /*analyse et renvoie selon le type de données le contenu d'une
 balyse From */
-function getValueFrom($dedans,$noErrorIfRaw="") {
+public function getValueFrom($dedans,$noErrorIfRaw="") {
 	//eko($dedans);
 	$this->debug("entree danss getValueFrom avec l\'argument $dedans");
 	$reg = array();
@@ -2388,26 +2616,155 @@ function getValueFrom($dedans,$noErrorIfRaw="") {
 
 
 /*Cette fonction gère l'affichage d'un item XML du formulaire*/
-function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
+public function getHtmlImpressionItem($item) {
+
+	global $formxSession;
+	global $compteurItem ;
+
+	$etape = $item->parentNode ;
+	//eko($item->getAttribute('id'));
+	//eko($item->getElementsByTagname('rururu')->length);
+   //Certains items ne peuvent être affichés
+	if(in_array($item->getAttribute('type'),array('CLOSER','HIDDEN')))
+		return '';
+
+   //Certains items ne doivent pas être imprmmés
+   if( $item->hasAttribute('dontPrint')  )
+		return '' ;
+
+   //print '<br />'.$domEtape->getAttribute('no_etape')._.$item['id'] ;
+   if ($item->hasAttribute('access')  &&  ! $this->getSession()->getDroit($item->getAttribute('access')  )  )   return '';
+
+
+   $hideItem = false ;
+   
+  	//----------------------------------------
+	if ( count($item->getElementsByTagname('Cond')) > 0  && $item->getAttribute('lasttestcond') == 'n' )
+	{
+		return '';
+  	}
+
+	$data = array() ;
+  
+
+
+	$data['idItem'] = $item->getAttribute('id') ;
+	$data['print_lib_style'] =	$item->getAttribute('print_lib_style') ;
+	$data['print_lib_class'] =	$item->getAttribute('print_lib_class') ;
+	$data['print_val_style'] =	$item->getAttribute('print_val_style') ;
+	$data['print_val_class'] =	$item->getAttribute('print_val_class') ;
+	//eko('*'.$data['print_val_class'].'*');
+	$data['explication']	 =	$item->getElementsByTagname('Explication')->item(0)->nodeValue;
+
+
+	$data['libelle'] =   $item->getElementsByTagname('Libelle')->item(0)->nodeValue ;
+
+	$internalVal = $item->getElementsByTagname('Val')->item(0)->nodeValue ;
+	
+	//si demande de saut de l'item quand il est nul
+  	if (  $item->hasAttribute('dontPrintwhenNull') and ( ! $internalVal || in_array((string) $internalVal,$this->session->getNullValues())))
+	{
+  		//eko(  (string) $item->Val);
+  		//eko(  "<xmp>".$item->asXML()."</xmp>");
+  		return ;
+  	}
+	
+	//si demande de saut de l'item quand il est nul
+	if (  $item->hasAttribute('printOnlyWhenNull') and  $internalVal and formxTools::transfo_str_2_bool($internalVal) )
+	{
+		//eko($this->session->getNullValues());
+  		//eko(  (string) $item->Val);
+  		//eko(  "<xmp>".$item->asXML()."</xmp>");
+  		return ;
+  	}
+   	$nullvals=array('#','');
+	$txt = $item->getElementsByTagname('Val')->item(0)->nodeValue ;
+	//eko($txt);
+	//si cal; et qu'une valeur d'affichage differe de valeur de stockage
+	if($item->getAttribute('type') == 'CAL' &&    $item->getElementsByTagname('Val2')->length  )
+		$txt = $item->getElementsByTagname('Val2')->item(0)->nodeValue ;
+	//si check, et valeur de libelle différente
+	if( $item->getAttribute('type') == 'CHECK'  &&  $item->getElementsByTagname('FromListLibelles')->length )
+	{
+		$tablibsPossibles =	 formxTools::transfo_typeliste_2_array($item->getElementsByTagname('FromListLibelles')->item(0)->nodeValue ) ;
+		$tabValsPossibles =  formxTools::transfo_typeliste_2_array($item->getElementsByTagname('FromList')->item(0)->nodeValue ) ;
+		$tabVals =			 formxTools::transfo_typeliste_2_array($item->getElementsByTagname('Val')->item(0)->nodeValue ) ;
+		$tabLibs = array();
+		
+		for($i=0;$i<count($tabVals);$i++)
+		{
+			for($j=0;$j<count($tabValsPossibles);$j++)
+			{
+				if($tabVals[$i]==$tabValsPossibles[$j])
+					$tabLibs[]=$tablibsPossibles[$j];
+			}
+		}
+		$txt = implode(' , ',$tablibsPossibles);
+	}
+	//check mais sans libelle particulier
+	else if ( $item->getAttribute('type') == 'CHECK'  )
+	{
+		//eko("GNA");
+		$tabVals =			 formxTools::transfo_typeliste_2_array($item->getElementsByTagname('Val')->item(0)->nodeValue ) ;
+		$txt = implode(' , ',$tabVals);
+		//eko($txt);
+	}
+
+	if(in_array($txt,$nullvals)) $txt = '' ;
+
+	$valeur = $txt  ;
+
+	if( $valeur == '' )
+		$valeur = '&nbsp;';
+
+	//eko($valeur);
+	$data['valeur'] = $valeur ;
+	//eko($valeur);
+	$data['valeur'] = clFoRmXtOoLs::helper_str_mef($valeur) ;
+
+	
+	//application de styles
+	
+	return clFoRmXtOoLs::helpers_readTemplate('impression_item',$data) ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Cette fonction gère l'affichage d'un item XML du formulaire*/
+public function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
    global $formxSession;
    global $compteurItem ;
-   
+
 	//eko($item['id']);
-   
+
    //Certains items ne peuvent être affichés
 	if(in_array($item['type'],array('CLOSER')))
 		return ;
-   
+
    //print '<br />'.$domEtape->getAttribute('no_etape')._.$item['id'] ;
-   
+
    $hideItem = false ;
-   
+
    //print "******************ACCESS $acces ********************";
    if($acces == 'RW' ) {
    	$compteurItem ++ ;
    	$this->debug("____________________ITEM $compteurItem _______________");
    }
-   
+
 	//eko($item[id]." = ".$item->Val[0]);
 	$this->debug("Entrée dans printItem pour l'item ".$item['id']);
 	$domItem = $this->getDomItemFromId($item['id'],$domEtape);
@@ -2420,11 +2777,11 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
   		if($item['isfresh']=='y') { //TraiterPostPost vient de le calculer
   			//eko("c'est frais");
   			$resCond =  $item['lasttestcond']=='y'?true:false;
-  			$domItem->setAttribute('isfresh','');	
+  			$domItem->setAttribute('isfresh','');
   		} else { //sinon on le recalcule
   			//eko("c'est pas frais");
   			$resCond =$this->majCondAffichage($domItem);
-  			$domItem->setAttribute('isfresh','');	
+  			$domItem->setAttribute('isfresh','');
   		}
   		$this->debug("Fin du calcul");
   		if (! $resCond) { //condition renvoie faux
@@ -2436,13 +2793,13 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 				$hideItem = true ;
   		}
   	} elseif ($item->Cond['type'] && $acces =='RO' && $item['lasttestcond'] == 'n' ) {  //optimize est activé , lecture seule, et en cache on a la valeur non
-		return ;	
+		return ;
   	}
   //--------------fin des conditions sur l'item
-  
+
   $this->debug("calculs preliminaires");
 	//si saut de l'item en mode non-impression
-	if($this->modeImpression && (string) $item['dontPrint'])	
+	if($this->modeImpression && (string) $item['dontPrint'])
   		return ;
 
    //generation d'un id de champ de formulaire
@@ -2450,7 +2807,7 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
   //ajout ou non de l'asterisque
    if($this->XMLCore['showOblig'] && $this->isItemOblig($item['id']) && !($this->modeImpression ) )
   		$showOblig = '<span style="color:red"> * </span>';
-  else 
+  else
   		$showOblig = "";
 	//si précisions supplémentaires nécéssaires
 	if((string) $item['multiple']  && (string) $item['type'] == 'LISTE' ) {
@@ -2459,12 +2816,12 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 	}
 	else
 		$precisions = "";
-		
+
 	if((string) $item['hyperinfo']  && !($this->modeImpression ) ) {
 		$precisions .= clFoRmXtOoLs::getHyperLink((string) $item['hyperinfo']);
-	}	
-		
-  		
+	}
+
+
   	 //recuperation du libelle mis en forme
    //attention, le libellé peut être redéfini plus loin
    //pour l'instant, faire une recherche de texte item->Libelle pour les retrouver
@@ -2472,11 +2829,11 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
    	//$mod -> MxText ( "etape.item.libelle.libelles","yahourt bleu");
    	$mod -> MxText ( "etape.item.libelle.libelles",clFoRmXtOoLs::getStyledBal($item->Libelle).$showOblig.$precisions);
    }
-   
+
    //affectation de l'id de la ligne
    $mod -> MxText ( "etape.item.idligne",'ligne_'.$item['id']);
    //cachageDeLaLigne
-   if($hideItem) 
+   if($hideItem)
 		$mod -> MxText ( "etape.item.optionsligne","style='display:none;'");
 	else
 		$mod -> MxText ( "etape.item.optionsligne","");
@@ -2484,51 +2841,51 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
    //maintenant on va traiter suivant le type de la balise item (attribut)
    $type_item = $item['type'];
    //si l'etape est finie ou
-   
+
    //si balise Readonly, alors texte en lecture seule
    //SAUF pour les items beneficiant d'un affichage spécial,
    //il faut les lister ici
    if ($acces == 'RO' && $type_item!='TAB' && $type_item!='SLIDER' ) $type_item = 'RO';
-   
+
    //si pas le droit d'acces à ce champ
    if ($item['access'] && ! $formxSession->getDroit(utf8_decode((string) $item['access']),'r' )) $type_item = 'NORIGHT';
-   
+
    if ( $item['readonly'] && in_array($item['readonly'] , array('y','yes','o','oui','Y','O','OUI','YES') ) && ! in_array($item['readonly'] , array('n','no','non','N','NON','NO') ) )  $type_item = 'RO';
-   
+
 
    //si demande d'appel externe pour remplir le champ
-	if($item->From[0] && ! (  $optimize  &&  $acces == 'RO' )) 
+	if($item->From[0] && ! (  $optimize  &&  $acces == 'RO' ))
 	{
    		if(isset($valXT)) unset($valXT);
 			$valXT=  (string) $this->getValueFrom($item->From[0]);
-			
 
-		if ($this->current_fusion) 
+
+		if ($this->current_fusion)
 		{
 			$this->setFormVar($item['id'],utf8_decode($valXT),'no_simplexml_update no_sql_update');
 			$item->Val[0] = $valXT ;
 		//cas général
-		} 
-		else if ( (( ($valXT != '') && ! (string) $item->Val[0]  ) || $item['resync'] ) && ! (  $optimize  &&  $acces == 'RO' ) ) 
+		}
+		else if ( (( ($valXT != '') && ! (string) $item->Val[0]  ) || $item['resync'] ) && ! (  $optimize  &&  $acces == 'RO' ) )
 		{
 			$item->Val[0] = $valXT ;
 			$this->setFormVar($item['id'],utf8_decode($valXT),'no_simplexml_update no_sql_update');
 		}
 
 	}
-	
+
 	//si demande de saut de l'item quand il est nul
   	if ( (string) $item['dontPrintwhenNull'] and $acces == 'RO' and ( ! (string) $item->Val || in_array((string) $item->Val,$this->session->getNullValues()))) {
   		//eko(  (string) $item->Val);
   		//eko(  "<xmp>".$item->asXML()."</xmp>");
   		return ;
-  	}	
-	
-	
+  	}
+
+
    //Si la variable est liée à une variable globale d'ids
    //migré dans traitePostPost , pour recette, décommenter si problème
-   //if($item['link']  && ! ($optimize && $acces == 'RO')) $this->setVar($item['link'],(string) utf8_decode( $item->Val )); 
-	   
+   //if($item['link']  && ! ($optimize && $acces == 'RO')) $this->setVar($item['link'],(string) utf8_decode( $item->Val ));
+
    //Si valeur persitante demandée
    if($item->ValPersist[0] )
 		$item->Val[0] = (string) $item->ValPersist;
@@ -2548,7 +2905,7 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 		$options = "onchange=\"document.formx_form.submit() ;\"" ;
 		$optionsradio = "onclick=\"document.formx_form.submit() ;\"" ;
 	}
-	
+
 	//------------ affichage DHTML de certains items ---------------
 	//Construction du javascript exécuté à chaque changement de valeur de l'item
 	$nbItemsDhtmlKinked = 0 ;
@@ -2626,15 +2983,15 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
    } else {
 	$mod-> MxBloc("etape.item.explication","delete");
 	}
-   $this->debug("debut bloc affichage");   	
+   $this->debug("debut bloc affichage");
    $reg = array();
    //distiguons suivant le type d'item
    switch( $type_item ) {
    //Si l'etape est finie et qu'on est en read only
-   
+
    case 'NORIGHT':
 		break;
-		
+
    case 'RO':
    	if($item['type'] == 'HIDDEN') {
 		$this->tmp_parite = ($this->tmp_parite + 1) %2 ;
@@ -2645,7 +3002,28 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 	//si cal; et qu'une valeur d'affichage differe de valeur de stockage
 	if($item['type'] == 'CAL' && (string) $item->Val2)
 		$txt = $item->Val2[0];
-	
+	//si check, et valeur de libelle différente
+	if( $item['type'] == 'CHECK'  &&  (string) $item->FromListLibelles )
+	{
+		$tablibsPossibles =	explode( '|' , (string) $item->FromListLibelles ) ;
+		$tabValsPossibles = explode( '|' , (string) $item->FromList ) ;
+		$tabVals =			explode( '|' , (string) $item->Val ) ;
+		$tabLibs = array();
+
+		for($i=0;$i<count($tabVals);$i++)
+		{
+			for($j=0;$j<count($tabValsPossibles);$j++)
+			{
+				if($tabVals[$i]==$tabValsPossibles[$j])
+					$tabLibs[]=$tablibsPossibles[$j];
+			}
+		}
+
+
+		$txt = implode(' , ',$tablibsPossibles);
+	}
+
+
 	if(in_array($txt,$nullvals)) $txt = '' ;
 	//application de styles
 	if((string) $item['class'] )
@@ -2669,7 +3047,7 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 		$tabtmp = explode('|',$reg[1]);
 		}
 	//cas de liste XHAM
-	if (isset($item->FromXHAMList)) {	
+	if (isset($item->FromXHAMList)) {
 		//recuperation de la liste HHAM
 		$tabtmp= $this->listeGen -> getListeItems ( addslashes(utf8_decode($item->FromXHAMList[0])), "1", '', '', "" ) ;
 		//creation de la liste
@@ -2687,16 +3065,16 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 			}
 		unset($tabtmp2);
  		}
-	
+
 	//si demande de libelles à la place des valeurs
 	if (isset($tablibs)) unset($tablibs);
 	if(isset($item->FromListLibelles)) {
 		$tablibs = ereg("list:(.*)",$item->FromListLibelles[0],$reg);
 		$tablibs = explode('|',$reg[1]);
 		}
-			
+
 	//on recupere les données XML
-	$vals = explode('|',$item->Val[0]);	
+	$vals = explode('|',$item->Val[0]);
 
 	//affichage
 	$i=-1;
@@ -2717,40 +3095,40 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 			$mod -> MxText("etape.item.$type_item.ligne.col.champ_aff",$tablibs[$i]);
 		}
 		//$mod -> MxText("etape.item.$type_item.ligne.col.champ_aff",$tablibs[$i]);
-		$mod -> MxBloc("etape.item.".$type_item.".ligne.col",'loop');	
+		$mod -> MxBloc("etape.item.".$type_item.".ligne.col",'loop');
 		if( ($i % $nbcols) == ($nbcols - 1) )
 			$mod -> MxBloc("etape.item.".$type_item.".ligne",'loop');
 		//$mod -> MxBloc("etape.item.".$type_item,'loop');
 		}
 	//si sortie de la boucle avant validation du bloc de la derniere ligne
 	if( ($i % $nbcols) != ($nbcols - 1) )
-		  $mod -> MxBloc("etape.item.".$type_item.".ligne",'loop'); 
+		  $mod -> MxBloc("etape.item.".$type_item.".ligne",'loop');
    	unset($mXtype);
    	unset($tabtmp);
    	break;
-    case 'LISTEN':	
+    case 'LISTEN':
     	//pour communiquer avec la fonction appellée
     	$this->ListenVals = explode('|',$item->Val[0]);
-    	
+
     	//recuperer le tableau des listes
-    	if (isset($item->FromFuncListN)) {	
+    	if (isset($item->FromFuncListN)) {
 		//recuperation de la liste HHAM
 		$tablist= $this->callFunc($item->FromFuncListN[0]);
 		}
-	//combien on a de 
+	//combien on a de
 	$nb_listes = count($tablist);
 	for($i=0;$i<$nb_listes;$i++) {
 		if( ! is_array( $tablist[$i]))
 			$tablist[$i] = array();
 		$mod -> MxSelect("etape.item.LISTEN.miniitem.select1",$id."_LISTEN_$i" , $this->ListenVals[$i], $tablist[$i] ,$this->invselect, '', "class=\"select_mono\""." onchange=\"document.formx_form.pavalider.value='y' ;document.formx_form.submit() ;\"");
-		
-		
+
+
 		//$mod->Mxattribut("actions.frem.code","document.FoRmXcase.FormX_ext_goto_.value = 'RM".$data[id_instance][$i]."';document.FoRmXcase.submit();");
-		
-	 	$mod -> MxBloc ( "etape.item.LISTEN.miniitem", "loop" ) ;  
+
+	 	$mod -> MxBloc ( "etape.item.LISTEN.miniitem", "loop" ) ;
 		}
 	break ;
-	
+
     case 'LISTEDYN':
    //peu de difference avec LISTE, c'est pour ça qu'on ne le fait pas sortir
    //et qu'il va emprunter le case LISTE
@@ -2813,8 +3191,8 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 			$mod->MxText('etape.item.SLIDER.isreadonly','false');
 		break;
    case 'NONE':
-		break;		
-   case 'TAB':	
+		break;
+   case 'TAB':
    		if( $acces == 'RO' ) $option = 'readonly';
    		ereg( "list:(.*)",$item->Rows[0],$reg );
 		$rows = explode('|',$reg[1]);
@@ -2866,7 +3244,7 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 		$y++;
 		$mod -> MxBloc ( "etape.item.TAB.ligne", "loop" ) ;
 		}
-   
+
    	break;
   case 'HIDDEN':
   	//eko("OO");
@@ -2874,7 +3252,7 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
   	$this->setFormVar($item['id'],(string) $item->Val,'no_simplexml_update');
   	//return ;
 	break;
-	
+
    case 'LONGTXT':
 	//si argument longueur de ligne
 	if (isset($item['rows'])) {
@@ -2885,7 +3263,7 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 		$cols=$this->lngchmp-1;
 		$mod -> MxFormField("etape.item.LONGTXT.textlong","textarea",$id,$item->Val[0],"class=\"formx_longtext\" cols=\"$cols\"  rows=\"$rows\"");
 		break;
-		
+
 	case 'FILE':
 		switch((string) $item->Val){
 			case 'ok':
@@ -2896,16 +3274,16 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 				break;
 			default:
 				$mod -> MxText("etape.item.FILE.indication",utf8_encode("Choisissez un fichier à envoyer"));
-			
+
 		}
-		
-		
+
+
 		$mod -> MxAttribut("etape.item.FILE.name",$id);
 		$mod -> MxAttribut("etape.item.FILE.value",1000 * $this->max_size_upload);
 		break;
    case 'CAL':
    //val1 un contient la donnée brute, val2 la donnée d'affichage
-   //c'est au niveau de affctPost qu'on passe de 2 à 1 par appel à la classe date 
+   //c'est au niveau de affctPost qu'on passe de 2 à 1 par appel à la classe date
    	$this->ya_un_cal = '1';
    	//eko("val XML du cal :<xmp>".$item->asXML()."</xmp>");
 	//format date ou datetime ?
@@ -2920,17 +3298,17 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 	if($item->Val2[0]=='' && $item->Val[0]!='') {
 		$dv=$item->Val[0];
 	} else {
-		$dv=$item->Val2[0];	
+		$dv=$item->Val2[0];
 	}
 	//si on a demandé d'afficher la date courante par defaut et que la date n'a pas encore été instanciée:
-	
+
 	if(($item['default'] == 'today') && (! $item->Val2[0] ) ) {
 		$dv=date(strtr($format ,array('%' => '', 'M' => 'i'))) ;
 	}
-	
+
 	$mod -> MxFormField("etape.item.CAL.textCal","text",$id,$dv,"class=\"text2\"  id=\"$id\" size=\"20\" readonly");
 	$mod -> MxAttribut('etape.item.CAL.img',FX_URLIMGCAL);
-	
+
 	$mod -> MxText ( "etape.item.CAL.id",$id);
 	//def d'une id pour l'appel du calendrier javascript
 	$mod -> MxAttribut("etape.item.CAL.idcal",$id.'_trigger');
@@ -2940,15 +3318,30 @@ function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 	//$mod -> MxText ( "JavaCAL.javcalform",$format);
 	$mod -> MxBloc ( "JavaCAL", "loop" ) ;
 	break;
-   } 
+   }
    $this->debug("fin bloc affichage");
    //eko("item fini ".$item[id]);
    $mod -> MxHidden ( "hidden_listen", "pavalider=n")  ;
-   $mod -> MxBloc ( "etape.item", "loop" ) ;   
+   $mod -> MxBloc ( "etape.item", "loop" ) ;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //pour savoir si qqn a cliqué sur qqchose avant l'instanciation de la classe
-function isUserAction() {
+public function isUserAction() {
 	return $this->isuseraction ;
 	}
 
@@ -2956,7 +3349,7 @@ function isUserAction() {
 
 
 //retourne le droit global de l'utilisateur en ce qui concerne ce formulaire
-function getFormMainDroit() { 
+public function getFormMainDroit() {
  $xml =  $this->XMLCore ;
  $this->debug("Entrée dans affFoRmX(), générateur de l'affichage.");
   if (  $xml['access'] )
@@ -2966,7 +3359,7 @@ function getFormMainDroit() {
 }
 
 //optient une liste
-function getListes($item) {
+public function getListes($item) {
 $reg = array();
 if (isset($item->FromList)) {
 		//gen du tableau à partir de la liste
@@ -3032,13 +3425,13 @@ if (isset($item->FromList)) {
 }
 
 //verifie que le formx n'est pas "mort vivant", si c'est le cas : le cloture
-function killTheZombie()
+public function killTheZombie()
 {
 	$this->detectHeresie();
 }
 
 //detetction comportement anormal
- function detectHeresie()
+ public function detectHeresie()
  {
 
 	$etapes = $this->getRootDom()->getElementsByTagName('ETAPE');	//liste de nodes
@@ -3064,14 +3457,14 @@ function killTheZombie()
 }
 
 //OBSOLETTE, popup de choix de selection
-function genMenuSelection() {
+public function genMenuSelection() {
 	return clFoRmXtOoLs::genMenuSelection($this->prefix,$this->ids);
 }
 
 
 
 /*Appelle une fonction FoRmX située dans le repertoire formx/functions/  */
-function callFunc($funcname) 
+public function callFunc($funcname)
 {
 	$this->debug("appel de la fonction $funcname via le script ".FORMX_LOCATION.'/functions/'.$funcname.'.php');
 	$funcname = $this->session->loadFunc($funcname);
@@ -3086,17 +3479,17 @@ function callFunc($funcname)
 
 
 /*va chercher une variable globale FX concernant un ids*/
-function getVar($nom) {
+public function getVar($nom) {
 	return $this->varGlobalContener->get($nom);
 }
 
 //Recupere l'identifiant du type de formulaire
-function getIdFormx() {
+public function getIdFormx() {
  return $this->idformx;	
 }
 
 /*Quand l'ids est connu et est passé par setIds, cette fonction va charger les variables globales qui concernent cette ids*/
-function loadGlobvars() {
+public function loadGlobvars() {
   $this->varGlobalContener = formxTools::globalsLoad($this->getIDS());
 }
 
@@ -3107,14 +3500,14 @@ public function getGlobvarsContainer()
 
 
 // insere un changement de variable globale en BD
-function setVars() {
+public function setVars() {
 	$this->varGlobalContener->save();
 }
 
 
 /*affecte une variable globale FX concernant un ids*/
 //LORSQUE JE MIGRERAI cette fonction, bien penser qu'on enleve la sauvegarde dynamique et qu'il faut que formx le gere
-function setVar($nom,$val) 
+public function setVar($nom,$val)
 {
 	$this->varGlobalContener->set($nom,$val,true);
 	}
@@ -3292,7 +3685,7 @@ function getAllValuesFromFormx($idformx,$values='',$ids='',$options="")
   
   
   //renvoie tout les identifiants de formulaires d'un type de form trouvé pour un idu précis
-  function getAllFormx($idformx,$ids='') {
+   function getAllFormx($idformx,$ids='') {
   if(! $ids) $ids=$this->ids;
   $req = new clResultQuery ;
   $param['table']=$this->session->tableInstances;
@@ -3489,11 +3882,16 @@ function isFormPresent() {
 		fclose($handle);
 		$style="<style>$style</style>";
 			}
-    return  $style.utf8_decode($this->convMP ($aff)) ;
+    return  $style.utf8_decode(formxTools::helper_str_mef(($aff))) ;
   }
 
 function getAffichage($mode='') {
 	return $this->miseEnPage($mode,$this->af);
+}
+
+private function getSession()
+{
+	return $this->session  ;
 }
 
 
