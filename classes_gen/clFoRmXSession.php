@@ -58,7 +58,9 @@ class clFoRmXSession {
  	$this->idApplication = (defined('FX_IDAPPLICATION')?FX_IDAPPLICATION:IDAPPLICATION) ;
  	$this->tableDyn = (defined('FX_TABLEFORMXDYNTAB')?FX_TABLEFORMXDYNTAB:FX_TABLEDYN);
  	$this->urlImglogo = FX_URLIMGLOGO ;
+	$this->urlImglogoWeb = FX_URLIMGLOGOWEB ;
  	$this->url = FX_URL ;
+	$this->urlCssWeb = FX_URL.'css/';
  	$this->urlCache = FX_URLCACHE ;
  	$this->urlCacheWeb = FX_URLCACHEWEB ;
  	$this->urlImgCal = FX_URLIMGCAL ;
@@ -70,6 +72,12 @@ class clFoRmXSession {
  	$this->idApplication = IDAPPLICATION ;
  }
 
+
+ function getLocalUrlTemplates()
+ {
+	return $this->xmlLocation.'templates/';
+ }
+
  function getLocalUrlCache()
  {
 	 return $this->urlCache ;
@@ -79,7 +87,20 @@ class clFoRmXSession {
  {
 	 return $this->urlCacheWeb ;
  }
- 
+
+
+
+function getWebUrlLogo()
+{
+	return$this->urlImglogoWeb ;
+}
+
+function getWebUrlCss()
+{
+	return $this->urlCssWeb ;
+}
+
+
  function getFxLocalPath() {
  	return 	$this->xmlLocation ;
  }

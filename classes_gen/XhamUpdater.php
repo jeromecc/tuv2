@@ -28,6 +28,8 @@ static function testSafeMode()
 	}
 }
 
+
+
 static function testNoNoNoNoNoNoThereIsNoLimit($memory)
 {
 	print "<br />Test de la désactivation de la limite temporelle d'exécution du script  ";

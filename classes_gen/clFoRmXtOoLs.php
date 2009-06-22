@@ -209,12 +209,13 @@ static function clean2utf8($str)
 //plus tard, mettre option pour encodage de sortie
 static function encode4web($str)
 {
+
 	if( ! function_exists('mb_detect_encoding') )
 	{
 		formxSession::getInstance()->addErreur("Attention !! Le module PHP mbstring n'est pas installé : des problèmes d'encodage peuvent survenir.");
 		return $str ;
 	}
-
+	
 	if(  mb_detect_encoding($str.'fixbug','UTF-8, ISO-8859-1') != 'UTF-8' )
 		return $str ;
 	
@@ -731,6 +732,19 @@ static function genListFormsXml($ids) {
 	return $xml;
 }
 
+/**
+ * renvoie une mise en forme HTML depuis caracteres spéciaux Formx
+ * @param string $chaine
+ * @return string
+ */
+static function helper_str_mef($chaine)
+{
+	$conv = array('-*-' => '<br/>' , '-isNull-' => '' , '-**' => '<' , '**-' => '>' );
+	$conv['/*and*/']='&';
+	return strtr( $chaine , $conv) ;
+}
+
+
 
 static function helper_formatDatatype($item,$val)
 {
@@ -1195,6 +1209,60 @@ static  function ListFromIds($ids,$status='',$onlyselfappli='y') {
      }
 }
 
+
+//-------------------------
+// Transformation de types
+//-------------------------
+
+static function transfo_typeliste_2_array($str)
+{
+	$tabMatches = array() ;
+	if( preg_match('/^list:(.*)$/', $str,$tabMatches))
+		$str = $tabMatches[1] ;
+	return explode('|',$str);
+}
+
+
+static function transfo_str_2_bool($str)
+{
+	if( ! $str ) return false ;
+	$tabNullValues = formxSession::getInstance()->getNullValues() ;
+	$tabNullValues = array_merge($tabNullValues , array('non','NON','Non','no','No'));
+	if ( in_array($str,$tabNullValues) )
+		return false ;
+		eko($str);
+	eko($tabNullValues);
+	return true ;
+}
+
+
+
+
+
+
+//--------------------------------
+// Helpers et Templates
+//--------------------------------
+	public static function helpers_readTemplate($nom,$data = array() )
+	{
+		$session = formxSession::getInstance();
+		$urlLocalTemplates = $session->getLocalUrlTemplates();
+
+
+		//si template spécifique pour le site:
+		if(file_exists($urlLocalTemplates.$nom.'.tpl.php'))
+			$file = $urlLocalTemplates.$nom.'.tpl.php';
+		else //Templates par defaut
+			throw new Exception("Template $nom not found ");
+		//instanciation des valeurs à passer à la template
+		if(! is_array($data)) $data = array() ;
+		foreach($data as $var => $val) $$var = $val ;
+		ob_start(); // start buffer
+		include ($file);
+		$content = ob_get_contents(); // assign buffer contents to variable
+		ob_end_clean(); // end buffer and remove buffer contents
+		return $content;
+	}
 
 
 /*
