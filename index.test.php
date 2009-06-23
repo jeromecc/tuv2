@@ -17,6 +17,9 @@ if ( ! file_exists('define.xml.php'))
 if ( ! file_exists(URLLOCAL.'queries_int/getHistorique.qry'))
     copy(URLLOCAL.'queries_int/getHistorique.qry.base',URLLOCAL.'queries_int/getHistorique.qry');
 
+if ( ! file_exists(URLLOCAL.'queries_int/CCAM_CoraCCAM.qry'))
+    copy(URLLOCAL.'queries_int/CCAM_CoraCCAM.qry.base',URLLOCAL.'queries_int/CCAM_CoraCCAM.qry');
+
 if ( ! file_exists(URLLOCAL.'queries_int/getHistoriqueDocs.qry'))
     copy(URLLOCAL.'queries_int/getHistoriqueDocs.qry.base',URLLOCAL.'queries_int/getHistoriqueDocs.qry');
 
