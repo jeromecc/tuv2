@@ -66,7 +66,7 @@ class clRPU {
 		// On parcourt les différents passages trouvés par la requête.
 		for ( $i = 0 ; isset ( $res['idpatient'][$i] ) ; $i++ ) {
 			// Récupération des actes du passage dans la base "xham_ccam".
-			if ( ! $options -> getOption ( "CCAMExterne" ) ) {
+			if ( $options -> getOption ( "ActiverModuleActes" ) ) {
 				$param['idEvent'] = $res['idpatient'][$i] ;
 				$param['idDomaine'] = 1 ;
     			$diags = $req -> Execute ( "Fichier", "CCAM_getDiagCotes", $param, "ResultQuery" ) ; 
@@ -74,12 +74,12 @@ class clRPU {
     			//eko ( $ccam['INDIC_SVC'] ) ;
 			} else {
 				// TODO : Récupération des informations nécessaires dans CORA.
-								$param['idEvent'] = $res['idpatient'][$i] ;
+				$param['idEvent'] = $res['idpatient'][$i] ;
 				$param['idDomaine'] = 1 ;
-				$diags = $req -> Execute ( "Fichier", "CCAM_getDiagCotes", $param, "ResultQuery" ) ; 
+				$diags = $req -> Execute ( "Fichier", "CCAM_getDiagCotes", $param, "ResultQuery" ) ;
 				unset ( $param ) ;
 				$param['nsej'] = $res['nsej'][$i] ;
-				$diags = $req -> Execute ( "Fichier", "CCAM_CoraCCAM", $param, "ResultQuery" ) ;
+				$ccam = $req -> Execute ( "Fichier", "CCAM_CoraCCAM", $param, "ResultQuery" ) ;
 			}
     		
 			// Calcul de la "date_event".
