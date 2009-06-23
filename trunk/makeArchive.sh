@@ -53,8 +53,6 @@ cp -frL ${location}modules/CCAM    ${locationtmp}modules/
 cp -frL ${location}modules/mouvements    ${locationtmp}modules/
 cp -frL ${location}modules/wz_dragdrop.js ${locationtmp}modules/
 
-#duplication d'un fichier pour éviter un bug
-cp -frL ${location}classes_gen/clListeRadios.php    ${locationtmp}classes_int/clListeRadios.php
 
 #copie formulaires et fonctions formx
 mkdir ${locationtmp}formx
