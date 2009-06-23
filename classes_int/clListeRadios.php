@@ -865,7 +865,7 @@ class clListeRadios {
             if ( $res['commentaire_radio'][0] ) $comm = "<br/><b>Commentaire : </b>".addslashes(htmlentities(nl2br($res['commentaire_radio'][0]))) ;
             else $comm = '' ;
             $text = $text.$comm ;
-      		return '<img src="images/radio'.$l.'.png" alt="radio" onmouseover="return overlib(\''.$text.'\');" onmouseout="return nd();" />' ;
+      		return '<img src="images/radio'.$l.($res['commentaire_radio'][0]?'C':'').'.png" alt="radio" onmouseover="return overlib(\''.$text.'\');" onmouseout="return nd();" />' ;
       	} else return '' ;
 	}
 
