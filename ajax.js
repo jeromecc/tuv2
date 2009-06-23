@@ -30,7 +30,7 @@ function modPrepare ( str ) {
     mod.style.display = "block" ;
     mod.style["top"] = page_y+"px" ;
     mod.style["left"] = page_x+"px" ;
-    mod.style["left"] = "95px" ;
+    mod.style["left"] = "100px" ;
     mod.style.zIndex = "100" ;
 }
 
@@ -401,7 +401,11 @@ function request ( strURL, strSubmit, strResultFunc ) {
     }
     
     //alert ( strSubmit ) ;
-    eval('var data = ' +strResultFunc + 'Prepare' + '(strSubmit);'); 
+    if ( strResultFunc ) {
+        eval('var data = ' +strResultFunc + 'Prepare' + '(strSubmit);');
+    } else {
+        var data='' ;
+    }
     
     http_request.open('POST', strURL, true);
     http_request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
