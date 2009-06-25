@@ -6,7 +6,7 @@
 		<nom>getPatients</nom>
 		<id_config>config_terminal</id_config>
 		<colonnes></colonnes>
-		<code_sql>(SELECT * FROM patients_presents $cw) UNION (SELECT * FROM patients_sortis $cw)
+		<code_sql>SELECT * FROM patients_presents $cw UNION SELECT * FROM patients_sortis $cw
 		</code_sql>
 		<description></description>
 		<env>qry</env>
