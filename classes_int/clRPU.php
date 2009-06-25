@@ -42,8 +42,6 @@ class clRPU {
     	$dateS = new clDate ( ) ;
     	$dateE = new clDate ( ) ;
     	
-    	// Recherche dans la table des patients sortis.
-    	$param['table'] = PSORTIS ;
     	// Fabrication de la requête en fonction du nombre de jours.
     	if ( $nbJours == 1 )
     		$param['cw'] = "WHERE dt_admission LIKE '".$date->getDate ( 'Y-m-d' )."%' AND valide>=1 AND type_destination!='X'" ;
@@ -51,7 +49,7 @@ class clRPU {
     		$param['cw'] = "WHERE dt_admission BETWEEN '".$dateMin->getDate ( 'Y-m-d 00:00:00' )."' AND '".$date->getDate ( 'Y-m-d 23:59:59')."' AND valide>=1 AND type_destination!='X'" ;
    		$req = new clResultQuery ;
    		// Exécution de la requête.
-    	$res = $req -> Execute ( "Fichier", "getPatients", $param, "ResultQuery" ) ; 
+    	$res = $req -> Execute ( "Fichier", "getPatientsRPU", $param, "ResultQuery" ) ;
     	// eko ( $res['INDIC_SVC'] ) ;
     	// Chargement du template ModeliXe.
     	$mod = new ModeliXe ( "rpu.html" ) ;
