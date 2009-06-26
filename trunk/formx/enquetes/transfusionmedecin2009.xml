@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FORMX id="transfusionmedecin2009" phantom="y" closeAfterValid="y" >
+	<Libelle>Enquête Transfusion Médecin</Libelle>
+	<Groupe>Enquêtes</Groupe>
+	<Objet>Enquête à destination des médecins pour les transfusions</Objet>
+	<Explication>Ce formulaire est à destination des médecins urgentistes. Il ne s'affichera qu'une seule fois par médecin.</Explication>
+	<ETAPE id="1">
+
+		
+
+		<ITEM id="id_medecin" type="HIDDEN"><From>globalObject:patient->getMatriculeMedecin()</From></ITEM>
+
+		<ITEM id="is_connaissance_astreinte" type="RADIO"  oblig="y">
+            <Libelle>Connaissance d'une astreinte: </Libelle>
+			<Explication>Connaissez-vous l'existence d'une astreinte médicale H24 à l'EFS qui peut répondre à tout type de question relative à la transfusion sanguine : indication, type de produit, aide à la prescription, accès aux antécédents transfusionnel d'un patient transfusé en PACA … (conseil transfusionnel) ?</Explication>
+            <FromList>list:non|oui</FromList>
+        </ITEM>
+
+		<ITEM id="is_formation" type="RADIO"  oblig="y">
+            <Libelle>Formation: </Libelle>
+			<Explication>Avez-vous bénéficié d'une formation spécifique dispensée par le correspondant d'hémovigilance dans votre établissement ?</Explication>
+            <FromList>list:non|oui</FromList>
+        </ITEM>
+
+		<ITEM id="is_connaissance_protocole" type="RADIO"  oblig="y">
+            <Libelle>Connaissez vous l'existence de protocoles transfusionnel de votre ES ?</Libelle>
+            <FromList>list:non|oui</FromList>
+        </ITEM>
+
+		<ITEM id="is_signal_indes_donneur" type="RADIO"  oblig="y">
+            <Libelle>Avez-vous déjà signalé un effet indésirable donneur ?</Libelle>
+            <FromList>list:non|oui</FromList>
+        </ITEM>
+
+		<ITEM id="is_signal_indes_receveur" type="RADIO"  oblig="y">
+            <Libelle>Avez-vous déjà signalé un effet indésirable receveur ?</Libelle>
+            <FromList>list:non|oui</FromList>
+        </ITEM>
+
+		<ITEM id="is_signal_indes_chaine" type="RADIO"  oblig="y">
+            <Libelle>Avez-vous déjà signalé un incident de la chaine transfusionnelle ?</Libelle>
+            <FromList>list:non|oui</FromList>
+        </ITEM>
+
+		<ITEM id="difficultes" type="CHECK"  oblig="y">
+            <Libelle>Parmi les difficultés ci dessous cochez les plus fréquentes :</Libelle>
+            <FromList>list:Choix d'une qualification ou d'une préparation particulière pour les PSL|Evaluation du besoin quantitatif en plasma ou plaquette|Besoin d'aide à la prescription|Délai de réception des PSL|Interprétation d'un carton de contrôle pré-transfusionnel|Accès au dossier transfusionnel|Autre</FromList>
+			<ShowItemsOnVal>
+                <ListIdItems>list:autre_difficulte</ListIdItems>
+                <OnVal>const:Autre</OnVal>
+            </ShowItemsOnVal>
+        </ITEM>
+
+		<ITEM id="autre_difficulte" type="TXT"  oblig="y">
+            <Libelle>Autre difficulté:</Libelle>
+        </ITEM>
+
+     </ETAPE>
+</FORMX>

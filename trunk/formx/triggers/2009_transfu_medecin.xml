@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+    Document   : transfu_patient2008.xml
+    Created on : 27 mars 2009, 10:30
+    Author     : ecervetti
+    Description:
+        Purpose of the document follows.
+-->
+
+<root>
+<trigger title="Enquete Transfusion médecin" autostart="y"  upload="y" autoclose="y" dateStart="25/06/2009" dateEnd="31/08/2009"  idForm="enquetes/transfusionmedecin2009" maxDays="" obligDays=""  >
+    
+	<cond type="medecin" />
+
+</trigger>
+</root>
