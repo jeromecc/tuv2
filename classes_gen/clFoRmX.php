@@ -3467,9 +3467,10 @@ public function genMenuSelection() {
 public function callFunc($funcname)
 {
 	$this->debug("appel de la fonction $funcname via le script ".FORMX_LOCATION.'/functions/'.$funcname.'.php');
+	$funcname_ori = $funcname ;
 	$funcname = $this->session->loadFunc($funcname);
 	if(! $funcname)
-		throw new exception("fonction $funcname non présente");
+		throw new exception("fonction formx $funcname_ori non présente");
 	$a = '';
 	eval("\$a = $funcname(\$this);");
 	return $a;
