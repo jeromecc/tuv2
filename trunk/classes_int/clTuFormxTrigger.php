@@ -122,6 +122,8 @@ class clTuFormxTrigger {
 
 	function isAutoclose()
 	{
+		if( $this->getDxDefAttributeVal('autoclose') )
+			return true ;
 		if( $this->getDxDefAttributeVal('maxDays') )
 			return true ;
 		if( $this->getDxDefAttributeVal('obligDays') )
@@ -167,11 +169,14 @@ class clTuFormxTrigger {
 	}
 
 
-
+/**
+ * renvoie l'id de l'enquete en cours si active
+ * @return int
+ */
 function getIdEnquete()
 {
 		$now = new clDate();
-		$requete = "SELECT * FROM enquetes WHERE  id_trigger = '".$this->idTrigger."' AND date_debut <= '".$now->getDatetime()."' AND ( date_fin = '0000-00-00 00:00:00' OR  date_fin > '".$now->getDatetime()."' ) "   ;
+		$requete = "SELECT * FROM enquetes WHERE  id_trigger = '".$this->idTrigger."' AND date_debut <= '".$now->getDatetime()."' AND ( date_fin = '0000-00-00 00:00:00' OR  date_fin > '".$now->getDatetime()."' )  ORDER BY date_debut DESC"   ;
 		$obRequete = new clRequete(BDD,'enquetes');
 		$res = $obRequete->exec_requete($requete, 'tab');
 		if(count($res) > 0 )
@@ -244,7 +249,78 @@ static function getFinEnquete($idEnquete)
 
 	function close()
 	{
-		$this->setEndTime(clDate::getInstance());
+		//print "fermeture" ;
+		//die ;
+
+		$idEnquete = $this->getIdEnquete() ;
+		
+		$this->setEndTime( clDate::getInstance() );
+
+		
+		if( $this->getDxDefAttributeVal('upload') )
+		{
+			//print " enttre dans export" ;
+			//die ;
+
+			$this->export($idEnquete);
+		}
+		else
+		{
+			//print "pas export" ;
+			//die ;
+		}
+	}
+
+	function export($idEnquete)
+	{
+			global $options ;
+			global $errs ;
+
+			//eko("entree dans export ") ;
+			//return ;
+			//die ;
+
+			//print "vraie entree dans export" ;
+			//die ;
+
+			eko($this->getIdEnquete());
+			eko($this->getIdFormx());
+
+			$dateD =  $this->getDebutEnquete($idEnquete) ;
+			//eko($dateD->getSimpleDate());
+			//print "date de debut pour id ".$idEnquete.": ".$dateD->getSimpleDate() ;
+			//die ;
+
+			$dateF = new clDate() ;
+			$idFormx = $this->getIdFormx();
+
+			set_time_limit(0);
+			ini_set('memory_limit','512M');
+			$strDate1 = str_replace(array(' ',':'), array('_','-'), $dateD->getDatetime());
+			$strDate2 = str_replace(array(' ',':'), array('_','-'), $dateF->getDatetime());
+            $nomFic = 'etab_'.$options->getOption('RPU_IdActeur').'_enquete_'.formxTools::strGetIdAtomiqueFx($idFormx).'_du_'.$strDate1.'_au_'.$strDate2.'.csv';
+
+            if( $this->isPassageLinked() )
+                $tabOptions = array('firstColsFunc'=>'clGestFormxTriggers::genTabinfoIdPassage','firstColsFuncArgField'=>'id_passage');
+            else
+                $tabOptions = array() ;
+
+			$data = clFoRmXtOoLs::exportsGetTabIdform($idFormx, $tabOptions + array('cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ));
+            var_dump($data);
+			$tab = array('cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ) ;
+			eko($tab['cw'] );
+
+			$localUrlFic = clFoRmXtOoLs::exportsGetCsvFromData($data,$nomFic,array('local_access'=>true)) ;
+
+			try {
+				XhamUpdater:: sendFtpData($localUrlFic,'enquetes');
+				eko("depot ftp de $localUrlFic ok");
+				//die ;
+			} catch (Exception $e) {
+				eko( "erreur".$e );
+				$errs->addErreur($e);
+			}
+			//print "fin"; die ;
 	}
 
 	function getDxDefAttributeVal($id)
@@ -336,7 +412,7 @@ static function getFinEnquete($idEnquete)
 
 /**
  * renvoie tous les triggers d'enquetes en cours
- * @return <type>
+ * @return clTuFormxTrigger[]
  */
 	static function getTriggersActive()
 	{
@@ -403,7 +479,7 @@ static function getFinEnquete($idEnquete)
 	//regarde s'il y a des trigger de type diag activ?s
 	static function isTriggersActive()
 	{
-		return (count(self::getTriggersActive())?true:false);
+		return (count(self::getTriggersActive())?true:false) ;
 	}
 
 
@@ -427,14 +503,18 @@ static function getFinEnquete($idEnquete)
 	 */
 	static function crontab()
 	{
+		
+
 		foreach( self::getAllTriggers() as $trigger )
 		{
+			// print "<br />analyse ".$trigger->idTrigger ;
 			if( $trigger->mustBegin() )
             {
 				$trigger->start();
             }
 			if( $trigger->mustClose() )
 			{
+				// print "<br />il doit fermer";
 				$trigger->close();
 			}
 		}
@@ -685,11 +765,14 @@ class clTuFormxTriggerWatcher
 			}
 			return false ;
 		case 'medecin':
+			//eko("recherche sur dr ".$this->getPatient()->getMedecin() );
 			//Est-ce que le patient a un médecin urgentiste affecté ? Est-ce que ce médecin n'a pas déjà un formulaire instancié pour ce passage ?
 			if(	$this->getPatient()->getMatriculeMedecin()
 				&&
 				count(formxTools::exportsGetTabIdformFilterValue( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => $options['etatsFormx'] )   )  ) == 0 )
 			{
+				
+				//eko(count(formxTools::exportsGetTabIdformFilterValue( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => $options['etatsFormx'] )   )  ));
 				return true ;
 			}
 			return false ;
@@ -746,7 +829,7 @@ class clTuFormxTriggerWatcher
 				{
 					//on le marque comme à afficher
 					//eko("on pose le marqueur ".$trigger->getIdTrigger()."type appel =$typeAppel " );
-					$errs->whereAmI();
+					//$errs->whereAmI();
 					$this->markLaunching($trigger->getIdTrigger() );
 				}
 			}
