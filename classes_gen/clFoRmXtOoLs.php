@@ -377,6 +377,9 @@ static public function exportsGetTabIdformFilterValue($idform,$idItem,$val,$opti
 static public function exportsGetTabCw($cw,$options='')
 {
 
+	//eko($cw);
+	//eko($options);
+
 	if(! $options || ( is_array($options) && ( count($options) == 0 ) ) )
 	{
 		$options = array('noNominativeData' => true , 'etat' => array('I','E','F','H'));
@@ -465,9 +468,12 @@ static public function exportsGetCsvCw($cw,$nomFic,$options)
  * @param <type> $nomFic
  */
 
-static public function exportsGetCsvFromData(&$dataTab,$nomFic = '')
+static public function exportsGetCsvFromData(&$dataTab,$nomFic = '',$options = array() )
 {
-
+	if( ! isset( $options['local_access'] ))
+		$isLocalAccess = false ;
+	else
+		$isLocalAccess = true ;
 	$tabIndic = array() ;
 	if( ! $nomFic )
 	{
@@ -510,9 +516,10 @@ static public function exportsGetCsvFromData(&$dataTab,$nomFic = '')
 		fwrite($hFic, $ligneCsv);
 	}
 	fclose($hFic);
-
-	return clFoRmXSession::getInstance()->getWebUrlCache().$nomFic;
-
+	if( ! $isLocalAccess )
+		return clFoRmXSession::getInstance()->getWebUrlCache().$nomFic;
+	else
+		return clFoRmXSession::getInstance()->getLocalUrlCache().$nomFic;
 }
 
 
