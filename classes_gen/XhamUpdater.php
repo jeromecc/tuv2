@@ -579,6 +579,47 @@ static function sendPostData($fullUrl,$tabDataPost)
 		return file_get_contents($tmpFic);
 	}
 
+	static function sendFtpData($urlLocalFile,$ftp_folder = '/')
+	{
+		global $options ;
+		$nbEssaisMax = 3 ;
+		$pauseEntreChaqueEssai = rand(10,100) ;
+		$ftp_folder = rtrim($ftp_folder,'/').'/' ;
+		$ftp_server = $options->getOption('RPU_FTP_Host');
+		$ftp_port = $options->getOption('RPU_FTP_Port');
+		$ftp_user_name = $options->getOption('RPU_FTP_User');
+		$ftp_user_pass = $options->getOption('RPU_FTP_Pass');
+		$ftp_user_name = 'importsrv' ;
+		$ftp_user_pass = '4dS#3!b';
+		$fileName = basename($urlLocalFile) ;
+		$fp = fopen($urlLocalFile, 'r');
+		$essai = 0 ;
+		$isNoTransfert = true ;
+		while ( ! ( $conn_id = ftp_connect($ftp_server,$ftp_port,20) ) && $essai < $nbEssaisMax )
+		{
+			$essai++ ;
+			sleep($pauseEntreChaqueEssai);
+		}
+		
+		if( ! $conn_id ) throw new Exception("Connexion FTP $ftp_server:$ftp_port impossible") ;
+		
+		$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+		if(! $login_result)
+		{
+			ftp_close($conn_id);
+			throw new Exception("LOGIN FTP $ftp_user_name:$ftp_user_pass impossible") ;
+		}
+		ftp_set_option($conn_id, FTP_TIMEOUT_SEC, 20);
+		while(  ! ftp_fput($conn_id, $ftp_folder.$fileName, $fp, FTP_BINARY) && $essai < $nbEssaisMax )
+		{
+			$essai++ ;
+			sleep($pauseEntreChaqueEssai);
+		}
+		ftp_close($conn_id);
+		if( $essai == $nbEssaisMax )
+			throw new Exception("Depot du fichier $urlLocalFile dans le repertoire $ftp_folder impossible  ") ;
+	}
+
 
 }
 ?>
