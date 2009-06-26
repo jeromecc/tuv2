@@ -116,6 +116,7 @@ class clFichePatient {
       $this->genFiche ( ) ;
 
 	  //si enquetes
+	 $patient = $this->patient ;
 	 $enquetes = clTuFormxTrigger::getWatcher($this->patient);
 	 $enquetes->launchTriggers();
 	 if( $this->isIHMDispo() ) 	$this->af .= $enquetes->getHtml();
@@ -321,6 +322,7 @@ class clFichePatient {
 	// Modification des patients manuels.
   	function modPatient ( ) {
  		global $session ;
+		global $patient ;
  		
  		if ( $_POST['validerModPat'] == "Modifier" ) {
  			$session->setLogSup ( 'Modification de l\'identité du patient "'.$this->patient->getNom().' '.$this->patient->getPrenom().' ('.$this->patient->getID().')"' ) ;
@@ -337,6 +339,7 @@ class clFichePatient {
  			if ( $_POST['ville'] ) 		$this->patient->setAttribut ( 'Ville', 		$_POST['ville'] ) ;
  			if ( $_POST['tel'] ) 		$this->patient->setAttribut ( 'Tél', 		$_POST['tel'] ) ;
  			$this->patient   = new clPatient ( $this->patient->getID(), $this->type ) ;
+
  		} elseif ( $_POST['validerModPat'] != "Annuler" ) {
  			// Chargement du template ModeliXe.
 			$mod = new ModeliXe ( "modPatient.html" ) ;
