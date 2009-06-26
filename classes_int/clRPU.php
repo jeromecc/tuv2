@@ -256,7 +256,7 @@ class clRPU {
   							while ( $fic = readdir ( $r ) ) {
   								if ( $fic != "." AND $fic != ".." AND $fic != "ok" AND $fic != "logs" AND $fic != 'arh' ) {		
 			  						$this->message .= "Envoi du fichier '$fic' -> " ;
-			  						$put = ftp_put ( $con, $fic, URLRPU.$fic, FTP_ASCII ) ;
+			  						$put = ftp_put ( $con, $fic, URLRPU.$fic, FTP_BINARY ) ;
 			  						if ( ! $put ) {
 			  							$this->message .= "<font color='red'>KO</font><br/>" ;
 			  							$errs->addErreur ( 'RPU : Impossible d\'envoyer le fichier "'.$fic.'".' ) ;
