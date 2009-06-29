@@ -34,9 +34,9 @@ class clReActes {
       $res = $requete->updRecord ( "matriculeIntervenant='".$codemed1."'" ) ;
       $nb = $res['affected_rows'] ;
       unset ( $data ) ;
-      $data['matriculeIntervenant'] = $codemed2 ;
+      $data['envoi_matriculeIntervenant'] = $codemed2 ;
       $requete = new clRequete ( CCAM_BDD, "ccam_cotation_actes", $data ) ;
-      $res = $requete->updRecord ( "matriculeIntervenant='".$codemed1."'" ) ;
+      $res = $requete->updRecord ( "envoi_matriculeIntervenant='".$codemed1."'" ) ;
       $nb += $res['affected_rows'] ;
       unset ( $data ) ;
       $data['code'] = $codemed2 ;
@@ -91,6 +91,7 @@ class clReActes {
       $this->af .= "Remplacement de l'UF <b>$uf1</b> par <b>$uf2</b> dans $nbe actes et dans $nbs spécialités...<br/><br/>" ;
     }
   }
+  
 	function replayNsej ( $nsej ) {
 		global $session ;
   		global $fusion  ;
