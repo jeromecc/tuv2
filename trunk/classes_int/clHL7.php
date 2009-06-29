@@ -272,6 +272,7 @@ class clHL7 {
 	        	if ( $d )
 					$data['dt_admission'] = $date ;
                 else $data['dt_admission'] = date ( 'Y-m-d H:i:s' ) ;
+                
 				// Informations fixes supplémentaires.
 				// $data['prevenir'] = '' ;
 				$data['mode_admission'] = '' ;	
@@ -466,18 +467,21 @@ class clHL7 {
       	$duree = new clDuree ( $d1 -> getDifference ( $d2 ) ) ;
       	$duree -> invertNegatif ( ) ;
 
-		// Appel de la classe Requete.
-		$requete = new clRequete ( $base, $table, $data ) ;
-		// Exécution de la requete.
-		$res = $requete->addRecord ( ) ;
-		// eko ( "On ajoute un nouveau patient (nsej=$nsej)" ) ;
-		
-		// Si le patient est admis depuis plus de 30 minutes, alors il est placé dans la table des sortis
-		if ( $duree -> getMinutes ( ) > 30 ) {
-			$pat = new clPatient ( $res['cur_id'], '', $base ) ;
-			$pat -> sortirPatient ( 'simple' ) ;
-		}
-		$this -> news1++ ;
+        // Procédure anti-fantôme : si aucun de ces champs n'est saisi, on ne fait pas l'ajout du patient.
+        if ( $data['nom'] OR $data['prenom'] OR $data['sexe'] OR $data['ilp'] ) {
+            // Appel de la classe Requete.
+            $requete = new clRequete ( $base, $table, $data ) ;
+            // Exécution de la requete.
+            $res = $requete->addRecord ( ) ;
+            // eko ( "On ajoute un nouveau patient (nsej=$nsej)" ) ;
+
+            // Si le patient est admis depuis plus de 30 minutes, alors il est placé dans la table des sortis
+            if ( $duree -> getMinutes ( ) > 30 ) {
+                $pat = new clPatient ( $res['cur_id'], '', $base ) ;
+                $pat -> sortirPatient ( 'simple' ) ;
+            }
+            $this -> news1++ ;
+        }
 	}
 
 	// Mise à jour des informations d'un patient dans une des tables du terminal (présents ou sortis).
