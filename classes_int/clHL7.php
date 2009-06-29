@@ -271,7 +271,7 @@ class clHL7 {
 				//eko($date);
 	        	if ( $d )
 					$data['dt_admission'] = $date ;
-					
+                else $data['dt_admission'] = date ( 'Y-m-d H:i:s' ) ;
 				// Informations fixes supplémentaires.
 				// $data['prevenir'] = '' ;
 				$data['mode_admission'] = '' ;	
