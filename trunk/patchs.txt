@@ -1,10 +1,19 @@
 ********************************************************************************************************
+**************************** 2009-06-29 10:00:00 : V 2.22.8  *******************************************
+********************************************************************************************************
+
+- HL7 : la date d'admission est remplacée par la date de traitement du fichier
+  si jamais la date est vide (Digne).						(Damien Borel)
+- HL7 : si les champs suivants sont tous vides, alors le patient n'est pas
+  ajouté dans le terminal : nom, prenom, ilp, sexe.				(Damien Borel)
+
+********************************************************************************************************
 **************************** 2009-06-25 11:00:00 : V 2.22.7  *******************************************
 ********************************************************************************************************
 
-- Exports automatiques d'enquetes via FTP	(Emmanuel Cervetti)
-- Enquete transfusion pour les médecins		(Emmanuel Cervetti)
-- Les envois FTP se font en binary			(Damien Borel)
+- Exports automatiques d'enquetes via FTP.					(Emmanuel Cervetti)
+- Enquete transfusion pour les médecins.					(Emmanuel Cervetti)
+- Les envois FTP se font en binary.						(Damien Borel)
 
 
 ********************************************************************************************************
