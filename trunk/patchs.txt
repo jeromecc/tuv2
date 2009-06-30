@@ -6,6 +6,8 @@
   si jamais la date est vide (Digne).						(Damien Borel)
 - HL7 : si les champs suivants sont tous vides, alors le patient n'est pas
   ajouté dans le terminal : nom, prenom, ilp, sexe.				(Damien Borel)
+- Correction dans le module de remplacement d'un code ADELI par un autre.	(Damien Borel)
+- Gestion des planches d'étiquettes pour Salon.					(Damien Borel)
 
 ********************************************************************************************************
 **************************** 2009-06-25 11:00:00 : V 2.22.7  *******************************************
