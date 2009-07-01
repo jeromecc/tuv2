@@ -217,6 +217,8 @@ function list_actions() {
 			continue ;
 		$padaction = false;
 		$libelle = $data[libelle][$i] ;
+		$id = $data['idformx'][$i] ;
+
 		//$creation = $tool->date_simple($data['dt_creation'][$i]) ;
 		//$modif = $tool->date_simple($data['dt_modif'][$i]) ;
 		$dateCr = new clDate ( $data['dt_creation'][$i] ) ;
@@ -239,7 +241,10 @@ function list_actions() {
 		//$mod -> MxText ( "actions.creation", $creation ) ;
 		//$mod -> MxText ( "actions.modif", $modif ) ;
 		$mod -> MxText ( "actions.libelle", $libelle ) ;
-		if ( ! eregi ( 'Radio', $libelle ) AND ! eregi ( 'Bio', $libelle ) AND ! eregi ( 'Spécialisée', $libelle ) ) $mod -> MxBloc ( 'actions.frep', 'delete' ) ;
+
+		//eko($id);
+
+		if ( $id == 'Formulaire_Bio2009' || (   ! eregi ( 'Radio', $libelle ) AND ! eregi ( 'Bio', $libelle ) AND ! eregi ( 'Spécialisée', $libelle ) ) ) $mod -> MxBloc ( 'actions.frep', 'delete' ) ;
 		else {
 			if ( eregi ( 'Radio', $libelle ) ) $libelleC = 'radio' ; 
 			elseif ( eregi ( 'Bio', $libelle ) ) $libelleC = 'labo' ;
