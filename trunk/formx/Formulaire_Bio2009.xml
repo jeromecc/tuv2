@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="Formulaire_Bio2009" access="formulaires_TM_générale"  dontPrintNavi="y" version="11">
+<Libelle>Formulaire Bio 2009</Libelle>
+<Objet>Prescription d'examens biologiques</Objet>
+<Groupe>Demandes de Bons</Groupe>
+
+<ETAPE id="1">
+	
+	<Libelle>Prescription d'examens biologiques:</Libelle>
+
+	<ITEM type="TXT" id="Val_IDENT_ILPPatient" opt="y" resync="y" readonly="y" barcode="39" >
+		<Libelle>ILP</Libelle>
+		<From>globalObject:patient->getILP()</From>
+	</ITEM>
+
+	<ITEM type="TXT" id="Val_IDENT_NsejPatient" opt="y" resync="y" readonly="y" barcode="39">
+		<Libelle>Nsej</Libelle>
+		<From>globalObject:patient->getNsej()</From>
+	</ITEM>
+
+  <ITEM type="TXT" id="Val_IDENT_NomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Nom</Libelle>
+		<From>globalObject:patient->getNom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_PrenomPatient" opt="y" resync="y" readonly="y">
+		<Libelle>Prénom</Libelle>
+		<From>globalObject:patient->getPrenom()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_SexePat" opt="y" resync="y" readonly="y">
+		<Libelle>Sexe</Libelle>
+		<From>libelle_sexe|globalObject:patient->getSexe()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_DateNPat2" opt="y" resync="y" readonly="y">
+      <Libelle>Date de naissance</Libelle>
+      <From>func:GetDateE3</From>
+	</ITEM>
+
+	<ITEM type="TXT" id = "Val_IDENT_AgePat" opt="y" resync="y" readonly="y">
+			<Libelle>Age</Libelle>
+			<From>func:GetAge2</From>
+	</ITEM>
+
+	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Adresse</Libelle>
+      <From>globalObject:patient->getAdresse()</From>
+	</ITEM>
+
+	<ITEM type="TXT" id="Val_IDENT_CodePPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Code postal</Libelle>
+      <From>globalObject:patient->getCodePostal()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_VillePat" opt="y" resync="y" readonly="y">
+		  <Libelle>Ville</Libelle>
+      <From>globalObject:patient->getVille()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_IDENT_TelPat" opt="y" resync="y" readonly="y">
+		  <Libelle>Téléphone</Libelle>
+      <From>globalObject:patient->getTel()</From>
+	</ITEM>
+	
+  <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
+		<Libelle>IDU</Libelle>
+		<From>globalObject:patient->getIDU()</From>
+	</ITEM>
+	
+
+	
+	<ITEM type="TXT" id="Val_F_BIO_Motif" oblig="y">
+		<Libelle>Motif</Libelle>
+		<From>globalObject:patient->getRecours()</From>
+	</ITEM>
+
+
+
+	<ITEM type="CHECK" id="biochimie" opt="y" cols="2" >
+		<Libelle style="font-weight:bold;">Biochimie</Libelle>
+		<FromList>list:Gly|Na, K, Cl|Bicarbonate|Protides|Protides|Créatinine|Acide urique|Calcium|CK|LDH|Transaminases|GGT|PAL|Bilirubine|amylase|lipase|Alcoolémie|Protéine C réactive|Troponine|Myoglobine|Haptoglobine|BNP|procalcitonine|Ammoniémie|lactates|Oxyde de cardone|Gaz</FromList>
+	</ITEM>
+	
+	<ITEM type="TXT" id="biochimie_temp" opt="y">
+		<Libelle ></Libelle>
+		<From>const:T°:</From>
+	</ITEM>
+
+	<ITEM type="CHECK" id="hematologie" opt="y">
+		<Libelle style="font-weight:bold;">Hématologie</Libelle>
+		<FromList>list:NF Plaquettes|Plaquettes citraté|Parasites dans le sang</FromList>
+	</ITEM>
+
+	<ITEM type="CHECK" id="grossesse" opt="y">
+		<Libelle style="font-weight:bold;">Grossesse</Libelle>
+		<FromList>list:BHCG dosage</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:grossesse_date_regles</ListIdItems>
+			<OnVal>const:BHCG dosage</OnVal>
+		</ShowItemsOnVal>
+	</ITEM>
+
+	<ITEM type="CAL" id="grossesse_date_regles" opt="y" >
+		<Libelle >Date dernières règles</Libelle>
+	</ITEM>>
+
+	<ITEM type="CHECK" id="toxicologie" opt="y" cols="2" >
+		<Libelle style="font-weight:bold;">Toxicologie</Libelle>
+		<FromList>list:Phénobarbital - sang|Tricycliques - sang|Benzodiazépines - sang|Paracétamol - sang|Digoxine - sang|Benzodiazépines - urines|Tricycliques - urines|Barbituriques - urines|Cannabis - urines|Opiacés - urines|Cocaïne - urines|Amphétamines - urines|Métamphétamine - urines|Méthadone - urines|Ecstasy (MDMA) - urines</FromList>
+	</ITEM>
+
+
+	<ITEM type="CHECK" id="hemostase_renseignements" opt="y" cols="2" >
+		<Libelle style="font-weight:bold;">Hemostase renseignements</Libelle>
+		<FromList>list:Examen pré opératoire|Hémorragie|Thrombose|Traitement anti Vit K|Héparine par héparine</FromList>
+		<ShowItemsOnVal>
+			<ListIdItems>list:anti_vit_medic|anti_vit_dose</ListIdItems>
+			<OnVal>const:Traitement anti Vit K</OnVal>
+		</ShowItemsOnVal>
+
+		<ShowItemsOnVal>
+			<ListIdItems>list:hph_medic|hph_dose|hph_heure_injec|hph_heure_prelev</ListIdItems>
+			<OnVal>const:Héparine par héparine</OnVal>
+		</ShowItemsOnVal>
+
+	</ITEM>
+
+	<ITEM type="TXT" id="anti_vit_medic" opt="y"  >
+		<Libelle >Traitement anti Vit K Médicament:</Libelle>
+	</ITEM>
+
+	<ITEM type="TXT" id="anti_vit_dose" opt="y"  >
+		<Libelle >Traitement anti Vit K Dose:</Libelle>
+	</ITEM>
+
+
+	<ITEM type="TXT" id="hph_medic" opt="y"  >
+		<Libelle >Héparine par héparine Médicament : </Libelle>
+	</ITEM>
+	<ITEM type="TXT" id="hph_dose" opt="y"  >
+		<Libelle >Héparine par héparine Dose : </Libelle>
+	</ITEM>
+	<ITEM type="LISTE" id="hph_heure_injec" opt="y"  >
+		<Libelle >Héparine par héparine Heure de l'injection : </Libelle>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+	<ITEM type="LISTE" id="hph_heure_prelev" opt="y"  >
+		<Libelle >Héparine par héparine Heure de prélèvement : </Libelle>
+		<FromFuncList>getters/list_hours</FromFuncList>
+	</ITEM>
+
+
+	<ITEM type="CHECK" id="hemostase_examens_demandes" opt="y" >
+		<Libelle style="font-weight:bold;">Hemostase Examens Demandés</Libelle>
+		<FromList>list:TP|TCA|DDI|Héparine|HBPM</FromList>
+	</ITEM>
+
+
+
+	<ITEM type="LONGTXT" rows="2" id="Val_F_BIO_Autres_E" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Autres examens</Libelle>
+		<From>const:Aucun.</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_F_BIO_Nom_Prel" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Nom du préleveur</Libelle>
+		<FromXHAMList>I.D.E.</FromXHAMList>
+		<From>globalObject:patient->getIDE()</From>
+	</ITEM>
+	
+	<ITEM type="TXT" id="Val_F_BIO_Heure_Prel" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Heure du prélèvement</Libelle>
+		<From>func:GetTime</From>
+	</ITEM>
+	
+	<ITEM type="LISTE" id="Val_F_BIO_Nom_P" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Nom du prescripteur</Libelle>
+		<FromXHAMList>Médecins</FromXHAMList>
+		<From>globalObject:patient->getMedecin()</From>
+	</ITEM>
+	
+	<ITEM type="CAL" default="today" id="Val_F_BIO_Date" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Date</Libelle>
+	</ITEM>
+	
+	<ITEM type="LONGTXT" rows="2" id="Val_F_BIO_Comm" oblig="y">
+		<Libelle style="font-weight:bold;color:#094F13">Commentaire</Libelle>
+		<From>const:Aucun.</From>
+	</ITEM>
+  
+</ETAPE>
+
+</FORMX>
+	
+	
