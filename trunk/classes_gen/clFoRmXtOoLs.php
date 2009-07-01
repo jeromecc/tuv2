@@ -752,6 +752,15 @@ static function helper_str_mef($chaine)
 }
 
 
+static function helper_html_barcode($str,$type)
+{
+	$urlBarrer = formxSession::getInstance()->getWebUrl().'classes_ext/barcode/image.php';
+
+
+
+	return "<img height=120 src='$urlBarrer?code=$str&style=196&type=C39&width=460&height=120&xres=3&font=5' alt='$str' />";
+}
+
 
 static function helper_formatDatatype($item,$val)
 {
