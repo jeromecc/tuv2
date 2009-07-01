@@ -72,6 +72,8 @@ cp -frL ${location}formx/Formulaire_Radio_Partie_*    ${locationtmp}formx/
 cp -frL ${location}formx/Formulaire_Bio.xml    ${locationtmp}formx/
 cp -frL ${location}formx/Formulaire_Radio.xml    ${locationtmp}formx/
 cp -frL ${location}formx/Formulaire_Consultation_Specialisee.xml    ${locationtmp}formx/
+cp -frL ${location}formx/Formulaire_Bio2009.xml    ${locationtmp}formx/
+
 
 #enquetes
 mkdir ${locationtmp}formx/triggers
