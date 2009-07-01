@@ -88,6 +88,11 @@ class clFoRmXSession {
 	 return $this->urlCacheWeb ;
  }
 
+ function getWebUrl()
+ {
+	 return $this->url ;
+ }
+
 
 
 function getWebUrlLogo()
