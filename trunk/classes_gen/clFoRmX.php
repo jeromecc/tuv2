@@ -2712,6 +2712,14 @@ public function getHtmlImpressionItem($item) {
 
 	if(in_array($txt,$nullvals)) $txt = '' ;
 
+	//si un code barre est demandé
+	if( $item->hasAttribute('barcode') )
+	{
+		$txt = clFoRmXtOoLs::helper_html_barcode($txt,$item->getAttribute('barcode')) ;
+		$data['print_val_class'] = 'barcode' ;
+	}
+
+
 	$valeur = $txt  ;
 
 	if( $valeur == '' )
