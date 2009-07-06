@@ -489,7 +489,7 @@ static public function exportsGetCsvFromData(&$dataTab,$nomFic = '',$options = a
 		{
 			if( ! isset( $tabIndic[$idIndic] ))
 			{
-				if(  isset ( $options['cols'] ) && in_array($idIndic, $options['cols']) )
+				if(  isset ( $options['cols'] ) &&  ! in_array($idIndic, $options['cols']) )
 				{
 					continue ;
 				}
@@ -521,6 +521,9 @@ static public function exportsGetCsvFromData(&$dataTab,$nomFic = '',$options = a
 		fwrite($hFic, $ligneCsv);
 	}
 	fclose($hFic);
+
+	//eko(file_get_contents(clFoRmXSession::getInstance()->getLocalUrlCache().$nomFic));
+
 	if( ! $isLocalAccess )
 		return clFoRmXSession::getInstance()->getWebUrlCache().$nomFic;
 	else
