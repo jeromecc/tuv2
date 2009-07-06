@@ -68,6 +68,24 @@ AND CONTENU LIKE '%$mode%'  " ;
 		return $tabIndics ;
 	}
 
+
+	static function getDataTransfertsSamu(clDate $date1,clDate $date2)
+	{
+		$strDate1 = $date1->getDate();
+		$strDate2 = $date2->getDate();
+		$obRequete = new clRequete(BDD, 'patients_sortis', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
+		$requete = "SELECT * FROM `patients_sortis` WHERE `dt_admission` >= '$strDate1' and dt_sortie <= '$strDate2' AND `type_destination` = 'T' AND moyen_transport LIKE '%SMUR%' ";
+		eko($requete);
+		return $obRequete->exec_requete($requete, 'tab');
+	}
+
+	static function getUrlCsvTransfertsSamu(clDate $date1,clDate $date2)
+	{
+		$data = self::getDataTransfertsSamu($date1, $date2) ;
+		return  formxTools::exportsGetCsvFromData($data);
+	}
+
+
 	function getAffichage()
 	{
 		global $session ;
@@ -86,12 +104,13 @@ AND CONTENU LIKE '%$mode%'  " ;
 				$retour.= "<br />Sorties sans Hospi : ".$tabIndics['nb_ext'];
 				$retour.= "<br /><a href='".'index.php?navi='.$session->genNavi($session->getNaviFull())."'>Retour</a>";
 				$retour.= "<br />";
+				$retour.= "<br /><a href='".self::getUrlCsvTransfertsSamu($date1, $date2)."'>Transferts SAMU</a>";
 			}
 			else
 			{
 				$mod = new ModeliXe ( "CCAM_choix.mxt" ) ;
 				$mod -> SetModeliXe ( ) ;
-				$mod ->MxText('titre', "Synthèse des actes partis à la facturation");
+				$mod ->MxText('titre', "Synthèse facturation");
 				$mod ->MxAttribut('action', 'index.php?navi='.$session->genNavi($session->getNaviFull()));
 				$retour = $mod->MxWrite('1');
 			}
