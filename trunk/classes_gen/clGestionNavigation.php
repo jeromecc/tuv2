@@ -328,7 +328,7 @@ class clGestionNavigation {
 
 	if ( ! isset ( $_POST['code'] ) )      { 
 	  if ( $res['code'][0] ) $_POST['code'] = $res['code'][0] ;
-	  else $_POST['code'] = '$this->af .= "Affichage renvoyé par le code" ;' ;
+	  else $_POST['code'] = '$this->af .= "..Affichage renvoyé par le code" ;' ;
 	}
 	
 	// Chargement du template ModeliXe.
@@ -389,7 +389,7 @@ class clGestionNavigation {
 	}
       }
       if ( ! $this->stop ) {
-	if ( ! isset ( $_POST['code'] ) ) $_POST['code'] = '$this->af .= "Affichage renvoyé par le code" ;' ;
+	if ( ! isset ( $_POST['code'] ) ) $_POST['code'] = '$this->af .= "_Affichage renvoyé par le code" ;' ;
 	$mod = new ModeliXe ( "GestionMenu.mxt" ) ; 
 	$mod -> SetModeliXe ( ) ;
 	$mod -> MxText ( "titre", "Ajout d'un nouveau menu :" ) ;
