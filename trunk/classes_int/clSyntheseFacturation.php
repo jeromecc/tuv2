@@ -72,17 +72,38 @@ AND CONTENU LIKE '%$mode%'  " ;
 	static function getDataTransfertsSamu(clDate $date1,clDate $date2)
 	{
 		$strDate1 = $date1->getDate();
-		$strDate2 = $date2->getDate();
+		$strDate2 = $date2->addDays(1)->getDate();
 		$obRequete = new clRequete(BDD, 'patients_sortis', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
 		$requete = "SELECT * FROM `patients_sortis` WHERE `dt_admission` >= '$strDate1' and dt_sortie <= '$strDate2' AND `type_destination` = 'T' AND moyen_transport LIKE '%SMUR%' ";
-		eko($requete);
 		return $obRequete->exec_requete($requete, 'tab');
 	}
 
 	static function getUrlCsvTransfertsSamu(clDate $date1,clDate $date2)
 	{
 		$data = self::getDataTransfertsSamu($date1, $date2) ;
-		return  formxTools::exportsGetCsvFromData($data);
+		$options = array() ;
+		$options['cols'] = array(
+			'idpatient',
+			'sexe',
+			'dt_naissance',
+			'adresse_cp',
+			'adresse_ville',
+			'dt_admission',
+			'mode_admission',
+			'dt_examen',
+			'medecin_urgences',
+			'ide',
+			'ccmu',
+			'dest_attendue',
+			'moyen_transport',
+			'motif_transfert',
+			'dt_sortie',
+			'type_destination',
+			'diagnostic_code',
+			'etatUHCD',
+			'dt_UHCD'
+			) ;
+		return  formxTools::exportsGetCsvFromData($data,'',$options);
 	}
 
 
