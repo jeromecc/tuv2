@@ -482,12 +482,17 @@ static public function exportsGetCsvFromData(&$dataTab,$nomFic = '',$options = a
 	$hFic = fopen(clFoRmXSession::getInstance()->getLocalUrlCache().$nomFic,'w') ;
 	//on parcourt une premiere fois pour avoir les indicateurs et créer le header
 	$header = '' ;
+	$tabIndexIgnore = array() ;
 	foreach($dataTab as $ligne)
 	{
 		foreach($ligne as $idIndic => $val)
 		{
 			if( ! isset( $tabIndic[$idIndic] ))
 			{
+				if(  isset ( $options['cols'] ) && in_array($idIndic, $options['cols']) )
+				{
+					continue ;
+				}
 				$tabIndic[$idIndic] = $idIndic ;
 				$header.= $idIndic. ';';
 			}
