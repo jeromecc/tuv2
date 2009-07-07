@@ -105,7 +105,7 @@ static function testEcritureFichier($file,$contenuInitial='') {
 	}
 }
 
-static function connectFTP($ftp_server, $ftp_user_name, $ftp_user_pass) {
+static function testDepotFTP($ftp_server, $ftp_user_name, $ftp_user_pass) {
     $conn_id = ftp_connect($ftp_server,21,20);
     if(! $conn_id) return array(false, " (connexion impossible)");
     else {
