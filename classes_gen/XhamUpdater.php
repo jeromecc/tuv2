@@ -14,77 +14,57 @@
  */
 class XhamUpdater {
 
-
-
-static function testSafeMode()
-{
-	print "<br />Safe mode non activé   ";
-	if( ! ini_get('safe_mode') )
-		print "<font color=\"green\">OK</font>" ;
-	else
-	{
-		print "<font color=\"red\">KO</font>" ;
-				die ;
-	}
+static function checkPHPVersion($version) {
+    return (version_compare(PHP_VERSION,$version, '>')) ;
 }
 
+static function testSafeMode() {
+    return (! ini_get('safe_mode'));
+}
 
+static function testLimiteTempo() {
+    set_time_limit(0);
+    return ini_get('max_execution_time') == 0;
+}
 
-static function testNoNoNoNoNoNoThereIsNoLimit($memory)
-{
-	print "<br />Test de la désactivation de la limite temporelle d'exécution du script  ";
-	set_time_limit(0);
-	if(  ini_get('max_execution_time') == 0  )
-		print "<font color=\"green\">OK</font>" ;
-	else
-	{
-		print "<font color=\"red\">KO</font>" ;
-				die ;
-	}
-	print "<br />Test de l'augmentation de la mémoire allouée à  $memory ";
+static function testNoNoNoNoNoNoThereIsNoLimit($memory) {
 	ini_set('memory_limit', $memory);
-	if( ! ini_get('memory_limit') || (int) ini_get('memory_limit') >= (int) $memory  )
-		print "<font color=\"green\">OK</font>" ;
-	else
-	{
-		print "<font color=\"red\">KO</font>" ;
-				die ;
-	}
+	return ! ini_get('memory_limit') || (int) ini_get('memory_limit') >= (int) $memory ;
 }
 
 
-static function testModule($module,$bloquant=true)
+static function testModule($module) {
+    return extension_loaded($module);
+}
+
+/**
+ * Teste, crée si besoin, change les droits si besoin, d'un dossier nécessaire en écriture
+ * @param string $dir dossier à tester
+ * @return null
+ */
+static function testEcritureDossier($dir)
 {
-	print "<br />Test de la présence du module PHP $module  ";
+    $precisionCree = '' ;
+    if(! file_exists($dir))	{
+        if(! mkdir($dir) ) return array(false, "(création impossible)");
+        else $precisionCree = '(créé)' ;
+    }
 
-	$couleur = 'rouge' ;
+    if(is_writable($dir)) return array(true, $precisionCree);
+    else {
+        chmod ($dir,"u+rwx");
+        if(is_writable($dir)) return array(true, $precisionCree . " (droits changés)");
 
-	if( ! $bloquant )
-		$couleur = 'orange';
+        chmod ($dir,"g+rwx");
+        if(  is_writable($dir) ) return array(true, $precisionCree . " (droits changés)");
 
-	if( extension_loaded($module) )
-		print "<font color=\"green\">OK</font>" ;
-	else
-	{
-		print "<font color=\"$couleur\">KO</font>" ;
-			//	die ;
-	}
+        chmod ($dir,"o+rwx");
+        if(  is_writable($dir) ) return array(true, $precisionCree . " (droits changés)");
+
+        return array(false, $precisionCree . " (droits non suffisants)");
+    }
 }
 
-static function checkPHPVersion($version)
-{
-
-
-	print "<br />Test version de PHP > $version  ";
-
-	if (version_compare(PHP_VERSION,$version, '>')) {
-		print "<font color=\"green\">OK</font>" ;
-	} else
-	{
-		print "<font color=\"red\">KO</font>" ;
-				die ;
-	}
-}
 
 
 static function installBase($base,$file,$table,$login,$pass,$host)
@@ -102,43 +82,6 @@ static function installBase($base,$file,$table,$login,$pass,$host)
 
 }
 
-/**
- * Teste, crée si besoin, change les droits si besoin, d'un dossier nécessaire en écriture
- * @param string $dir dossier à tester
- * @return null
- */
-static function testEcritureDossier($dir)
-{
-	print "<br />Test du droit d'écriture sur le dossier $dir : ";
-	$precisionCree = '' ;
-	if(! file_exists($dir))
-	{
-		if(! mkdir($dir) )
-		{
-			print "<font color=\"red\">KO (creation impossible)</font>" ;
-			die ;
-		}
-		else
-		{
-			$precisionCree = '(Créé)' ;
-		}
-	}
-	if(is_writable($dir))
-	{
-		 print "<font color=\"green\">OK $precisionCree</font>" ;
-	}
-	else
-	{
-		chmod ($dir,"u+rwx");
-		if(  is_writable($dir) ) {	print "<font color=\"green\">OK $precisionCree (droits changés)</font>" ;	return ; }
-		chmod ($dir,"g+rwx");
-		if(  is_writable($dir) ) {	print "<font color=\"green\">OK $precisionCree (droits changés)</font>" ;	return ; }
-		chmod ($dir,"o+rwx");
-		if(  is_writable($dir) ) {	print "<font color=\"green\">OK $precisionCree (droits changés)</font>" ;	return ; }
-		print "<font color=\"red\">KO $precisionCree (droits non suffisants)</font>" ;
-		die ;
-	}
-}
 
 static function testEcritureFichier($file,$contenuInitial='') {
 	print "<br />Test du droit d'écriture sur le fichier $file : ";
@@ -162,6 +105,52 @@ static function testEcritureFichier($file,$contenuInitial='') {
 	}
 }
 
+static function connectFTP($ftp_server, $ftp_user_name, $ftp_user_pass) {
+    $conn_id = ftp_connect($ftp_server,21,20);
+    if(! $conn_id) return array(false, " (connexion impossible)");
+    else {
+            ftp_set_option($conn_id, FTP_TIMEOUT_SEC, 20);
+            $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+            if(! $login_result) return array(false, " (identification refusée)");
+            else {
+                    $fp = fopen(URLLOCAL.'index.php', 'r');
+                    if (ftp_fput($conn_id, 'test_tu.txt', $fp, FTP_BINARY)) return array(true, "");
+                    else return array(false, " (problème lors du transfert)");
+            }
+    }
+
+}
+
+static function clefARH() {
+    if( file_exists( URLLOCAL.'index.php.gpg' )) unlink(URLLOCAL.'index.php.gpg');
+
+    $gpg = new gnuPG(false,GNUPG);
+    $gpg->EncryptFile('import@veille-arh-paca.com',URLLOCAL.'index.php');
+    $errors=$gpg->error;
+    if($errors) {
+
+        $s =    "<br /><br /><code>Pour installer la clé publique, exécutez en tant que user apache: " .
+                "<br />gpg --import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key" .
+                "<br />gpg --edit-key import@veille-arh-paca.com" .
+                "<br />     trust" .
+                "<br />    choisir 'je donne une confiance ultime'" .
+                "<br />    quit" .
+                "<br /><br />Exécutez également en tant que root" .
+                "<br />gpg --import ".URLLOCAL."meta/import@veille-arh-paca.com.public.key" .
+                "<br />gpg --edit-key import@veille-arh-paca.com" .
+                "<br />     trust" .
+                "<br />    choisir 'je donne une confiance ultime'" .
+                "<br />    quit</code>"
+        ;
+        
+        return array(false, $errors . "</font><font>" . $s);
+    } else {
+        unlink(URLLOCAL.'index.php.gpg');
+        return array(true, "");
+    }
+
+
+}
 function mysql_table_exists($table , $db) {
 	$requete = 'SHOW TABLES FROM '.$db.' LIKE \''.$table.'\'';
 	$exec = mysql_query($requete);
@@ -202,7 +191,6 @@ function execSqlFile($rsql,$file) {
  * @return bool
  */
 static function testGrantOnBase($h,$u,$p,$b) {
-	print  "<br />Test des privilèges CREATE ALTER DROP ";
 	$nocol = rand(1,9999);
 	$requete_creation = "CREATE TABLE  IF NOT EXISTS `test_creation` ( `col1` VARCHAR( 1 ) NOT NULL ) ENGINE = MYISAM " ;
 	$requete_modification =  "ALTER TABLE `test_creation` ADD `test_ncol_$nocol` VARCHAR( 1 ) NOT NULL ;";
@@ -210,7 +198,7 @@ static function testGrantOnBase($h,$u,$p,$b) {
 	self::execRequete($h,$u,$p,$b,$requete_creation,true);
 	self::execRequete($h,$u,$p,$b,$requete_modification,true);
 	self::execRequete($h,$u,$p,$b,$requete_suppression,true);
-	print "<font color=\"green\">OK </font>" ;
+	return true;
 }
 
 
@@ -402,11 +390,9 @@ static function genResultQueryConfigFile($file,$host,$base,$user,$pass)
 	$result  -> appendChild ( $element ) ;
 	$dom     -> appendChild ( $result ) ;
 	$FIC      = fopen ($file, "w" ) ;
-	print "Creation du fichier '$file' => " ;
-	if ( fwrite ( $FIC, $dom->saveXML ( ) ) ) print "<font color=\"green\">OK</font>" ;
-	else print "<font color=\"red\">KO</font>" ;
-	fclose ( $FIC ) ;
-	print "<br />";
+        $b = fwrite($FIC, $dom->saveXML());
+        fclose($FIC);
+        return $b;
 }
 
 
