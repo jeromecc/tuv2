@@ -373,6 +373,19 @@ class clDate {
     return ( $this->months[$array['mon']] ) ;
   }
 
+
+  // Retourne le numéro du trimestre
+  function getTrimestre() {
+	if( in_array( $this->getMonthNumber() , array(1,2,3) ))
+		return 1 ;
+	if( in_array( $this->getMonthNumber() , array(4,5,6) ))
+		return 2 ;
+	if( in_array( $this->getMonthNumber() , array(7,8,9) ))
+		return 3 ;
+	if( in_array( $this->getMonthNumber() , array(10,11,12) ))
+		return 4 ;
+  }
+
   // Retourne le numéro du mois (1-12)
   function getMonthNumber ( ) {
     $array = adodb_getdate ( $this->timestamp ) ;
