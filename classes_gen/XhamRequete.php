@@ -371,6 +371,7 @@ function testData() {
       switch ( $desc[$key][1] ) {
       case "string":
       case "date":
+	  case "time":
       case "datetime":
       case "blob":
 		$data[$key] = "'".addslashes(stripslashes($val))."'" ;
