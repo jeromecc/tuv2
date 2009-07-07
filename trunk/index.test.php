@@ -199,7 +199,7 @@ $ftp_user_name = 'importsrv' ;
 $ftp_user_pass = '4dS#3!b';
 affichage(
     "Test de connexion FTP vers serveur de veille  (ftp://www.veille-arh-paca.com)",
-    clUpdater::connectFTP($ftp_server, $ftp_user_name, $ftp_user_pass),
+    clUpdater::testDepotFTP($ftp_server, $ftp_user_name, $ftp_user_pass),
     true
 );
 
