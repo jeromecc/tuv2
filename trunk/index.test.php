@@ -29,7 +29,7 @@ function affichage($s, $result, $error = false, $orange = false, $die = true) {
 
     $color = $orange ? "orange" : "red" ;
     echo "<font color=\"" . $color . "\">KO " . $txtError . "</font><br />";
-    if ($die) die;
+    //if ($die) die;
     return false;
     
 }
@@ -94,13 +94,13 @@ affichage(
 echo "<br /><hr /><h4>Modules php nécessaires</h4>" ;
 $modules = array("soap", "xsl", "xml", "ftp", "mysql", "calendar","gd","zlib","ftp","mbstring","sockets");
 foreach ($modules as $module) {
-    affichage("Test de la présence du module PHP " . $module, clUpdater::testModule($module));
+    affichage("Test de la présence du module PHP " . $module, clUpdater::testModule($module), false, false, false);
 }
 
 echo "<h4>Modules php pour fonctionalités étendues</h4>" ;
 $modules = array("curl","openssl");
 foreach ($modules as $module) {
-    affichage("Test de la présence du module PHP " . $module, clUpdater::testModule($module), false, true);
+    affichage("Test de la présence du module PHP " . $module, clUpdater::testModule($module), false, true, false);
 }
 
 
