@@ -147,7 +147,7 @@
             <Libelle>Plaquettes : terrain autre</Libelle>
         </ITEM>
 
-        <ITEM id="plaquettes_mtc" type="CHECK"  >
+        <ITEM id="plaquettes_mtc" type="CHECK" opt="y" >
             <Libelle>Plaquettes : mauvaise tolérance clinique</Libelle>
             <FromList>list:Syndrome hémorragique diffus|Hémorragie FO</FromList>
             <ShowItemsOnVal>
@@ -197,7 +197,7 @@
 
         <ITEM id="transfusion_urgences" type="RADIO"  oblig="y" >
             <Libelle>La prescription a-t-elle été faite</Libelle>
-            <FromList>list:aux Urgences|en UHCD|autre</FromList>
+            <FromList>list:aux Urgences|en unité individualisée d'UHCD|autre</FromList>
             <ShowItemsOnVal>
                 <ListIdItems>list:autre_service</ListIdItems>
                 <OnVal>const:autre</OnVal>
@@ -223,7 +223,7 @@
             <FromList>list:0H-8H|8H-16H|16H-24H</FromList>
         </ITEM>
 
-        <ITEM id="motif_transfu_urg" type="RADIO"  >
+        <ITEM id="motif_transfu_urg" type="CHECK"  >
             <Libelle>Motif de la transfusion aux urgences</Libelle>
             <FromList>list:Déchoquage en cours|Pas de place dans les services|Pas de médecin dans les services|Organisation de l'ES|Il fallait bien que quelqu'un le fasse et ça arrangeait tout de monde.</FromList>
         </ITEM>
