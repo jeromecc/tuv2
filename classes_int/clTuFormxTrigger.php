@@ -184,7 +184,7 @@ function getIdEnquete()
 		return false ;
 }
 
-
+//hasBeenPreviouslyLaunched
 function hasBeenPreviouslyLaunched()
 {
 	$requete = "SELECT * FROM enquetes WHERE  id_trigger = '".$this->idTrigger."' "   ;
@@ -198,7 +198,7 @@ function hasBeenPreviouslyLaunched()
 
 
 
-//hasBeenPreviouslyLaunched
+
 
 
 /**
@@ -306,7 +306,7 @@ static function getFinEnquete($idEnquete)
                 $tabOptions = array() ;
 
 			$data = clFoRmXtOoLs::exportsGetTabIdform($idFormx, $tabOptions + array('cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ));
-            var_dump($data);
+            //var_dump($data);
 			$tab = array('cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ) ;
 			eko($tab['cw'] );
 
@@ -661,8 +661,10 @@ class clTuFormxTriggerWatcher
 		//on instancie les variables session si c'est la toute toute première fois
 		if( ! isset( $_SESSION['tuFxTriggersWatcher']   ))
 			$_SESSION['tuFxTriggersWatcher'] = array() ;
+
 		if( ! isset( $_SESSION['tuFxTriggersWatcher'][$this->getPatient()->getIDU() ]   ))
 			$_SESSION['tuFxTriggersWatcher'][$this->getPatient()->getIDU() ] = array() ;
+
 		if( ! isset( $_SESSION['tuFxTriggersWatcher'][$this->getPatient()->getIDU() ]['launchers']   ))
 			$_SESSION['tuFxTriggersWatcher'][$this->getPatient()->getIDU() ]['launchers'] = array() ;
 
@@ -765,11 +767,25 @@ class clTuFormxTriggerWatcher
 			}
 			return false ;
 		case 'medecin':
+
+			/*
+			if ( count(formxTools::exportsGetTabIdformFilterValue	( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => array('F','H') ) )   )   == 0 )
+					eko("aucun formulaire pour le médecin ".$this->getPatient()->getMatriculeMedecin()." n'est cloturé quelque soit le patient ");
+			if ( count(formxTools::exportsGetTabIdsIdformFilterValue	( $this->getPatient()->getIDU() , $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(), array('etat' => $options['etatsFormx'] )  ) ) == 0   )
+					eko("aucun formulaire pour le médecin ".$this->getPatient()->getMatriculeMedecin()." n'est instancié pour ce patient ");
+			else
+					eko("trouve formulaire pour le médecin ".$this->getPatient()->getMatriculeMedecin()." instancié pour le patient ");
+					eko( formxTools::exportsGetTabIdsIdformFilterValue	( $this->getPatient()->getIDU() , $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(), array('etat' => $options['etatsFormx'] )  ) );
+			*/
+
+
 			//eko("recherche sur dr ".$this->getPatient()->getMedecin() );
 			//Est-ce que le patient a un médecin urgentiste affecté ? Est-ce que ce médecin n'a pas déjà un formulaire instancié pour ce passage ?
 			if(	$this->getPatient()->getMatriculeMedecin()
 				&&
-				count(formxTools::exportsGetTabIdformFilterValue( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => $options['etatsFormx'] )   )  ) == 0 )
+				( count( formxTools::exportsGetTabIdformFilterValue	( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => array('F','H') ) )   )   == 0 )
+				&&
+				count(formxTools::exportsGetTabIdsIdformFilterValue	( $this->getPatient()->getIDU() , $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(), array('etat' => $options['etatsFormx'] )  ) ) == 0   )
 			{
 				
 				//eko(count(formxTools::exportsGetTabIdformFilterValue( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => $options['etatsFormx'] )   )  ));
@@ -933,6 +949,7 @@ class clTuFormxTriggerWatcher
 				//envoi de mail à signalement
 				$sujet = "Terminal des Urgences : Un formulaire d'enquête a été ignoré.";
 				$message = "Le formulaire ".$trigger->getNomEnquete()." pour le patient ".$this->getPatient()->getNom()." a été occulté.";
+
 				foreach($params['mailConflits'] as $destinataire)
 				{
 					clTools::sendMail($destinataire, $sujet, $message);

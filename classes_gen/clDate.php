@@ -79,6 +79,13 @@ class clDate {
       $this->timestamp = $string ;
        if ( DEBUGDATE ) print "Date.php : __construct : Date au format timestamp détectée : $string -> ".$this->timestamp."<br>" ;
     // Par défaut, on initialise avec la date du jour.
+
+	} else if ( eregi ( '[0-3][0-9]/[0-1][0-9]/[0-9][0-9] [0-9][0-9]:[0-9][0-9]', $string ) ) {
+		print "format reconnu";
+    //print "\n-".substr($string,11,2)."-".substr($string,14,2)."-".substr($string,3,2)."-".substr($string,0,2)."-".substr($string,6,4);
+	// 08/02/1979 12:34
+    	$this->timestamp = adodb_mktime (substr($string,09,2),substr($string,12,2),0,substr($string,3,2),substr($string,0,2),'19'.substr($string,6,2));
+   // Détection d'un autre format Date.
     } else {
       $this->erreur = 1 ;
       $this->timestamp = time ( ) ;
@@ -322,6 +329,14 @@ class clDate {
     $array = adodb_getdate ( $this->timestamp ) ;
     return ( $array['hours'] ) ;
   }
+
+  //retourne une heure au format time
+  function getTime()
+  {
+	  return date (  "H:i:s" , $this->timestamp ) ;
+  }
+
+
 
   // Retourne les minutes (0-59)
   function getMinutes ( ) {

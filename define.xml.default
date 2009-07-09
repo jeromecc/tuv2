@@ -13,9 +13,12 @@
     <mysqlpass/>
     <gnupg/>
     <proxy/> <!-- titi:toto@192.168.2.100:8080 ou 192.168.2.100:8080 ou rien si connexion directe -->
-    <http_download_client /> <!-- default : php .  xham , wget gerent les proxy , wget fait un appel externe -->
+    <http_download_client />   <!-- default : php .  xham , wget gerent les proxy , wget fait un appel externe -->
     <uniqIdSiteInstallation/>
     <branche>stable</branche>
+
+	<no_ccam_update /> <!-- empeche la mise à jour du ref ccam diags actes -->
+
     <basexham>tuv2_xham</basexham>
     <basetuv2>tuv2_tuv2</basetuv2>
     <baseccam>tuv2_ccam</baseccam>
