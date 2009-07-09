@@ -192,6 +192,21 @@
 		<From>heure_simple|globalObject:patient->getDateAdmission()</From>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
+
+
+	<ITEM type="RADIO" id="is_avc3"  onChangeSubmit='y'  dontPrint="y" opt="y" >
+		<Libelle>Ce n'est pas un AVC (quitter )</Libelle>
+		<FromList>list:fermer</FromList>
+	</ITEM>
+
+
+        <ITEM id="closer3" type="HIDDEN" readonly="y"  closer="y" opt="y">
+            <Cond type="equal">
+                <Arg1>const:fermer</Arg1>
+                <Arg2>formVar:is_avc3</Arg2>
+            </Cond>
+        </ITEM>
+
 	
 </ETAPE>
 
@@ -258,7 +273,19 @@
 	</ITEM>
 	
 
-	
+	<ITEM type="RADIO" id="is_avc4"  onChangeSubmit='y'  dontPrint="y" opt="y" >
+		<Libelle>Ce n'est pas un AVC (quitter )</Libelle>
+		<FromList>list:fermer</FromList>
+	</ITEM>
+
+
+        <ITEM id="closer4" type="HIDDEN" readonly="y"  closer="y" opt="y">
+            <Cond type="equal">
+                <Arg1>const:fermer</Arg1>
+                <Arg2>formVar:is_avc3</Arg2>
+            </Cond>
+        </ITEM>
+
 
 	
 </ETAPE>
@@ -380,7 +407,18 @@
 		<Libelle>Précisions allergies :</Libelle>
 	</ITEM>
 	
-	
+	<ITEM type="RADIO" id="is_avc5"  onChangeSubmit='y'  dontPrint="y" opt="y" >
+		<Libelle>Ce n'est pas un AVC (quitter )</Libelle>
+		<FromList>list:fermer</FromList>
+	</ITEM>
+
+
+        <ITEM id="closer5" type="HIDDEN" readonly="y"  closer="y" opt="y">
+            <Cond type="equal">
+                <Arg1>const:fermer</Arg1>
+                <Arg2>formVar:is_avc3</Arg2>
+            </Cond>
+        </ITEM>
 	
 </ETAPE>
 
@@ -397,7 +435,7 @@
 	<ITEM type="CAL" id="date_pec_immediate" >
 		<Libelle>Delta inf.3 - Date PEC Immédiate</Libelle>
 		<Cond type="inf">
-			<Arg1>formVar:delta_heure</Arg1>
+			<Arg1>formVar:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<From>formVar:date_pec_urgences</From>
@@ -408,7 +446,7 @@
 	<ITEM type="LISTE" id="heure_pec_immediate">
 		<Libelle>Delta inf.3 - Heure PEC Immédiate</Libelle>
 		<Cond type="inf">
-			<Arg1>formVar:delta_heure</Arg1>
+			<Arg1>formVar:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<From>formVar:heure_pec_urgences</From>
@@ -418,7 +456,7 @@
 	<ITEM type="CHECK" id="nih_deficit"   print_val_class="item_important" >
 		<Libelle>Score NIH et déficit</Libelle>
 		<Cond type="inf_equal">
-			<Arg1>formVar:delta_heure</Arg1>
+			<Arg1>formVar:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<FromList>list:sup4|inf22|is_regressif</FromList>
@@ -437,7 +475,7 @@
 			<OnVal>const:non</OnVal>
 		</ShowItemsOnVal>
 		<Cond type="inf_equal">
-			<Arg1>formVar:delta_heure</Arg1>
+			<Arg1>formVar:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 	</ITEM>
@@ -468,7 +506,7 @@
 	
 	<ITEM type="CAL" id="jour_pec_ds3" >
 		<Cond type="sup">
-			<Arg1>formVar:delta_heure</Arg1>
+			<Arg1>formVar:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<Libelle>Date PEC médicale (delta sup. 3h)</Libelle>
@@ -477,7 +515,7 @@
 	
 	<ITEM type="LISTE" id="heure_pec_ds3" >
 		<Cond type="sup">
-			<Arg1>formVar:delta_heure</Arg1>
+			<Arg1>formVar:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<Libelle>Heure PEC médicale (delta sup. 3h)</Libelle>
@@ -616,6 +654,21 @@
 	<ITEM type="LONGTXT" id="autre_resultat_radio"   print_val_class="item_important">
 		<Libelle>Autre résultat radio</Libelle>
 	</ITEM>	
+
+	<ITEM type="RADIO" id="is_avc6"  onChangeSubmit='y'  dontPrint="y" opt="y" >
+		<Libelle>Ce n'est pas un AVC (quitter )</Libelle>
+		<FromList>list:fermer</FromList>
+	</ITEM>
+
+
+        <ITEM id="closer6" type="HIDDEN" readonly="y"  closer="y" opt="y">
+            <Cond type="equal">
+                <Arg1>const:fermer</Arg1>
+                <Arg2>formVar:is_avc3</Arg2>
+            </Cond>
+        </ITEM>
+
+
 
 </ETAPE>
 
