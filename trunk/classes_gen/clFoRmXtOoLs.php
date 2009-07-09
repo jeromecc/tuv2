@@ -385,12 +385,20 @@ static public function exportsGetTabCw($cw,$options='')
 		$options = array('noNominativeData' => true , 'etat' => array('I','E','F','H'));
 	}
 
+	if( ! isset($options['etat']))
+	{
+		$options = array_merge($options, array( 'etat' => array('I','E','F','H') ) );
+	}
+
+	
+	$cw = "  ( $cw ) AND  status IN   ('".implode(    "','"   ,   $options['etat']   ). "') "  ;
+
 	if( isset($options['order'] ) && $options['order'] == 'recentFirst' )
 		$cw .= " ORDER BY id_instance DESC ";
-	
-	//$cw = "  ( $cw ) AND  status IN   ('".implode(    "','"   ,   $options['etat']   ). "') "  ;
 
 	$requete = "SELECT id_instance ,idformx,ids , dt_creation, dt_modif, idformx, libelle, status, author FROM formx WHERE $cw ";
+
+	//eko($options);
 
 	$obRequete = clFoRmXSession::getInstance()->getObjRequete();
 	$res = array();
