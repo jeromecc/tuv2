@@ -197,9 +197,10 @@ function setModificateursRadioPrepare ( i ) {
     var B = document.getElementById ( 'B'+i ).checked ;
     var C = document.getElementById ( 'C'+i ).checked ;
     var D = document.getElementById ( 'D'+i ).checked ;
+    var E = document.getElementById ( 'E'+i ).checked ;
     var Y = document.getElementById ( 'Y'+i ).checked ;
     var Z = document.getElementById ( 'Z'+i ).checked ;
-    var data = "B="+B+"&C="+C+"&D="+D+"&Y="+Y+"&Z="+Z ;
+    var data = "B="+B+"&C="+C+"&D="+D+"&Y="+Y+"&E="+E+"&Z="+Z ;
     //alert ( data ) ;
     return data ;
 }

@@ -325,11 +325,11 @@ class clListeRadios {
 	      	$res = $req -> Execute ( "Fichier", "CCAM_getActesDomaine2", $param, "ResultQuery" ) ;
 	      	for ( $i = 0 ; isset ( $res['idActe'][$i] ) ; $i++ ) {
 	      		global $pi ;
-	      		$cle = $res['idActe'][$i].'" '.$pi->genInfoBulle($res['idActe'][$i].' : '.$res['libelleActe'][$i]).' style="' ;
+	      		$cle = $res['idActe'][$i].'" '.$pi->genInfoBulle($res['idActe'][$i].' : '.$res['libelleActe'][$i]).' title="'.$res['idActe'][$i].' : '.$res['libelleActe'][$i].'" style="' ;
 	      		$listeCCAMRadio[$cle] = $res['idActe'][$i]." - ".strtolower($res['libelleActe'][$i]) ;
 	      	}
 	    	//print affTab ( $res['INDIC_SVC']) ;
-	    	$mod -> MxSelect ( "listeCCAM", "acte", '', $listeCCAMRadio, '', '5', 'id="acte" '.$aj ) ;
+	    	$mod -> MxSelect ( "listeCCAM", "acte", '', $listeCCAMRadio, '', '5', ' id="acte" '.$aj ) ;
 	    	$mod -> MxText ( 'listeActes', $this->listeActes ( 'get' ) ) ;
 	    	
 			if ( $get ) return $mod -> MxWrite ( "1" ) ;
@@ -425,7 +425,7 @@ class clListeRadios {
 		      			$mod -> MxText ( 'acte.med', $ris['nomIntervenant'][$i] ) ;
 		      			$modif = explode ( '~', $ris['modificateurs'][$i] ) ;
 		      			//$modif = explode ( '~', $tmp[0] ) ;
-		      			$B = '' ; $C = '' ; $D = '' ; $Y = '' ; $Z = '' ;
+		      			$B = '' ; $C = '' ; $D = '' ; $E = '' ; $Y = '' ; $Z = '' ;
 		      			while ( list ( $key, $val ) = each ( $modif ) ) {
 		      				if ( $val )
 		      					eval ( "\$$val=1;" ) ;
@@ -436,6 +436,7 @@ class clListeRadios {
 		      			$mod -> MxCheckerField ( "acte.B", "checkbox", "B$i", 1, (($B)?true:false) ,$pi->genInfoBulle('Radio réalisée au bloc opératoire, en unité de réanimation ou au lit du patient intransportable.')." id=\"B$i\" $ajR") ;
 		      			$mod -> MxCheckerField ( "acte.C", "checkbox", "C$i", 1, (($C)?true:false) ,$pi->genInfoBulle('Réalisation d\'une radio comparative.')." id=\"C$i\" $ajR") ;
 		      			$mod -> MxCheckerField ( "acte.D", "checkbox", "D$i", 1, (($D)?true:false) ,$pi->genInfoBulle('Acte de contrôle radiographique de segment de squelette immobilisé par contention rigide.')." id=\"D$i\" $ajR") ;
+		      			$mod -> MxCheckerField ( "acte.E", "checkbox", "E$i", 1, (($E)?true:false) ,$pi->genInfoBulle('Acte de radiographie ou scanographie sur un patient de moins de 5 ans.')." id=\"E$i\" $ajR") ;
 		      			$mod -> MxCheckerField ( "acte.Y", "checkbox", "Y$i", 1, (($Y)?true:false) ,$pi->genInfoBulle('Acte de radiographie réalisé par un pneumologue ou un rhumatologue.')." id=\"Y$i\" $ajR") ;
 		      			$mod -> MxCheckerField ( "acte.Z", "checkbox", "Z$i", 1, (($Z)?true:false) ,$pi->genInfoBulle('Acte de radiographie réalisé par un radiologue.')." id=\"Z$i\" $ajR") ;
 		    	      	$aj = XhamTools::genAjax ( 'onClick', 'delActeRadio', 'navi='.$session->genNavi ( 'Ajax', 'delActeRadio', $session->getNavi(2), $ris['identifiant'][$i] ) ) ;
@@ -475,6 +476,8 @@ class clListeRadios {
 			elseif ( isset ( $tam['C'] ) ) unset ( $tam['C'] ) ;
 			if ( $_REQUEST['D'] == 'true' ) $tam['D'] = 'D' ;
 			elseif ( isset ( $tam['D'] ) ) unset ( $tam['D'] ) ;
+			if ( $_REQUEST['E'] == 'true' ) $tam['E'] = 'E' ;
+			elseif ( isset ( $tam['E'] ) ) unset ( $tam['E'] ) ;
 			if ( $_REQUEST['Y'] == 'true' ) $tam['Y'] = 'Y' ;
 			elseif ( isset ( $tam['Y'] ) ) unset ( $tam['Y'] ) ;
 			if ( $_REQUEST['Z'] == 'true' ) $tam['Z'] = 'Z' ;
