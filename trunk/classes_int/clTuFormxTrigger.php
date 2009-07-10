@@ -162,6 +162,10 @@ class clTuFormxTrigger {
 				$dateClose->addDays($this->getDxDefAttributeVal('maxDays') ) ;
 			else if( $this->getDxDefAttributeVal('obligDays') )
 				$dateClose->addDays($this->getDxDefAttributeVal('obligDays') ) ;
+		
+			if ( $this->getDxDefAttributeVal('dateEnd') )
+				$dateClose = new clDate($this->getDxDefAttributeVal('dateEnd')) ;
+
 			if( $dateClose->earlierThan( clDate::getInstance() ) )
 				return true ;
 		}
