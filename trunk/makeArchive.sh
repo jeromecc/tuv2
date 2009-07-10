@@ -47,6 +47,11 @@ cp -frL ${location}classes_ext/    ${locationtmp}
 cp -frL ${location}formx.js    ${locationtmp}
 cp -frL ${location}formx_scripts.js    ${locationtmp}
 cp -frL ${location}css/    ${locationtmp}
+
+mkdir ${locationtmp}cache
+mkdir ${locationtmp}cache/css
+cp -frL ${location}css/*    ${locationtmp}/cache/css/
+
 cp -frL ${location}images/    ${locationtmp}
 mkdir ${locationtmp}modules
 cp -frL ${location}modules/CCAM    ${locationtmp}modules/
