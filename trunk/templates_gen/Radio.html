@@ -24,12 +24,12 @@
 	var wait = 0 ;
 	document.onmousemove = position ;
 	function reloadRadios ( ) {
-		setTimeout(function(){reloadRadios()},30000) ;
+		setTimeout(function(){reloadRadios()},60000) ;
 		if ( wait == 0 ) {
 			// alert ( 'Rechargement automatique du div radio et du bandeau' ) ;
 			request('index.php?navi=QWpheHxnZXRSYWRpb3M=',null,'getRadios') ;
 			request('index.php?navi=QWpheHxyZWxvYWRCYW5kZWF1',null,'reloadBandeau') ;
 		}
 	}
-	setTimeout(function(){reloadRadios()},30000) ;
+	setTimeout(function(){reloadRadios()},60000) ;
 </script>
