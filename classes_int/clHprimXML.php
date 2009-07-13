@@ -228,6 +228,7 @@ class clHprimXML {
 		$pati = new clPatient ( $res['DISCR'][$deb], '' ) ;
         if ( ! $pati -> getID ( ) ) $pati = new clPatient ( $res['DISCR'][$deb], 'Sortis' ) ;
         
+        
         //$pati -> debugInfos ( ) ;
         //eko ( "UUUUUUUUUUUUUUUUUUUUUUUUFFFFFFFFFFFFFFFFFF : ".$pati->getInformation('uf').' pour '.$pati->getDateNaissance() ) ;
         // Correction date foireuse module ccam
@@ -373,7 +374,8 @@ class clHprimXML {
 		else $nomFic = 'fic'.$options->getOption('HprimXML_ChaineFic').'TV2_'.$numfic.'' ;
 		if ( $options->getOption('HprimXML_NomFic') AND $options->getOption('HprimXML_NomModulo') ) $nomFic = $options->getOption('HprimXML_NomFic').sprintf('%03d',$res['ID'][$deb]%1000) ;
     	$num = $res['ID'][$deb] ;
-		$this->genFile ( $mod -> MxWrite ( "1" ), $num, $nomFic, $listeTraited, $repfic ) ;
+        if ( ! $pati -> getManuel ( ) )
+            $this->genFile ( $mod -> MxWrite ( "1" ), $num, $nomFic, $listeTraited, $repfic ) ;
 	}
 
 	// Création d'un fichier Hprim XML pour le diagnostic

@@ -460,7 +460,7 @@ class clHL7 {
 	// Ajout d'un patient dans une des tables du terminal (présents ou sortis).
 	function addPatientHL7 ( $data, $table, $base=BDD ) {
     	global $errs ;
-	  	
+	  	global $options ;
 	  	// Calcul de la durée depuis lequel le patient est admis.
       	$d1 = new clDate ( ) ;
      	$d2 = new clDate ( $data['dt_admission'] ) ;
@@ -476,7 +476,7 @@ class clHL7 {
             // eko ( "On ajoute un nouveau patient (nsej=$nsej)" ) ;
 
             // Si le patient est admis depuis plus de 30 minutes, alors il est placé dans la table des sortis
-            if ( $duree -> getMinutes ( ) > 30 ) {
+            if ( $duree -> getMinutes ( ) > $options->getOption('ImportsBasculeSortis') ) {
                 $pat = new clPatient ( $res['cur_id'], '', $base ) ;
                 $pat -> sortirPatient ( 'simple' ) ;
             }
