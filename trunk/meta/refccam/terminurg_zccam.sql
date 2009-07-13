@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Mar 21 Avril 2009 à 10:11
+-- Généré le : Lun 13 Juillet 2009 à 09:26
 -- Version du serveur: 5.0.32
 -- Version de PHP: 5.2.0-8+etch13
 
@@ -16,8 +16,22 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `terminurg_xccam`
+-- Base de données: `terminurg_zccam`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ccam_actes_diagnostic`
+--
+
+CREATE TABLE IF NOT EXISTS `ccam_actes_diagnostic` (
+  `identifiant` int(11) NOT NULL auto_increment,
+  `idActe` varchar(7) NOT NULL default '0',
+  `idDiag` varchar(16) NOT NULL default '0',
+  `idDomaine` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`identifiant`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=74943 ;
 
 --
 -- Contenu de la table `ccam_actes_diagnostic`
@@ -3009,10 +3023,13 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (6111, 'NGAP097', 'S701', 1),
 (63994, 'PACK002', 'R50.9', 1),
 (63993, 'PACK001', 'R50.9', 1),
+(74935, 'NGAP071', 'J09', 1),
 (63991, 'NGAP141', 'R50.9', 1),
+(74936, 'PACK001', 'J09', 1),
 (3523, 'NGAP084', 'K668', 1),
 (63989, 'NGAP071', 'R50.9', 1),
 (63988, 'NGAP070', 'R50.9', 1),
+(74937, 'PACK002', 'J09', 1),
 (63986, 'PACK007', 'Z20.5', 1),
 (63985, 'PACK006', 'Z20.5', 1),
 (63984, 'PACK005', 'Z20.5', 1),
@@ -3020,10 +3037,13 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (63982, 'PACK003', 'Z20.5', 1),
 (63981, 'PACK002', 'Z20.5', 1),
 (63980, 'PACK001', 'Z20.5', 1),
+(74924, 'NGAP104', 'T19.0', 1),
 (63978, 'NGAP141', 'Z20.5', 1),
+(74925, 'NGAP104', 'T19.3', 1),
 (6110, 'NGAP076', 'S701', 1),
 (63976, 'NGAP071', 'Z20.5', 1),
 (63975, 'NGAP070', 'Z20.5', 1),
+(74926, 'NGAP104', 'T19.1', 1),
 (63973, 'PACK007', 'Z20.6', 1),
 (63972, 'PACK006', 'Z20.6', 1),
 (63971, 'PACK005', 'Z20.6', 1),
@@ -3031,10 +3051,13 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (63969, 'PACK003', 'Z20.6', 1),
 (63968, 'PACK002', 'Z20.6', 1),
 (63967, 'PACK001', 'Z20.6', 1),
+(74921, 'NGAP104', 'T17.2', 1),
 (3549, 'NGAP084', 'K623', 1),
 (63965, 'NGAP141', 'Z20.6', 1),
+(74922, 'NGAP104', 'T17.8', 1),
 (63963, 'NGAP071', 'Z20.6', 1),
 (63962, 'NGAP070', 'Z20.6', 1),
+(74923, 'NGAP104', 'T17.4', 1),
 (63960, 'PACK007', 'Z20.9', 1),
 (63959, 'PACK006', 'Z20.9', 1),
 (63958, 'PACK005', 'Z20.9', 1),
@@ -3044,8 +3067,10 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (63954, 'PACK001', 'Z20.9', 1),
 (4294, 'NGAP097', 'L279', 1),
 (63952, 'NGAP141', 'Z20.9', 1),
+(74919, 'NGAP104', 'W45.9', 1),
 (63950, 'NGAP071', 'Z20.9', 1),
 (63949, 'NGAP070', 'Z20.9', 1),
+(74920, 'NGAP104', 'M79.5', 1),
 (63947, 'PACK007', 'A46', 1),
 (63946, 'PACK006', 'A46', 1),
 (63945, 'PACK005', 'A46', 1),
@@ -3053,6 +3078,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (63943, 'PACK003', 'A46', 1),
 (63942, 'PACK002', 'A46', 1),
 (63941, 'PACK001', 'A46', 1),
+(74917, 'NGAP104', 'T17.1', 1),
 (63939, 'PACK007', 'T88.1', 1),
 (63938, 'PACK006', 'T88.1', 1),
 (63937, 'PACK005', 'T88.1', 1),
@@ -3140,9 +3166,12 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (63870, 'PACK003', 'B37.9', 1),
 (63869, 'PACK002', 'B37.9', 1),
 (63868, 'PACK001', 'B37.9', 1),
+(74908, 'NGAP104', '0000', 1),
 (3680, 'NGAP088', 'A059', 1),
+(74909, 'NGAP104', 'T18.5', 1),
 (63865, 'NGAP071', 'B37.9', 1),
 (63864, 'NGAP070', 'B37.9', 1),
+(74910, 'NGAP104', 'T18.9', 1),
 (66400, 'NGAP017', 'W54.9', 1),
 (74296, 'PACK005', 'K11.1', 1),
 (6091, 'NGAP076', 'S901', 1),
@@ -3153,9 +3182,11 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (6092, 'NGAP097', 'S901', 1),
 (74905, 'PACK012', 'S42.00', 1),
 (63854, 'NGAP141', 'B37.0', 1),
+(74906, 'NGAP104', 'T15.0', 1),
 (63852, 'NGAP071', 'B37.0', 1),
 (6095, 'NGAP067', 'T241', 1),
 (63851, 'NGAP070', 'B37.0', 1),
+(74907, 'NGAP104', 'T15.1', 1),
 (63849, 'PACK007', 'B37.2', 1),
 (4240, 'NGAP081', 'L559', 1),
 (63848, 'PACK006', 'B37.2', 1),
@@ -3397,7 +3428,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (63708, 'PACK003', 'R10.0', 1),
 (63707, 'PACK002', 'R10.0', 1),
 (3991, 'NGAP103', 'K274', 1),
-(3992, 'NGAP104', 'K274', 1),
+(3992, 'NGAP104', 'K274', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (63706, 'PACK001', 'R10.0', 1),
 (3995, 'NGAP103', 'K279', 1),
 (3996, 'NGAP104', 'K279', 1),
@@ -3415,8 +3447,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (63700, 'PACK007', 'I85.0', 1),
 (63699, 'PACK006', 'I85.0', 1),
 (63698, 'PACK005', 'I85.0', 1),
-(63697, 'PACK004', 'I85.0', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(63697, 'PACK004', 'I85.0', 1),
 (63696, 'PACK003', 'I85.0', 1),
 (63695, 'PACK002', 'I85.0', 1),
 (63694, 'PACK001', 'I85.0', 1),
@@ -5098,7 +5129,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (62273, 'NGAP071', 'T42.7', 1),
 (62272, 'NGAP070', 'T42.7', 1),
 (62270, 'PACK007', 'T45.5', 1),
-(7323, 'NFMP001', 'S8210', 1),
+(7323, 'NFMP001', 'S8210', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (62269, 'PACK006', 'T45.5', 1),
 (62268, 'PACK005', 'T45.5', 1),
 (7086, 'NGAP066', 'S8211', 1),
@@ -5115,8 +5147,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (62257, 'PACK006', 'T44.0', 1),
 (62256, 'PACK005', 'T44.0', 1),
 (62255, 'PACK004', 'T44.0', 1),
-(62254, 'PACK003', 'T44.0', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(62254, 'PACK003', 'T44.0', 1),
 (62253, 'PACK002', 'T44.0', 1),
 (62252, 'PACK001', 'T44.0', 1),
 (62251, 'NGAP141', 'T44.0', 1),
@@ -6794,7 +6825,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (60801, 'PACK001', 'O67.9', 1),
 (60800, 'NGAP071', 'O67.9', 1),
 (60799, 'NGAP070', 'O67.9', 1),
-(60798, 'NGAP017', 'O67.9', 1),
+(60798, 'NGAP017', 'O67.9', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (60797, 'PACK054', 'O72.2', 1),
 (60796, 'PACK053', 'O72.2', 1),
 (60795, 'PACK006', 'O72.2', 1),
@@ -6811,8 +6843,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (60786, 'PACK006', 'O72.0', 1),
 (60785, 'PACK005', 'O72.0', 1),
 (60784, 'PACK004', 'O72.0', 1),
-(9739, 'NGAP103', 'S2201', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(9739, 'NGAP103', 'S2201', 1),
 (9740, 'NGAP104', 'S2201', 1),
 (60783, 'NGAP017', 'O72.0', 1),
 (60782, 'PACK054', 'O20.9', 1),
@@ -8493,7 +8524,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (59188, 'JKFD002', 'N84.9', 1),
 (58867, 'ZCQM003', 'N73.5', 1),
 (13191, 'NGAP104', 'K112', 1),
-(13190, 'NGAP103', 'K112', 1),
+(13190, 'NGAP103', 'K112', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (58866, 'ZCQJ006', 'N73.5', 1),
 (12646, 'NGAP103', 'F122', 1),
 (12647, 'NGAP104', 'F122', 1),
@@ -8511,8 +8543,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (58858, 'JKHD001', 'N73.5', 1),
 (58857, 'JEHD001', 'N73.5', 1),
 (59189, 'JLFA002', 'N84.9', 1),
-(58855, 'ZCQM003', 'N73.3', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(58855, 'ZCQM003', 'N73.3', 1),
 (12666, 'NGAP103', 'F152', 1),
 (12667, 'NGAP104', 'F152', 1),
 (58854, 'ZCQJ006', 'N73.3', 1),
@@ -9771,6 +9802,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (14767, 'NGAP103', 'M929', 1),
 (14768, 'NGAP104', 'M929', 1),
 (57732, 'NGAP070', 'A46', 1),
+(74918, 'NGAP104', 'T18.1', 1),
 (57730, 'NGAP073', 'T881', 1),
 (57729, 'NGAP071', 'T881', 1),
 (57728, 'NGAP070', 'T881', 1),
@@ -10196,7 +10228,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (57430, 'NGAP071', 'K803', 1),
 (57429, 'NGAP070', 'K803', 1),
 (57428, 'NGAP017', 'K803', 1),
-(57427, 'NGAP073', 'K610', 1),
+(57427, 'NGAP073', 'K610', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (57426, 'NGAP071', 'K610', 1),
 (57425, 'NGAP070', 'K610', 1),
 (57424, 'NGAP017', 'K610', 1),
@@ -10215,8 +10248,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (57412, 'NGAP017', 'E876', 1),
 (57411, 'NGAP073', 'E039', 1),
 (57410, 'NGAP017', 'E039', 1),
-(57409, 'NGAP073', 'E870', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(57409, 'NGAP073', 'E870', 1),
 (57408, 'NGAP017', 'E870', 1),
 (57407, 'NGAP073', 'E875', 1),
 (57406, 'NGAP017', 'E875', 1),
@@ -11916,7 +11948,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (17090, 'NGAP109', 'G839', 1),
 (17091, 'NGAP110', 'G839', 1),
 (17092, 'NGAP107', 'F072', 1),
-(17093, 'NGAP108', 'F072', 1),
+(17093, 'NGAP108', 'F072', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (17094, 'NGAP109', 'F072', 1),
 (17095, 'NGAP110', 'F072', 1),
 (17096, 'NGAP107', 'G825', 1),
@@ -11935,8 +11968,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (17109, 'NGAP108', 'R262', 1),
 (17110, 'NGAP109', 'R262', 1),
 (17111, 'NGAP110', 'R262', 1),
-(17112, 'NGAP107', 'R208', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(17112, 'NGAP107', 'R208', 1),
 (17113, 'NGAP108', 'R208', 1),
 (17114, 'NGAP109', 'R208', 1),
 (17115, 'NGAP110', 'R208', 1),
@@ -13617,7 +13649,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (18790, 'NGAP109', 'M6099', 1),
 (18791, 'NGAP110', 'M6099', 1),
 (18792, 'NGAP107', 'M6219', 1),
-(18793, 'NGAP108', 'M6219', 1),
+(18793, 'NGAP108', 'M6219', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (18794, 'NGAP109', 'M6219', 1),
 (18795, 'NGAP110', 'M6219', 1),
 (18796, 'NGAP107', 'M6639', 1),
@@ -13636,8 +13669,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (18809, 'NGAP108', 'R073', 1),
 (18810, 'NGAP109', 'R073', 1),
 (18811, 'NGAP110', 'R073', 1),
-(18812, 'NGAP107', 'M6269', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(18812, 'NGAP107', 'M6269', 1),
 (18813, 'NGAP108', 'M6269', 1),
 (18814, 'NGAP109', 'M6269', 1),
 (18815, 'NGAP110', 'M6269', 1),
@@ -15311,7 +15343,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (56119, 'NGAP017', 'S002', 1),
 (56118, 'PACK019', 'S00.8', 1),
 (56117, 'PACK018', 'S00.8', 1),
-(56116, 'PACK017', 'S00.8', 1),
+(56116, 'PACK017', 'S00.8', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (56115, 'PACK016', 'S00.8', 1),
 (56114, 'PACK015', 'S00.8', 1),
 (56113, 'PACK014', 'S00.8', 1),
@@ -15330,8 +15363,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (56100, 'PACK014', 'S00.4', 1),
 (56099, 'PACK013', 'S00.4', 1),
 (56098, 'PACK007', 'S00.4', 1),
-(56097, 'NGAP111', 'S00.4', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(56097, 'NGAP111', 'S00.4', 1),
 (20803, 'NGAP141', 'J304', 1),
 (56095, 'NGAP071', 'S00.4', 1),
 (56094, 'NGAP070', 'S00.4', 1),
@@ -16970,7 +17002,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (54228, 'PACK017', 'S83.1', 1),
 (54227, 'PACK016', 'S83.1', 1),
 (54226, 'PACK015', 'S83.1', 1),
-(54225, 'PACK014', 'S83.1', 1),
+(54225, 'PACK014', 'S83.1', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (22999, 'NGAP141', 'L299', 1),
 (54224, 'PACK013', 'S83.1', 1),
 (54223, 'PACK019', 'S83.0', 1),
@@ -16989,8 +17022,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (54210, 'PACK013', 'S86.0', 1),
 (23015, 'NGAP141', 'L409', 1),
 (54209, 'PACK019', 'S84.0', 1),
-(54208, 'PACK018', 'S84.0', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(54208, 'PACK018', 'S84.0', 1),
 (54207, 'PACK017', 'S84.0', 1),
 (54206, 'PACK016', 'S84.0', 1),
 (54205, 'PACK015', 'S84.0', 1),
@@ -18635,7 +18667,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (52440, 'PACK127', 'S95.0', 1),
 (52439, 'PACK126', 'S95.0', 1),
 (52438, 'PACK124', 'S95.0', 1),
-(26569, 'NGAP141', 'B279', 1),
+(26569, 'NGAP141', 'B279', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (52469, 'PACK007', 'S94.9', 1),
 (52436, 'PACK127', 'S94.9', 1),
 (52435, 'PACK126', 'S94.9', 1),
@@ -18654,8 +18687,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (52418, 'PACK054', 'S95.0', 1),
 (52417, 'PACK053', 'S95.0', 1),
 (52416, 'PACK054', 'S95.9', 1),
-(26550, 'NGAP141', 'A879', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(26550, 'NGAP141', 'A879', 1),
 (52415, 'PACK053', 'S95.9', 1),
 (52414, 'PACK054', 'S94.9', 1),
 (52413, 'PACK053', 'S94.9', 1),
@@ -20302,7 +20334,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (50621, 'NGAP111', 'S22.1', 1),
 (27670, 'NGAP141', 'F100', 1),
 (50620, 'NGAP073', 'S22.1', 1),
-(50619, 'NGAP071', 'S22.1', 1),
+(50619, 'NGAP071', 'S22.1', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (50618, 'NGAP070', 'S22.1', 1),
 (50916, 'NGAP017', 'S28.0', 1),
 (50616, 'PACK026', 'S28.0', 1),
@@ -20321,8 +20354,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (50912, 'PACK013', 'S20.7', 1),
 (50599, 'NGAP111', 'S20.7', 1),
 (73340, 'PACK054', 'S35.9', 1),
-(28195, 'NGAP141', 'T469', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(28195, 'NGAP141', 'T469', 1),
 (50597, 'NGAP071', 'S20.7', 1),
 (50596, 'NGAP070', 'S20.7', 1),
 (50595, 'NGAP017', 'S20.7', 1),
@@ -21985,7 +22017,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (29955, 'AFHB002', 'G92', 1),
 (29956, 'AFHB002', 'G419', 1),
 (29957, 'AFHB002', 'G43.2', 1),
-(29958, 'AFHB002', 'G819', 1),
+(29958, 'AFHB002', 'G819', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (29959, 'AFHB002', 'I619', 1),
 (29960, 'AFHB002', 'I608', 1),
 (29961, 'AFHB002', 'I609', 1),
@@ -22004,8 +22037,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (29974, 'NGAP141', 'D70.0', 1),
 (49025, 'PACK007', 'M750', 1),
 (49024, 'PACK006', 'M750', 1),
-(49023, 'PACK005', 'M750', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(49023, 'PACK005', 'M750', 1),
 (49022, 'PACK004', 'M750', 1),
 (49021, 'PACK003', 'M750', 1),
 (49020, 'PACK002', 'M750', 1),
@@ -23690,7 +23722,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (47503, 'PACK003', 'H920', 1),
 (47502, 'PACK002', 'H920', 1),
 (47501, 'PACK001', 'H920', 1),
-(47500, 'NGAP111', 'H920', 1),
+(47500, 'NGAP111', 'H920', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (32004, 'NGAP141', 'B00.2', 1),
 (47499, 'NGAP070', 'H920', 1),
 (47498, 'NGAP017', 'H920', 1),
@@ -23709,8 +23742,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (47485, 'PACK003', 'K051', 1),
 (32020, 'NGAP141', ' E73.9', 1),
 (47484, 'PACK002', 'K051', 1),
-(47483, 'PACK001', 'K051', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(47483, 'PACK001', 'K051', 1),
 (47482, 'NGAP111', 'K051', 1),
 (47481, 'NGAP070', 'K051', 1),
 (47480, 'NGAP017', 'K051', 1),
@@ -25383,7 +25415,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (45964, 'NGAP071', 'R568', 1),
 (45963, 'NGAP070', 'R568', 1),
 (45962, 'NGAP017', 'R568', 1),
-(45961, 'NGAP073', 'R560', 1),
+(45961, 'NGAP073', 'R560', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (45960, 'NGAP071', 'R560', 1),
 (34070, 'NGAP071', 'S32.8', 1),
 (34071, 'NGAP141', 'S32.8', 1),
@@ -25402,8 +25435,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (45948, 'NGAP071', 'G10', 1),
 (45947, 'NGAP070', 'G10', 1),
 (74643, 'NGAP071', 'E87.50', 1),
-(45945, 'NGAP073', 'G442', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(45945, 'NGAP073', 'G442', 1),
 (45944, 'NGAP071', 'G442', 1),
 (45943, 'NGAP070', 'G442', 1),
 (45942, 'NGAP017', 'G442', 1),
@@ -27080,7 +27112,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (44642, 'PACK026', 'X699', 1),
 (44641, 'PACK007', 'X699', 1),
 (44640, 'PACK006', 'X699', 1),
-(44639, 'PACK005', 'X699', 1),
+(44639, 'PACK005', 'X699', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (44638, 'PACK004', 'X699', 1),
 (35866, 'NGAP141', 'S52.00', 1),
 (44637, 'PACK003', 'X699', 1),
@@ -27098,8 +27131,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (44627, 'PACK004', 'T60.9', 1),
 (44626, 'PACK003', 'T60.9', 1),
 (44625, 'PACK002', 'T60.9', 1),
-(44624, 'PACK001', 'T60.9', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(44624, 'PACK001', 'T60.9', 1),
 (44623, 'NGAP111', 'T60.9', 1),
 (35884, 'NGAP141', 'S52.10', 1),
 (73761, 'PACK077', 'T74.9', 1),
@@ -28785,7 +28817,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (42937, 'PACK006', 'L24.9', 1),
 (42936, 'PACK005', 'L24.9', 1),
 (42935, 'PACK004', 'L24.9', 1),
-(42934, 'PACK003', 'L24.9', 1),
+(42934, 'PACK003', 'L24.9', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (37928, 'NGAP141', 'S080', 1),
 (37929, 'NGAP141', 'S060', 1),
 (42933, 'PACK002', 'L24.9', 1),
@@ -28803,8 +28836,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (37944, 'NGAP141', 'S00.3', 1),
 (42921, 'PACK054', 'L25.9', 1),
 (42920, 'PACK053', 'L25.9', 1),
-(42919, 'PACK006', 'L25.9', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(42919, 'PACK006', 'L25.9', 1),
 (42918, 'PACK005', 'L25.9', 1),
 (37949, 'NGAP141', 'S00.5', 1),
 (42917, 'PACK004', 'L25.9', 1),
@@ -30475,7 +30507,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (39752, 'NGAP146', 'O22.4', 1),
 (39753, 'NGAP147', 'O22.4', 1),
 (39754, 'NGAP148', 'O22.4', 1),
-(41584, 'PACK137', 'T23.1', 1),
+(41584, 'PACK137', 'T23.1', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (41583, 'PACK136', 'T23.1', 1),
 (41582, 'PACK135', 'T23.1', 1),
 (41581, 'PACK134', 'T23.1', 1),
@@ -30492,8 +30525,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (41578, 'PACK054', 'T23.1', 1),
 (41577, 'PACK053', 'T23.1', 1),
 (61494, 'PACK006', 'H10.1', 1),
-(61493, 'PACK005', 'H10.1', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(61493, 'PACK005', 'H10.1', 1),
 (41573, 'PACK007', 'T23.1', 1),
 (62910, 'PACK003', 'D61.9', 1),
 (39776, 'NGAP141', 'O26.4', 1),
@@ -32158,7 +32190,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (67138, 'NGAP141', 'I46.1', 1),
 (67139, 'PACK001', 'I46.1', 1),
 (67140, 'PACK002', 'I46.1', 1),
-(67141, 'PACK003', 'I46.1', 1),
+(67141, 'PACK003', 'I46.1', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (67142, 'PACK004', 'I46.1', 1),
 (67143, 'PACK005', 'I46.1', 1),
 (67144, 'PACK006', 'I46.1', 1),
@@ -32175,8 +32208,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (67157, 'PACK007', 'I30.1', 1),
 (67158, 'NGAP017', 'I80.9', 1),
 (67159, 'NGAP070', 'I80.9', 1),
-(67160, 'NGAP071', 'I80.9', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(67160, 'NGAP071', 'I80.9', 1),
 (67162, 'NGAP141', 'I80.9', 1),
 (67163, 'PACK001', 'I80.9', 1),
 (67164, 'PACK002', 'I80.9', 1),
@@ -33813,7 +33845,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (69077, 'PACK014', 'S42.41', 1),
 (69078, 'PACK015', 'S42.41', 1),
 (69079, 'PACK016', 'S42.41', 1),
-(69080, 'PACK017', 'S42.41', 1),
+(69080, 'PACK017', 'S42.41', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (69081, 'PACK018', 'S42.41', 1),
 (69082, 'PACK019', 'S42.41', 1),
 (69083, 'PACK116', 'S42.41', 1),
@@ -33830,8 +33863,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (69094, 'PACK014', 'S42.21', 1),
 (69095, 'PACK015', 'S42.21', 1),
 (69096, 'PACK016', 'S42.21', 1),
-(69097, 'PACK017', 'S42.21', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(69097, 'PACK017', 'S42.21', 1),
 (69098, 'PACK018', 'S42.21', 1),
 (69099, 'PACK019', 'S42.21', 1),
 (69100, 'PACK116', 'S42.21', 1),
@@ -35480,7 +35512,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (70978, 'PACK007', 'E87.2', 1),
 (73577, 'NGAP073', 'R73.9', 1),
 (70981, 'NGAP070', 'E87.3', 1),
-(70982, 'NGAP071', 'E87.3', 1),
+(70982, 'NGAP071', 'E87.3', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (73633, 'JEHD001', 'N47.3', 1),
 (70984, 'NGAP141', 'E87.3', 1),
 (70985, 'PACK001', 'E87.3', 1),
@@ -35497,8 +35530,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (74897, 'PACK012', 'S52.50', 1),
 (70997, 'NGAP141', 'E87.8', 1),
 (70998, 'PACK001', 'E87.8', 1),
-(70999, 'PACK002', 'E87.8', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(70999, 'PACK002', 'E87.8', 1),
 (71000, 'PACK003', 'E87.8', 1),
 (71001, 'PACK004', 'E87.8', 1),
 (71002, 'PACK005', 'E87.8', 1),
@@ -35650,9 +35682,12 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (71150, 'PACK005', 'A00.9', 1),
 (71151, 'PACK006', 'A00.9', 1),
 (71152, 'PACK007', 'A00.9', 1),
+(74940, 'PACK005', 'J09', 1),
 (71154, 'NGAP070', 'A01.0', 1),
 (71155, 'NGAP071', 'A01.0', 1),
+(74939, 'PACK004', 'J09', 1),
 (71157, 'NGAP141', 'A01.0', 1),
+(74938, 'PACK003', 'J09', 1),
 (71159, 'PACK001', 'A01.0', 1),
 (71160, 'PACK002', 'A01.0', 1),
 (71161, 'PACK003', 'A01.0', 1),
@@ -35690,9 +35725,12 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (71202, 'PACK005', 'A03.9', 1),
 (71203, 'PACK006', 'A03.9', 1),
 (71204, 'PACK007', 'A03.9', 1),
+(74916, 'NGAP104', 'T17.3', 1),
 (71206, 'NGAP070', 'A04.7', 1),
 (71207, 'NGAP071', 'A04.7', 1),
+(74915, 'NGAP104', 'T18.3', 1),
 (71209, 'NGAP141', 'A04.7', 1),
+(74914, 'NGAP104', 'T18.2', 1),
 (71211, 'PACK001', 'A04.7', 1),
 (71212, 'PACK002', 'A04.7', 1),
 (71213, 'PACK003', 'A04.7', 1),
@@ -35713,8 +35751,10 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (71228, 'PACK005', 'A05.1', 1),
 (71229, 'PACK006', 'A05.1', 1),
 (71230, 'PACK007', 'A05.1', 1),
+(74932, 'MGMP001', 'S60.2', 1),
 (71232, 'NGAP070', 'A91', 1),
 (71233, 'NGAP071', 'A91', 1),
+(74931, 'MFMP001', 'S50.0', 1),
 (71235, 'NGAP141', 'A91', 1),
 (71237, 'PACK001', 'A91', 1),
 (71238, 'PACK002', 'A91', 1),
@@ -35723,9 +35763,12 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (71241, 'PACK005', 'A91', 1),
 (71242, 'PACK006', 'A91', 1),
 (71243, 'PACK007', 'A91', 1),
+(74929, 'NGAP104', 'T19.2', 1),
 (71245, 'NGAP070', 'A92.0', 1),
 (71246, 'NGAP071', 'A92.0', 1),
+(74928, 'NGAP104', 'T17.9', 1),
 (71248, 'NGAP141', 'A92.0', 1),
+(74927, 'NGAP104', 'T19.9', 1),
 (71250, 'PACK001', 'A92.0', 1),
 (71251, 'PACK002', 'A92.0', 1),
 (71252, 'PACK003', 'A92.0', 1),
@@ -35733,8 +35776,10 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (71254, 'PACK005', 'A92.0', 1),
 (71255, 'PACK006', 'A92.0', 1),
 (71256, 'PACK007', 'A92.0', 1),
+(74934, 'NGAP070', 'J09', 1),
 (71258, 'NGAP070', 'A95.9', 1),
 (71259, 'NGAP071', 'A95.9', 1),
+(74933, 'PACK001', 'S06.0', 1),
 (71261, 'NGAP141', 'A95.9', 1),
 (71263, 'PACK001', 'A95.9', 1),
 (71264, 'PACK002', 'A95.9', 1),
@@ -35745,7 +35790,9 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (71269, 'PACK007', 'A95.9', 1),
 (71271, 'NGAP070', 'A98.8', 1),
 (71272, 'NGAP071', 'A98.8', 1),
+(74942, 'PACK007', 'J09', 1),
 (71274, 'NGAP141', 'A98.8', 1),
+(74941, 'PACK006', 'J09', 1),
 (71276, 'PACK001', 'A98.8', 1),
 (71277, 'PACK002', 'A98.8', 1),
 (71278, 'PACK003', 'A98.8', 1),
@@ -35781,9 +35828,12 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (71316, 'AFHB002', 'B00.4', 1),
 (71313, 'PACK053', 'B00.1', 1),
 (71314, 'PACK054', 'B00.1', 1),
+(74913, 'NGAP104', 'T18.4', 1),
 (71318, 'NGAP070', 'B00.4', 1),
 (71319, 'NGAP071', 'B00.4', 1),
+(74912, 'NGAP104', 'T17.5', 1),
 (71321, 'NGAP141', 'B00.4', 1),
+(74911, 'NGAP104', 'T18.0', 1),
 (71323, 'PACK001', 'B00.4', 1),
 (71324, 'PACK002', 'B00.4', 1),
 (71325, 'PACK003', 'B00.4', 1),
@@ -37130,7 +37180,8 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (72863, 'NGAP071', 'S31.8', 1),
 (72864, 'NGAP073', 'S31.8', 1),
 (72865, 'NGAP141', 'S31.8', 1),
-(72866, 'PACK007', 'S31.8', 1),
+(72866, 'PACK007', 'S31.8', 1);
+INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
 (72867, 'PACK012', 'S31.8', 1),
 (72868, 'PACK013', 'S31.8', 1),
 (72869, 'PACK014', 'S31.8', 1),
@@ -37165,8 +37216,7 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (72898, 'PACK017', 'S32.3', 1),
 (72899, 'PACK018', 'S32.3', 1),
 (72900, 'PACK019', 'S32.3', 1),
-(72901, 'PACK026', 'S32.3', 1);
-INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomaine`) VALUES
+(72901, 'PACK026', 'S32.3', 1),
 (72902, 'YYYY172', 'S32.3', 1),
 (72903, 'NGAP017', 'S32.5', 1),
 (72904, 'NGAP070', 'S32.5', 1),
@@ -37605,6 +37655,25 @@ INSERT INTO `ccam_actes_diagnostic` (`identifiant`, `idActe`, `idDiag`, `idDomai
 (73383, 'PACK072', 'S91.2', 1),
 (73384, 'PACK073', 'S91.2', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ccam_actes_domaine`
+--
+
+CREATE TABLE IF NOT EXISTS `ccam_actes_domaine` (
+  `identifiant` int(11) NOT NULL auto_increment,
+  `idActe` varchar(7) NOT NULL default '',
+  `libelleActe` text NOT NULL,
+  `cotationNGAP` varchar(100) NOT NULL default '',
+  `frequence` int(11) NOT NULL default '0',
+  `idDomaine` int(11) NOT NULL default '0',
+  `date_fin` date NOT NULL default '0000-00-00',
+  `envoi_facturation` int(11) NOT NULL default '1',
+  PRIMARY KEY  (`identifiant`),
+  UNIQUE KEY `idActe` (`idActe`,`idDomaine`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1106 ;
+
 --
 -- Contenu de la table `ccam_actes_domaine`
 --
@@ -37695,15 +37764,15 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (41, 'NFMP001', 'Confection  contention souple du genou', '', 35, 1, '0000-00-00', 0),
 (637, 'GLMF001', 'Adaptation des réglages d''une ventilation non effractive par mesures répétées des gaz du sang, par 24 heures', '', 0, 1, '0000-00-00', 1),
 (580, 'GGHB001', 'Ponction d''un épanchement pleural, sans guidage', '', 1, 1, '0000-00-00', 1),
-(92, 'NGAP014', 'Lavage gastrique  ', 'AMI 3', 5, 1, '0000-00-00', 0),
-(94, 'NGAP016', 'Bilan sang aiguille', 'AMI 1.5', 16722, 1, '0000-00-00', 1),
+(92, 'NGAP014', 'Lavage gastrique  ', 'AMI 3', 5, 1, '0000-00-00', 1),
+(94, 'NGAP016', 'Bilan sang aiguille', 'AMI 1.5', 16723, 1, '0000-00-00', 1),
 (95, 'NGAP017', 'IM S/C ', 'AMI 1', 639, 1, '0000-00-00', 1),
 (873, 'PACK051', 'non attrib', '', 0, 1, '0000-00-00', 1),
 (130, 'NGAP020', 'Lavement évacuateur ou fecalome', 'AMI 3', 19, 1, '0000-00-00', 1),
-(157, 'NGAP021', 'Vaccin ', 'AMI 1', 1176, 1, '0000-00-00', 1),
+(157, 'NGAP021', 'Vaccin ', 'AMI 1', 1177, 1, '0000-00-00', 1),
 (158, 'NGAP022', 'Gammaglobulines', 'AMI 5', 597, 1, '0000-00-00', 1),
 (638, 'GLMP001', 'Adaptation d''une pression positive continue [PPC] ventilatoire par système de pression autoadaptable avec enregistrement de la pression au masque, par 24 heures', '', 0, 1, '0000-00-00', 1),
-(99, 'NGAP028', 'Pansement  trachéotomie', 'AMI 2.25', 16, 1, '0000-00-00', 0),
+(99, 'NGAP028', 'Pansement  trachéotomie', 'AMI 2.25', 16, 1, '0000-00-00', 1),
 (606, 'JDQM001', 'Échographie transcutanée de la vessie et/ou de la prostate', '', 2, 1, '0000-00-00', 1),
 (605, 'JDQJ002', 'Échographie transcutanée et échographie par voie rectale et/ou vaginale [par voie cavitaire] de la vessie', '', 3, 1, '0000-00-00', 1),
 (719, 'HAJA007', 'Sutureplaies muqueuses intrabuccales multiples', '', 0, 1, '0000-00-00', 0),
@@ -37746,7 +37815,7 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (136, 'QZJA014', 'Pst chir initial brûlure hors tête et mains, > 60% surf corps', '', 2, 1, '0000-00-00', 0),
 (154, 'QZJA015', 'Parage+/-suture plaie superf hors face >10 cm ', '', 5, 1, '0000-00-00', 0),
 (144, 'QZJA016', 'Parage+/-suture plaie prof hors face et main <3 cm', '', 0, 1, '0000-00-00', 0),
-(153, 'QZJA017', 'Parage+/-suture plaie superf hors face, 3cm à 10cm', '', 43, 1, '0000-00-00', 0),
+(153, 'QZJA017', 'Parage+/-suture plaie superf hors face, 3cm à 10cm', '', 44, 1, '0000-00-00', 0),
 (135, 'QZJA019', 'Pst chir initial brûlure hors tête et mains,30% à 60% surf corps', '', 0, 1, '0000-00-00', 0),
 (132, 'QZJA020', 'Pst chir initial brûlure hors tête et mains, < 1% surf corps', '', 46, 1, '0000-00-00', 0),
 (18, 'QZJB001', 'Évac  hém sousunguéal, voie transunguéale', '', 42, 1, '0000-00-00', 0),
@@ -37814,7 +37883,6 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (382, 'GLLD017', 'O2 + oxymétrie continue sans ventilation mécanique', '', 5128, 1, '0000-00-00', 0),
 (527, 'NZMP006', 'Conf  ap rigide fémorocrural ou jambier ou pédieux ', '', 11, 1, '0000-00-00', 0),
 (412, 'EALB002', 'Pose d''une voie d''abord vasculaire intraosseuse ou dans le sinus veineux sagittal [longitudinal] supérieur', '', 1, 1, '0000-00-00', 1),
-(757, 'NGAP150', 'Consultation Urgentiste', 'C 1', 4024, 1, '0000-00-00', 1),
 (841, 'PACK023', 'Non attrib', '', 0, 1, '0000-00-00', 1),
 (418, 'DKMD001', 'Ressuscitation cardiorespiratoire avec intubation trachéale, en dehors d''un bloc médicotechnique', '', 0, 1, '0000-00-00', 1),
 (419, 'GDLD001', 'Pose d''un masque laryngé ou d''un Combitube®', '', 0, 1, '0000-00-00', 1),
@@ -37918,7 +37986,7 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (833, 'PACK015', 'Examen traumato 3 = Consultation +pansement lourd', '', 0, 1, '0000-00-00', 1),
 (540, 'ZEMP007', 'Conf orthèse non articulée  fémorojambière', '', 0, 1, '0000-00-00', 0),
 (861, 'PACK040', 'OPH 2 = OPH1 +fluoroscopie', '', 0, 1, '0000-00-00', 1),
-(560, 'NGAP131', 'ablation fils agraphes', 'AMI 2', 0, 1, '0000-00-00', 0),
+(560, 'NGAP131', 'ablation fils agrafes', 'AMI 2', 0, 1, '0000-00-00', 1),
 (563, 'NGAP134', 'alimentation enterale pose surv', 'AMI 5', 0, 1, '0000-00-00', 1),
 (564, 'NGAP135', 'alimentation parenterale pose surv', 'AMI 4', 0, 1, '0000-00-00', 1),
 (571, 'AHLB017', 'Anesthésie de tronc nerveux superficiel avec stimulodétection électrique', '', 0, 1, '0000-00-00', 0),
@@ -37941,7 +38009,6 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (675, 'GLHF001', 'Pct sang artériel + gazométrie (sans hyperoxie)', '', 2, 1, '0000-00-00', 0),
 (676, 'GLQP005', 'Enregistrement  [SpO2] transcutanée   >=  6 heures', '', 1, 1, '0000-00-00', 0),
 (687, 'DEQP005', 'Électrocardiographie sur au moins 2 dérivations, avec enregistrement continu pendant au moins 24 heures', '', 1, 1, '0000-00-00', 1),
-(684, 'NGAP141', 'Consultation urgentiste non facturable', 'C 0', 846, 1, '0000-00-00', 1),
 (683, 'NGAP140', 'Pansement courant', 'AMI 2', 446, 1, '0000-00-00', 1),
 (828, 'PACK011', 'Examen SF 3= SF2+vvp\r\n', '', 0, 1, '0000-00-00', 1),
 (827, 'PACK010', 'Examen SF 2 = SF1+bilan', '', 0, 1, '0000-00-00', 1),
@@ -37955,7 +38022,8 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (818, 'PACK001', 'Examen 1 = Consultation (toutes spécialités)', '', 0, 1, '0000-00-00', 1),
 (819, 'PACK002', 'Examen 2 = C+Bilan aiguille', '', 0, 1, '0000-00-00', 1),
 (252, 'NGAP104', 'Consultation urgentiste non facturable', 'C 0', 1106, 1, '0000-00-00', 1),
-(251, 'NGAP103', 'Consultation urgentiste', 'C 1', 599, 1, '0000-00-00', 1),
+(1105, 'NGAP160', 'BETA HCG', 'B 30', 0, 1, '0000-00-00', 1),
+(251, 'NGAP150', 'Consultation urgentiste', 'C 1', 600, 1, '0000-00-00', 1),
 (784, 'ZCQM003', 'Échographie transcutanée du petit bassin [pelvis] féminin', '', 0, 1, '0000-00-00', 1),
 (785, 'ZCQJ003', 'Échographie du petit bassin [pelvis] féminin, par voie rectale et/ou vaginale [par voie cavitaire]', '', 0, 1, '0000-00-00', 1),
 (786, 'ZCQJ006', 'Échographie transcutanée avec échographie par voie rectale et/ou vaginale [par voie cavitaire] du petit bassin [pelvis] féminin', '', 0, 1, '0000-00-00', 1),
@@ -38045,7 +38113,7 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (933, 'MFMP001', 'Confection d''une attelle de posture ou de mobilisation du coude', '', 22, 1, '0000-00-00', 1),
 (934, 'PACK104', 'Réduction pronation douloureuse', '', 0, 1, '0000-00-00', 1),
 (935, 'PACK105', 'Réduction fract carpe/luxation poignet', '', 0, 1, '0000-00-00', 1),
-(936, 'MGMP001', 'Confection d''une attelle de posture ou de mobilisation du poignet et/ou de la main', '', 10, 1, '0000-00-00', 1),
+(936, 'MGMP001', 'Confection d''une attelle de posture ou de mobilisation du poignet et/ou de la main', '', 10, 1, '0000-00-00', 0),
 (937, 'PACK106', 'Réduction luxation 1 doigt', '', 0, 1, '0000-00-00', 1),
 (938, 'PACK107', 'réduction luxation 2 doigts', '', 0, 1, '0000-00-00', 1),
 (939, 'PACK108', 'Réduction luxation >2 doigts', '', 0, 1, '0000-00-00', 1),
@@ -38089,10 +38157,10 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (979, 'QZJA007', 'Pansement chirurgical secondaire de brûlure en dehors de l''extrémité céphalique et des mains, sur 10% à 30% de la surface corporelle', '', 0, 1, '0000-00-00', 1),
 (980, 'QZJA010', 'Pansement chirurgical secondaire de brûlure en dehors de l''extrémité céphalique et des mains, sur 1% à 10% de la surface corporelle', '', 0, 1, '0000-00-00', 1),
 (981, 'PACK139', 'Pansement secondaire brûlure 1-10%', '', 0, 1, '0000-00-00', 1),
-(982, 'PACK140', 'Pansement secondaire brûlure tête', '', 0, 1, '0000-00-00', 1);
-INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotationNGAP`, `frequence`, `idDomaine`, `date_fin`, `envoi_facturation`) VALUES
+(982, 'PACK140', 'Pansement secondaire brûlure tête', '', 0, 1, '0000-00-00', 1),
 (983, 'PACK141', 'Pansement secondaire brûlure 1 main', '', 0, 1, '0000-00-00', 1),
-(984, 'PACK142', 'Pansement secondaire brûlure 2 mains', '', 0, 1, '0000-00-00', 1),
+(984, 'PACK142', 'Pansement secondaire brûlure 2 mains', '', 0, 1, '0000-00-00', 1);
+INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotationNGAP`, `frequence`, `idDomaine`, `date_fin`, `envoi_facturation`) VALUES
 (985, 'PACK143', 'Pansement secondaire brûlure tête + 1 main', '', 0, 1, '0000-00-00', 1),
 (986, 'QAJA011', 'Pansement chirurgical secondaire de brûlure sur l''extrémité céphalique et 1 main', '', 0, 1, '0000-00-00', 1),
 (987, 'PACK144', 'Pansement secondaire brûlure tête + 2 mains', '', 0, 1, '0000-00-00', 1),
@@ -38103,13 +38171,13 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (992, 'PACK146', 'Confection orthèse 2 doigts', '', 0, 1, '0000-00-00', 1),
 (993, 'PACK147', 'Confection orthèse 3 doigts et +', '', 0, 1, '0000-00-00', 1),
 (995, 'JEGA003', 'Ablation de corps étranger de l''urètre, par abord direct', '', 0, 1, '0000-00-00', 1),
-(1007, 'NGAP156', 'Pose d''une perfusion', 'AMI 2', 1623, 1, '0000-00-00', 1),
+(1007, 'NGAP156', 'Pose d''une perfusion', 'AMI 2', 1624, 1, '0000-00-00', 1),
 (1001, 'NGAP151', 'pose et changement de SAP', 'AMI 3', 0, 1, '0000-00-00', 1),
 (1002, 'NGAP152', 'Prélèvement bactériologique des urines', 'AMI 1', 50, 1, '0000-00-00', 1),
-(1003, 'NGAP153', 'Retrait d''un dispositif de perfusion', 'AMI 1', 1604, 1, '0000-00-00', 1),
+(1003, 'NGAP153', 'Retrait d''un dispositif de perfusion', 'AMI 1', 1605, 1, '0000-00-00', 1),
 (1004, 'PACK148', 'Plaie du Vagin', '', 0, 1, '0000-00-00', 1),
-(1005, 'NGAP154', 'Changement de poche de perfusion', 'AMI 2', 1599, 1, '0000-00-00', 1),
-(1006, 'NGAP155', 'Préparation remplissage, matériel pour perfusion', 'AMI 3', 1605, 1, '0000-00-00', 1),
+(1005, 'NGAP154', 'Changement de poche de perfusion', 'AMI 2', 1600, 1, '0000-00-00', 1),
+(1006, 'NGAP155', 'Préparation remplissage, matériel pour perfusion', 'AMI 3', 1606, 1, '0000-00-00', 1),
 (1008, 'NGAP157', 'Désobstruction RhinoPharyngée', 'AMI 1', 9, 1, '0000-00-00', 1),
 (1009, 'AFQH002', 'Saccoradiculographie', '', 0, 2, '0000-00-00', 1),
 (1010, 'AHLH007', 'Infiltration thérapeutique de nerf spinal à l''émergence rachidienne, avec guidage scanographique', '', 0, 2, '0000-00-00', 1),
@@ -38209,6 +38277,22 @@ INSERT INTO `ccam_actes_domaine` (`identifiant`, `idActe`, `libelleActe`, `cotat
 (548, 'NGAP109', 'Consultation urgentiste spécialiste non facturable', 'CS 0', 6, 1, '0000-00-00', 1),
 (1104, 'NGAP159', 'Consultation Urgentiste Spécialisée (!)', 'CS 1', 1, 1, '0000-00-00', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ccam_actes_pack`
+--
+
+CREATE TABLE IF NOT EXISTS `ccam_actes_pack` (
+  `identifiant` int(11) NOT NULL auto_increment,
+  `idActe` varchar(7) NOT NULL default '0',
+  `idPack` varchar(7) NOT NULL default '0',
+  `idDomaine` int(11) NOT NULL default '0',
+  `quantite` int(11) NOT NULL default '0',
+  `periodicite` varchar(10) NOT NULL default '',
+  PRIMARY KEY  (`identifiant`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=958 ;
+
 --
 -- Contenu de la table `ccam_actes_pack`
 --
@@ -38255,7 +38339,7 @@ INSERT INTO `ccam_actes_pack` (`identifiant`, `idActe`, `idPack`, `idDomaine`, `
 (527, 'MZMP004', 'PACK121', 1, 1, 'aucune'),
 (831, 'NGAP150', 'PACK117', 1, 1, 'aucune'),
 (832, 'NGAP150', 'PACK116', 1, 1, 'aucune'),
-(507, 'MFMP001', 'PACK116', 1, 1, 'aucune'),
+(956, 'NGAP103', 'PACK001', 1, 1, 'aucune'),
 (506, 'YYYY011', 'PACK115', 1, 1, 'aucune'),
 (505, 'MZMP001', 'PACK115', 1, 1, 'aucune'),
 (508, 'YYYY011', 'PACK116', 1, 1, 'aucune'),
@@ -38583,9 +38667,11 @@ INSERT INTO `ccam_actes_pack` (`identifiant`, `idActe`, `idPack`, `idDomaine`, `
 (754, 'YYYY011', 'PACK147', 1, 1, 'aucune'),
 (755, 'MHMP003', 'PACK147', 1, 1, 'aucune'),
 (773, 'JKHD001', 'PACK021', 1, 1, 'aucune'),
+(957, 'NGAP103', 'PACK002', 1, 1, 'aucune'),
 (770, 'JEHD001', 'PACK020', 1, 1, 'aucune'),
 (767, 'NGAP016', 'PACK010', 1, 1, 'aucune'),
 (768, 'NGAP140', 'PACK010', 1, 1, 'aucune'),
+(955, 'MEMP001', 'PACK116', 1, 1, 'aucune'),
 (938, 'NGAP156', 'PACK018', 1, 1, 'aucune'),
 (937, 'NGAP155', 'PACK018', 1, 1, 'aucune'),
 (936, 'NGAP154', 'PACK018', 1, 1, 'aucune'),
@@ -38604,7 +38690,6 @@ INSERT INTO `ccam_actes_pack` (`identifiant`, `idActe`, `idPack`, `idDomaine`, `
 (810, 'NGAP150', 'PACK131', 1, 1, 'aucune'),
 (922, 'NGAP154', 'PACK011', 1, 1, 'aucune'),
 (813, 'NGAP150', 'PACK130', 1, 1, 'aucune'),
-(920, 'NGAP022', 'PACK011', 1, 1, 'aucune'),
 (816, 'NGAP150', 'PACK129', 1, 1, 'aucune'),
 (918, 'NGAP155', 'PACK006', 1, 1, 'aucune'),
 (819, 'NGAP150', 'PACK128', 1, 1, 'aucune'),
