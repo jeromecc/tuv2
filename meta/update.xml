@@ -282,13 +282,13 @@
 		<ccam />
 	</update>
 
-     <update id="42">
+     <update id="43">
         <description>Création de l'option ImportsBasculeSortis (Durée depuis l'admission pour que le patient soit directement placé dans les sortis)</description>
         <option_new>
                <categorie>Importation</categorie>
                <cle>ImportsBasculeSortis</cle>
                <libelle>Durée depuis l'admission pour que le patient soit directement placé dans les sortis</libelle>
-               <admin>1</admin>
+               <defaultValue>30</defaultValue>
         </option_new>
     </update>
 
