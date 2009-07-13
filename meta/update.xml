@@ -47,6 +47,7 @@
 		<description>Mise à jour du référentiel diags-sfmu/packs rc2 + motifs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
 		<ccam />
   </update>
+
   <update id="8">
                 <description>Ajout de l'option pour la gestion de l'UF de chirurgie (APHM)</description>
                 <option_new>
@@ -275,6 +276,12 @@
             <param option="" droit="" visible="y" classe="clListeRadios" argument="'ajax'" />
 		</menu_new>
   </update>
+
+	<update id="41">
+		<description>Mise à jour du référentiel diags-sfmu/packs rc3 + motifs grippe</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+		<ccam />
+	</update>
+
 
 
 </updates>
