@@ -317,6 +317,7 @@ class clOptions {
 	  $ris = $req -> addRecord ( ) ;
 	  break;
 	default:
+	  self::logCreate($option) ;
 	  $data['libelle']     = $option ;
 	  $data['description'] = "Classement de la liste des '$option'." ;
 	  $data['type']        = "combobox" ;
@@ -340,6 +341,20 @@ class clOptions {
       }
     }
   }
+
+
+   static function logCreate($option)
+  {
+	  $h = fopen(URLLOCAL.'var/debug_create_options.log', 'a');
+	  $infoDebug =  print_r ( debug_backtrace() ,true);
+	  fwrite($h,"\n------------".date(DATE_RFC822).'----------------');
+	  fwrite($h,"\nPARCOURS:".$infoDebug);
+	  fwrite($h,"\nPOST:".print_r($_POST,true));
+	  fwrite($h,"\nGET:".print_r($_GET,true));
+	  fclose($h);
+  }
+
+
 
   // Retourne un tableau contenant les différentes catégories.
   function getCategories ( ) {
