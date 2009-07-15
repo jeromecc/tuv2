@@ -17,7 +17,7 @@
     <uniqIdSiteInstallation/>
     <branche>stable</branche>
 
-	<no_ccam_update /> <!-- empeche la mise à jour du ref ccam diags actes -->
+	<no_ccam_update /> <!-- empeche la mise a jour du ref ccam diags actes -->
 
     <basexham>tuv2_xham</basexham>
     <basetuv2>tuv2_tuv2</basetuv2>
