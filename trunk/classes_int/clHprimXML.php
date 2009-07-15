@@ -44,7 +44,7 @@ class clHprimXML {
            		if ( $options -> getOption ( "HprimXML_EnvoiGroupeParIntervenant" ) ) {
                   // On envoie les actes par internant :  1 intervenant = 1 fichier
                   unset($paramRq);
-                  $paramRq["cw"] = "(type='ACTE') and idEvent=".$res['DISCR'][$i]." and idDomaine=".CCAM_IDDOMAINE.$nonATU." group by envoi_matriculeIntervenant";
+                  $paramRq["cw"] = "(type='ACTE') and idEvent=".$res['DISCR'][$i]." and idDomaine=".CCAM_IDDOMAINE." group by envoi_matriculeIntervenant";
                   $req           = new clResultQuery;
                   $res2          = $req->Execute("Fichier","CCAM_getActesDiagsCotation2",$paramRq,"ResultQuery");
                   //eko($res2);
