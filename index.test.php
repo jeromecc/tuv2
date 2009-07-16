@@ -12,7 +12,7 @@
  * @param boolean $die indique si il faut appeler die en cas de KO
  * @return boolean
  */
-function affichage($s, $result, $error = false, $orange = false, $die = true) {
+function affichage($s, $result, $error = false, $orange = false, $die = false) {
     echo $s . " : ";
     if ($error) {
         $b = $result[0];
@@ -29,7 +29,7 @@ function affichage($s, $result, $error = false, $orange = false, $die = true) {
 
     $color = $orange ? "orange" : "red" ;
     echo "<font color=\"" . $color . "\">KO " . $txtError . "</font><br />";
-    //if ($die) die;
+    if ($die) die;
     return false;
     
 }
@@ -118,7 +118,7 @@ foreach ($dirs as $dir) {
     affichage(
         "Test du droit d'écriture sur le dossier " . $dir,
         clUpdater::testEcritureDossier($dir),
-        true
+        true, false, true
     );
 }
 
@@ -153,19 +153,22 @@ echo "<br /><hr /><h4>Connexions aux bases</h4>" ;
 
 affichage(
     "Connexion au serveur MySQL '".MYSQL_USER."@".MYSQL_HOST." (using password: ".(MYSQL_PASS?'YES':'NO').")'",
-    mysql_pconnect ( MYSQL_HOST, MYSQL_USER, MYSQL_PASS )
+    mysql_pconnect ( MYSQL_HOST, MYSQL_USER, MYSQL_PASS ),
+    false, false, true
 );
 
 $bases = array(BASEXHAM, BDD, CCAM_BDD);
 foreach ($bases as $base) {
     affichage(
         "Connexion à la base '" . $base . "'",
-        mysql_select_db ( $base )
+        mysql_select_db ( $base ),
+        false, false, true
     );
 
     affichage(
         "Test des privilèges CREATE ALTER DROP",
-        clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,$base)
+        clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,$base),
+        false, false, true
     );
 }
 
