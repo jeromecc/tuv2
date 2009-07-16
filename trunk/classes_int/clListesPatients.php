@@ -970,7 +970,7 @@ class clListesPatients {
       // Préparation de la date d'admission.
       $date = new clDate ( ) ;
       $dateN = new clDate ( $_POST['naissance'] ) ;
-      if ( $options -> getOption ( "DoubleEtablissement" ) AND ! ( $options -> getOption ( 'DoubleSansCom' ) ) ) {
+      /*if ( $options -> getOption ( "DoubleEtablissement" ) AND ! ( $options -> getOption ( 'DoubleSansCom' ) ) ) {
 		  $req = new clResultQuery ;			
       	  $ras = $req -> Execute ( "Fichier", "getMaxIdToulon", array(), "ResultQuery" ) ; 
 		  $max = 1 ;
@@ -979,7 +979,7 @@ class clListesPatients {
 		  $max++ ;
 		  eko ( "Double Etablissement : Calcul du max ($max)" ) ;
 		  $data['idpatient'] = $max ;
-      }
+      }*/
       
       // Remplissage des champs pour la requête.
       $data['idu']               = "X" ;
