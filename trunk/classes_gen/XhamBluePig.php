@@ -172,15 +172,17 @@ class XhamBluePig {
 	}
 
     function genDxCare ( $img='images/cyberlab.gif', $text='' ) {
+        global $session ;
 		$pref = "DxCare" ;
 		if ( $this->options->getOption ( $pref."_Actif" ) AND ( ! $this->options->getOption ( $pref."_Droit" ) OR $this->droits->getDroit ( $this->options->getOption ( $pref."_Droit" ) ) ) ) {
     		$user = $this->options->getOption ( $pref."_User" ) ;
     		if ( ! $user ) $user = $this->user->getMail () ;
     		$pass = $this->options->getOption ( $pref."_Pass" ) ;
 		if ( ! $pass ) $pass = $this->user->getPassword ( ) ;
-    		$urls = $this->options->getOption ( $pref."_URL_Prescription" ) ;
-    		$url1 = "modules/dxcare/appel.php?ilp=".$this->idu."&nsej=".$this->sej."&uf=".$this->uf."&userid=".$user."&fct=9" ;
-    		$lie1 = '<img src="images/dxcareprescription.gif" style="border: 0px;" alt="DxCare" />' ;
+    		//$urls = $this->options->getOption ( $pref."_URL_Prescription" ) ;
+    		//$url1 = "modules/dxcare/appel.php?ilp=".$this->idu."&nsej=".$this->sej."&uf=".$this->uf."&userid=".$user."&fct=9" ;
+    		$url1 = URLNAVI.$session->genNaviFull ( )."&appelDxCare=9" ;
+            $lie1 = '<img src="images/dxcareprescription.gif" style="border: 0px;" alt="DxCare" />' ;
 			$inf1 = XhamTools::genInfoBulle ( "Lancement de la prescription médecin DxCare" ) ;
 			//$urls = $this->options->getOption ( $pref."_URL_QuestUrg" ) ;
     		//$url2 = $urls."&mat=$user&password=$pass&NIP=".$this->idu."&NDA=".$this->sej ;
@@ -198,7 +200,17 @@ class XhamBluePig {
     		//$url5 = $urls."&mat=$user&password=$pass&NIP=".$this->idu."&NDA=".$this->sej ;
             //$lie5 = '<img src="images/dxcareplansoins.gif" style="border: 0px;" alt="DxCare" />' ;
 			//$inf5 = XhamTools::genInfoBulle ( "Lancement du plan de soin DxCare" ) ;
-            return '<a target="_blank" href="'.$url1.'" '.$inf1.'>'.$lie1.'</a><br/><a target="_blank" href="'.$url3.'" '.$inf3.'>'.$lie3.'</a><br/><a target="_blank" href="'.$url4.'" '.$inf4.'>'.$lie4.'</a><br/>' ;
+            if ( isset ( $_GET['appelDxCare'] ) ) {
+                $mod = new ModeliXe ( "appeldxcare.html" ) ;
+                $mod -> SetModeliXe ( ) ;
+                $mod -> MxText ( 'ilp', $this->idu ) ;
+                $mod -> MxText ( 'nsej', $this->sej ) ;
+                $mod -> MxText ( 'uf', $this->uf ) ;
+                $mod -> MxText ( 'userid', $user ) ;
+                $mod -> MxText ( 'fct', $_GET['appelDxCare'] ) ;
+                $action = $mod -> MxWrite ( "1" ) ;
+            } else $action = '' ;
+            return $action.'<a href="'.$url1.'" '.$inf1.'>'.$lie1.'</a><br/><a target="_blank" href="'.$url3.'" '.$inf3.'>'.$lie3.'</a><br/><a target="_blank" href="'.$url4.'" '.$inf4.'>'.$lie4.'</a><br/>' ;
 			/*return '<a target="_blank" href="'.$url1.'" '.$inf1.'>'.$lie1.'</a><br/><a target="_blank" href="'.$url2.'" '.$inf2.'>'.$lie2.'</a><br/>
 <a target="_blank" href="'.$url3.'" '.$inf3.'>'.$lie3.'</a><br/><a target="_blank" href="'.$url4.'" '.$inf4.'>'.$lie4.'</a><br/><a target="_blank" href="'.$url5.'" '.$inf5.'>'.$lie5.'</a><br/>' ;*/
 

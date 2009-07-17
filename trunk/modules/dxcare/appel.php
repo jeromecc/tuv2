@@ -28,7 +28,7 @@
        //msgbox("parametres = <" + appel.appel_id.value + ">")
 
        on error resume next
-       //hres = pManager.openObject(nothing, "NIP=0907000804;NDA=109770139;UH=1551;OBJECTTYPE=113;OBJECTID=;USERID=M.D;ACTIF=T;")
+       //hres = pManager.openObject(nothing, "NIP=0907000804;NDA=109770139;UH=1551;OBJECTTYPE=9;OBJECTID=;USERID=M.D;ACTIF=T;")
        hres = pManager.openObject(nothing, "NIP=<?php echo $_GET['ilp'] ; ?>;NDA=<?php echo $_GET['nsej'] ; ?>;UH=<?php echo $_GET['uf'] ; ?>;OBJECTTYPE=<?php echo $_GET['fct'] ?>;OBJECTID=;USERID=<?php echo $_GET['userid'] ; ?>;ACTIF=T;")
        if err then		
           msgbox("Erreur : " + cstr(err.number)  + ": "  + err.Description)
