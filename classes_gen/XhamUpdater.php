@@ -190,7 +190,8 @@ function execSqlFile($rsql,$file) {
  * @param string $b
  * @return bool
  */
-static function testGrantOnBase($h,$u,$p,$b) {
+static function testGrantOnBase($h,$u,$p,$b)
+{
 	$nocol = rand(1,9999);
 	$requete_creation = "CREATE TABLE  IF NOT EXISTS `test_creation` ( `col1` VARCHAR( 1 ) NOT NULL ) ENGINE = MYISAM " ;
 	$requete_modification =  "ALTER TABLE `test_creation` ADD `test_ncol_$nocol` VARCHAR( 1 ) NOT NULL ;";
@@ -575,12 +576,10 @@ static function sendPostData($fullUrl,$tabDataPost)
 		$ftp_port = $options->getOption('RPU_FTP_Port');
 		$ftp_user_name = $options->getOption('RPU_FTP_User');
 		$ftp_user_pass = $options->getOption('RPU_FTP_Pass');
-		$ftp_user_name = 'importsrv' ;
-		$ftp_user_pass = '4dS#3!b';
 		$fileName = basename($urlLocalFile) ;
 		$fp = fopen($urlLocalFile, 'r');
 		$essai = 0 ;
-		$isNoTransfert = true ;
+
 		while ( ! ( $conn_id = ftp_connect($ftp_server,$ftp_port,20) ) && $essai < $nbEssaisMax )
 		{
 			$essai++ ;
