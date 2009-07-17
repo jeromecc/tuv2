@@ -317,7 +317,7 @@ class clOptions {
 	  $ris = $req -> addRecord ( ) ;
 	  break;
 	default:
-	  self::logCreate($option) ;
+	  self::logCreate($option,$res) ;
 	  $data['libelle']     = $option ;
 	  $data['description'] = "Classement de la liste des '$option'." ;
 	  $data['type']        = "combobox" ;
@@ -343,7 +343,7 @@ class clOptions {
   }
 
 
-   static function logCreate($option)
+   static function logCreate($option,$res)
   {
 	  $h = fopen(URLLOCAL.'var/debug_create_options.log', 'a');
 	  $infoDebug =  print_r ( debug_backtrace() ,true);
@@ -351,7 +351,22 @@ class clOptions {
 	  fwrite($h,"\nPARCOURS:".$infoDebug);
 	  fwrite($h,"\nPOST:".print_r($_POST,true));
 	  fwrite($h,"\nGET:".print_r($_GET,true));
+	  fwrite($h,"\nRequete:".print_r($res,true));
 	  fclose($h);
+  }
+
+  static function logEtatOptions()
+  {
+
+		$param['cw'] = "WHERE libelle LIKE '%deci%' AND idapplication=".IDAPPLICATION ;
+		$req = new clResultQuery ;
+		$res = $req -> Execute ( "Fichier", "getOptions", $param, "ResultQuery" ) ;
+		$h = fopen(URLLOCAL.'var/debug_list_options.log', 'a');
+		//$infoDebug =  print_r ( debug_backtrace() ,true);
+		fwrite($h,"\n------------".date(DATE_RFC822).'----------------');
+		fwrite($h,"\nReq Options:".print_r($res,true));
+		fclose($h);
+
   }
 
 
