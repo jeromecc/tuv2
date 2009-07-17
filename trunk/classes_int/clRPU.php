@@ -15,6 +15,10 @@ class clRPU {
 
   	// Constructeur.
   	function __construct ( $param='' ) {
+
+		set_time_limit(0);
+		ini_set('memory_limit', '512M');
+
  		if ( $param == 'showLogs' ) $this->showLogs ( ) ;
  		else $this->gestSend ( ) ;
   	}
