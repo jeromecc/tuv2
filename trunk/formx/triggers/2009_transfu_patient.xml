@@ -9,7 +9,7 @@
 -->
 
 <root>
-<trigger title="Enquete Transfusion patient" onOut="y"  idForm="enquetes/transfusionpatient2009" maxDays="" obligDays=""  autoStart="" >
+<trigger title="Enquete Transfusion patient" onOut="y" passageLinked="y"  idForm="enquetes/transfusionpatient2009"  maxDays="" obligDays=""  autoStart="" >
     
 	<cond type="not">
 		<cond type="ccmu">
