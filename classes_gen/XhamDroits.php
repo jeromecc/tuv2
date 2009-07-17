@@ -65,8 +65,8 @@
       		if ( ! $this->droits[$lib]['a'] ) $this->droits[$lib]['a'] = $bin[0] ;
     	}
     	if ( $this->xham -> getOption ( "Indisponible" ) ) {
-      		if ( ! $this->droits['Configuration_Options'][a] ) {
-				$this->xham -> pi -> addPostIt ( "Attention", "Une opération de maintenance est actuellement en cours. L'application sera disponible aux alentours de ".$options->getOption ( "HeureDisponibilite" ).".", "alerte", "1" ) ;
+      		if ( ! $this->droits['Configuration_Options']['a'] ) {
+				$this->xham -> pi -> addPostIt ( "Attention", "Une opération de maintenance est actuellement en cours. L'application sera disponible aux alentours de ".$this->xham->getOption ( "HeureDisponibilite" ).".", "alerte", "1" ) ;
 				$this->droits = '' ;
 				$this->droits['Accueil']['r'] = 1 ;
       		}
