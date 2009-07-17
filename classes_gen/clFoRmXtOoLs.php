@@ -398,7 +398,7 @@ static public function exportsGetTabCw($cw,$options='')
 
 	$requete = "SELECT id_instance ,idformx,ids , dt_creation, dt_modif, idformx, libelle, status, author FROM formx WHERE $cw ";
 
-	//eko($options);
+
 
 	$obRequete = clFoRmXSession::getInstance()->getObjRequete();
 	$res = array();
@@ -456,6 +456,7 @@ static public function exportsGetTabCw($cw,$options='')
 		}
         
 	}
+
 	return $res ;
 	
 }
