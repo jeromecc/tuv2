@@ -57,6 +57,7 @@ mkdir ${locationtmp}modules
 cp -frL ${location}modules/CCAM    ${locationtmp}modules/
 cp -frL ${location}modules/mouvements    ${locationtmp}modules/
 cp -frL ${location}modules/wz_dragdrop.js ${locationtmp}modules/
+cp -frL ${location}modules/dxcare    ${locationtmp}modules/
 
 
 #copie formulaires et fonctions formx
