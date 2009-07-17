@@ -153,6 +153,17 @@ class clTuFormxTrigger {
 		return false ;
 	}
 
+	function mustExportRegularly()
+	{
+		if (  $this->isActive() &&  $this->getDxDefAttributeVal('exportRegularly') )
+			return true ;
+	}
+
+	function getExportRegularlyBackNumberDays()
+	{
+		return $this->getDxDefAttributeVal('exportRegularly');
+	}
+
 	function mustClose()
 	{
 		if (  $this->isAutoclose()  &&  $this->isActive() )
@@ -287,8 +298,8 @@ static function getFinEnquete($idEnquete)
 			//print "vraie entree dans export" ;
 			//die ;
 
-			eko($this->getIdEnquete());
-			eko($this->getIdFormx());
+			//eko($this->getIdEnquete());
+			//eko($this->getIdFormx());
 
 			$dateD =  $this->getDebutEnquete($idEnquete) ;
 			//eko($dateD->getSimpleDate());
@@ -296,23 +307,27 @@ static function getFinEnquete($idEnquete)
 			//die ;
 
 			$dateF = new clDate() ;
-			$idFormx = $this->getIdFormx();
+			//$idFormx = $this->getIdFormx();
 
-			set_time_limit(0);
-			ini_set('memory_limit','512M');
-			$strDate1 = str_replace(array(' ',':'), array('_','-'), $dateD->getDatetime());
-			$strDate2 = str_replace(array(' ',':'), array('_','-'), $dateF->getDatetime());
-            $nomFic = 'etab_'.$options->getOption('RPU_IdActeur').'_enquete_'.formxTools::strGetIdAtomiqueFx($idFormx).'_du_'.$strDate1.'_au_'.$strDate2.'.csv';
+			$data = array() ;
+			$nomFic = '' ;
+			self::getDataExport($this,$dateD,$dateF,$data,$nomFic);
 
-            if( $this->isPassageLinked() )
-                $tabOptions = array('firstColsFunc'=>'clGestFormxTriggers::genTabinfoIdPassage','firstColsFuncArgField'=>'id_passage');
-            else
-                $tabOptions = array() ;
+			//set_time_limit(0);
+			//ini_set('memory_limit','512M');
+			//$strDate1 = str_replace(array(' ',':'), array('_','-'), $dateD->getDatetime());
+			//$strDate2 = str_replace(array(' ',':'), array('_','-'), $dateF->getDatetime());
+            //$nomFic = 'etab_'.$options->getOption('RPU_IdActeur').'_enquete_'.formxTools::strGetIdAtomiqueFx($idFormx).'_du_'.$strDate1.'_au_'.$strDate2.'.csv';
 
-			$data = clFoRmXtOoLs::exportsGetTabIdform($idFormx, $tabOptions + array('cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ));
+            //if( $this->isPassageLinked() )
+            //    $tabOptions = array('firstColsFunc'=>'clGestFormxTriggers::genTabinfoIdPassage','firstColsFuncArgField'=>'id_passage');
+            //else
+            //    $tabOptions = array() ;
+
+			//$data = clFoRmXtOoLs::exportsGetTabIdform($idFormx, $tabOptions + array( 'basic'=>true ,'cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ));
             //var_dump($data);
-			$tab = array('cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ) ;
-			eko($tab['cw'] );
+			//$tab = array('cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ) ;
+			//eko($tab['cw'] );
 
 			$localUrlFic = clFoRmXtOoLs::exportsGetCsvFromData($data,$nomFic,array('local_access'=>true)) ;
 
@@ -325,6 +340,45 @@ static function getFinEnquete($idEnquete)
 				$errs->addErreur($e);
 			}
 			//print "fin"; die ;
+	}
+
+
+	public function exportRegularly()
+	{
+			global $errs ;
+			$dateD =  clDate::getInstance()->addDays('-'.$this->getExportRegularlyBackNumberDays());
+			$dateF = new clDate() ;
+			$data = array() ;
+			$nomFic = '' ;
+			self::getDataExport($this,$dateD,$dateF,$data,$nomFic);
+			$localUrlFic = clFoRmXtOoLs::exportsGetCsvFromData($data,$nomFic,array('local_access'=>true)) ;
+			try {
+				XhamUpdater:: sendFtpData($localUrlFic,'enquetes');
+				eko("depot ftp de $localUrlFic ok");
+				//die ;
+			} catch (Exception $e) {
+				eko( "erreur".$e );
+				$errs->addErreur($e);
+			}
+	}
+
+
+	static public function getDataExport($trigger,$dateD,$dateF,& $data, &$nomFic)
+	{
+			global $options ;
+			$idFormx = $trigger->getIdFormx();
+			set_time_limit(0);
+			ini_set('memory_limit','512M');
+			$strDate1 = str_replace(array(' ',':'), array('_','-'), $dateD->getDatetime());
+			$strDate2 = str_replace(array(' ',':'), array('_','-'), $dateF->getDatetime());
+            $nomFic = 'etab_'.$options->getOption('RPU_IdActeur').'_enquete_'.formxTools::strGetIdAtomiqueFx($idFormx).'_du_'.$strDate1.'_au_'.$strDate2.'.csv';
+
+            if( $trigger->isPassageLinked() )
+                $tabOptions = array('firstColsFunc'=>'clGestFormxTriggers::genTabinfoIdPassage','firstColsFuncArgField'=>'id_passage');
+            else
+                $tabOptions = array() ;
+
+            $data = clFoRmXtOoLs::exportsGetTabIdform($idFormx, $tabOptions + array( 'basic'=>true , 'cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ));
 	}
 
 	function getDxDefAttributeVal($id)
@@ -498,7 +552,29 @@ static function getFinEnquete($idEnquete)
 		return clTuFormxTriggerWatcher::getInstance($patient);
 	}
 
+	static function onceByDay()
+	{
+		$filename = URLLOCAL.'var/last_date_check_triggers.txt' ;
+		$oldDate = null ;
+		if ( file_exists($filename) )
+		{
+			$oldDate = new clDate( file_get_contents($filename) ) ;
+		}
+		else
+		{
+			$oldDate = clDate::getInstance()->addDays(-1);
+		}
+		$dateToday = clDate::makeDateToday() ;
+		file_put_contents($filename, $dateToday->getDate());
 
+		if( $dateToday->getDifference($oldDate) > 0 )
+		{
+			//eko()
+			eko("une fois par jours");
+			return true ;
+		}
+		return false ;
+	}
 
 
 	/**
@@ -518,9 +594,14 @@ static function getFinEnquete($idEnquete)
             }
 			if( $trigger->mustClose() )
 			{
-				// print "<br />il doit fermer";
 				$trigger->close();
 			}
+			if(  $trigger->mustExportRegularly() && self::onceByDay() )
+			{
+				$trigger->exportRegularly();
+			}
+
+			clOptions::logEtatOptions() ;
 		}
 	}
 	
