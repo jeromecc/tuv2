@@ -39,7 +39,7 @@
        hdlViewer.value = hres
        msgbox("Après openObject <" + hres + ">")
 
-       //msgbox("appelViewVer: OUT")
+       msgbox("Fermer DxCare")
     end sub
     appelViewVer()
     //-->
