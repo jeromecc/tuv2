@@ -25,25 +25,18 @@ class clGestFormxTriggers
 			$trigger = new clTuFormxTrigger($tabEnquete['id_trigger']);
 			$dateD = new clDate($tabEnquete['date_debut']);
 			$dateF = new clDate($tabEnquete['date_fin']);
-			$idFormx = $trigger->getIdFormx();
-			//TODO préciser dates
-			set_time_limit(0);
-			ini_set('memory_limit','512M');
-			$strDate1 = str_replace(array(' ',':'), array('_','-'), $dateD->getDatetime());
-			$strDate2 = str_replace(array(' ',':'), array('_','-'), $dateF->getDatetime());
-            $nomFic = 'etab_'.$options->getOption('RPU_IdActeur').'_enquete_'.formxTools::strGetIdAtomiqueFx($idFormx).'_du_'.$strDate1.'_au_'.$strDate2.'.csv';
-		 
-            if( $trigger->isPassageLinked() )
-                $tabOptions = array('firstColsFunc'=>'clGestFormxTriggers::genTabinfoIdPassage','firstColsFuncArgField'=>'id_passage');
-            else
-                $tabOptions = array() ;
-            $data = clFoRmXtOoLs::exportsGetTabIdform($idFormx, $tabOptions + array('cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ));
+
+			$data = array() ;
+			$nomFic = '' ;
+			clTuFormxTrigger::getDataExport($trigger,$dateD,$dateF,$data,$nomFic);
 
             $location = clFoRmXtOoLs::exportsGetCsvFromData($data,$nomFic);
             
 			header('Location: '.$location);
 		}
 	}
+
+
 
     static public function genTabinfoIdPassage($idPassage)
     {
