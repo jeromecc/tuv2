@@ -124,8 +124,9 @@ rm -f ${locationtmp}queries_int/*.cfg
 rm -f ${locationtmp}modules/mouvements/enabled/*
 
 #Sauf pour ceux ci qui sont des plugins globaux
-cp -fL ${location}modules/mouvements/avalaible/sortie_enquetes.php ${locationtmp}modules/mouvements/enabled/
-cp -fL ${location}modules/mouvements/avalaible/contraintes_dp_cim10.php ${locationtmp}modules/mouvements/enabled/
+cp -fL ${location}modules/mouvements/enabled/sortie_enquetes.php ${locationtmp}modules/mouvements/enabled/
+cp -fL ${location}modules/mouvements/enabled/contraintes_dp_cim10.php ${locationtmp}modules/mouvements/enabled/
+cp -fL ${location}modules/mouvements/enabled/contraintes_enquetes.php ${locationtmp}modules/mouvements/enabled/
 
 #suppressions dev ponctuels  à ne pas diffuser
 rm -f ${locationtmp}meta/tools/*
