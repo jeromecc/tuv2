@@ -399,7 +399,7 @@ class clPatient {
   function hasFormxPassage($idFormx,$options='')
   {
 	  if( ! $options ) $options = array() ;
-      $tab = formxTools::exportsGetTabIdsIdformFilterValue($this->getIDU(), $idFormx, 'id_passage', $this->getNSej());
+      $tab = formxTools::exportsGetTabIdsIdformFilterValue($this->getIDU(), $idFormx, 'id_passage', $this->getNSej(),$options);
 	  return (count($tab)?true:false) ;
   }
 
