@@ -57,6 +57,13 @@ class clTuFormxTrigger {
 		return false ;
 	}
 
+	function isBlocking()
+	{
+		if( $this->getDxDefAttributeVal('blocking') )
+			return true ;
+		return false ;
+	}
+
 	function launchFunc($objPatient)
 	{
 		$fonction = $this->getDxDefAttributeVal('func') ;
@@ -190,12 +197,15 @@ class clTuFormxTrigger {
  */
 function getIdEnquete()
 {
+	
 		$now = new clDate();
 		$requete = "SELECT * FROM enquetes WHERE  id_trigger = '".$this->idTrigger."' AND date_debut <= '".$now->getDatetime()."' AND ( date_fin = '0000-00-00 00:00:00' OR  date_fin > '".$now->getDatetime()."' )  ORDER BY date_debut DESC"   ;
 		$obRequete = new clRequete(BDD,'enquetes');
 		$res = $obRequete->exec_requete($requete, 'tab');
+
 		if(count($res) > 0 )
 			return $res[0]['id_enquete'] ;
+
 		return false ;
 }
 
@@ -763,16 +773,18 @@ class clTuFormxTriggerWatcher
 		return $this->patient ;
 	}
 
-
-	function isNotElligibleOrCompleted( clTuFormxTrigger $trigger)
+	//négation de :
+	//est ce que le patient est concerné par le formulaire sans que ce formulaire dans un etat F ou H
+	//
+	function isElligibleAndNotCompleted( clTuFormxTrigger $trigger)
 	{
-		return  ! $this -> isElligible( $trigger,  array('checkLaunchers'=>true,'etatsFormx'=> array('F','H') ) ) ;
+		return	$this -> isElligible( $trigger,  array('checkLaunchers'=>true,'etatsFormx'=> array('F','H') ) ) ;
 	}
 
 
 	//Regarde si on peut déclencher le trigger pour le patient en cours
-	//$options = array('checkLaunchers'=>true,'etatsFormxAcceptes'=> array('I','E','F','H') ) ;
-	//ce sont les etats pour lesquels l'eligibilité est considéré comme nulle
+	//$options = array('checkLaunchers'=>true,'etatsFormx'=> array('I','E','F','H') ) ;
+	//ce sont les etats pour lesquels on considere que l'eligibilité est nulle
 	function isElligible( clTuFormxTrigger $trigger,$options='')
 	{
 		if( ! $options )
@@ -784,6 +796,7 @@ class clTuFormxTriggerWatcher
 		{
 			return false ;
 		}
+
 		return $this->checkCond($trigger->getCondition() , $options );	
 	}
 
@@ -900,9 +913,15 @@ class clTuFormxTriggerWatcher
 		case 'acte':
 
 			if ( ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
+			{
+				//eko("formulaire non trouve, tests des conditions de declenchement");
 				return $this->checkCondRecursive($condition , $options) ;
+			}
 			else
+			{
+				//eko("le formulaire ".$condition->getTrigger()->getIdFormx()." a été trouvé dans un état accepté dans les formx ".implode(',',$options['etatsFormx']) );
 				return false ;
+			}
 		default :
 			return $this->checkCondRecursive($condition , $options) ;
 		}
@@ -1029,7 +1048,7 @@ class clTuFormxTriggerWatcher
 		foreach( clTuFormxTrigger::getTriggersActive() as $trigger )
 		{
 			// le patient sort avec un trigger incomplet ?
-			if( ! $this->isNotElligibleOrCompleted($trigger ) )
+			if( $this->isElligibleAndNotCompleted($trigger ) )
 			{
 				//envoi de mail à signalement
 				$sujet = "Terminal des Urgences : Un formulaire d'enquête a été ignoré.";
@@ -1042,6 +1061,37 @@ class clTuFormxTriggerWatcher
 			}
 		}
 	}
+
+	public function checkOnOut()
+	{
+		
+		
+		if ( !  clTuFormxTrigger::isTriggersActive() )
+			return false ;
+		$tabLibEnquetesInachevees = array() ;
+		//pour chaque enquete
+		foreach( clTuFormxTrigger::getTriggersActive() as $trigger )
+		{
+			//eko("entree dans la boucle pour ".$trigger->getNomEnquete());
+
+			// le patient sort avec un trigger incomplet ? Le trigger est défini comme bloquant ?
+			if(  $this->isElligibleAndNotCompleted($trigger )  )
+			{
+				//eko("l'enqueete ".$trigger->getNomEnquete()." n'est pas complétée");
+
+				if( $trigger->isBlocking() )
+					$tabLibEnquetesInachevees[] = $trigger->getNomEnquete() ;
+			}
+
+			//eko("sortie de la boucle ");
+		}
+		if( count($tabLibEnquetesInachevees) )
+			return array( 'isContrainte' => true , 'titreContrainte' => "Enquete(s) non remplie(s)" , 'messageContrainte' => implode(',',$tabLibEnquetesInachevees) ) ;
+
+		//eko("pas de blocage") ;
+		return array( 'isContrainte' => false );
+	}
+
 
 	static function getInstance($patient)
 	{

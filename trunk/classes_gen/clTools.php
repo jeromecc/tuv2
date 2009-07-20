@@ -4,7 +4,9 @@
  *
  */
 
-include('XhamTools.php');
+if( ! class_exists('XhamTools') )
+	include('XhamTools.php');
+
 class clTools extends XhamTools {
 
 
