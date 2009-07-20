@@ -9,17 +9,17 @@
 -->
 
 <root>
-	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="" obligDays=""  autoStart=""  >
+	<trigger title="Enquete AVC "  idForm="enquetes/avc2009.xml" maxDays="" obligDays=""  autoStart=""  blocking="y" >
         <cond type="or">
             <cond type="diag">
-                <diag code="R27.0"></diag>
-                <diag code="R40.2"></diag>
-                <diag code="R41.0"></diag>
-                <diag code="R56.8"></diag>
-                <diag code="R26.2"></diag>
-                <diag code="H53.2"></diag>
-                <diag code="R25.8"></diag>
-                <diag code="G45.9"></diag>
+                <diag code="R27.0">Ataxie</diag>
+                <diag code="R40.2">Coma SP</diag>
+                <diag code="R41.0">Confusion/désorientation</diag>
+                <diag code="R56.8">Convulsions SP</diag>
+                <diag code="R26.2">Difficulté à la marche non classée ailleurs</diag>
+                <diag code="H53.2">Diplopie</diag>
+                <diag code="R25.8">Mouvements anormaux</diag>
+                <diag code="G45.9">AIT</diag>
                 <diag code="I64"></diag>
                 <diag code="G40.9"></diag>
                 <diag code="I61.9"></diag>
@@ -33,36 +33,35 @@
                 <diag code="H81.4"></diag>
             </cond>
             <cond type="motif">
-                <motif code="R45.1"></motif>
-                <motif code="H91.9"></motif>
+                <motif code="R45.1">Agitation</motif>
+                <motif code="H91.9">Perte de l'audition</motif>
                 <motif code="R47.0"></motif>
-                <motif code="H53.9"></motif>
-                <motif code="R55"></motif>
-                <motif code="O"></motif>
-                <motif code="R26.80"></motif>
-                <motif code="R55"></motif>
+                <motif code="H53.9">Trouble de la vision sai</motif>
+                <motif code="R55">Malaise avec pdc / syncope lipothymie</motif>
+                <motif code="O">Gélure</motif>
+                <motif code="R26.80">Chute sans étiologie</motif>
                 <motif code="S06.6"></motif>
-                <motif code="S069"></motif>
-                <motif code="R27.0"></motif>
+                <motif code="S06.9"></motif>
+                <motif code="R27.0">Ataxie</motif>
                 <motif code="G45.9"></motif>
                 <motif code="I64"></motif>
-                <motif code="R51"></motif>
+                <motif code="R51">Céphalée</motif>
                 <motif code="R56.8"></motif>
-                <motif code="R40.2"></motif>
-                <motif code="R41.0"></motif>
+                <motif code="R40.2">Convulsions SP</motif>
+                <motif code="R41.0">Confusion/désorientation</motif>
                 <motif code="G40.9"></motif>
                 <motif code="G81"></motif>
                 <motif code="I60.8"></motif>
-                <motif code="R25.8"></motif>
+                <motif code="R25.8">Mouvements anormaux</motif>
                 <motif code="G51.0"></motif>
                 <motif code="G82.2"></motif>
-                <motif code="R40.0"></motif>
+                <motif code="R40.0">Somnolence</motif>
                 <motif code="G82.5"></motif>
-                <motif code="R26.2"></motif>
-                <motif code="R40.0"></motif>
+                <motif code="R26.2">Difficulté à la marche non classée ailleurs</motif>
+                <motif code="R40.0">Somnolence</motif>
                 <motif code="R20.8"></motif>
-                <motif code="H53"></motif>
-                <motif code="R42"></motif>
+                <motif code="H53">Trouble de la vision</motif>
+                <motif code="R42">Vertige/étourdissement/éblouissement</motif>
             </cond>
          </cond>
     </trigger>
