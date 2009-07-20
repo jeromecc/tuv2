@@ -235,7 +235,7 @@
 			<Arg1>var:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
-		<From>const:Protocole des AVC avec PEC hors Thrombolyse-*-Tri IAO orange</From>
+		<From>const:Protocole des AVC avec PEC hors Thrombolyse-*-Tri IAO orange ou bleu</From>
 	</ITEM>	
 	<ITEM type="TXT" id="Pouls" datatype="int" minvalue="40" maxvalue="180"   print_val_class="item_important">
 		<Libelle>Pouls (p/m)</Libelle>
@@ -435,7 +435,7 @@
 	<ITEM type="CAL" id="date_pec_immediate" >
 		<Libelle>Delta inf.3 - Date PEC Immédiate</Libelle>
 		<Cond type="inf">
-			<Arg1>formVar:der_delta_avc</Arg1>
+			<Arg1>var:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<From>formVar:date_pec_urgences</From>
@@ -446,7 +446,7 @@
 	<ITEM type="LISTE" id="heure_pec_immediate">
 		<Libelle>Delta inf.3 - Heure PEC Immédiate</Libelle>
 		<Cond type="inf">
-			<Arg1>formVar:der_delta_avc</Arg1>
+			<Arg1>var:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<From>formVar:heure_pec_urgences</From>
@@ -456,7 +456,7 @@
 	<ITEM type="CHECK" id="nih_deficit"   print_val_class="item_important" >
 		<Libelle>Score NIH et déficit</Libelle>
 		<Cond type="inf_equal">
-			<Arg1>formVar:der_delta_avc</Arg1>
+			<Arg1>var:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<FromList>list:sup4|inf22|is_regressif</FromList>
@@ -475,7 +475,7 @@
 			<OnVal>const:non</OnVal>
 		</ShowItemsOnVal>
 		<Cond type="inf_equal">
-			<Arg1>formVar:der_delta_avc</Arg1>
+			<Arg1>var:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 	</ITEM>
@@ -506,7 +506,7 @@
 	
 	<ITEM type="CAL" id="jour_pec_ds3" >
 		<Cond type="sup">
-			<Arg1>formVar:der_delta_avc</Arg1>
+			<Arg1>var:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<Libelle>Date PEC médicale (delta sup. 3h)</Libelle>
@@ -515,7 +515,7 @@
 	
 	<ITEM type="LISTE" id="heure_pec_ds3" >
 		<Cond type="sup">
-			<Arg1>formVar:der_delta_avc</Arg1>
+			<Arg1>var:der_delta_avc</Arg1>
 			<Arg2>const:3</Arg2>
 		</Cond>
 		<Libelle>Heure PEC médicale (delta sup. 3h)</Libelle>
