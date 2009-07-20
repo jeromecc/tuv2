@@ -7,6 +7,9 @@ class clGestFormxTriggers
 	function __construct()
 	{
 		global $options ;
+
+		
+
 		if( isset($_POST['idTrigger'])  )
 		{
 			$trigger = new clTuFormxTrigger($_POST['idTrigger']);
@@ -34,6 +37,7 @@ class clGestFormxTriggers
             
 			header('Location: '.$location);
 		}
+
 	}
 
 
@@ -48,26 +52,43 @@ class clGestFormxTriggers
 //templater
 	function getAffichage()
 	{
-
 		global $session ;
+
+
 		$af = '<h2>Gestion des enquetes</h2>';
 		$link = 'index.php?navi='.$session->genNavi($session->getNaviFull());
-		foreach(clTuFormxTrigger::getTriggers() as $trigger)
+
+
+
+foreach(clTuFormxTrigger::getTriggers() as $trigger)
 		{
+			
 			$af .= '<br />'.utf8_decode($trigger->getNomEnquete()).' ';
-			if( $trigger->isActive() ) {
+
+			if( $trigger->isActive() )
+			{
 				if( $trigger->isClosable() )
+				{
+					
 					$af .= clTools::genLinkPost($link,"Cloturez l'enquête",array('desactivate'=>'y','idTrigger'=>$trigger->getIdTrigger()),array('alert'=>'Cloturer l\'enquête '.$trigger->getNomEnquete().'?'));
+				}
 			}
 			else if ( $trigger->isActivable() )
 				$af .= clTools::genLinkPost($link,"Activez l'enquête",array('activate'=>'y','idTrigger'=>$trigger->getIdTrigger()),array('alert'=>'Commencer l\'enquête '.$trigger->getNomEnquete().'?'));
 
+
 		}
+
+
+
 		$af .= '<h2>Enquetes finies</h2>';
 		$af .='L\'export peut parfois se révéler assez long. C\'est un comportement normal.<br />';
 
+
+
 		foreach(clTuFormxTrigger::getTabEnquetesFinies() as $tabEnquete)
 		{
+					
 			$trigger = new  clTuFormxTrigger($tabEnquete['id_trigger']) ;
 			$af .= '<br />'.utf8_decode($trigger->getNomEnquete())." du ".clDate::getInstance($tabEnquete['date_debut'])->getSimpleDate();
 			$af .=" au ".clDate::getInstance($tabEnquete['date_fin'])->getSimpleDate();
