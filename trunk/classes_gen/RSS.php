@@ -5,7 +5,6 @@
 // *    Titre : Génération de fichiers RSS
 //
 
- 
 class RSS {
 
 	function __construct ( $nomSite='', $urlSite='', $descr='', $image='', $date='', $language='fr-FR' ) {
