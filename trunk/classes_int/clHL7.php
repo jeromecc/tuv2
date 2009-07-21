@@ -77,14 +77,13 @@ class clHL7 {
 						// Les 4 lignes suivantes sont à commenter si on veut tester l'intégration de fichiers
 						// HL7 sans les déplacer dans le répertoire ok/ après traitement (en cas de test donc)			    
 						
-						
 						rename ( "hprim/$fic", "hprim/ok/".$tmpDate.$fic ) ;
 						
 						if ( file_exists ( "hprim/".$tmp[0].'.OK' ) )
 						   	rename ( "hprim/".$tmp[0].".OK", "hprim/ok/".$tmpDate.$tmp[0].".OK" ) ;
 						elseif ( file_exists ( "hprim/".$tmp[0].'.ok' ) )
 						   	rename ( "hprim/".$tmp[0].".ok", "hprim/ok/".$tmpDate.$tmp[0].".ok" ) ;
-						
+					
 			      }
 		    }
 	  }
@@ -199,7 +198,7 @@ class clHL7 {
 	      
 	    	$sep1 = $infos[0][3] ;
 			$sep2 = $infos[0][4] ;
-			$sep3 = $infos[0][6] ;
+			$sep3 = $infos[0][5] ;
 			$rep  = $infos[0][5] ;
 			$desp = $infos[0][7] ;
 			//eko("SEPERATEUR");
@@ -235,13 +234,14 @@ class clHL7 {
 					
 	        	// Etat civil du patient.
 				$civ            = explode ( $sep2, $patient[5] ) ;
-				$data['nom']    = $civ[0] ;
+				$nompat         = explode ( $sep3, $civ[6] ) ;
+                if ( $nompat[1] ) $data['nom'] = $nompat[1] ;
+                else $data['nom'] = $civ[0] ;
 				$data['prenom'] = $civ[1] ;
 				if ( $patient[9] ) $data['nom'] = $patient[9] ;
 					
 	        	// Sexe
 	        	$data['sexe']   = $patient[8] ;
-	        	
 					
 	        	// Calcul de la date de naissance du patient.
 				$d                    = $patient[7] ;
