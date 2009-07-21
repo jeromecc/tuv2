@@ -13,6 +13,7 @@ if(isset($relocate))
 	include ( $relocate."classes_gen/XhamFunctions.php") ;
 else
 	include ( "classes_gen/XhamFunctions.php") ;
+
 	
 class Xham {
 	// Les différents attributs...
