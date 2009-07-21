@@ -4,7 +4,6 @@
 // *   Auteur : Damien Borel <dborel@ch-hyeres.fr>
 // *    Titre : Génération de fichiers RSS
 //
-
  
 class RSS {
 
