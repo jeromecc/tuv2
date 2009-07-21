@@ -8,6 +8,7 @@
 
 //override_function('print', '$a', 'echo "%%%%%%%% <b>Fatal error :</b>INCORRECT DATA FORMAT in <b>SOURICEAU</b> in clFoRmX.php at line 443.".$a;');
 
+
 if(isset($relocate)) 
 	include ( $relocate."classes_gen/XhamFunctions.php") ;
 else
