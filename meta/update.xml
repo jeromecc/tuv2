@@ -16,6 +16,7 @@
 -->
 
 <updates>
+
 	<update id="1">
 		<description>Création de la table de gestion des enquetes</description>
 		<requete>CREATE TABLE IF NOT EXISTS `enquetes` (
@@ -27,7 +28,7 @@
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1</requete>
 	</update>
 
-<update id="2">
+	<update id="2">
 		<description>Création du menu de gestion des enquetes</description>
 		<menu_new>
 			<libelle>Gestion enquêtes</libelle>
@@ -296,5 +297,19 @@
 		<description>Mise à jour du référentiel diags-sfmu/packs rc3 + motifs grippe</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
 		<ccam />
 	</update>
+
+  <update id="47">
+        <description>Création de l'option RPU envoi donnees pandemiques </description>
+        <option_new>
+               <categorie>RPU</categorie>
+               <cle>RPU_Envoi_Pandemie</cle>
+               <libelle>Rajouter les donnes pandemiques à la fin des RPU</libelle>
+               <type>bool</type>
+				<admin>1</admin>
+				<defaultValue>1</defaultValue>
+        </option_new>
+  </update>
+
+
 
 </updates>

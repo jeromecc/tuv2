@@ -14,55 +14,76 @@
             <cond type="diag">
                 <diag code="R27.0">Ataxie</diag>
                 <diag code="R40.2">Coma SP</diag>
-                <diag code="R41.0">Confusion/désorientation</diag>
+       <!--		<diag code="R41.0">Confusion/désorientation</diag> -->
                 <diag code="R56.8">Convulsions SP</diag>
-                <diag code="R26.2">Difficulté à la marche non classée ailleurs</diag>
+       <!--     <diag code="R26.2">Difficulté à la marche non classée ailleurs</diag> -->
                 <diag code="H53.2">Diplopie</diag>
-                <diag code="R25.8">Mouvements anormaux</diag>
+       <!--     <diag code="R25.8">Mouvements anormaux</diag> -->
                 <diag code="G45.9">AIT</diag>
-                <diag code="I64"></diag>
-                <diag code="G40.9"></diag>
-                <diag code="I61.9"></diag>
-                <diag code="I60.9"></diag>
-                <diag code="I62.9"></diag>
-                <diag code="I63.9"></diag>
-                <diag code="G82.2"></diag>
-                <diag code="G83.9"></diag>
-                <diag code="G82.5"></diag>
-                <diag code="R20.8"></diag>
-                <diag code="H81.4"></diag>
+                <diag code="I64">AVC SP</diag>
+                <diag code="G40.9">Epilepsie SP</diag>
+                <diag code="I61.9">Hémorragie Intracérébrale SP</diag>
+                <diag code="I60.9">Hémorragie sous-arachnoidienne SP</diag>
+                <diag code="I62.9">Hémorragie intracrânienne non trau SP (AVC hémor.)</diag>
+                <diag code="I63.9">Infarctus cérébral SP (AVC ischémique)</diag>
+                <diag code="G82.2">Paraplégie</diag>
+                <diag code="G83.9">Sd paralytique sai</diag>
+                <diag code="G82.5">Tétraplégie</diag>
+                <diag code="R20.8">Trouble sensibilité cutanée</diag>
+                <diag code="H81.4">Vertige central</diag>
             </cond>
+
             <cond type="motif">
-                <motif code="R45.1">Agitation</motif>
+				<motif code="H54.7">Trouble de la vision, cécité</motif>
+				<motif code="R47.0">Aphasie</motif>
+				<motif code="G43.1">Céphalée  24 h ou terrain migraineux</motif>
+				<motif code="R51">Céphalée brutale inhabituelle</motif>
+				<motif code="R40.2">Coma profond</motif>
+				<motif code="R56.8">Convulsions</motif>
+				<motif code="I64">TDeficit évoquant AVC</motif>
+				<motif code="G83.9">Déficit sensitif ou moteur</motif>
+				<motif code="R41.0">Désorientation, Confusion mentale</motif>
+				<motif code="R25.8">Mouvements anormaux</motif>
+				<motif code="R40.0">Trouble de la vigilance</motif>
+				<motif code="R26.2">Trouble de la marche</motif>
+				<motif code="G03.9">Syndrome méningé</motif>
+				<motif code="R42">Vertiges</motif>
+
+				<motif code="H53.9">Troubles de la vision</motif>
+			<!--
+
+				<motif code="G43.1">Dysphasie et aphasie </motif>
+                
                 <motif code="H91.9">Perte de l'audition</motif>
-                <motif code="R47.0"></motif>
+                
                 <motif code="H53.9">Trouble de la vision sai</motif>
                 <motif code="R55">Malaise avec pdc / syncope lipothymie</motif>
                 <motif code="O">Gélure</motif>
                 <motif code="R26.80">Chute sans étiologie</motif>
-                <motif code="S06.6"></motif>
-                <motif code="S06.9"></motif>
+                <motif code="S06.6">Hémorragie sous-arachnoïdienne</motif>
+                <motif code="S06.9">TC +PC</motif>
                 <motif code="R27.0">Ataxie</motif>
-                <motif code="G45.9"></motif>
-                <motif code="I64"></motif>
+                <motif code="G45.9">AIT</motif>
+                <motif code="I64">AVC SP</motif>
                 <motif code="R51">Céphalée</motif>
-                <motif code="R56.8"></motif>
-                <motif code="R40.2">Convulsions SP</motif>
+                <motif code="R56.8">Convulsions SP</motif>
+                <motif code="R40.2">Coma SP</motif>
                 <motif code="R41.0">Confusion/désorientation</motif>
-                <motif code="G40.9"></motif>
-                <motif code="G81"></motif>
-                <motif code="I60.8"></motif>
+                <motif code="G40.9">Epilepsie SP</motif>
+                <motif code="G81">Hémiplégie sai</motif>
+                <motif code="I60.8">Autres Hémorragies sous arachnoïdiennes/méningée</motif>
                 <motif code="R25.8">Mouvements anormaux</motif>
-                <motif code="G51.0"></motif>
-                <motif code="G82.2"></motif>
+                <motif code="G51.0">Paralysie faciale à frigore</motif>
+                <motif code="G82.2">Paraplégie</motif>
                 <motif code="R40.0">Somnolence</motif>
-                <motif code="G82.5"></motif>
+                <motif code="G82.5">Tétraplégie</motif>
                 <motif code="R26.2">Difficulté à la marche non classée ailleurs</motif>
                 <motif code="R40.0">Somnolence</motif>
-                <motif code="R20.8"></motif>
+                <motif code="R20.8">Trouble sensibilité cutanée</motif>
                 <motif code="H53">Trouble de la vision</motif>
-                <motif code="R42">Vertige/étourdissement/éblouissement</motif>
+                <motif code="R42">Vertige/étourdissement/éblouissement</motif> -->
             </cond>
+
          </cond>
     </trigger>
 </root>
