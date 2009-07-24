@@ -12,6 +12,7 @@ class clRPU {
 	// Attributs de la classe.
 	private $xmlRpu ;
 	private $message ;
+	private $xmlH1N1 = '' ;
 
   	// Constructeur.
   	function __construct ( $param='' ) {
@@ -190,11 +191,111 @@ class clRPU {
 			
 			$mod -> MxBloc ( 'rpu', 'loop' ) ;
 		}
+		$mod -> MxText ( 'data_supplementaire',$this->xmlH1N1);
 		
 		// Récupération du code HTML généré.  
     	$this->xmlRpu = $mod -> MxWrite ( "1" ) ;
     	//$this->af .= nl2br(htmlentities($this->xmlRpu)) ;
 	}
+
+
+
+
+
+
+
+
+	// Génération du fichier XML.
+	function genXMLH1N1 ( $dat='' ) {
+		global $options ;
+    	global $session ;
+
+
+		if( ! $options->getOption('RPU_Envoi_Pandemie') )
+		{
+			return ;
+		}
+		
+    	// On prend la date passée en paramètre si elle existe.
+    	if ( $dat )	$date = new clDate ( $dat ) ;
+    	else {
+    		// Sinon, on initialise avec la date de la veille.
+    		$date = new clDate ( ) ;
+    		$date -> addDays ( -1 ) ;
+    	}
+    	//eko ( $_REQUEST ) ;
+   		$_REQUEST['dateRPU'] = $date->getDate ( 'Y-m-d' ) ;
+    	// Calcul de la date minimum (J-7).
+    	$dateMin = new clDate ( $date -> getDatetime ( ) ) ;
+    	$nbJours = $options->getOption ( 'RPU_NombreJours' ) ;
+    	$dateMin -> addDays ( -$nbJours ) ;
+
+		//passages en rapport avec le H1N1
+
+		$requete = " SELECT COUNT(*) as nb FROM patients_sortis WHERE dt_admission BETWEEN '".$dateMin->getDate ( 'Y-m-d 00:00:00' )."' AND '".$date->getDate ( 'Y-m-d 23:59:59')."' AND valide>=1 AND type_destination!='X'" ;
+
+		$requete.= " AND ilp IN ( SELECT ipp FROM ".CCAM_BDD.".ccam_cotation_actes WHERE `codeActe` = 'J09' )" ;
+
+		$obRequete = new clRequete( BDD, 'patients_sortis', array()) ;
+
+		$res = $obRequete ->exec_requete($requete, 'tab');
+
+		$nbPassageH1N1 = $res[0]['nb'] ;
+
+		//hospis en rapport avec le H1N1
+
+		$requete = " SELECT COUNT(*) as nb FROM patients_sortis WHERE dt_admission BETWEEN '".$dateMin->getDate ( 'Y-m-d 00:00:00' )."' AND '".$date->getDate ( 'Y-m-d 23:59:59')."' AND valide>=1 AND type_destination = 'H' " ;
+
+		$requete.= " AND ilp IN ( SELECT ipp FROM ".CCAM_BDD.".ccam_cotation_actes WHERE `codeActe` = 'J09' )" ;
+
+		$res = $obRequete ->exec_requete($requete, 'tab');
+
+		$nbHospisH1N1 = $res[0]['nb'] ;
+
+		//Deces en rapport avec le H1N1
+
+		$requete = " SELECT COUNT(*) as nb FROM patients_sortis WHERE dt_admission BETWEEN '".$dateMin->getDate ( 'Y-m-d 00:00:00' )."' AND '".$date->getDate ( 'Y-m-d 23:59:59')."' AND valide>=1 AND type_destination = 'D' " ;
+
+		$requete.= " AND ilp IN ( SELECT ipp FROM ".CCAM_BDD.".ccam_cotation_actes WHERE `codeActe` = 'J09' )" ;
+
+		$res = $obRequete ->exec_requete($requete, 'tab');
+
+		$nbDecesH1N1 = $res[0]['nb'] ;
+
+    	//$mod -> MxText ( 'idActeur', $options->getOption ( 'RPU_IdActeur' ) ) ;
+    	//$mod -> MxText ( 'cleActeur', $options->getOption ( 'RPU_CleActeur' ) ) ;
+    	//$mod -> MxText ( 'AR', $options->getOption ( 'RPU_AR_Actif' ) ) ;
+    	//$mod -> MxText ( 'mailAR', $options->getOption ( 'RPU_AR_Mail' ) ) ;
+
+		// Récupération du code HTML généré.
+    	/* $this->xmlH1N1 = '<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>' ; */
+		//$this->xmlH1N1.= '<result>' ;
+		//$this->xmlH1N1.= '<entete>' ;
+		//$this->xmlH1N1.= '<idActeur>'.	$options->getOption ( 'RPU_IdActeur' ).'</idActeur>' ;
+		//$this->xmlH1N1.= '<cleActeur>'. $options->getOption ( 'RPU_CleActeur' ).'</cleActeur>' ;
+		//$this->xmlH1N1.= '<arRequis>'.$options->getOption ( 'RPU_AR_Actif' ).'</arRequis>';
+		//$this->xmlH1N1.= '<mail>'.$options->getOption ( 'RPU_AR_Mail' ).'</mail>' ;
+		//$this->xmlH1N1.= '</entete>' ;
+		$this->xmlH1N1.= "\n".'<element>' ;
+		$this->xmlH1N1.= "\n".'<nomForm>pandemie</nomForm>' ;
+		$this->xmlH1N1.= "\n".'<date_event>'.$date->getDate ( 'd/m/Y H:i' ).'</date_event>' ;
+		$this->xmlH1N1.= "\n".'<H1N1consult>'.$nbPassageH1N1.'</H1N1consult>';
+		$this->xmlH1N1.= "\n".'<H1N1hospis>'.$nbHospisH1N1.'</H1N1hospis>';
+		$this->xmlH1N1.= "\n".'<H1N1deces>'.$nbDecesH1N1.'</H1N1deces>';
+		$this->xmlH1N1.= "\n".'</element>' ;
+		//$this->xmlH1N1.= '</result>' ;
+
+	}
+
+
+
+
+
+
+
+
+
+
 
 	// Envoi des fichiers XML en attente.
 	function sendXML ( $send='' ) {
@@ -289,7 +390,8 @@ class clRPU {
 		} else return '<br/><br/>Affichage des RPU.' ;
 	}
 
-	function gestSend ( ) {
+	function gestSend ( )
+	{
 		global $session ;
 		// Chargement du template ModeliXe.
     	$mod = new ModeliXe ( "rpuGestSend.html" ) ;
@@ -305,7 +407,11 @@ class clRPU {
 
 		$mod -> MxSelect ( 'listeDates', 'dateRPU', $_POST['dateRPU'], $tabDate, '', '', 'onChange="reload(this.form)"' ) ;
 		$mod -> MxHidden ( 'hidden', 'navi='.$session->genNavi ( $session->getNavi(0), $session->getNavi(1)) ) ;
+
+		$this->genXMLH1N1($_POST['dateRPU']) ;
+
 		$this->genXML ( $_POST['dateRPU'] ) ;
+		
 		
 		$mod -> MxText ( 'xmlRpu', '<p>'.nl2br(htmlentities($this->xmlRpu)).'</p>' ) ;
 		
