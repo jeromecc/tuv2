@@ -34,6 +34,9 @@
             </cond>
 
             <cond type="motif">
+
+				<motif code="H53.9">OPH->Trouble de la vision sai</motif>
+
 				<motif code="H54.7">Trouble de la vision, cécité</motif>
 				<motif code="R47.0">Aphasie</motif>
 				<motif code="G43.1">Céphalée  24 h ou terrain migraineux</motif>
@@ -49,14 +52,15 @@
 				<motif code="G03.9">Syndrome méningé</motif>
 				<motif code="R42">Vertiges</motif>
 
-				<motif code="H53.9">Troubles de la vision</motif>
+				<motif code="H91.9">Troubles de l'audition</motif>
+
 			<!--
 
 				<motif code="G43.1">Dysphasie et aphasie </motif>
                 
                 <motif code="H91.9">Perte de l'audition</motif>
                 
-                <motif code="H53.9">Trouble de la vision sai</motif>
+                <motif code="H53.9">OPH->Trouble de la vision sai</motif>
                 <motif code="R55">Malaise avec pdc / syncope lipothymie</motif>
                 <motif code="O">Gélure</motif>
                 <motif code="R26.80">Chute sans étiologie</motif>
