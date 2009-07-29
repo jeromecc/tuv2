@@ -1,94 +1,95 @@
 #logo
 {
-	width: 200px;
+    width: 100px;
 }
 
 #titre
 {
-	position:relative ;
-	left:240px;
-	width:600px;
-	top:-40px;
-	text-transform: uppercase;
-	font-weight:bold;
-	font-size:20px;
-	font-family:serif;
+    position:relative ;
+    left:240px;
+    width:600px;
+    top:-40px;
+    text-transform: uppercase;
+    font-weight:bold;
+    font-size:20px;
+    font-family:serif;
 }
 
 .etape .titre_etape
 {
-	width:100%;
-	border-bottom: 1px solid black ;
-	text-align:right;
-	font-weight:bolder;
-	font-style:italic;
-	font-family:sans-serif;
+    width:100%;
+    border-bottom: 1px solid black ;
+    text-align:right;
+    font-weight:bolder;
+    font-style:italic;
+    font-family:sans-serif;
 }
 .etape .titre_etape .navigation
 {
-	color:red ;
-	display:none;
+    color:red ;
+    display:none;
 }
 .etape .item
 {
-	border-bottom: 1px solid #F7F7F7 ;
+    border-bottom: 1px solid #F7F7F7 ;
 }
 
 .etape .item .valeur
 {
-	/*display:inline;*/
-	/* position: relative; */
-	margin-left: 300px;
-	font-family:Arial;
-	/* background-color: blue ;  */
+    /*display:inline;*/
+    /* position: relative; */
+    margin-left: 300px;
+    font-family:Arial;
+    /* background-color: blue ;  */
 }
 
 .etape .item .barcode
 {
-	/*display:inline;*/
-	/* position: relative; */
+    /*display:inline;*/
+    /* position: relative; */
 
-	/* background-color: blue ;  */
-	margin-left: 200px;
-	height: 120px;
-	font-family:Arial;
-	padding:0px;
+    /* background-color: blue ;  */
+    margin-left: 200px;
+    height: 90px;
+    font-family:Arial;
+    padding:0px;
 }
 
 .etape .item .barcode img
 {
-	/*display:inline;*/
-	/* position: relative; */
+    /*display:inline;*/
+    /* position: relative; */
 
-	/* background-color: blue ;  */
-	height: 120px;
-	margin: 0px;
-	padding: 0px ;
+    /* background-color: blue ;  */
+    height: 90px;
+    margin: 0px;
+    padding: 0px ;
+        width: 300px;
 }
 
 
 .etape .item .libelle
 {
-	font-weight:bolder;
-	/*width: 200px;*/
-	/*display:inline;*/
-	background-color: #F2F2F2;
+    font-weight:bolder;
+    /*width: 200px;*/
+    /*display:inline;*/
+    background-color: #F2F2F2;
 
 }
 
 .etape .item .item_important
 {
-	position: relative;
-	font-weight:bold;
-	margin-left: 300px;
-	font-family:Arial;
+    position: relative;
+    font-weight:bold;
+    margin-left: 300px;
+    font-family:Arial;
 }
 
 .etape .item .item_tres_important
 {
-	position: relative;
-	font-weight:bold;
-	margin-left: 200px;
-	font-family:Arial;
-	border-bottom: 1px solid #A7A7A7 ;
+    position: relative;
+    font-weight:bold;
+    margin-left: 200px;
+    font-family:Arial;
+    border-bottom: 1px solid #A7A7A7 ;
 }
