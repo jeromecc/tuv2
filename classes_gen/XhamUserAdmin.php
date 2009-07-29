@@ -32,7 +32,7 @@ class XhamUserAdmin extends XhamUserAbstract {
 	  		$this->informations['service']    = array ( ) ;
 	  		$this->informations['org']        = '' ;
 	  		$this->informations['ip']         = $_SERVER['REMOTE_ADDR'] ;
-    		$this->informations['navigateur'] = $_SERVER["HTTP_USER_AGENT"] ;
+    		$this->informations['navigateur'] = substr($_SERVER["HTTP_USER_AGENT"],0,255) ;
     		return true ;
 		} else return false ;
 	}
