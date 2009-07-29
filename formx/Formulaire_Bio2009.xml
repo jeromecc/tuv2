@@ -113,7 +113,7 @@
 
 	<ITEM type="CHECK" id="hemostase_renseignements" opt="y" cols="2" >
 		<Libelle style="font-weight:bold;">Hemostase renseignements</Libelle>
-		<FromList>list:Examen pré opératoire|Hémorragie|Thrombose|Traitement anti Vit K|Héparine par héparine</FromList>
+		<FromList>list:Examen pré opératoire|Hémorragie|Thrombose|Traitement anti Vit K|Traitement par héparine</FromList>
 		<ShowItemsOnVal>
 			<ListIdItems>list:anti_vit_medic|anti_vit_dose</ListIdItems>
 			<OnVal>const:Traitement anti Vit K</OnVal>
@@ -121,7 +121,7 @@
 
 		<ShowItemsOnVal>
 			<ListIdItems>list:hph_medic|hph_dose|hph_heure_injec|hph_heure_prelev</ListIdItems>
-			<OnVal>const:Héparine par héparine</OnVal>
+			<OnVal>const:Traitement par héparine</OnVal>
 		</ShowItemsOnVal>
 
 	</ITEM>
@@ -136,17 +136,17 @@
 
 
 	<ITEM type="TXT" id="hph_medic" opt="y"  >
-		<Libelle >Héparine par héparine Médicament : </Libelle>
+		<Libelle >Traitement par héparine Médicament : </Libelle>
 	</ITEM>
 	<ITEM type="TXT" id="hph_dose" opt="y"  >
-		<Libelle >Héparine par héparine Dose : </Libelle>
+		<Libelle >Traitement par héparine Dose : </Libelle>
 	</ITEM>
 	<ITEM type="LISTE" id="hph_heure_injec" opt="y"  >
-		<Libelle >Héparine par héparine Heure de l'injection : </Libelle>
+		<Libelle >Traitement par héparine Heure de l'injection : </Libelle>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 	<ITEM type="LISTE" id="hph_heure_prelev" opt="y"  >
-		<Libelle >Héparine par héparine Heure de prélèvement : </Libelle>
+		<Libelle >Traitement par héparine Heure de prélèvement : </Libelle>
 		<FromFuncList>getters/list_hours</FromFuncList>
 	</ITEM>
 
