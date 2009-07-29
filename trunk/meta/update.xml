@@ -310,6 +310,9 @@
         </option_new>
   </update>
 
-
+	<update id="48">
+		<description>Correction d'un libelle sur les motifs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+		<ccam />
+	</update>
 
 </updates>
