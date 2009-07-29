@@ -312,7 +312,7 @@ INSERT INTO `listes` (`idapplication`, `categorie`, `nomliste`, `nomitem`, `rang
 ('1', 'Recours', 'Allergologie', 'Réactiion allergique SP', 1, 'T78.4', 1, '', ''),
 ('1', 'Recours', 'Hépato-Gastro-Entérologie', 'Anorexie', 1, 'R63.0', 1, '', ''),
 ('1', 'Recours', 'Neurologie', 'Deficit évoquant AVC', 7, 'I64', 1, '', ''),
-('1', 'Recours', 'Neurologie', 'Veriges', 14, 'R42', 1, '', ''),
+('1', 'Recours', 'Neurologie', 'Vertiges', 14, 'R42', 1, '', ''),
 ('1', 'Recours', 'Oncologie', 'Tumeur hématologique', 6, 'C95.9', 1, '', ''),
 ('1', 'Recours', 'Oncologie', 'Tumeur ORL', 5, 'C32.9', 1, '', ''),
 ('1', 'Recours', 'Oncologie', 'Tumeur Système nerveux', 4, 'C72.9', 1, '', ''),
