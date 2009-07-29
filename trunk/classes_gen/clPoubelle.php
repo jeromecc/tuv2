@@ -30,7 +30,7 @@ class clPoubelle {
     $rep = $this->rep ;
     $r = opendir ( $rep ) ;
     while ( $fic = readdir ( $r ) ) {
-      if ( $fic != "." AND $fic != ".." AND $fic != "css" AND $fic != "images" ) {
+      if ( $fic != "." AND $fic != ".." AND $fic != "css" AND $fic != "images"  AND $fic != "classes_ext"  ) {
 	$date = filemtime ( "$rep/$fic" ) ;
 	if ( $date < time ( ) - ( $duree * 3600 ) AND is_dir ( "$rep/$fic" ) ) {
 	  $r_in = opendir ( "$rep/$fic" ) ;

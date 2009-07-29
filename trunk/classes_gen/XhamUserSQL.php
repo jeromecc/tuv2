@@ -62,7 +62,7 @@ class XhamUserSQL extends XhamUserAbstract  {
 	  $this->informations['equipes']    = array ( ) ;
 	  $this->informations['service']    = array ( ) ;
 	  $this->informations['ip']         =  $_SERVER['REMOTE_ADDR'] ;
-      $this->informations['navigateur'] = strubstr($_SERVER["HTTP_USER_AGENT"],0,255) ;
+      $this->informations['navigateur'] = substr($_SERVER["HTTP_USER_AGENT"],0,255) ;
       $this->informations['id'] = $res['idutilisateur'][0] ;
       
       $param['cw'] = "WHERE idutilisateur='".$res['idutilisateur'][0]."'" ;

@@ -137,7 +137,7 @@ class XhamUserLdap extends XhamUserAbstract  {
       		$this->informations['org']        = XhamUserLdap::calcOrganisations ( $info[0]["chhatorganisation"] ) ;
 	  		$this->informations['equipes']    = XhamUserLdap::calcEquipes($info[0]["chhatequipe"]);
 	  		$this->informations['ip']         = $_SERVER['REMOTE_ADDR'] ;
-    		$this->informations['navigateur'] = $_SERVER["HTTP_USER_AGENT"] ;
+    		$this->informations['navigateur'] = substr($_SERVER["HTTP_USER_AGENT"],0,255) ;
       		$results = ldap_search ( $this->conne, LDAP_BASE, "(&(memberUid=$login)(objectclass=mailgroup))" ) ;
       		$infoGroupe = ldap_get_entries ( $this->conne, $results ) ;
       		//tableau des groupes (definis par ldap) pour l'user
