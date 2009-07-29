@@ -42,7 +42,7 @@
 			<Libelle>Age</Libelle>
 			<From>func:GetAge2</From>
 	</ITEM>
-
+<!--
 	<ITEM type="TXT" id="Val_IDENT_AdressePat" opt="y" resync="y" readonly="y">
 		  <Libelle>Adresse</Libelle>
       <From>globalObject:patient->getAdresse()</From>
@@ -62,7 +62,7 @@
 		  <Libelle>Téléphone</Libelle>
       <From>globalObject:patient->getTel()</From>
 	</ITEM>
-	
+	-->
   <ITEM type="TXT" id="Val_IDENT_IDUPatient" opt="y" resync="y" readonly="y">
 		<Libelle>IDU</Libelle>
 		<From>globalObject:patient->getIDU()</From>
