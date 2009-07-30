@@ -65,6 +65,7 @@ mkdir ${locationtmp}formx
 mkdir ${locationtmp}formx/functions
 cp -frL ${location}formx/functions/GetDateE3.php    ${locationtmp}formx/functions/
 cp -frL ${location}formx/functions/getAge2.php    ${locationtmp}formx/functions/
+cp -frL ${location}formx/functions/getAge2.php    ${locationtmp}formx/functions/GetAge2.php
 cp -frL ${location}formx/functions/GetHeures.php    ${locationtmp}formx/functions/
 cp -frL ${location}formx/functions/GetMinutes.php    ${locationtmp}formx/functions/
 cp -frL ${location}formx/functions/ListeHeure.php    ${locationtmp}formx/functions/
