@@ -172,13 +172,13 @@ class clEtiquettes {
 		global $options ;
 		
 		# paramètres
-		$mg=7; // Marge de gauche =>  initial 17
+		$mg=6; // Marge de gauche =>  initial 17
 		$mh=4; // Marge du haut =>  initial 9
 		$md=15; // Marge de droite
-		$mb=9; // Marge du bas
+		$mb=0; // Marge du bas
 
 		$largeur_etiquette=40; // largeur_etiquette =>  initial 60
-		$espace_etiquettes=13; // =>  initial 7
+		$espace_etiquettes=15; // =>  initial 7
 		$nb_ligne_etiquettes=4;
 		$nb_etiquette_ligne=5;
 		
@@ -256,7 +256,7 @@ class clEtiquettes {
 		$pdf->Cell($largeur_etiquette,4,"URGENCES",0,1,L);
 		
 		// Saut
-		$pdf->Cell(1,5.8,"",0,1);
+		$pdf->Cell(1,6,"",0,1);
 		
 		// Ligne  8
 		$pdf->Cell(4*$largeur_etiquette,4,"Tél : $tel",0,0,L);
@@ -294,7 +294,7 @@ class clEtiquettes {
 		$pdf->Cell($largeur_etiquette,4,"URGENCES",0,1,L);
 		
 		// Saut
-		$pdf->Cell(1,5.8,"",0,1);
+		$pdf->Cell(1,6,"",0,1);
 	       
 		for ($i = 1; $i <= $nb_ligne_etiquettes; $i++) {
 	        // Nom
@@ -385,7 +385,7 @@ class clEtiquettes {
 	    	$pdf->Cell($largeur_etiquette,4,"URGENCES",0,1,L);
 	    	
 	        // inter _etiquettes
-	        $pdf->Cell(1,5.8,"",0,1);
+	        $pdf->Cell(1,6.3,"",0,1);
 		}
 
 
