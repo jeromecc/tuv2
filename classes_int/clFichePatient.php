@@ -135,8 +135,7 @@ class clFichePatient {
   
   // Script qui permet d'ecrire dans MBTV2 les ATU depuis le 01-01-2008 jusqu'a .....
   // (en fonction de leur idu).
-  // Fonction de secour
-  // Utilisé par Damien Borel ou Derock François
+  // Fonction écrite par Derockus Fracassus de la tête
   function Netforce2 ( ) {
  
   	global $session;
@@ -1226,7 +1225,18 @@ class clFichePatient {
     	$data[now] = 'Maintenant' ;
     	$min = $dateMin -> getTimestamp ( ) ;
     	$t = $dateNow -> getTimestamp ( ) ;
-    	$data[$t] = $dateNow -> getDate ( "d-m-Y H:i" ) ; 
+    	$data[$t] = $dateNow -> getDate ( "d-m-Y H:i" ) ;
+
+        // On limite la taille du select
+        $d1 = new clDate ( ) ;
+     	$d2 = new clDate ( $dateMin->getDatetime() ) ;
+      	$duree = new clDuree ( $d1 -> getDifference ( $d2 ) ) ;
+      	$duree -> invertNegatif ( ) ;
+        if ( $duree->getDays() > 13 ) {
+            $d1 -> addDays ( -14 ) ;
+            $min = $d1 -> getTimestamp ( ) ;
+        }
+
     	// On parcourt les dates en fonctions des options.
 		for ( $i = 0 ; $dateNow -> getTimestamp ( ) >= $min ; $i += $tranches ) {
 	  		$t = $dateNow -> getTimestamp ( ) ;
