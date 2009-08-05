@@ -315,4 +315,16 @@
 		<ccam />
 	</update>
 
+ <update id="47">
+        <description>Option pour inverser la recuperation du nom de jeune fille et le nom usuel </description>
+        <option_new>
+               <categorie>Importation</categorie>
+               <cle>importationNomsInv</cle>
+               <libelle>Inverser la recuperation du nom de jeune fillet et le nom usuel en HL7.</libelle>
+               <type>bool</type>
+				<admin>1</admin>
+				<defaultValue>0</defaultValue>
+        </option_new>
+  </update>
+
 </updates>

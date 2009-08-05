@@ -235,8 +235,13 @@ class clHL7 {
 	        	// Etat civil du patient.
 				$civ            = explode ( $sep2, $patient[5] ) ;
 				$nompat         = explode ( $sep3, $civ[6] ) ;
-                if ( $nompat[1] ) $data['nom'] = $nompat[1] ;
-                else $data['nom'] = $civ[0] ;
+                if ( $options->getOption ( 'importationNomsInv') ) {
+                    if ( $nompat[1] ) $data['nom'] = $nompat[1] ;
+                    else $data['nom'] = $civ[0] ;
+                } else {
+                    if ( $civ[0] ) $data['nom'] = $civ[0] ;
+                    else $data['nom'] = $nompat[1] ;
+                }
 				$data['prenom'] = $civ[1] ;
 				if ( $patient[9] ) $data['nom'] = $patient[9] ;
 					
