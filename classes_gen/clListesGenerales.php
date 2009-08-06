@@ -174,6 +174,30 @@ class clListesGenerales {
     }
   }
 
+function getListeItemsV3 ( $nomListe, $opt='', $code='', $libre='' ) {
+    global $options ;
+    $options -> checkOptionListe ( $nomListe ) ;
+    // Préparation du type de classement pour la requête.
+    switch ( $options->getOption ( $nomListe ) ) {
+    case 'Manuel': $order = "ORDER BY rang" ; break ;
+    case 'Alphabétique': $order = "ORDER BY nomitem" ; break ;
+    case 'Alphabétique inversé': $order = "ORDER BY nomitem DESC" ; break ;
+    default : $order = "ORDER BY nomitem" ; break ;
+    }
+    $param['cw'] = "WHERE ( nomliste='".addslashes($nomListe)."' and idapplication=".IDAPPLICATION.") ". $order ;
+    $req = new clResultQuery ;
+    $res = $req -> Execute ( "Fichier", "getListesItems", $param, "ResultQuery" ) ;
+    //eko ( $res ) ;
+    if ( $opt ) $tab[] = SELECTLISTE ;
+    // Fabrication du tableau.
+    for ( $i = 0 ; isset ( $res['iditem'][$i] ) ; $i++ )
+      if ( $code ) $tab[$res['codeitem'][$i]] = $res['nomitem'][$i] ;
+      elseif ( $libre ) $tab[$res['libre'][$i]] = $res['nomitem'][$i] ;
+      else $tab[$res['nomitem'][$i]] = $res['nomitem'][$i] ;
+    // Retourne le tableau au format attendu par modelixe.
+    return $tab ;
+  }
+
   // Modification d'un item d'une liste.
   function modItem ( $nomListe, $idItem ) {
     global $errs ;
