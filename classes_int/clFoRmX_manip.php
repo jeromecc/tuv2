@@ -244,9 +244,10 @@ function list_actions() {
 
 		//eko($id);
 
-		if ( $id == 'Formulaire_Bio2009' || (   ! eregi ( 'Radio', $libelle ) AND ! eregi ( 'Bio', $libelle ) AND ! eregi ( 'Spécialisée', $libelle ) ) ) $mod -> MxBloc ( 'actions.frep', 'delete' ) ;
+		if ( (   ! eregi ( 'Radio', $libelle ) AND ! eregi ( 'Bio', $libelle ) AND ! eregi ( 'Spécialisée', $libelle ) ) ) $mod -> MxBloc ( 'actions.frep', 'delete' ) ;
 		else {
-			if ( eregi ( 'Radio', $libelle ) ) $libelleC = 'radio' ; 
+			if ( eregi ( 'Radio', $libelle ) ) $libelleC = 'radio' ;
+                        elseif ( eregi ( 'Bio', $libelle ) && eregi ( '2009', $libelle )) $libelleC = 'bio2009';
 			elseif ( eregi ( 'Bio', $libelle ) ) $libelleC = 'labo' ;
 			else $libelleC = 'spe' ;
 			//$mod->Mxattribut("actions.frep.code","document.FoRmXcase.Formulaire2print.value = '".$libelleC."';document.FoRmXcase.submit();");
