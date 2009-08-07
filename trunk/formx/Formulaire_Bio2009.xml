@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf8" standalone='yes'?>
-<FORMX id="Formulaire_Bio2009" access="formulaires_TM_général" closeAfterValid="y" dontPrintPrinter="y" dontPrintNavi="y"><!-- version="11">-->
+<FORMX id="Formulaire_Bio2009" closeAfterValid="y" dontPrintPrinter="y" dontPrintNavi="y">
 <Libelle>Formulaire Bio 2009</Libelle>
 <Objet>Prescription d'examens biologiques</Objet>
 <Groupe>Demandes de Bons</Groupe>
