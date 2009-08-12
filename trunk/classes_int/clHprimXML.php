@@ -209,10 +209,6 @@ class clHprimXML {
 		    // eko("reste");
 		}		  
 		  
-		  
-		  
-		if ( $options -> getOption ( 'HprimXML_DateT' ) ) $mod -> MxText ( 'dateHeureProduction', $date -> getDate ( "Y-m-d\TH:i:s" ) ) ;
-		else $mod -> MxText ( 'dateHeureProduction', $date -> getDatetime ( ) ) ;
 		$mod -> MxText ( 'codeEmetteur', ($options->getOption ( 'HprimXML_Emet' )?$options->getOption ( 'HprimXML_Emet' ):$res['DISCR'][$deb]) ) ;
 		$mod -> MxText ( 'codeDestinataire', $options->getOption ( 'HprimXML_Dest' ) ) ;
 		$mod -> MxText ( 'patientEmetteur', $idu ) ;
@@ -220,6 +216,7 @@ class clHprimXML {
 		$mod -> MxText ( 'sexe', $sexe ) ;
 		$mod -> MxText ( 'patientNom', $nomu ) ;
 		$mod -> MxText ( 'patientPrenom', $pren ) ;
+
 		
     if ( $dtnai != "00/00/0000" )
 		  $mod -> MxText ( 'patientNaissance', $dtnai ) ;
@@ -245,11 +242,18 @@ class clHprimXML {
             elseif ( $datadmi->getDatetime ( ) != '1999-12-31 00:00:00' ) $time = $datadmi->getTimestamp ( ) ;
             else $time = $datsort->getTimestamp ( ) ;
             $datdema = new clDate ( $time ) ;
+            $datmed = new clDate ( $time ) ;
             //eko ( $datadmi->getTimestamp ( ).' + '.$datsort->getTimestamp ( ).' = '.$time.' = '.$datdema -> getTimestamp ( ) ) ;
             //eko ( $datadmi->getDatetime ( ).' + '.$datsort->getDatetime ( ).' = '.$time.' = '.$datdema -> getDatetime ( ) ) ;
         }
         $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
         $hhdem = $datdema -> getDate ( 'H:i:s' ) ;
+
+		if ( $options->getOption('HprimXML_DateProduction') == 'Heure médiane' ) $date = $datemed ;
+		if ( $options -> getOption ( 'HprimXML_DateT' ) ) $mod -> MxText ( 'dateHeureProduction', $date -> getDate ( "Y-m-d\TH:i:s" ) ) ;
+		else $mod -> MxText ( 'dateHeureProduction', $date -> getDatetime ( ) ) ;
+
+
 
     $mod -> MxText ( 'venueEmetteur', $idpass ) ;
 		$mod -> MxText ( 'venueRecepteur', $idpass ) ;
