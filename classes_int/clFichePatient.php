@@ -1232,10 +1232,10 @@ class clFichePatient {
      	$d2 = new clDate ( $dateMin->getDatetime() ) ;
       	$duree = new clDuree ( $d1 -> getDifference ( $d2 ) ) ;
       	$duree -> invertNegatif ( ) ;
-        if ( $duree->getDays() > 13 ) {
-            $d1 -> addDays ( -14 ) ;
-            $min = $d1 -> getTimestamp ( ) ;
-        }
+        //if ( $duree->getDays() > 50 ) {
+        //    $d1 -> addDays ( -50 ) ;
+        //    $min = $d1 -> getTimestamp ( ) ;
+        //}
 
     	// On parcourt les dates en fonctions des options.
 		for ( $i = 0 ; $dateNow -> getTimestamp ( ) >= $min ; $i += $tranches ) {
