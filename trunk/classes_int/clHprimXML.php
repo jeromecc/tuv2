@@ -250,15 +250,25 @@ class clHprimXML {
         $hhdem = $datdema -> getDate ( 'H:i:s' ) ;
 
 		if ( $options->getOption('HprimXML_DateProduction') == 'Heure médiane' ) $date = $datemed ;
+		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure admission' ) $date = $datadmi ;
+        elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure examen' ) $date = $datadmi ;
+		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure sortie' ) $date = $datsort ;
 		if ( $options -> getOption ( 'HprimXML_DateT' ) ) $mod -> MxText ( 'dateHeureProduction', $date -> getDate ( "Y-m-d\TH:i:s" ) ) ;
 		else $mod -> MxText ( 'dateHeureProduction', $date -> getDatetime ( ) ) ;
 
+        if ( $options->getOption('HprimXML_DateProduction') == 'Heure médiane' ) $dateve = $datemed ;
+		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure admission' ) $dateve = $datadmi ;
+        elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure examen' ) $dateve = $datadmi ;
+		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure sortie' ) $dateve = $datsort ;
+		else $dateve = $datdema ;
 
+        $dtven = $dateve -> getDate ( 'Y-m-d' ) ;
+        $hhven = $dateve -> getDate ( 'H:i:s' ) ;
 
-    $mod -> MxText ( 'venueEmetteur', $idpass ) ;
+        $mod -> MxText ( 'venueEmetteur', $idpass ) ;
 		$mod -> MxText ( 'venueRecepteur', $idpass ) ;
-		$mod -> MxText ( 'venueDate', $dtdem ) ;
-    $mod -> MxText ( 'venueHeure', $hhdem ) ;
+		$mod -> MxText ( 'venueDate', $dtven ) ;
+        $mod -> MxText ( 'venueHeure', $hhven ) ;
 		$mod -> MxText ( 'interventionDate', $dtdem ) ;
 		$mod -> MxText ( 'interventionHeure', $hhdem ) ;
 		$mod -> MxText ( 'interventionEmetteur', $emetti ) ;
