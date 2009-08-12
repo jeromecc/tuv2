@@ -332,16 +332,29 @@
 		<ccam />
   </update>
 
-  <update id="52">  <!-- Option a choix multiples  -->
+  <update id="53">  <!-- Option a choix multiples  -->
 		<description>Ajout de l'option HprimXML_DateProduction</description>
 		<option_new>
 			<categorie>CCAM</categorie>
 			<cle>HprimXML_dateProduction</cle>
 			<libelle>Date et heure de production des fichiers HprimXML</libelle>
 			<type>combobox</type>
-			<choix>Normal|Heure médiane</choix>
+			<choix>Normal|Heure médiane|Heure admission|Heure examen|Heure sortie</choix>
 			<defaultValue>Normal</defaultValue>
 		</option_new>
 	</update>
+
+ <update id="54">  <!-- Option a choix multiples  -->
+		<description>Ajout de l'option HprimXML_DateVenue</description>
+		<option_new>
+			<categorie>CCAM</categorie>
+			<cle>HprimXML_dateVenue</cle>
+			<libelle>Date et heure de la venue du patient</libelle>
+			<type>combobox</type>
+			<choix>Normal|Heure médiane|Heure admission|Heure examen|Heure sortie</choix>
+			<defaultValue>Normal</defaultValue>
+		</option_new>
+	</update>
+
 
 </updates>
