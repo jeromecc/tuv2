@@ -2,6 +2,14 @@
 **************************** 2009-08-12 12:00:00 : V 2.23.16 *******************************************
 ********************************************************************************************************
 
+- Fichiers pour le Tableau de Bord						(Marion Duprey)
+    - Maj automatique
+    - Activation des enquetes à distance
+
+********************************************************************************************************
+**************************** 2009-08-12 12:00:00 : V 2.23.16 *******************************************
+********************************************************************************************************
+
 - Les dates de sortie ne sont plus limitées (ancienne limite de 14 jours).	(Damien Borel)
 - La date et l'heure de production des fichiers HprimXML est maintenant
   paramétrable via l'option CCAM -> HprimXML_DateProduction.			(Damien Borel)
