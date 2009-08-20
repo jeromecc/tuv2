@@ -1788,7 +1788,7 @@ else{
 	//$param[nomIntervenant]=$this->nomIntervenant;
 	//eko($_POST);
 	$param[matriculeIntervenant] = $this->matriculeIntervenant;
-	$param[nomIntervenant]       = $this->nomIntervenant;
+	$param[nomIntervenant]       = addslashes($this->nomIntervenant);
 	
 	$param[numUFdem]=$this->numUFdem;
 	$param[numUFexec]=$this->numUFexec;
@@ -2805,7 +2805,7 @@ for ($ind=0;$ind<=1;$ind++){
     
     // Mise à jour de la fiche patient $tabIdPatient[$ind] seulement pour l'acte ATU
     
-    $paramModif["envoi_nomIntervenant"]       = $Medecin_urgences;
+    $paramModif["envoi_nomIntervenant"]       = addslashes($Medecin_urgences);
     $paramModif["envoi_matriculeIntervenant"] = $Matricule;
     $paramModif["dateDemande"] = $dateDemande;
     $requete = new clRequete(CCAM_BDD,"ccam_cotation_actes",$paramModif);
@@ -3302,7 +3302,7 @@ function controleActesPresents ( $valeur='' ) {
    
   // On prend le numero ADELI
   unset($param);
-  $param[nomitem] = $res["medecin_urgences"][0] ;
+  $param[nomitem] = addslashes($res["medecin_urgences"][0]) ;
   $req = new clResultQuery ;
   $res2 = $req -> Execute ( "Fichier", "getMatriculeMedecin", $param, "ResultQuery" ) ;
   
@@ -3358,7 +3358,7 @@ function controleActesPresents ( $valeur='' ) {
     for ( $i = 0 ; $i < $res[INDIC_SVC][2] ; $i++ ) {
       $matricule  = explode("|",$res["matriculeIntervenant"][$i]);
       $nom        = explode("|",$res["nomIntervenant"][$i]);
-      $paramModif["envoi_nomIntervenant"]       = $Medecin_urgences."|".$nom[1];
+      $paramModif["envoi_nomIntervenant"]       = addslashes($Medecin_urgences."|".$nom[1]);
       $paramModif["envoi_matriculeIntervenant"] = $Matricule."|".$matricule[1];
       $requete    = new clRequete(CCAM_BDD,"ccam_cotation_actes",$paramModif);
 	    $sql        = $requete->updRecord("idEvent=".$idEvent." and identifiant=".$res["identifiant"][$i]." and idDomaine=".CCAM_IDDOMAINE); 
@@ -3536,7 +3536,7 @@ function gestionEnvoiActeMTU ( ) {
 		$paramRq["numSejour"]           =   $this->nsej;
     $paramRq["type"]                =   "ACTE";
     $paramRq["Urgence"]             =   "O"; 
-    $paramRq["matriculeIntervenant"]=   $this->matriculeIntervenant; 
+    $paramRq["matriculeIntervenant"]=   addslashes($this->matriculeIntervenant);
     $paramRq["nomIntervenant"]      =   $this->nomIntervenant;
     $paramRq["numUFexec"]           =   $this->numUFexec;
     $paramRq["codeActe"]            =   $codeNGAPMTU["idActe"][0];
@@ -3710,7 +3710,7 @@ function gestionEnvoiActeATU ( ) {
         
         // Recherche du code adeli du médecin
         if ( $this->dest_attendue == "Sans avis médical" ) {
-      $paramModif["envoi_matriculeIntervenant"] = $options->getOption('SansAvisMedical_Medecin_ATU');
+      $paramModif["envoi_matriculeIntervenant"] = addslashes($options->getOption('SansAvisMedical_Medecin_ATU'));
       unset($param);
       $param[code]                              = $paramModif["envoi_matriculeIntervenant"] ;
       $param[idDomaine]                         = CCAM_IDDOMAINE;
@@ -3766,7 +3766,7 @@ function gestionEnvoiActeATU ( ) {
         $paramRq["Urgence"]             =   "O";
         
         if ( $this->dest_attendue == "Sans avis médical" ) {
-      $paramModif["envoi_matriculeIntervenant"] = $options->getOption('SansAvisMedical_Medecin_ATU');
+      $paramModif["envoi_matriculeIntervenant"] = addslashes($options->getOption('SansAvisMedical_Medecin_ATU'));
       unset($param);
       $param[code]                              = $paramModif["envoi_matriculeIntervenant"] ;
       $param[idDomaine]                         = CCAM_IDDOMAINE;
