@@ -336,7 +336,7 @@
 		<description>Ajout de l'option HprimXML_DateProduction</description>
 		<option_new>
 			<categorie>CCAM</categorie>
-			<cle>HprimXML_dateProduction</cle>
+			<cle>HprimXML_DateProduction</cle>
 			<libelle>Date et heure de production des fichiers HprimXML</libelle>
 			<type>combobox</type>
 			<choix>Normal|Heure médiane|Heure admission|Heure examen|Heure sortie</choix>
@@ -348,7 +348,7 @@
 		<description>Ajout de l'option HprimXML_DateVenue</description>
 		<option_new>
 			<categorie>CCAM</categorie>
-			<cle>HprimXML_dateVenue</cle>
+			<cle>HprimXML_DateVenue</cle>
 			<libelle>Date et heure de la venue du patient</libelle>
 			<type>combobox</type>
 			<choix>Normal|Heure médiane|Heure admission|Heure examen|Heure sortie</choix>
@@ -356,5 +356,24 @@
 		</option_new>
 	</update>
 
+   <update id="55">  <!-- Option a choix multiples  -->
+		<description>Ajout de l'option HprimXML_CodeMedecinInterv</description>
+		<option_new>
+			<categorie>CCAM</categorie>
+			<cle>HprimXML_CodeMedecinInterv</cle>
+			<libelle>Le type de code médecin utilisé dans le champs intervention/demande/medecin/code</libelle>
+			<type>combobox</type>
+			<choix>ADELI|ADELI9|NOMMED|NOMMED10|VIDE</choix>
+			<defaultValue>ADELI</defaultValue>
+		</option_new>
+	</update>
+
+    <update id="56">
+        <description>Mise à jour de l'option HprimXML_CodeMedecin</description>
+        <option_upd> <!-- toutes les balises suivantes sont optionnelles sauf <cle> -->
+            <cle>HprimXML_CodeMedecin</cle> <!-- l'update va se faire par rapport à cette clé -->
+            <choix>x|ADELI|ADELI9|NOMMED|VIDE</choix>
+        </option_upd>
+    </update>
 
 </updates>
