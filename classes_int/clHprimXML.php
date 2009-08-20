@@ -4,7 +4,7 @@
 // Auteur : Damien Borel <dborel@ch-hyeres.fr>
 // Date   : 14 mars 2008
 
-// Description : 
+// Description :
 // Gestion de la BAL HprimXML du terminal.
 
 class clHprimXML {
@@ -13,10 +13,10 @@ class clHprimXML {
   	function __construct ( ) {
 		 $this->mbtv2ToHxml ( ) ;
   	}
-  	
+
   	// On parcourt la table MBTV2 et on génère les fichiers Hprim XML.
   	function mbtv2ToHxml ( ) {
-      
+
       global $options ;
   		$req = new clResultQuery ( ) ;
   		$param['cw'] = "where etat='P' group by discr" ;
@@ -25,7 +25,7 @@ class clHprimXML {
      	if ( ! $options -> getOption ( 'EnvoiATU' ) ) $nonATU = " AND contenu NOT LIKE '%|ATU|%' " ; else $nonATU = "" ;
       for ( $i = 0 ; isset ( $res['ID'][$i] ) ; $i++ ) {
       //for ( $i = 0 ; $i < 10 ; $i++ ) {
-        
+
         // On récupère les actes NGAP et CCAM
         $param['cw'] = "where etat='P' AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i].$nonATU." order by type, ID" ;
 	     	$resccamngap = $req -> Execute ( "Fichier", "CCAM_getActesBAL", $param, "ResultQuery" ) ;
@@ -34,12 +34,12 @@ class clHprimXML {
         $param['cw'] = "where etat='P' AND type='DIAG' AND discr=".$res['DISCR'][$i]." order by ID" ;
 	     	$resdiag = $req -> Execute ( "Fichier", "CCAM_getActesBAL", $param, "ResultQuery" ) ;
 	     	$this->af .= "<h4>Génération des fichiers HprimXML</h4>" ;
-	     	
+
          for ( $j = 0 ; isset ( $resdiag['ID'][$j]) ; $j++ )	$this->createDiag ( $resdiag, $j ) ;
-	     	 
-          
+
+
           if ( $options -> getOption ( "HprimXML_EnvoiGroupe" ) ) {
-           
+
 				// debut specificité pour le ch-avignon par exemple on envoie les actes par intervenant
            		if ( $options -> getOption ( "HprimXML_EnvoiGroupeParIntervenant" ) ) {
                   // On envoie les actes par internant :  1 intervenant = 1 fichier
@@ -50,25 +50,25 @@ class clHprimXML {
                   //eko($res2);
                   if ( isset ( $temp2 ) ) unset($temp2);
            		    for ( $elephant = 0 ; $elephant < $res2["INDIC_SVC"][2] ; $elephant++ ) {
-                    
+
                     $temp = explode ("|",$res2["envoi_matriculeIntervenant"][$elephant]);
            		      if ($temp[1]) $temp2[$temp[1]] = $temp[1];
            		      else $temp2[$temp[0]] = $temp[0];
-                    	
-                    	
-                  } 
+
+
+                  }
                   //eko ($temp2);
-                  if ( is_array($temp2) ) 
+                  if ( is_array($temp2) )
                   	while ( list ( $key, $val ) = each ( $temp2 ) ) {
                     $param['cw'] = "where (contenu LIKE '%||".$val."|%' AND etat='P' AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i].") $nonATU order by type, ID" ;
 	              	  $resparintervenant = $req -> Execute ( "Fichier", "CCAM_getActesBAL", $param, "ResultQuery" ) ;
-	              	  
-	              	  
+
+
 	              	  $param['cw'] = "where (contenu LIKE '%||".$val."|%' AND (etat='P' or etat='W') AND ( type='CCAM' OR type='NGAP' ) AND discr=".$res['DISCR'][$i].") $nonATU order by ID asc" ;
 	              	  $resid = $req -> Execute ( "Fichier", "CCAM_getActesBAL", $param, "ResultQuery" ) ;
 	              	  //eko($resid);
                     //eko($resid["ID"][0]);
-                    
+
                     if ( $resparintervenant['INDIC_SVC'][2] )
                     	$this->createActes ( $resparintervenant, '', 1,$resid["ID"][0] ) ;
                     //eko($resparintervenant);
@@ -76,16 +76,16 @@ class clHprimXML {
 	              	}
               }
 			// fin specificité pour le ch-avignon par exemple on envoie les actes par intervenant
-              
-              
+
+
               else
                 // On envoie les actes groupés.
                 $this->createActes ( $resccamngap, '', 1 ) ;
-          } 
+          }
          else {
           // On envoie les actes dans un fichier séparés : 1 acte = 1 fichier
 	     		for ( $j = 0 ; isset ( $resccamngap['ID'][$j]) ; $j++ ) $this->createActes ( $resccamngap, $j ) ;
-	     	 }  	
+	     	 }
      	}
      	if ( $options->getOption ( 'HprimXML_4dir' ) ) {
         $this->launchFTP ( "ngapxml/" ) ;
@@ -96,7 +96,7 @@ class clHprimXML {
      	$this->af .= "<br/><br/>" ;
   }
 	///////////////////////////////////////////////////////////////////////////////
-  	
+
   	// Envoi des fichiers par FTP.
   	function launchFTP ( $rep='' ) {
   		global $options ;
@@ -105,7 +105,7 @@ class clHprimXML {
  		if ( $options->getOption ( 'HprimXML_FTPHost' ) ) {
   		$r = opendir ( 'hprim/xml/'.$rep ) ;
   		for ( $i = 0 ; ( ( $fic = readdir ( $r ) ) AND ( $i < 4 ) ) ; $i++ ) ;
-    	if ( $i == 4 ) {		
+    	if ( $i == 4 ) {
 	  		$this->af .= "Connexion au serveur FTP '".$options->getOption ( 'HprimXML_FTPHost' ).':'.$options->getOption ( 'HprimXML_FTPPort' )."' -> " ;
   			$con = ftp_connect ( $options->getOption ( 'HprimXML_FTPHost' ) ) ;
   			if ( ! $con ) {
@@ -145,7 +145,7 @@ class clHprimXML {
                                     $repd = $options->getOption ( 'HprimXML_FTPRepd' ) ;
 	  								$put1 = ftp_put ( $con, $repd.$key.".xml", 'hprim/xml/'.$rep.$key.'.xml', FTP_ASCII ) ;
 	  								$put2 = ftp_put ( $con, $repd.$key.".ok", 'hprim/xml/'.$rep.$key.'.ok', FTP_ASCII ) ;
-	  								
+
 	  								if ( ! $put1 OR ! $put2 ) {
 	  									$this->af .= "<font color='red'>KO</font><br/>" ;
 	  									$errs->addErreur ( 'HprimXML : Impossible d\'envoyer le fichier "'.$key.'.xml".' ) ;
@@ -161,7 +161,7 @@ class clHprimXML {
   			}
     	} else {
     		$this->af .= "Aucun fichier à traiter dans le répertoire 'hprim/xml/'.<br/>" ;
-    	} 
+    	}
  		}
   	}
 
@@ -186,7 +186,8 @@ class clHprimXML {
     else $mod -> MxText ( "attributsesa", "" ) ;
     if ( $options -> getOption ( 'HprimXML_EnvoiGroupeParIntervenant' ) ) {
       if ( $options->getOption ( 'HprimXML_EmetInterv' ) == 'ID' )
-      $emetti = $id+1;
+        $emetti = $id+1;
+      else $emetti = $res['DISCR'][$deb] ;
     }
     else {
       if ( $options->getOption ( 'HprimXML_EmetInterv' ) == 'ID' )
@@ -197,18 +198,18 @@ class clHprimXML {
         $emetti = $res['DISCR'][$deb] ;
     }
 
-		
-		
+
+
 		if ( $options -> getOption ( 'HprimXML_EnvoiGroupeParIntervenant' ) ) {
       		if ( $options->getOption ( 'HprimXML_EmetInterv' ) == 'ID' ) {
-        		$mod -> MxText ( 'identifiantMessage', $id ) ; 
+        		$mod -> MxText ( 'identifiantMessage', $id ) ;
         		//eko("avignon");
-        	} else $mod -> MxText ( 'identifiantMessage', $res['ID'][$deb] ) ; 
+        	} else $mod -> MxText ( 'identifiantMessage', $res['ID'][$deb] ) ;
     	} else {
-    		$mod -> MxText ( 'identifiantMessage', $res['ID'][$deb] ) ; 
+    		$mod -> MxText ( 'identifiantMessage', $res['ID'][$deb] ) ;
 		    // eko("reste");
-		}		  
-		  
+		}
+
 		$mod -> MxText ( 'codeEmetteur', ($options->getOption ( 'HprimXML_Emet' )?$options->getOption ( 'HprimXML_Emet' ):$res['DISCR'][$deb]) ) ;
 		$mod -> MxText ( 'codeDestinataire', $options->getOption ( 'HprimXML_Dest' ) ) ;
 		$mod -> MxText ( 'patientEmetteur', $idu ) ;
@@ -217,15 +218,15 @@ class clHprimXML {
 		$mod -> MxText ( 'patientNom', $nomu ) ;
 		$mod -> MxText ( 'patientPrenom', $pren ) ;
 
-		
+
     if ( $dtnai != "00/00/0000" )
 		  $mod -> MxText ( 'patientNaissance', $dtnai ) ;
 		else
 		  $mod -> MxText ( 'patientNaissance', "" ) ;
 		$pati = new clPatient ( $res['DISCR'][$deb], '' ) ;
         if ( ! $pati -> getID ( ) ) $pati = new clPatient ( $res['DISCR'][$deb], 'Sortis' ) ;
-        
-        
+
+
         //$pati -> debugInfos ( ) ;
         //eko ( "UUUUUUUUUUUUUUUUUUUUUUUUFFFFFFFFFFFFFFFFFF : ".$pati->getInformation('uf').' pour '.$pati->getDateNaissance() ) ;
         // Correction date foireuse module ccam
@@ -249,17 +250,17 @@ class clHprimXML {
         $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
         $hhdem = $datdema -> getDate ( 'H:i:s' ) ;
 
-		if ( $options->getOption('HprimXML_DateProduction') == 'Heure médiane' ) $date = $datemed ;
+		if ( $options->getOption('HprimXML_DateProduction') == 'Heure médiane' ) $date = $datmed ;
 		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure admission' ) $date = $datadmi ;
         elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure examen' ) $date = $datadmi ;
 		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure sortie' ) $date = $datsort ;
 		if ( $options -> getOption ( 'HprimXML_DateT' ) ) $mod -> MxText ( 'dateHeureProduction', $date -> getDate ( "Y-m-d\TH:i:s" ) ) ;
 		else $mod -> MxText ( 'dateHeureProduction', $date -> getDatetime ( ) ) ;
 
-        if ( $options->getOption('HprimXML_DateProduction') == 'Heure médiane' ) $dateve = $datemed ;
-		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure admission' ) $dateve = $datadmi ;
-        elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure examen' ) $dateve = $datadmi ;
-		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure sortie' ) $dateve = $datsort ;
+        if ( $options->getOption('HprimXML_DateVenue') == 'Heure médiane' ) $dateve = $datmed ;
+		elseif ( $options->getOption('HprimXML_DateVenue') == 'Heure admission' ) $dateve = $datadmi ;
+        elseif ( $options->getOption('HprimXML_DateVenue') == 'Heure examen' ) $dateve = $datadmi ;
+		elseif ( $options->getOption('HprimXML_DateVenue') == 'Heure sortie' ) $dateve = $datsort ;
 		else $dateve = $datdema ;
 
         $dtven = $dateve -> getDate ( 'Y-m-d' ) ;
@@ -295,13 +296,21 @@ class clHprimXML {
                 $ufr = $options -> getOption ( "HprimXML_UF" ) ;
                 $ufd = $options -> getOption ( "HprimXML_UF" ) ;
             }
-			if ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI' ) $codeade = $adeli; 
-      elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'NOMMED' ) $codeade = $nomumed;
-       elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI9' ) $codeade = sprintf('%09d',$adeli);
-      else $codeade = 'x' ;
+         if ( ! $this->adeliMedecin ) {
+            if ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'ADELI9' ) $this->adeliMedecin = '<code>'.sprintf('%09d',$adeli).'</code>' ;
+            elseif ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'NOMMED' ) $this->adeliMedecin = '<code>'.$nomumed.' '.$prenmed.'</code>' ;
+            elseif ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'NOMMED10' ) $this->adeliMedecin = '<code>'.substr($nomumed.' '.$prenmed, 0, 10 ).'</code>' ;
+      		  elseif ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'ADELI' ) $this->adeliMedecin = '<code>'.$adeli.'</code>' ;
+            else $this->adeliMedecin = '' ;
+         }
+			if ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI' ) $codeade = '<code>'.$adeli.'</code>' ;
+            elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'NOMMED' ) $codeade = '<code>'.$nomumed.'</code>' ;
+            elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI9' ) $codeade = '<code>'.sprintf('%09d',$adeli).'</code>' ;
+            elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'VIDE' ) $codeade = '' ;
+            else $codeade = '<code>'.'x'.'</code>' ;
             //eko ( "CODE MEDECIN : $codeade" ) ;
 			if ( $options -> getOption ( "HprimXML_ExecPrinc" ) ) $medExec = ' principal="oui"' ; else $medExec = '' ;
-			if ( $options->getOption ( 'HprimXML_StatutFT' ) ) $modStatut = ' statut="ft"' ; else $modStatut = '' ;	
+			if ( $options->getOption ( 'HprimXML_StatutFT' ) ) $modStatut = ' statut="ft"' ; else $modStatut = '' ;
 			if ( $action == 'creation' ) $action = utf8_encode ( 'création' ) ;
 			if ( $nuitjf == 'F' ) $isFerie = "oui" ; else $isFerie = "non" ;
 			if ( $nuitjf == 'N' ) $isNuit = '1t' ;
@@ -315,7 +324,7 @@ class clHprimXML {
         // Correction date foireuse module ccam
         $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
         $hhdem = $datdema -> getDate ( 'H:i:s' ) ;
-        
+
         if ( $type == 'NGAP' ) {
 				if ( $ngapl == 'MNO' AND $ageannees > 2 ) $erreurngap = 1 ;
 				if ( ! ( $ngapl == 'AMI' AND $factu == 'non' ) AND ! $erreurngap ) {
@@ -361,8 +370,10 @@ class clHprimXML {
 				$mod -> MxText ( 'actesccam.ccam.medecinNom', $nomumed ) ;
 				//$mod -> MxText ( 'actesccam.ccam.medecinUF', $ufr ) ;
                 $mod -> MxText ( 'actesccam.ccam.medecinUF', ($pati->getUF ()?$pati->getUF ():$ufr) ) ;
-				if ( $options -> getOption ( 'HprimXML_AssoNonVide' ) ) $asso = ($cdasso==''?1:$cdasso) ;
-				else $asso = $cdasso ;
+
+                //if ( $options -> getOption ( 'HprimXML_AssoNonVide' ) ) $asso = ($cdasso==''?1:$cdasso) ;
+				//else $asso = $cdasso ;
+                if ( $cdasso ) $asso = '<codeAssociationNonPrevue>'.$cdasso.'</codeAssociationNonPrevue>' ; else $asso = '' ;
 				$mod -> MxText ( 'actesccam.ccam.codeAssociationNonPrevue', $asso ) ;
               	$nbMod = 0 ;
               	for ( $k = 0 ; isset($tabm[$k]) ; $k++ ) {
@@ -370,11 +381,11 @@ class clHprimXML {
                 		$mod -> MxText ( 'actesccam.ccam.modificateur.modificateur', $tabm[$k] ) ;
                 		$mod -> MxText ( 'actesccam.ccam.modificateur.modStatut', $modStatut ) ;
                 		$mod -> MxBloc ( 'actesccam.ccam.modificateur', 'loop' ) ;
-                		$nbMod++ ;	
+                		$nbMod++ ;
                 	}
               	}
               	if ( $nbMod == 0 ) $mod -> MxBloc ( 'actesccam.ccam.modificateur', 'delete' ) ;
-	   			$mod -> MxBloc ( 'actesccam.ccam', 'loop' ) ;	   			
+	   			$mod -> MxBloc ( 'actesccam.ccam', 'loop' ) ;
 	   			$nbccam++ ;
 	   			$repfic = "ccamxml/" ;
 	   		}
@@ -396,16 +407,19 @@ class clHprimXML {
 	function createDiag ( $res, $i ) {
 		global $options ;
 		global $stopAffichage ;
-		
+
 		$tabActe = array ( ) ;
  		$tabActe = explode ( '|', XhamTools::sansAccent($res['CONTENU'][$i]) ) ;
 		$type  = $res['TYPE'][$i] ; $idpass = $tabActe[0]  ; $idu     = $tabActe[1]  ; $nomu  = $tabActe[2]  ; $pren   = $tabActe[3] ;
 		$sexe  = $tabActe[4]      ; $dtnai  = $tabActe[5]  ; $dtdem   = $tabActe[6]  ; $hhdem = $tabActe[7]  ; $action = $tabActe[9] ;
 		$idact = $tabActe[10]     ; $cdccam = $tabActe[11] ; $cddiags = $tabActe[12] ; $dtr   = $tabActe[15] ; $hhr    = $tabActe[16] ;
-		$adeli = $tabActe[19]     ; $ufr    = $tabActe[20] ;
-        if ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI9' ) $this->adeliMedecin = sprintf('%09d',$adeli);
-		else $this->adeliMedecin = $adeli ;
-    if ( $action == 'creation' ) $action = utf8_encode ( 'création' ) ;
+		$nomumed = $tabActe[17] ; $prenmed = $tabActe[18] ; $adeli = $tabActe[19]     ; $ufr    = $tabActe[20] ;
+        if ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'ADELI9' ) $this->adeliMedecin = sprintf('%09d',$adeli);
+        elseif ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'NOMMED' ) $this->adeliMedecin = $nomumed.' '.$prenmed ;
+        elseif ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'NOMMED10' ) $this->adeliMedecin = substr($nomumed.' '.$prenmed, 0, 10 ) ;
+		elseif ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'ADELI' ) $this->adeliMedecin = $adeli ;
+        else $this->adeliMedecin = '' ;
+        if ( $action == 'creation' ) $action = utf8_encode ( 'création' ) ;
 		$date = new clDate ( ) ;
 		if ( $options->getOption('HprimXML_NomFic') ) $nomFic = $options->getOption('HprimXML_NomFic').'_'.$res['ID'][$i].'' ;
 		else $nomFic = 'fic'.$options->getOption('HprimXML_ChaineFic').'TV2_'.$res['ID'][$i].'' ;
@@ -425,12 +439,29 @@ class clHprimXML {
             elseif ( $datadmi->getDatetime ( ) != '1999-12-31 00:00:00' ) $time = $datadmi->getTimestamp ( ) ;
             else $time = $datsort->getTimestamp ( ) ;
             $datdema = new clDate ( $time ) ;
+            $datmed = new clDate ( $time ) ;
             //eko ( $datadmi->getTimestamp ( ).' + '.$datsort->getTimestamp ( ).' = '.$time.' = '.$datdema -> getTimestamp ( ) ) ;
             //eko ( $datadmi->getDatetime ( ).' + '.$datsort->getDatetime ( ).' = '.$time.' = '.$datdema -> getDatetime ( ) ) ;
         }
         $dtdem = $datdema -> getDate ( 'Y-m-d' ) ;
         $hhdem = $datdema -> getDate ( 'H:i:s' ) ;
-        
+
+        if ( $options->getOption('HprimXML_DateProduction') == 'Heure médiane' ) $date = $datmed ;
+		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure admission' ) $date = $datadmi ;
+        elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure examen' ) $date = $datadmi ;
+		elseif ( $options->getOption('HprimXML_DateProduction') == 'Heure sortie' ) $date = $datsort ;
+		if ( $options -> getOption ( 'HprimXML_DateT' ) ) $mod -> MxText ( 'dateHeureProduction', $date -> getDate ( "Y-m-d\TH:i:s" ) ) ;
+		else $mod -> MxText ( 'dateHeureProduction', $date -> getDatetime ( ) ) ;
+
+        if ( $options->getOption('HprimXML_DateVenue') == 'Heure médiane' ) $dateve = $datmed ;
+		elseif ( $options->getOption('HprimXML_DateVenue') == 'Heure admission' ) $dateve = $datadmi ;
+        elseif ( $options->getOption('HprimXML_DateVenue') == 'Heure examen' ) $dateve = $datadmi ;
+		elseif ( $options->getOption('HprimXML_DateVenue') == 'Heure sortie' ) $dateve = $datsort ;
+		else $dateve = $datdema ;
+
+        $dtven = $dateve -> getDate ( 'Y-m-d' ) ;
+        $hhven = $dateve -> getDate ( 'H:i:s' ) ;
+
 		$mod = new ModeliXe ( "HprimXMLDiag.html" ) ;
     	$mod -> SetModeliXe ( ) ;
     	$mod -> MxText ( 'identifiantMessage', $res['ID'][$i] ) ;
@@ -443,15 +474,15 @@ class clHprimXML {
     	$mod -> MxText ( 'sexe', $sexe ) ;
     	$mod -> MxText ( 'patientNom', $nomu ) ;
     	$mod -> MxText ( 'patientPrenom', $pren ) ;
-    	
+
       if ( $dtnai != "00/00/0000" )
 		    $mod -> MxText ( 'patientNaissance', $dtnai ) ;
 		  else
 		    $mod -> MxText ( 'patientNaissance', "" ) ;
-		  
+
       $mod -> MxText ( 'venueRecepteur', $idpass ) ;
-    	$mod -> MxText ( 'venueDate', $dtdem ) ;
-    	$mod -> MxText ( 'venueHeure', $hhdem ) ;
+    	$mod -> MxText ( 'venueDate', $dtven ) ;
+    	$mod -> MxText ( 'venueHeure', $hhven ) ;
     	$mod -> MxText ( 'action', $action ) ;
     	$mod -> MxText ( 'rumEmetteur', $idpass ) ;
 		$mod -> MxText ( 'rumDate', $dtr ) ;
@@ -460,21 +491,21 @@ class clHprimXML {
         $mod -> MxText ( 'rumUF', ($pati->getUF ()?$pati->getUF ():$ufr) ) ;
     	$mod -> MxText ( 'rumUFDate', $dtdem ) ;
     	$mod -> MxText ( 'rumUFHeure', $hhdem ) ;
-    	
-    	
+
+
     	switch( $options->getOption ( 'HprimXML_CIM10_encodage' )) {
     		case 'alphanum' :
     			$cdccam = ereg_replace( "[^A-Za-z0-9]" , "" , $cdccam );
-    			break ;	
+    			break ;
     		case 'alphanumcross' :
     			$cdccam = ereg_replace( "[^A-Za-z0-9+]" , "" , $cdccam );
     			break ;
 		    default :
 		    	$cdccam = $cdccam ;
-		    	break ;	
+		    	break ;
     	}
 
-    			
+
     	$mod -> MxText ( 'cim10princ', $cdccam ) ;
     	$tabd = explode ( '~', $cddiags ) ;
         eko ( count ( $tabd ).' : '.$cddiags );
@@ -487,22 +518,22 @@ class clHprimXML {
         	switch( $options->getOption ( 'HprimXML_CIM10_encodage' )) {
     		case 'alphanum' :
     			$codeCim10sign = ereg_replace( "[^A-Za-z0-9]" , "" , $tabd[$i] );
-    			break ;	
+    			break ;
     		case 'alphanumcross' :
     			$codeCim10sign = ereg_replace( "[^A-Za-z0-9+]" , "" , $tabd[$i] );
     			break ;
 		    default :
 		    	$codeCim10sign = $tabd[$i] ;
-		    	break ;	
+		    	break ;
     		}
     		$mod -> MxText ( 'diagssign.diagsign.codeCim10sign',$codeCim10sign ) ;
     		$mod -> MxBloc ( 'diagssign.diagsign', 'loop' ) ;
         }
         if ( $options->getOption('HprimXML_NomFic') AND $options->getOption('HprimXML_NomModulo') ) $nomFic = $options->getOption('HprimXML_NomFic').sprintf('%03d',$res['ID'][$deb]%1000) ;
-    	
+
 		$this->genFile ( $mod -> MxWrite ( "1" ), $num, $nomFic, array(), "diagxml/" ) ;
 	}
-  	
+
   	function genFile ( $file, $num, $nomFic, $listeTraited=array(), $rep='' ) {
   	//eko($file);
   	  global $options ;
@@ -526,11 +557,11 @@ class clHprimXML {
       		$this->af .= '<font color="green">OK</font><br/>' ;
       	} else {
       		global $errs ;
-      		$errs -> addErreur ( 'Problème création pour ID='.$num ) ;	
+      		$errs -> addErreur ( 'Problème création pour ID='.$num ) ;
       		$this->af .= '<font color="red">KO</font><br/>' ;
       	}
   	}
-  	
+
 	// On marque un message de la table MBTV2 comme traité.
 	function mbtv2Traited ( $id, $dateT='' ) {
 		$date = new clDate ( $dateT ) ;
