@@ -317,7 +317,7 @@ class clOptions {
 	  $ris = $req -> addRecord ( ) ;
 	  break;
 	default:
-	  self::logCreate($option,$res) ;
+	  //self::logCreate($option,$res) ;
 	  $data['libelle']     = $option ;
 	  $data['description'] = "Classement de la liste des '$option'." ;
 	  $data['type']        = "combobox" ;
