@@ -611,7 +611,7 @@ static function getFinEnquete($idEnquete)
 				$trigger->exportRegularly();
 			}
 
-			clOptions::logEtatOptions() ;
+			//clOptions::logEtatOptions() ;
 		}
 	}
 	
