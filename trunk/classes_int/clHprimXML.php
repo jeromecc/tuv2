@@ -407,7 +407,8 @@ class clHprimXML {
 	function createDiag ( $res, $i ) {
 		global $options ;
 		global $stopAffichage ;
-
+		$mod = new ModeliXe ( "HprimXMLDiag.html" ) ;
+    	$mod -> SetModeliXe ( ) ;
 		$tabActe = array ( ) ;
  		$tabActe = explode ( '|', XhamTools::sansAccent($res['CONTENU'][$i]) ) ;
 		$type  = $res['TYPE'][$i] ; $idpass = $tabActe[0]  ; $idu     = $tabActe[1]  ; $nomu  = $tabActe[2]  ; $pren   = $tabActe[3] ;
@@ -462,8 +463,7 @@ class clHprimXML {
         $dtven = $dateve -> getDate ( 'Y-m-d' ) ;
         $hhven = $dateve -> getDate ( 'H:i:s' ) ;
 
-		$mod = new ModeliXe ( "HprimXMLDiag.html" ) ;
-    	$mod -> SetModeliXe ( ) ;
+
     	$mod -> MxText ( 'identifiantMessage', $res['ID'][$i] ) ;
     	if ( $options -> getOption ( 'HprimXML_DateT' ) ) $mod -> MxText ( 'dateHeureProduction', $date -> getDate ( "Y-m-d\TH:i:s" ) ) ;
 		else $mod -> MxText ( 'dateHeureProduction', $date -> getDatetime ( ) ) ;
