@@ -261,7 +261,7 @@ class clOptions {
     $param['cw'] = "WHERE libelle='".addslashes(stripslashes($option))."' AND idapplication=".IDAPPLICATION ;
     $req = new clResultQuery ;
     $res = $req -> Execute ( "Fichier", "getOptions", $param, "ResultQuery" ) ;  
-    if ( ! $res['INDIC_SVC'][2] ) {
+    if ( ! $res['INDIC_SVC'][2] AND ! $res['INDIC_SVC'][1] ) {
       if ( $complexe ) {
 	$data['libelle']     = $option ;
 	$data['description'] = "Classement de la liste '$option'." ;
