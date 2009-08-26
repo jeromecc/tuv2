@@ -376,4 +376,9 @@
         </option_upd>
     </update>
 
+    <update id="57" >
+        <description>Changement du libellé de la grippe A/H1N1 : Suspicion de Grippe A/H1N1 ou H1N1</description>
+        <ccam />
+    <update
+
 </updates>
