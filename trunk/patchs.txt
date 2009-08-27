@@ -4,6 +4,7 @@
 
 - Changement du libellé de la grippe A/H1N1 : "Grippe A/H1N1 ou H1N1" est 
   devenue "Suspicion de Grippe A/H1N1 ou H1N1".					(Damien Borel)
+- Ajout d'index sur la table formx.						(Damien Borel)
 
 ********************************************************************************************************
 **************************** 2009-08-24 11:00:00 : V 2.23.19 *******************************************
