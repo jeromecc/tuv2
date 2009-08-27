@@ -379,6 +379,16 @@
     <update id="57" >
         <description>Changement du libellé de la grippe A/H1N1 : Suspicion de Grippe A/H1N1 ou H1N1</description>
         <ccam />
-    <update
+    </update>
+        
+    <update id="58">
+        <description>Ajout d'un index sur la table formx</description>
+        <requete>ALTER TABLE `formx` ADD INDEX ( `ids` )</requete>
+    </update>
+
+    <update id="59">
+        <description>Ajout d'un index sur la table formx</description>
+        <requete>ALTER TABLE `formx` ADD INDEX ( `ids`, `status` )</requete>
+    </update>
 
 </updates>

@@ -312,7 +312,12 @@ class clHprimXML {
 			if ( $options -> getOption ( "HprimXML_ExecPrinc" ) ) $medExec = ' principal="oui"' ; else $medExec = '' ;
 			if ( $options->getOption ( 'HprimXML_StatutFT' ) ) $modStatut = ' statut="ft"' ; else $modStatut = '' ;
 			if ( $action == 'creation' ) $action = utf8_encode ( 'création' ) ;
-			if ( $nuitjf == 'F' ) $isFerie = "oui" ; else $isFerie = "non" ;
+			if ( $nuitjf == 'F' ) $isFerie = "oui" ; else {
+                // Encore une gestion supplémentaire d'un bug du module CACAM
+                if ( $type == 'NGAP' AND $datdema -> getDate ( 'w' )==6 AND $datdema -> getDate ( 'H' ) >= 8 ) {
+                    $isFerie = "oui" ;
+                } else $isFerie = "non" ;
+            }
 			if ( $nuitjf == 'N' ) $isNuit = '1t' ;
 			elseif ( $nuitjf == 'NM' ) $isNuit = '2t' ;
 			else $isNuit = 'non' ;
