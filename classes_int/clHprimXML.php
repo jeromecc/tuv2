@@ -338,7 +338,9 @@ class clHprimXML {
   					$mod -> MxText ( 'codeAdeliMedecin', $this->adeliMedecin ) ;
   					$mod -> MxText ( 'actesngap.ngap.action', $action ) ;
   					$mod -> MxText ( 'actesngap.ngap.facturable', $factu ) ;
+                    if ( $ngapl == 'C' AND isset ( $this->deqp[$pati->getID()]['U'] ) ) $isNuit = 'non' ;
   					$mod -> MxText ( 'actesngap.ngap.executionNuit', $isNuit ) ;
+  					if ( $ngapl == 'C' AND isset ( $this->deqp[$pati->getID()]['F'] ) ) $isFerie = 'non' ;
   					$mod -> MxText ( 'actesngap.ngap.executionDimancheJourFerie', $isFerie ) ;
   					$mod -> MxText ( 'actesngap.ngap.ngapEmetteur', $idact ) ;
   					$mod -> MxText ( 'actesngap.ngap.lettreCle', $ngapl ) ;
@@ -386,6 +388,12 @@ class clHprimXML {
                 		$mod -> MxText ( 'actesccam.ccam.modificateur.modificateur', $tabm[$k] ) ;
                 		$mod -> MxText ( 'actesccam.ccam.modificateur.modStatut', $modStatut ) ;
                 		$mod -> MxBloc ( 'actesccam.ccam.modificateur', 'loop' ) ;
+                        if ( $cdccam == 'DEQP003' ) {
+                            if ( $tabm[$k] == 'U' ) $this->deqp[$pati->getID()]['U'] = 1 ;
+                            if ( $tabm[$k] == 'P' ) $this->deqp[$pati->getID()]['U'] = 1 ;
+                            if ( $tabm[$k] == 'S' ) $this->deqp[$pati->getID()]['U'] = 1 ;
+                            if ( $tabm[$k] == 'F' ) $this->deqp[$pati->getID()]['F'] = 1 ;
+                        }
                 		$nbMod++ ;
                 	}
               	}
@@ -513,10 +521,10 @@ class clHprimXML {
 
     	$mod -> MxText ( 'cim10princ', $cdccam ) ;
     	$tabd = explode ( '~', $cddiags ) ;
-        eko ( count ( $tabd ).' : '.$cddiags );
+        //eko ( count ( $tabd ).' : '.$cddiags );
         if ( count ( $tabd ) < 1 OR $cddiags == '~' OR $cddiags == '' ) {
             //$mod -> MxBloc ( 'diagsign', 'replace', '<diagnosticSignificatif><codeCim10/></diagnosticSignificatif>' ) ;
-                    eko ( "ici" ) ;
+                    //eko ( "ici" ) ;
             $mod -> MxBloc ( 'diagssign', 'replace', ' ' ) ;
         }
         else for ( $i = 0 ; isset($tabd[$i]) ; $i++ ) {

@@ -546,6 +546,8 @@ class clDemandeBons {
 		    $pdf -> Rect ( 65, 130, 133, 7 ) ;
 		    $pdf -> Rect ( 65, 138, 133, 80 ) ;
 		    $pdf -> Rect ( 86, 219, 112, 7 ) ;
+
+            
 		}
 	    }
 	}
