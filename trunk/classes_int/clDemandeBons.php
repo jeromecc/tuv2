@@ -529,19 +529,87 @@ class clDemandeBons {
 
 		    // Spécialiste
 		    $pdf -> setx ( 65 ) ;
-		    $pdf -> SetY ( 255 );
+		    $pdf -> SetY ( 250 );
 		    $pdf -> SetFont ( 'times', 'b', 11 ) ;
 		    $pdf -> Cell ( 0, 0, "Spécialiste : ", 0, 1, L ) ;
 		    $pdf -> SetX ( 86 ) ;
 		    $pdf -> SetFont ( 'times', '', 11 ) ;
 		    $pdf -> Cell ( 0, 0, $r['Val_F_CS_Spe'][$i], 0, 1, L ) ;
 
+		    $pdf->Image(URLIMG . "pointillers_decoupe.png", 0, 233);
 		    // Cotation CCAM
-		    $pdf -> SetY ( 255 );
+		    $pdf -> SetY ( 250 );
 		    $pdf -> SetFont ( 'times', 'b', 11 ) ;
-		    $pdf -> Cell ( 65, 10, "Cotation CCAM : ", 0, 1, L ) ;
+		    $pdf -> Cell ( 55, 10, "Cotation CCAM : ", 0, 1, L ) ;
 
-		    $pdf -> Rect ( 97, 257, 101, 6 ) ;
+		    // test ajout coord patient
+		    $x_titre = 10;
+		    $y = 243;
+		    $pdf->SetY($y);
+		    $pdf->SetX($x_titre);
+		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
+		    $pdf -> Cell ( 88, 0, "Nom : ", 0, 1, L);
+		    $pdf -> SetFont ( 'times', '', 10 ) ;
+		    $pdf->SetX(21);
+		    $pdf->Cell(80,0, $r['Val_IDENT_NomPatient'][$i], 0, 1, L ) ;
+
+		    $pdf->SetY($y + 4);
+		    $pdf->SetX($x_titre);
+		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
+		    $pdf -> Cell ( 88, 0, "Prenom : ", 0, 1, L);
+		    $pdf -> SetFont ( 'times', '', 10 ) ;
+		    $pdf->SetX(25);
+		    $pdf->Cell(80,0, $r['Val_IDENT_PrenomPatient'][$i], 0, 1, L ) ;
+
+		    $pdf->SetY($y + 4*2);
+		    $pdf->SetX($x_titre);
+		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
+		    $pdf -> Cell ( 88, 0, "Né$e le : ", 0, 1, L);
+		    $pdf -> SetFont ( 'times', '', 10 ) ;
+		    $pdf->SetX(21);
+		    $pdf->Cell(80,0, $r['Val_IDENT_DateNPat2'][$i], 0, 1, L ) ;
+
+		    $pdf->SetY($y + 4*3);
+		    $pdf->SetX($x_titre);
+		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
+		    $pdf -> Cell ( 88, 0, "IPP : ", 0, 1, L);
+		    $pdf -> SetFont ( 'times', '', 10 ) ;
+		    $pdf->SetX(19);
+		    $pdf->Cell(80,0, $r['Val_IDENT_ILPPatient'][$i], 0, 1, L ) ;
+
+		    $pdf->SetY($y + 4*5);
+		    $pdf->SetX($x_titre);
+		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
+		    $pdf -> Cell ( 88, 0, "Motif : ", 0, 1, L);
+		    $pdf -> SetFont ( 'times', '', 10 ) ;
+		    $pdf->SetX(22);
+		    $pdf->Cell(80,0, $r['Val_F_CS_Motif'][$i], 0, 1, L ) ;
+
+		    $pdf->SetY($y + 4*6);
+		    $pdf->SetX($x_titre);
+		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
+		    $pdf -> Cell ( 88, 0, "Prescripteur : ", 0, 1, L);
+		    $pdf -> SetFont ( 'times', '', 10 ) ;
+		    $pdf->SetX(32);
+		    $pdf->Cell(80,0, $r['Val_F_CS_Nom_P'][$i], 0, 1, L ) ;
+
+		    $pdf->SetY($y + 4*7);
+		    $pdf->SetX($x_titre);
+		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
+		    $pdf -> Cell ( 88, 0, "Consultation : ", 0, 1, L);
+		    $pdf -> SetFont ( 'times', '', 10 ) ;
+		    $pdf->SetX(32);
+		    $pdf->Cell(80,0, $r['Val_F_CS_Con'][$i], 0, 1, L ) ;
+
+		    $pdf->SetY(237);
+		    $pdf->SetX(5);
+		    $pdf->Cell(0,0, "Partie à remettre au service financier");
+
+		    $pdf->SetY(229);
+		    $pdf->SetX(5);
+		    $pdf->Cell(0,0, "Partie à remettre au service demandeur");
+		   
+		    $pdf -> Rect ( 97, 257-5, 101, 6 )  ;
 
 		    $pdf -> Rect ( 65, 130, 133, 7 ) ;
 		    $pdf -> Rect ( 65, 138, 133, 80 ) ;
