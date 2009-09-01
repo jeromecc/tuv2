@@ -61,8 +61,8 @@ class clFichePatient {
     $this->table = $table ;
     $this->idpatient = $idpatient ;
     $listeMedCCAM = new clCCAMListesComplexes ( "ListeMédecins" ) ;
-    //$listeBilan = new clListes ( "ListesBilans" ) ;
-    //eko ( $listeBilan -> getListeItems ( 'Bilan Standard', 1, 0, '*AUCUNITEM*', 1 ) ) ; 
+    // $listeBilan = new clListes ( "ListesBilans" ) ;
+    // eko ( $listeBilan -> getListeItems ( 'Bilan Standard', 1, 0, '*AUCUNITEM*', 1 ) ) ;
     // En fonction de l'état actuel (sortie en cours, entrée, visualisation...), on initialise
     // l'attribut patient avec l'instanciation d'un objet de la classe clPatient.
     if ( ( $_POST['AnnulerSortie'] OR $_POST['AnnulerSortie_x'] ) AND $session -> getDroit ( $this->type."_EtatCivil", "d" ) ) {
@@ -922,8 +922,8 @@ class clFichePatient {
 			if ( $type == 'urg' ) $data['action'] = 'Annulation du passage en UF UHCD' ;
 			elseif ( $type == 'asc' ) $data['action'] = 'Annulation du passage en UF Soins Continus' ;
 			elseif ( $type == 'sc' ) $data['action'] = 'Passage en UF Soins Continus' ;
-			elseif ( $type == 'achir' ) $data['action'] = 'Annulation du passage en UF de Chirurgie (le nom du médecin ne commence pas par "Dr CHIR")' ;
-			elseif ( $type == 'chir' ) $data['action'] = 'Passage en UF de Chirurgie (le nom du médecin commence par "Dr CHIR")' ;
+			elseif ( $type == 'achir' ) $data['action'] = 'Annulation du passage en UF de Chirurgie.' ;
+			elseif ( $type == 'chir' ) $data['action'] = 'Passage en UF de Chirurgie' ;
 			elseif ( $type == 'uhcdrepere') $data['action'] = 'Passage en UF UHCD repéré' ;
 			elseif ( $type == 'anonrpu' ) $data['action'] = 'Annulation du passage en UF '.$options->getOption ( 'numUFnonRPU' ) ;
 			elseif ( $type == 'nonrpu' ) $data['action'] = 'Passage en UF '.$options->getOption ( 'numUFnonRPU' ) ;
