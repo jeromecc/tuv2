@@ -527,6 +527,21 @@ class clDemandeBons {
 		    $pdf -> SetFont ( 'times', 'b', 11 ) ;
 		    $pdf -> Cell ( 0, 10, "Signature : ", 0, 1, L ) ;
 
+
+		    $pdf -> SetFont ( 'times', '', 10 ) ;
+		    $pdf->SetY(229);
+		    $pdf->SetX(5);
+		    $pdf->Cell(0,0, "Partie à remettre au service demandeur");
+
+
+		    /*
+		     * PARTIE BASSE DU BON
+		     */
+		    $pdf->SetY(237);
+		    $pdf->SetX(5);
+		    $pdf->Cell(0,0, "Partie à remettre au service financier");
+		    $pdf->Image(URLIMG . "pointillers_decoupe.png", 0, 233);
+
 		    // Spécialiste
 		    $pdf -> setx ( 65 ) ;
 		    $pdf -> SetY ( 250 );
@@ -536,15 +551,27 @@ class clDemandeBons {
 		    $pdf -> SetFont ( 'times', '', 11 ) ;
 		    $pdf -> Cell ( 0, 0, $r['Val_F_CS_Spe'][$i], 0, 1, L ) ;
 
-		    $pdf->Image(URLIMG . "pointillers_decoupe.png", 0, 233);
 		    // Cotation CCAM
 		    $pdf -> SetY ( 250 );
 		    $pdf -> SetFont ( 'times', 'b', 11 ) ;
 		    $pdf -> Cell ( 55, 10, "Cotation CCAM : ", 0, 1, L ) ;
 
-		    // test ajout coord patient
+
+		    // affichage nom du service sur la partie basse du bon
+		    global $options ;
+		    global $tab ;
+		    reset ( $tab ) ;
+		    list ( $key, $service ) = each ( $tab ) ;
+		    $pdf -> setxy ( 66, 239 ) ;
+		    $pdf -> SetFont ( 'times', 'B', 12 ) ;
+		    list ( $key, $val ) = each ( $service ) ;
+		    $pdf -> Cell ( 132, 5, $val, 1, 2, C ) ;
+		    reset ( $service ) ;
+
+		    // affichage des infos patients
 		    $x_titre = 10;
 		    $y = 243;
+		    // nom
 		    $pdf->SetY($y);
 		    $pdf->SetX($x_titre);
 		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
@@ -553,6 +580,7 @@ class clDemandeBons {
 		    $pdf->SetX(21);
 		    $pdf->Cell(80,0, $r['Val_IDENT_NomPatient'][$i], 0, 1, L ) ;
 
+		    // prenom
 		    $pdf->SetY($y + 4);
 		    $pdf->SetX($x_titre);
 		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
@@ -561,6 +589,7 @@ class clDemandeBons {
 		    $pdf->SetX(25);
 		    $pdf->Cell(80,0, $r['Val_IDENT_PrenomPatient'][$i], 0, 1, L ) ;
 
+		    // date naissance
 		    $pdf->SetY($y + 4*2);
 		    $pdf->SetX($x_titre);
 		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
@@ -569,6 +598,7 @@ class clDemandeBons {
 		    $pdf->SetX(21);
 		    $pdf->Cell(80,0, $r['Val_IDENT_DateNPat2'][$i], 0, 1, L ) ;
 
+		    // ipp
 		    $pdf->SetY($y + 4*3);
 		    $pdf->SetX($x_titre);
 		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
@@ -577,6 +607,7 @@ class clDemandeBons {
 		    $pdf->SetX(19);
 		    $pdf->Cell(80,0, $r['Val_IDENT_ILPPatient'][$i], 0, 1, L ) ;
 
+		    // motif
 		    $pdf->SetY($y + 4*5);
 		    $pdf->SetX($x_titre);
 		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
@@ -585,6 +616,7 @@ class clDemandeBons {
 		    $pdf->SetX(22);
 		    $pdf->Cell(80,0, $r['Val_F_CS_Motif'][$i], 0, 1, L ) ;
 
+		    // prescripteur
 		    $pdf->SetY($y + 4*6);
 		    $pdf->SetX($x_titre);
 		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
@@ -593,6 +625,7 @@ class clDemandeBons {
 		    $pdf->SetX(32);
 		    $pdf->Cell(80,0, $r['Val_F_CS_Nom_P'][$i], 0, 1, L ) ;
 
+		    // consultation
 		    $pdf->SetY($y + 4*7);
 		    $pdf->SetX($x_titre);
 		    $pdf -> SetFont ( 'times', 'b', 10 ) ;
@@ -601,26 +634,14 @@ class clDemandeBons {
 		    $pdf->SetX(32);
 		    $pdf->Cell(80,0, $r['Val_F_CS_Con'][$i], 0, 1, L ) ;
 
-		    $pdf->SetY(237);
-		    $pdf->SetX(5);
-		    $pdf->Cell(0,0, "Partie à remettre au service financier");
-
-		    $pdf->SetY(229);
-		    $pdf->SetX(5);
-		    $pdf->Cell(0,0, "Partie à remettre au service demandeur");
-		   
+		    // divers rectangles dans la page
 		    $pdf -> Rect ( 97, 257-5, 101, 6 )  ;
-
 		    $pdf -> Rect ( 65, 130, 133, 7 ) ;
 		    $pdf -> Rect ( 65, 138, 133, 80 ) ;
 		    $pdf -> Rect ( 86, 219, 112, 7 ) ;
-
-            
 		}
 	    }
 	}
-
-
 	$pdf -> Output ( ) ;
     }
 
