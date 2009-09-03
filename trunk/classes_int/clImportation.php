@@ -22,6 +22,7 @@ class clImportation {
 	//appel de la tache planifiee enquetes	
 	clTuFormxTrigger::crontab();
     $this->type = $type ;
+    new clTbExport();
   }
 
   // Lancement de l'import automatique.
