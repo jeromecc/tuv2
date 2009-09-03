@@ -8,6 +8,7 @@ class clTbExport {
     private $af ="";
     // constructeur de la classe
     public function __construct() {
+	if ((TBKEY == "") || (TBURL == "") || (TBIDSITE == "")) return;
 	$xml = $this->getXML();
 	$a = $xml->saveXML($xml->documentElement);
 	$rep = XhamUpdater::sendPostData(TBURL, array('xml' => $a));
