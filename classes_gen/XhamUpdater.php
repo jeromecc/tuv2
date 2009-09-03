@@ -91,11 +91,25 @@ class XhamUpdater {
 	    if($contenuInitial) file_put_contents($file, $contenuInitial) ;
 	} else {
 	    chmod ($file,"u+rwx");
-	    if(  is_writable($file) ) {	print "<font color=\"green\">OK (droits changés)</font>" ;	if($contenuInitial) file_put_contents($file, $contenuInitial) ; return ; }
+	    if(  is_writable($file) ) {
+		print "<font color=\"green\">OK (droits changés)</font>" ;
+		if($contenuInitial) file_put_contents($file, $contenuInitial) ;
+		return ;
+	    }
 	    chmod ($file,"g+rwx");
-	    if(  is_writable($file) ) {	print "<font color=\"green\">OK (droits changés)</font>" ;	if($contenuInitial) file_put_contents($file, $contenuInitial) ; return ; }
+	    if(  is_writable($file) ) {
+		print "<font color=\"green\">OK (droits changés)</font>" ;
+		if($contenuInitial) file_put_contents($file, $contenuInitial) ;
+		return ;
+	    }
+
 	    chmod ($file,"o+rwx");
-	    if(  is_writable($file) ) {	print "<font color=\"green\">OK (droits changés)</font>" ;	if($contenuInitial) file_put_contents($file, $contenuInitial) ; return ; }
+	    if(  is_writable($file) ) {
+		print "<font color=\"green\">OK (droits changés)</font>" ;
+		if($contenuInitial) file_put_contents($file, $contenuInitial) ;
+		return ;
+	    }
+
 	    print "<font color=\"red\">KO</font>" ;
 	    die ;
 	}
@@ -577,9 +591,6 @@ MAJ DES PATCHS
     }
 
     static function updateTU() {
-	$f = fopen("/home/marion/testUp1.txt", "w+");
-	fwrite($f, "ok");
-	fclose($f);
 	$tabMatches = array();
 	preg_match('/_maj_(.*)_hash_(.*)_/', XhamUpdater::getUrlContents('http://www.orupaca.fr/ressources/tu/repository/last_version_'.BRANCHE.'.html?nocacheteweak='.rand(1,10000)),$tabMatches) ;
 	$lastVersion = $tabMatches[1];
@@ -595,8 +606,7 @@ MAJ DES PATCHS
 	    //print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
 
 	    $messageKo ='' ;
-	    while (!($hash == md5(file_get_contents($ficArchive)) ))
-	     {
+	    while (!($hash == md5(file_get_contents($ficArchive)) )) {
 		XhamUpdater::downloadFile('http://www.orupaca.fr/ressources/tu/repository/'.$nomFic, $ficArchive, $messageKo);
 
 	    }
@@ -607,6 +617,7 @@ MAJ DES PATCHS
 	return $lastVersion;
 
     }
+    
     static function rmdir_recurse($path) {
 	$result = true ;
 	$path= rtrim($path, '/').'/';

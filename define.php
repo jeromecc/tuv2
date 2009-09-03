@@ -38,10 +38,7 @@ if ( (string)$xml->baseformx )
 	define ( 'FX_BDD',      (string)$xml->baseformx ) ;
 else define ( 'FX_BDD', BDD ) ;
 
-if ( (string)$xml->uniqIdSiteInstallation )
-	define ( 'IDSITE',      (string)$xml->uniqIdSiteInstallation ) ;
-else
-	define ( 'IDSITE','0') ;
+
 
 if ( (string)$xml->branche )
 	define ( 'BRANCHE',      (string)$xml->branche ) ;
@@ -64,7 +61,15 @@ if ( (string)$xml->no_ccam_update )
     define ( 'NO_CCAM_UPDATE', true  ) ;
 else define ( 'NO_CCAM_UPDATE', false ) ;
 
+// TU
+if ( (string)$xml->tb_idSite ) define ( 'TBIDSITE', (string)$xml->tb_idSite ) ;
+else define ( 'TBIDSITE','') ;
 
+if ( (string)$xml->tb_keySite ) define ( 'TBKEYSITE', (string)$xml->tb_keySite ) ;
+else define ( 'TBKEYSITE','') ;
+
+if ( (string)$xml->tb_url ) define ( 'TBURL', (string)$xml->tb_url ) ;
+else define ( 'TBURL','') ;
 
 // Versions
 define ( 'CCAM_VERSION',"CCAM V16") ;
