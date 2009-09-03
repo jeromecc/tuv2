@@ -9,17 +9,11 @@ class clTbExport {
     // constructeur de la classe
     public function __construct() {
 	$xml = $this->getXML();
-	$xml->save("/home/marion/tu1.xml");
 	$a = $xml->saveXML($xml->documentElement);
-	$rep = XhamUpdater::sendPostData("http://tb.loc/listener.php", array('xml' => $a));
-	eko($rep);
-	$this->af = $rep;
-    //$this->af .= "recup post <br />";
-    	$this->traitementReponse($rep);
-    //$this->af .= "traitement rep <br />";
+	$rep = XhamUpdater::sendPostData(TBURL, array('xml' => $a));
+	$this->traitementReponse($rep);
     }
 
-    // fonction à supprimer quand tests en local seront terminés,
     // inutile pour l'envoi auto
     public function getAffichage() {
 	return $this->af;
@@ -33,9 +27,18 @@ class clTbExport {
 	if ($v = $root->getElementsByTagName("versionDemandee")) {
 	    $versionDemandee= $v->item(0)->nodeValue;
 	    if (($versionDemandee != "") && (version_compare($versionDemandee, $this->getVersion(), ">"))) {
-		$v = XhamUpdater::updateTU();
-		XhamUpdater::decompact($v);
-		XhamUpdater::applyPatchs(IDSITE);
+		if (! file_exists(URLLOCAL . "temp/maj.txt")) {
+
+		    $file = fopen(URLLOCAL . "temp/maj.txt" , "w+");
+		    fwrite($file, "a");
+		    fclose($file);
+
+		    $v = XhamUpdater::updateTU();
+		    XhamUpdater::decompact($v);
+		    XhamUpdater::applyPatchs(TBIDSITE);
+
+		    @unlink(URLLOCAL . "temp/maj.txt");
+		}
 	    }
 
 	}
@@ -44,7 +47,29 @@ class clTbExport {
 		$idEnq = $enquete->nodeValue;
 		$enq = new clTuFormxTrigger($idEnq);
 		$enq->start();
-	}}
+	    }
+	    
+	}
+
+	if ($tab_opt_change = $root->getElementsByTagName("delete_option")) {
+	    foreach ($tab_opt_change as $opt) {
+		$idOpt = $opt->getAttribute("id");
+		$valeur = $opt->nodeValue;
+		$obRequete = new clRequete(BASEXHAM, 'options', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
+		$requete = "DELETE FROM options WHERE idoption=".$idOpt;
+		$obRequete->exec_requete($requete);
+	    }
+	}
+	if ($tab_opt_change = $root->getElementsByTagName("change_option")) {
+	    foreach ($tab_opt_change as $opt) {
+		$idOpt = $opt->getAttribute("id");
+		$valeur = $opt->nodeValue;
+		$obRequete = new clRequete(BASEXHAM, 'options', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
+		$requete = "UPDATE options SET valeur='".$valeur."' WHERE idoption=".$idOpt;
+		$obRequete->exec_requete($requete);
+	    }
+	}
+	
     }
 
     // fonction permettant d'encoder en utf8 si ça ne l'est pas déjà
@@ -59,11 +84,15 @@ class clTbExport {
 	$xml->encoding = "UTF-8";
 	// création de la racine avec id du tu
 	$root = $this->createNoeud($xml, $xml, "tu");
-	$root->setAttribute("id",IDSITE);
+	$root->setAttribute("id",TBIDSITE);
+
+	$root_key = $this->createNoeud($xml, $root, "key");
+	$root_key->appendChild($xml->createTextNode(TBKEYSITE));
 
 	// noeud id serveur veille
 	$root_veille = $this->createNoeud($xml, $root, "idVeille");
-	$root_veille->appendChild($xml->createTextNode($this->encode($this->getIdVeille())));
+	$root_veille->appendChild($xml->createTextNode($this->encode($a)));
+
 
 	$root_date = $this->createNoeud($xml, $root, "date");
 	$root_date->appendChild($xml->createTextNode(date("c")));
@@ -169,23 +198,6 @@ class clTbExport {
 	    );
 	}
 
-
-	$tests_categ4 = $this->createCategTest($xml, $root_tests, "Vérification des répertoires");
-
-	$dirs = array(
-	    URLCACHE, URLDOCS, URLLOCAL.'hprim/', URLLOCAL.'hprim/ok/', URLLOCAL.'hprim/xml/',
-	    URLLOCAL.'rpu/', URLLOCAL.'rpu/ok/', URLLOCAL.'rpu/logs/', URLLOCAL.'var/',
-	    URLLOCAL.'var/maj/', URLLOCAL.'temp/', URLLOCAL.'var/dist/'
-	);
-	foreach ($dirs as $dir) {
-	    $this->createNoeudTest(
-		$xml, $tests_categ4,
-		"Test du droit d'écriture sur le dossier " . $dir,
-		clUpdater::testEcritureDossier($dir),
-		true
-	    );
-	}
-
 	$tests_categ5 = $this->createCategTest($xml, $root_tests, "Connexions aux bases");
 
 	$this->createNoeudTest(
@@ -218,7 +230,7 @@ class clTbExport {
 	$this->createNoeudTest(
 	    $xml, $tests_categ6,
 	    "Test de connexion FTP vers serveur de veille  (ftp://www.veille-arh-paca.com)",
-	    clUpdater::testDepotFTP($ftp_server, $ftp_user_name, $ftp_user_pass),
+	    @clUpdater::testDepotFTP($ftp_server, $ftp_user_name, $ftp_user_pass),
 	    true
 	);
 
@@ -227,6 +239,7 @@ class clTbExport {
 	    "Test de cryptage avec la clef publique ARH",
 	    clUpdater::clefARH(), true
 	);
+	$xml->save("/home/marion/verif.xml");
 	return $xml;
     }
 
@@ -248,6 +261,7 @@ class clTbExport {
 
     // fonction crééant un test dans une catégorie
     public function createNoeudTest($xml, $root, $s, $var, $msg=false) {
+	eko($var . " " . $s);
 	$noeud = $this->createNoeud($xml, $root, "test");
 	$name = $this->createNoeud($xml, $noeud, "name");
 
@@ -258,7 +272,8 @@ class clTbExport {
 	$value = $this->createNoeud($xml, $noeud, "value");
 	$value->appendChild($xml->createTextNode($valeur ? 1 : 0));
 
-	if (($msg) && ($var[1] != "")) {
+	if (($msg) && (!$valeur)){
+	    eko("erreur : " . $var[1]);
 	    $error = $this->createNoeud($xml, $noeud, "error");
 	    $error->appendChild($xml->createTextNode($this->encode($var[1])));
 	}
@@ -286,7 +301,7 @@ class clTbExport {
     // fonction retournant le nombre de patients présents
     public function getNbMedecins() {
 	$obRequete = new clRequete(BDD, 'patients_presents', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
-	$requete = "SELECT DISTINCT medecin_urgences AS c FROM `patients_presents` WHERE medecin_urgences IS NOT NULL AND medecin_urgences NOT LIKE '' AND medecin_urgences NOT LIKE '0' ";
+	$requete = "SELECT distinct count(medecin_urgences) AS c FROM `patients_presents` WHERE medecin_urgences IS NOT NULL AND medecin_urgences NOT LIKE '' AND medecin_urgences NOT LIKE '0' ";
 	$tabResult = $obRequete->exec_requete($requete, 'tab');
 	return $tabResult[0]['c'];
     }
@@ -299,11 +314,10 @@ class clTbExport {
 	return $tabResult[0]['valeur'];
     }
 
-
     // retourne un tableau de toutes les actions d'une catégorie avec leur id, leur libellé et leur valeur
     function getTabOptions($categ) {
 	$obRequete = new clRequete(BASEXHAM, 'options', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
-	$requete = "SELECT o.idoption, o.libelle, o.valeur FROM options o WHERE o.categorie='" . $categ . "'";
+	$requete = "SELECT o.idoption, o.libelle, o.valeur FROM options o WHERE o.categorie='" . $categ . "'and o.idapplication=".IDAPPLICATION;
 
 	$tabResult = $obRequete->exec_requete($requete, 'tab');
 	return $tabResult;

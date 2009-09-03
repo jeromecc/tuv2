@@ -14,7 +14,7 @@
     <gnupg/>
     <proxy/> <!-- titi:toto@192.168.2.100:8080 ou 192.168.2.100:8080 ou rien si connexion directe -->
     <http_download_client />   <!-- default : php .  xham , wget gerent les proxy , wget fait un appel externe -->
-    <uniqIdSiteInstallation/>
+    
     <branche>stable</branche>
 
 	<no_ccam_update /> <!-- empeche la mise a jour du ref ccam diags actes -->
@@ -25,4 +25,9 @@
     <erreursactives>1</erreursactives>
     <erreursfrom></erreursfrom>
     <erreursto></erreursto>
+
+    <tb_idSite /> <!-- donné par le tableau de bord, rien par défault -->
+    <tb_keySite /> <!-- donné par le tableau de bord, rien par défault -->
+    <tb_url /><!-- url de la page à laquelle envoyer le xml -->
+
 </config>
