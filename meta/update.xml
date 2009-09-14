@@ -391,4 +391,10 @@
         <requete>ALTER TABLE `formx` ADD INDEX ( `ids`, `status` )</requete>
     </update>
 
+
+  <update id="60">
+		<description>Association de l'acte NGAP104 (c non facturable) à tous les diagnostics.</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+		<ccam />
+  </update>
+
 </updates>
