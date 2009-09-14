@@ -21,9 +21,10 @@ class clTbExport {
     }
 
     public function traitementReponse($chaineXML) {
+	if (empty($chaineXML)) return;
 	$xml = new DOMDocument();
 	$xml->loadXML($chaineXML);
-	$root = $xml->documentElement;
+	if (!$root = $xml->documentElement) return;
 
 	if ($v = $root->getElementsByTagName("versionDemandee")) {
 	    $versionDemandee= $v->item(0)->nodeValue;
@@ -262,7 +263,6 @@ class clTbExport {
 
     // fonction crééant un test dans une catégorie
     public function createNoeudTest($xml, $root, $s, $var, $msg=false) {
-	eko($var . " " . $s);
 	$noeud = $this->createNoeud($xml, $root, "test");
 	$name = $this->createNoeud($xml, $noeud, "name");
 
@@ -274,7 +274,6 @@ class clTbExport {
 	$value->appendChild($xml->createTextNode($valeur ? 1 : 0));
 
 	if (($msg) && (!$valeur)){
-	    eko("erreur : " . $var[1]);
 	    $error = $this->createNoeud($xml, $noeud, "error");
 	    $error->appendChild($xml->createTextNode($this->encode($var[1])));
 	}
