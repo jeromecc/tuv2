@@ -32,6 +32,7 @@ cp -frL ${location}version.txt    ${locationtmp}
 cp -frL ${location}ajax.js    ${locationtmp}
 cp -frL ${location}default.htaccess    ${locationtmp}default.htaccess
 cp -frL ${location}scripts.js    ${locationtmp}
+cp -frL ${location}scripts.php    ${locationtmp}
 
 cp -frL ${location}extraction2008.php    ${locationtmp}
 cp -frL ${location}extraction2009.php    ${locationtmp}
