@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf8" standalone='yes'?>
+
+<!-- NE PAS METTRE D'ACCENTS DANS CE FICHIER -->
+
 <config>
     <adminlogin>admin</adminlogin>
     <adminpasswd>jambon</adminpasswd>
@@ -26,8 +29,8 @@
     <erreursfrom></erreursfrom>
     <erreursto></erreursto>
 
-    <tb_idSite /> <!-- donné par le tableau de bord, rien par défault -->
-    <tb_keySite /> <!-- donné par le tableau de bord, rien par défault -->
+    <tb_idSite /> <!-- donne par le tableau de bord, rien par default -->
+    <tb_keySite /> <!-- donne par le tableau de bord, rien par default -->
     <tb_url /><!-- url de la page à laquelle envoyer le xml -->
 
 </config>
