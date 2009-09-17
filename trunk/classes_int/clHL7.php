@@ -354,33 +354,33 @@ class clHL7 {
 				if ( $this->validUF ( $data['uf'] ) ) {
 					if ( ! defined ( "DOUBLESERVICE" ) OR ( $data['uf'] != UF2  AND $data['uf'] != UF3 AND $data['uf'] != UF4 AND $data['uf'] != UF5 ) ) {
 						if ( $ras['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD ) ;
+							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD, $ras ) ;
 						} elseif ( $rus['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PSORTIS, '', BDD ) ;
+							$this->majPatientHL7 ( $data, PSORTIS, '', BDD, $rus ) ;
 						} else $this->addPatientHL7 ( $data, PPRESENTS, BDD ) ;
 					} elseif ( $data['uf'] == UF2 ) {
 						if ( $ras['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD2 ) ;
+							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD2, $ras ) ;
 						} elseif ( $rus['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PSORTIS, '', BDD2 ) ;
+							$this->majPatientHL7 ( $data, PSORTIS, '', BDD2, $rus ) ;
 						} else $this->addPatientHL7 ( $data, PPRESENTS, BDD2 ) ;
 					} elseif ( $data['uf'] == UF3 ) {
 						if ( $ras['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD3 ) ;
+							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD3, $ras ) ;
 						} elseif ( $rus['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PSORTIS, '', BDD3 ) ;
+							$this->majPatientHL7 ( $data, PSORTIS, '', BDD3, $rus ) ;
 						} else $this->addPatientHL7 ( $data, PPRESENTS, BDD3 ) ;
 					} elseif ( $data['uf'] == UF4 ) {
 						if ( $ras['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD4 ) ;
+							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD4, $ras ) ;
 						} elseif ( $rus['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PSORTIS, '', BDD4 ) ;
+							$this->majPatientHL7 ( $data, PSORTIS, '', BDD4, $rus ) ;
 						} else $this->addPatientHL7 ( $data, PPRESENTS, BDD4 ) ;
 					} elseif ( $data['uf'] == UF5 ) {
 						if ( $ras['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD5 ) ;
+							$this->majPatientHL7 ( $data, PPRESENTS, '', BDD5, $ras ) ;
 						} elseif ( $rus['INDIC_SVC'][2] ) {
-							$this->majPatientHL7 ( $data, PSORTIS, '', BDD5 ) ;
+							$this->majPatientHL7 ( $data, PSORTIS, '', BDD5, $rus ) ;
 						} else $this->addPatientHL7 ( $data, PPRESENTS, BDD5 ) ;
 					}
 				} 
@@ -396,9 +396,9 @@ class clHL7 {
 						$param3['cw']    = "WHERE ilp='".$data['ilp']."'" ;
 						$rus             = $req -> Execute ( "Fichier", "getPatients", $param3, "ResultQuery", BDD ) ;
 						if ( $ras['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD ) ;
+	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD, $ras ) ;
 	            		} elseif ( $rus['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD ) ;
+	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD, $rus ) ;
 	            		}
 	            	} elseif ( $data['uf'] == UF2 ) {
 		            	// On vérifie que l'entrée n'existe pas déjà dans la table des patients présents.
@@ -410,9 +410,9 @@ class clHL7 {
 						$param3['cw']    = "WHERE ilp='".$data['ilp']."'" ;
 						$rus             = $req -> Execute ( "Fichier", "getPatients", $param3, "ResultQuery", BDD2 ) ;
 						if ( $ras['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD2 ) ;
+	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD2, $ras ) ;
 	            		} elseif ( $rus['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD2 ) ;
+	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD2, $rus ) ;
 	            		}            		
 	            	} elseif ( $data['uf'] == UF3 ) {
 		            	// On vérifie que l'entrée n'existe pas déjà dans la table des patients présents.
@@ -424,9 +424,9 @@ class clHL7 {
 						$param3['cw']    = "WHERE ilp='".$data['ilp']."'" ;
 						$rus             = $req -> Execute ( "Fichier", "getPatients", $param3, "ResultQuery", BDD3 ) ;
 						if ( $ras['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD3 ) ;
+	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD3, $ras ) ;
 	            		} elseif ( $rus['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD3 ) ;
+	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD3, $rus ) ;
 	            		}            		
 	            	} elseif ( $data['uf'] == UF4 ) {
 		            	// On vérifie que l'entrée n'existe pas déjà dans la table des patients présents.
@@ -438,9 +438,9 @@ class clHL7 {
 						$param3['cw']    = "WHERE ilp='".$data['ilp']."'" ;
 						$rus             = $req -> Execute ( "Fichier", "getPatients", $param3, "ResultQuery", BDD4 ) ;
 						if ( $ras['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD4 ) ;
+	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD4, $ras ) ;
 	            		} elseif ( $rus['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD4 ) ;
+	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD4, $rus ) ;
 	            		}            		
 	            	} elseif ( $data['uf'] == UF5 ) {
 		            	// On vérifie que l'entrée n'existe pas déjà dans la table des patients présents.
@@ -452,9 +452,9 @@ class clHL7 {
 						$param3['cw']    = "WHERE ilp='".$data['ilp']."'" ;
 						$rus             = $req -> Execute ( "Fichier", "getPatients", $param3, "ResultQuery", BDD5 ) ;
 						if ( $ras['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD5 ) ;
+	              			$this->majPatientHL7 ( $data, PPRESENTS, $data['ilp'], BDD5, $ras ) ;
 	            		} elseif ( $rus['INDIC_SVC'][2] ) {
-	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD5 ) ;
+	              			$this->majPatientHL7 ( $data, PSORTIS, $data['ilp'], BDD5, $rus ) ;
 	            		}            		
 	            	}
 	        	}
@@ -490,7 +490,7 @@ class clHL7 {
 	}
 
 	// Mise à jour des informations d'un patient dans une des tables du terminal (présents ou sortis).
-	function majPatientHL7 ( $data, $table, $ilp='', $base=BDD ) {
+	function majPatientHL7 ( $data, $table, $ilp='', $base=BDD, $res='' ) {
 		global $errs ;
 	
 		unset ( $data['uf'] ) ; 
@@ -503,7 +503,14 @@ class clHL7 {
 			$requete = new clRequete ( $base, $table, $data ) ;
 			$res = $requete->updRecord ( "ilp='".$data['ilp']."'" ) ;		
 		} elseif ( $data['nsej'] ) {
-			$requete = new clRequete ( $base, $table, $data ) ;
+            if ( $res['dt_sortie'][0] != '0000-00-00 00:00:00' ) {
+                $dates = new clDate ( $res['dt_sortie'][0] ) ;
+                $datea = new clDate ( $data['dt_admission'] ) ;
+                eko ( $data['dt_admission'] ) ;
+                if ( $datea->getTimestamp ( ) > $dates->getTimestamp ( ) ) unset ( $data['dt_admission'] ) ;
+                eko ( $data['dt_admission'] ) ;
+            }
+            $requete = new clRequete ( $base, $table, $data ) ;
 			$res = $requete->updRecord ( "nsej='".$data['nsej']."'" ) ;
 		}
 		if ( $ilp ) {

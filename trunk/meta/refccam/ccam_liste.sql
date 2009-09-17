@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Ven 07 Août 2009 à 08:20
+-- Généré le : Mer 26 Août 2009 à 11:12
 -- Version du serveur: 5.0.32
 -- Version de PHP: 5.2.0-8+etch13
 
@@ -682,8 +682,8 @@ INSERT INTO `ccam_liste` (`categorie`, `nomliste`, `nomitem`, `rang`, `code`, `i
 ('Diagnostics', 'ORL et Stomatologie', 'Epiglottite aigue', 22, 'J05.1', 1),
 ('Diagnostics', 'Pédiatrie', 'Infection voies aériennes supérieures SP', 74, 'J06.9', 1),
 ('Diagnostics', 'ORL et Stomatologie', 'Infection voies aériennes supérieures SP', 4, 'J06.9', 1),
-('Diagnostics', 'Infectiologie Générale Et Cutanée', 'Grippe causée par les virus A/H1N1 ou H5N1', 49, 'J09', 1),
-('Diagnostics', 'Pneumo', 'Grippe causée par les virus A/H1N1 ou H5N1', 24, 'J09', 1),
+('Diagnostics', 'Infectiologie Générale Et Cutanée', 'Suspicion de Grippe A/H1N1 ou H5N1', 49, 'J09', 1),
+('Diagnostics', 'Pneumo', 'Suspicion de Grippe A/H1N1 ou H5N1', 24, 'J09', 1),
 ('Diagnostics', 'Infectiologie Générale Et Cutanée', 'Grippe avec pneumopathie virus non identifié', 46, 'J11.0', 1),
 ('Diagnostics', 'Pneumo', 'Grippe avec pneumopathie virus non identifié', 23, 'J11.0', 1),
 ('Diagnostics', 'Pneumo', 'Grippe avec autres manif respi virus non identifié', 22, 'J11.1', 1),
