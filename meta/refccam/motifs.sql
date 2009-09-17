@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 13 Juillet 2009 à 15:05
+-- Généré le : Mer 26 Août 2009 à 11:13
 -- Version du serveur: 5.0.32
 -- Version de PHP: 5.2.0-8+etch13
 
@@ -18,6 +18,26 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Base de données: `terminurg_zxham`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `listes`
+--
+
+CREATE TABLE IF NOT EXISTS `listes` (
+  `iditem` int(5) NOT NULL auto_increment,
+  `idapplication` varchar(5) NOT NULL default '',
+  `categorie` varchar(32) NOT NULL default 'ListesGenerales',
+  `nomliste` varchar(64) NOT NULL default '',
+  `nomitem` varchar(64) NOT NULL default '',
+  `rang` int(3) NOT NULL default '1',
+  `code` varchar(16) NOT NULL default '',
+  `valide` int(1) NOT NULL default '1',
+  `localisation` char(1) NOT NULL default '',
+  `libre` varchar(64) NOT NULL,
+  PRIMARY KEY  (`iditem`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3170 ;
 
 --
 -- Contenu de la table `listes`
@@ -348,5 +368,5 @@ INSERT INTO `listes` (`idapplication`, `categorie`, `nomliste`, `nomitem`, `rang
 ('1', 'Recours', 'Traumatologie Poignet Main', 'Entorse/luxation', 1, 'S63', 1, '', ''),
 ('1', 'Recours', 'Traumatologie Coude Avant bras', 'Entorse/luxation', 1, 'S53', 1, '', ''),
 ('1', 'Recours', 'Uro-Néphrologie', 'INfection urinaire+fièvre', 1, 'N10', 1, '', ''),
-('1', 'Recours', 'Infectiologie Générale Et Cutanée', 'H1N1', 1, 'J09', 1, '', ''),
-('1', 'Recours', 'Pneumologie', 'H1N1', 1, 'J09', 1, '', '');
+('1', 'Recours', 'Infectiologie Générale Et Cutanée', 'Suspicion de Grippe A/H1N1 ou H5N1', 1, 'J09', 1, '', ''),
+('1', 'Recours', 'Pneumologie', 'Suspicion de Grippe A/H1N1 ou H5N1', 1, 'J09', 1, '', '');
