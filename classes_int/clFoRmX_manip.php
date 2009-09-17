@@ -287,8 +287,10 @@ class  clFoRmX_manip extends clFoRmX {
 	    if ( $options -> getOption ( "racBonRadio" ) )
 		$mod -> Mxattribut("racbonradio.newRadio","document.FoRmXcase.FormX_to_open_.value = 'Formulaire_Radio';document.FoRmXcase.FoRmX_selValid.value = 'on';document.FoRmXcase.FoRmX_selValid_x.value = 'on';document.FoRmXcase.ids.value = '".$this->ids."';document.FoRmXcase.submit();");
 	    else $mod -> MxBloc ( "racbonradio", "delete" ) ;
-	    if ( $options -> getOption ( "racBonLabo" ) )
-		$mod -> Mxattribut("racbonlabo.newLabo","document.FoRmXcase.FormX_to_open_.value = 'Formulaire_Bio';document.FoRmXcase.FoRmX_selValid.value = 'on';document.FoRmXcase.FoRmX_selValid_x.value = 'on';document.FoRmXcase.ids.value = '".$this->ids."';document.FoRmXcase.submit();");
+	    if ( $options -> getOption ( "racBonLabo" ) ){
+		$options->getOption("bio2009") ? $f = "Formulaire_Bio2009" : $f = "Formulaire_Bio";
+		$mod -> Mxattribut("racbonlabo.newLabo","document.FoRmXcase.FormX_to_open_.value = '" . $f . "';document.FoRmXcase.FoRmX_selValid.value = 'on';document.FoRmXcase.FoRmX_selValid_x.value = 'on';document.FoRmXcase.ids.value = '".$this->ids."';document.FoRmXcase.submit();");
+	    }
 	    else $mod -> MxBloc ( "racbonlabo", "delete" ) ;
 	    if ( $options -> getOption ( "racBonConSpe" ) )
 		$mod -> Mxattribut("racboncs.newCS","document.FoRmXcase.FormX_to_open_.value = 'Formulaire_Consultation_Specialisee';document.FoRmXcase.FoRmX_selValid.value = 'on';document.FoRmXcase.FoRmX_selValid_x.value = 'on';document.FoRmXcase.ids.value = '".$this->ids."';document.FoRmXcase.submit();");
