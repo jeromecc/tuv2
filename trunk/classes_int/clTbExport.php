@@ -29,17 +29,21 @@ class clTbExport {
 	if ($v = $root->getElementsByTagName("versionDemandee")) {
 	    $versionDemandee= $v->item(0)->nodeValue;
 	    if (($versionDemandee != "") && (version_compare($versionDemandee, $this->getVersion(), ">"))) {
+		if (file_exists(URLLOCAL . "temp/maj.txt")) {
+		    $var = substr(file_get_contents(URLLOCAL . "temp/maj.txt"), 0, -2);
+		    if (mktime(date('c')) - mkdite($var) > 15*60) unlink(URLLOCAL . "temp/maj.txt");
+		}
 		if (! file_exists(URLLOCAL . "temp/maj.txt")) {
 
 		    $file = fopen(URLLOCAL . "temp/maj.txt" , "w+");
 		    fwrite($file, "a");
 		    fclose($file);
-
+		    try{
 		    $v = XhamUpdater::updateTU();
 		    XhamUpdater::decompact($v);
 		    XhamUpdater::applyPatchs(TBIDSITE);
-
-		    @unlink(URLLOCAL . "temp/maj.txt");
+		    }catch(Exception $e){}
+		    unlink(URLLOCAL . "temp/maj.txt");
 		}
 	    }
 
@@ -50,7 +54,7 @@ class clTbExport {
 		$enq = new clTuFormxTrigger($idEnq);
 		$enq->start();
 	    }
-	    
+
 	}
 
 	if ($tab_opt_change = $root->getElementsByTagName("delete_option")) {
@@ -71,20 +75,20 @@ class clTbExport {
 		$obRequete->exec_requete($requete);
 	    }
 	}
-	
+
     }
 
-    // fonction permettant d'encoder en utf8 si ça ne l'est pas déjà
+    // fonction permettant d'encoder en utf8 si ?a ne l'est pas d?j?
     public function encode($s) {
 	if (utf8_encode(utf8_decode($s)) == $s) return $s;
 	else return utf8_encode($s);
     }
 
-    // fonction crééant le fichier xml à envoyer
+    // fonction cr??ant le fichier xml ? envoyer
     public function getXML() {
 	$xml = new DomDocument();
 	$xml->encoding = "UTF-8";
-	// création de la racine avec id du tu
+	// cr?ation de la racine avec id du tu
 	$root = $this->createNoeud($xml, $xml, "tu");
 	$root->setAttribute("id",TBIDSITE);
 
@@ -107,7 +111,7 @@ class clTbExport {
 	$root_nb_patients = $this->createNoeud($xml, $root, "nbPatients");
 	$root_nb_patients->appendChild($xml->createTextNode($this->encode($this->getNbPatients())));
 
-	// noeud nombre de médecins présents
+	// noeud nombre de m?decins pr?sents
 	$root_nb_medecins = $this->createNoeud($xml, $root, "nbMedecins");
 	$root_nb_medecins->appendChild($xml->createTextNode($this->encode($this->getNbMedecins())));
 
@@ -151,40 +155,40 @@ class clTbExport {
 
 	$tests_categ1 = $this->createCategTest($xml, $root_tests, "Configuration php basique");
 	$this->createNoeudTest($xml, $tests_categ1, "Test version de PHP > 5.1.0", clUpdater::checkPHPVersion('5.1.0'));
-	$this->createNoeudTest($xml, $tests_categ1, "Safe mode non activé", clUpdater::testSafeMode());
+	$this->createNoeudTest($xml, $tests_categ1, "Safe mode non activ?", clUpdater::testSafeMode());
 	$this->createNoeudTest(
 	    $xml, $tests_categ1,
-	    "Test de la désactivation de la limite temporelle d'exécution du script",
+	    "Test de la d?sactivation de la limite temporelle d'ex?cution du script",
 	    clUpdater::testLimiteTempo()
 	);
 	$this->createNoeudTest(
 	    $xml, $tests_categ1,
-	    "Test de l'augmentation de la mémoire allouée à 512M",
+	    "Test de l'augmentation de la m?moire allou?e ? 512M",
 	    clUpdater::testNoNoNoNoNoNoThereIsNoLimit("512M")
 	);
 
 
-	$tests_categ2 = $this->createCategTest($xml, $root_tests, "Modules php nécessaires");
+	$tests_categ2 = $this->createCategTest($xml, $root_tests, "Modules php n?cessaires");
 	$modules = array("soap", "xsl", "xml", "ftp", "mysql", "calendar", "gd", "zlib", "mbstring", "sockets");
 	foreach ($modules as $module) {
 	    $this->createNoeudTest(
 		$xml, $tests_categ2,
-		"Test de la présence du module PHP " . $module,
+		"Test de la pr?sence du module PHP " . $module,
 		clUpdater::testModule($module)
 	    );
 	}
 
-	$tests_categ3 = $this->createCategTest($xml, $root_tests, "Modules php pour fonctionalités étendues");
+	$tests_categ3 = $this->createCategTest($xml, $root_tests, "Modules php pour fonctionalit?s ?tendues");
 	$modules = array("curl", "openssl");
 	foreach ($modules as $module) {
 	    $this->createNoeudTest(
 		$xml, $tests_categ3,
-		"Test de la présence du module PHP " . $module,
+		"Test de la pr?sence du module PHP " . $module,
 		clUpdater::testModule($module)
 	    );
 	}
 
-	$tests_categ4 = $this->createCategTest($xml, $root_tests, "Vérification des répertoires");
+	$tests_categ4 = $this->createCategTest($xml, $root_tests, "V?rification des r?pertoires");
 
 	$dirs = array(
 	    URLCACHE, URLDOCS, URLLOCAL.'hprim/', URLLOCAL.'hprim/ok/', URLLOCAL.'hprim/xml/',
@@ -194,7 +198,7 @@ class clTbExport {
 	foreach ($dirs as $dir) {
 	    $this->createNoeudTest(
 		$xml, $tests_categ4,
-		"Test du droit d'écriture sur le dossier " . $dir,
+		"Test du droit d'?criture sur le dossier " . $dir,
 		clUpdater::testEcritureDossier($dir),
 		true
 	    );
@@ -212,13 +216,13 @@ class clTbExport {
 	foreach ($bases as $base) {
 	    $this->createNoeudTest(
 		$xml, $tests_categ5,
-		"Connexion à la base '" . $base . "'",
+		"Connexion ? la base '" . $base . "'",
 		mysql_select_db ( $base )
 	    );
 
 	    $this->createNoeudTest(
 		$xml, $tests_categ5,
-		"Test des privilèges CREATE ALTER DROP base '" . $base . "'",
+		"Test des privil?ges CREATE ALTER DROP base '" . $base . "'",
 		clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,$base)
 	    );
 	}
@@ -232,7 +236,7 @@ class clTbExport {
 	$this->createNoeudTest(
 	    $xml, $tests_categ6,
 	    "Test de connexion FTP vers serveur de veille  (ftp://www.veille-arh-paca.com)",
-	    @clUpdater::testDepotFTP($ftp_server, $ftp_user_name, $ftp_user_pass),
+	    clUpdater::testDepotFTP($ftp_server, $ftp_user_name, $ftp_user_pass),
 	    true
 	);
 
@@ -241,19 +245,18 @@ class clTbExport {
 	    "Test de cryptage avec la clef publique ARH",
 	    clUpdater::clefARH(), true
 	);
-	$xml->save("/home/marion/verif.xml");
 	return $xml;
     }
 
 
-    // fonction ajoutant un noeud à un autre noeud
+    // fonction ajoutant un noeud ? un autre noeud
     public function createNoeud($xml, $root, $s) {
 	$noeud = $xml->createElement($s);
 	$root->appendChild($noeud);
 	return $noeud;
     }
 
-    // fonction crééant une catégorie de tests
+    // fonction cr??ant une cat?gorie de tests
     public function createCategTest($xml, $root, $s) {
 	$noeud = $this->createNoeud($xml, $root, "categ");
 	$noeud->setAttribute("name", $this->encode($s));
@@ -261,7 +264,7 @@ class clTbExport {
     }
 
 
-    // fonction crééant un test dans une catégorie
+    // fonction cr??ant un test dans une cat?gorie
     public function createNoeudTest($xml, $root, $s, $var, $msg=false) {
 	$noeud = $this->createNoeud($xml, $root, "test");
 	$name = $this->createNoeud($xml, $noeud, "name");
@@ -290,7 +293,7 @@ class clTbExport {
 	return $v;
     }
 
-    // fonction retournant le nombre de patients présents
+    // fonction retournant le nombre de patients pr?sents
     public function getNbPatients() {
 	$obRequete = new clRequete(BDD, 'patients_presents', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
 	$requete = "SELECT count(*) AS c FROM `patients_presents` ";
@@ -298,7 +301,7 @@ class clTbExport {
 	return $tabResult[0]['c'];
     }
 
-    // fonction retournant le nombre de patients présents
+    // fonction retournant le nombre de patients pr?sents
     public function getNbMedecins() {
 	$obRequete = new clRequete(BDD, 'patients_presents', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
 	$requete = "SELECT distinct count(medecin_urgences) AS c FROM `patients_presents` WHERE medecin_urgences IS NOT NULL AND medecin_urgences NOT LIKE '' AND medecin_urgences NOT LIKE '0' ";
@@ -314,7 +317,7 @@ class clTbExport {
 	return $tabResult[0]['valeur'];
     }
 
-    // retourne un tableau de toutes les actions d'une catégorie avec leur id, leur libellé et leur valeur
+    // retourne un tableau de toutes les actions d'une cat?gorie avec leur id, leur libell? et leur valeur
     function getTabOptions($categ) {
 	$obRequete = new clRequete(BASEXHAM, 'options', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
 	$requete = "SELECT o.idoption, o.libelle, o.valeur FROM options o WHERE o.categorie='" . $categ . "'and o.idapplication=".IDAPPLICATION;
@@ -324,7 +327,7 @@ class clTbExport {
     }
 
 
-    // retourne un tableau des catégories d'options
+    // retourne un tableau des cat?gories d'options
     function getOptCateg() {
 	$obRequete = new clRequete(BASEXHAM, 'options', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
 	$requete = "SELECT DISTINCT o.categorie FROM options o WHERE idapplication=" . IDAPPLICATION ;
@@ -333,7 +336,7 @@ class clTbExport {
     }
 
 
-    // retourne un tableau  de toutes les enquêtes disponibles
+    // retourne un tableau  de toutes les enqu?tes disponibles
     function getEnquetes() {
 	$tabEnquetes = clTuFormxTrigger::getTriggers();
 	$tab = array();
