@@ -397,4 +397,9 @@
 		<ccam />
   </update>
 
+  <update id="61" >
+        <description>Mise à jour des recours et des diags</description>
+        <ccam />
+    </update>
+
 </updates>
