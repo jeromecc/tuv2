@@ -31,7 +31,7 @@ class clTbExport {
 	    if (($versionDemandee != "") && (version_compare($versionDemandee, $this->getVersion(), ">"))) {
 		if (file_exists(URLLOCAL . "temp/maj.txt")) {
 		    $var = substr(file_get_contents(URLLOCAL . "temp/maj.txt"), 0, -2);
-		    if (mktime(date('c')) - mkdite($var) > 15*60) unlink(URLLOCAL . "temp/maj.txt");
+		    if (mktime(date('c')) - mktime($var) > 15*60) unlink(URLLOCAL . "temp/maj.txt");
 		}
 		if (! file_exists(URLLOCAL . "temp/maj.txt")) {
 
