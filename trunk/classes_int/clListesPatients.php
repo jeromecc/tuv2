@@ -654,7 +654,7 @@ class clListesPatients {
 	$param['cw'] = "WHERE ids='".$res['idpatient'][$i]."'" ;
     $param['table'] = TABLENOTES ;
     $ras = $req -> Execute ( "Fichier", "getGenXHAM", $param, "ResultQuery" ) ;
-	if ( $ras['INDIC_SVC'][2] AND $ras['note'][0] ) {
+	if ( $ras['INDIC_SVC'][2] AND $ras['note'][0] AND $session->getDroit ( "Presents_Informations" ) ) {
 		global $pi ;
 		$item['obs'] .= "<img src=\"".URLIMGOBS."\" ".$pi->genInfoBulle ( $ras['note'][0] )." alt=\"Comm.\" />" ;
 	}
