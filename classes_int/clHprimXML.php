@@ -302,7 +302,7 @@ class clHprimXML {
             elseif ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'NOMMED10' ) $this->adeliMedecin = '<code>'.substr($nomumed.' '.$prenmed, 0, 10 ).'</code>' ;
       		  elseif ( $options -> getOption ( "HprimXML_CodeMedecinInterv" ) == 'ADELI' ) $this->adeliMedecin = '<code>'.$adeli.'</code>' ;
             else $this->adeliMedecin = '' ;
-         }
+         } elseif ( ! ereg ( '<code>', $this->adeliMedecin ) ) $this->adeliMedecin = '<code>'.$adeli.'</code>' ;
 			if ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI' ) $codeade = '<code>'.$adeli.'</code>' ;
             elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'NOMMED' ) $codeade = '<code>'.$nomumed.'</code>' ;
             elseif ( $options -> getOption ( "HprimXML_CodeMedecin" ) == 'ADELI9' ) $codeade = '<code>'.sprintf('%09d',$adeli).'</code>' ;
