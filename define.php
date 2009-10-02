@@ -71,6 +71,8 @@ else define ( 'TBKEYSITE','') ;
 if ( (string)$xml->tb_url ) define ( 'TBURL', (string)$xml->tb_url ) ;
 else define ( 'TBURL','') ;
 
+define( 'IDSITE',TBIDSITE );
+
 // Versions
 define ( 'CCAM_VERSION',"CCAM V16") ;
 define ( 'VERSIONAPPLICATION', file_get_contents( "version.txt" ) ) ;

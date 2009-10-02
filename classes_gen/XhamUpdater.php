@@ -332,12 +332,7 @@ MAJ DES PATCHS
 			    $p = MYSQL_XARH_PASS ;
 			    $b = MYSQL_XARH_BDD ;
 			}
-			 else if ($requete['base'] == 'formx' ) {
-			    $h = MYSQL_XARH_HOST ;
-			    $u = MYSQL_XARH_USER ;
-			    $p = MYSQL_XARH_PASS ;
-			    $b = FX_BDD ;
-			}
+D
 		if( $requete['file'] )
 		    self::execSqlFileFromConfig($h,$u,$p,$b,URLLOCAL.$requete['file']);
 		else
