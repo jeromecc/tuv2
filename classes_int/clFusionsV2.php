@@ -235,6 +235,15 @@ class clFusionsV2 {
 				$requete->delRecord ( "idpatient='".$auto."'" ) ;
 				$this->infos .= "Fusion du patient (".$res['sexe'][0].") ".ucfirst(strtolower($res['prenom'][0]))." ".strtoupper($res['nom'][0])." effectuée.<br />" ;
 
+
+
+                // Mise à jour de la table radios
+                $dataf['idpatient'] = $ras['idpatient'][0] ;
+                $requete = new clRequete ( BDD, 'radios', $dataf ) ;
+				// Exécution de la requete.
+				$requete->updRecord ( "idpatient='".$res['idpatient'][0]."'" ) ;
+
+                unset ($dataf) ;
                 // Mise à jour de la table formx : FX_BDD
                 $dataf['ids'] = $res['idu'][0] ;
                 $requete = new clRequete ( FX_BDD, 'formx', $dataf ) ;
