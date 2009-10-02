@@ -44,7 +44,28 @@ class clGestFormxTriggers
 
     static public function genTabinfoIdPassage($idPassage)
     {
-        return clPatient::getObjPatientFromIdPassage($idPassage)->getMiniExport() ;
+	$patient = clPatient::getObjPatientFromIdPassage($idPassage);
+
+	if( $patient )
+	{
+	    $ret = $patient->getMiniExport() ;
+	}
+	else
+	{
+	    $ret = array() ;
+	    $ret['sexe'] = '';
+	    $ret['date_naissance'] = '';
+	    $ret['provenance'] = '';
+	    $ret['adresseur'] = '';
+	    $ret['mode_arrivee'] = '';
+	    $ret['date_admission'] = '';
+	    $ret['DateExamen'] = '';
+	    $ret['CodeDiagnostic'] = '';
+	    $ret['TypeDestAttendue'] = '';
+	    $ret['mode_admission'] ='patient_supprime';
+	    $ret['DateSortie'] = '' ;
+	}
+        return $ret ;
     }
     
 
