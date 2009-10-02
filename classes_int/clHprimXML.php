@@ -314,7 +314,7 @@ class clHprimXML {
 			if ( $action == 'creation' ) $action = utf8_encode ( 'création' ) ;
 			if ( $nuitjf == 'F' ) $isFerie = "oui" ; else {
                 // Encore une gestion supplémentaire d'un bug du module CACAM
-                if ( $type == 'NGAP' AND $datdema -> getDate ( 'w' )==6 AND $datdema -> getDate ( 'H' ) >= 8 ) {
+                if ( $type == 'NGAP' AND $ngapl == 'AMI' AND $datdema -> getDate ( 'w' )==6 AND $datdema -> getDate ( 'H' ) >= 8 ) {
                     $isFerie = "oui" ;
                 } else $isFerie = "non" ;
             }
