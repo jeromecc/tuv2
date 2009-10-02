@@ -84,6 +84,8 @@ AND CONTENU LIKE '%$mode%'  " ;
 		$options = array() ;
 		$options['cols'] = array(
 			'idpatient',
+			'nom',
+			'prenom',
 			'sexe',
 			'dt_naissance',
 			'adresse_cp',
