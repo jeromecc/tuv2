@@ -381,14 +381,14 @@
         <ccam />
     </update>
         
-    <update id="58" base="formx" >
+    <update id="58"  >
         <description>Ajout d'un index sur la table formx</description>
-        <requete>ALTER TABLE `formx` ADD INDEX ( `ids` )</requete>
+        <requete base="formx" >ALTER TABLE `formx` ADD INDEX ( `ids` )</requete>
     </update>
 
-    <update id="59" base="formx">
+    <update id="59" >
         <description>Ajout d'un index sur la table formx</description>
-        <requete>ALTER TABLE `formx` ADD INDEX ( `ids`, `status` )</requete>
+        <requete base="formx">ALTER TABLE `formx` ADD INDEX ( `ids`, `status` )</requete>
     </update>
 
 
