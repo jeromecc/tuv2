@@ -371,12 +371,8 @@ MAJ DES PATCHS
 	    //enregistrement
 	    $tabUpdateOk[] = $update['id'];
 	    file_put_contents(URLLOCAL.$varRelFic,implode(',',$tabUpdateOk));
-	}
-
-
-
-
-
+	 }
+      }
     }
 
     static function genResultQueryConfigFile($file,$host,$base,$user,$pass) {

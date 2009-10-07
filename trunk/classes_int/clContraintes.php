@@ -123,9 +123,8 @@ class clContraintes {
 		}
   	}
   }
-  
-  
-  
+
+
   function checkCora ( ) {
 	global $options ;  
     if ( $options -> getOption ( "SaisieActeObligatoire" ) AND $options -> getOption ( 'ActiverCORAModuleActes' ) ) {

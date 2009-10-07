@@ -239,6 +239,49 @@ class XhamRequete {
 			$res2['INDIC_SVC']=$INDIC_SVC;
 			return $res2 ;
 		}
+
+
+		if( $format == 'csvfile') {
+			$isFirstLigne = true ;
+			$file = $options['file'];
+			$separator = $options['separator'];
+			$separatorField = $options['fieldSeparator'];
+			$hfile = fopen($file,'w');
+			while ( $r = @mysql_fetch_array ( $res,MYSQL_ASSOC) ) {
+				if($isFirstLigne)
+				{
+					fwrite($hfile,$separatorField.implode($separatorField.$separator.$separatorField, array_keys($r)).$separatorField."\n");
+					$isFirstLigne = false ;
+					continue ;
+				}
+				if( isset($options['customFuncs']))
+				{
+				    $cleanRow = array();
+				    foreach( $r as $key => $value)
+				    {
+					if(isset($options['customFuncs'][$key]))
+					{
+					    $cleanRow[$key] = call_user_func($options['customFuncs'][$key], $value);
+					}
+					else
+					{
+					    $cleanRow[$key] = $value ;
+					}
+				    }
+				}
+				else
+				{
+				    $cleanRow = $r ;
+				}
+				fwrite($hfile,$separatorField.implode($separatorField.$separator.$separatorField,$cleanRow).$separatorField."\n");
+			}
+			//call_user_func_array($function, $param_arr)
+			fclose($hfile);
+			return true ;
+		}
+
+
+
 		$res2 = array();
 		while ( $r = mysql_fetch_array ( $res,MYSQL_ASSOC) ) {
 		  	$res2[] = $r ;

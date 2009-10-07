@@ -205,6 +205,9 @@ class clPatient {
       $ret['TypeDestAttendue'] = $this->getTypeDestination();
       $ret['mode_admission'] = $this->getTypeAdmission();
       $ret['DateSortie'] = $this->getDateSortie();
+      
+
+
       return $ret ;
   }
 
