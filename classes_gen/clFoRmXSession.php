@@ -31,15 +31,31 @@ class clFoRmXSession {
  	return $formxSession ;
   }
  
- function getObjRequete($data='') {
- 	if(defined("VERSIONXHAM") && VERSIONXHAM == "2" ) return new XhamRequete($this->baseInstances, $this->tableInstances , $data);
- 	return new clRequete($this->baseInstances, $this->tableInstances , $data);
+ function getObjRequete($data='',$base='',$table='') {
+	if( !$table ) $table = $this->tableInstances ;
+	if( !$base ) $base = $this->baseInstances ;
+ 	if(defined("VERSIONXHAM") && VERSIONXHAM == "2" ) return new XhamRequete($base, $table , $data);
+ 	return new clRequete($base, $table , $data);
  }
 
  function getObjRequeteGlobals($data='') {
  	if(defined("VERSIONXHAM") && VERSIONXHAM == "2" ) return new XhamRequete($this->baseInstances, $this->tableVariables , $data);
  	return new clRequete($this->baseInstances, $this->tableVariables , $data);
  }
+
+ function getObjResultQuery()
+ {
+     if ( defined("VERSIONXHAM") && VERSIONXHAM == "2" )
+     {
+	 $rq = new XhamQuery() ;
+     }
+     else
+     {
+	 $rq = new clResultQuery() ;
+     }
+     return $rq;
+ }
+
  
  function setDefaultEnv() {
  	$this->tableInstances = defined('FX_INSTANCES')?FX_INSTANCES:FX_TABLEFORMX ;

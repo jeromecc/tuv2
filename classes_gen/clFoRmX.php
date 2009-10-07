@@ -219,8 +219,19 @@ class  clFoRmX {
   $this->setListes();
   $this->setMultiselectsize();
   $this->setDefrows();
-  $this->instanciedsOptions=$options;
- 
+  if( is_array($options))
+  {
+    if(isset($options['idContexte']))
+    {
+	$this->idContexte = $options['idContexte'];
+
+    }
+    $options = '';
+  }
+  else
+  {
+    $this->instanciedsOptions=$options;
+  }
  $this->ImustDisapear = false ;
 
   $this->debug("chargement de l'objet session");
@@ -271,8 +282,28 @@ class  clFoRmX {
  
   }
   
-  
-  
+  /**
+   *
+   * @return clFoRmXSession
+   */
+  function getSession()
+  {
+    return $this->session ;
+  }
+
+  function getIdContexte()
+  {
+      if( isset($this->idContexte) )
+      {
+	    return $this->idContexte ;
+      }
+      else
+      {
+	  return '' ;
+      }
+  }
+
+
   
   //instanciation des variables privées lors de la construction
    function setTypes() {$this->types=array('TXT','LONGTXT','CAL','SLIDER','LISTE','LISTEDYN','RO','RADIO','CHECK','LISTEN','TAB','FILE'); }
@@ -510,7 +541,7 @@ function getRootDom()
   
  
 
-  $req = new clResultQuery ;
+  $req = $this->getSession()->getObjResultQuery() ;
   $param['table']=$this->session->tableInstances;
   $param['cw']="WHERE id_instance = '$id_instance'";
   $res = $req -> Execute ( "Fichier", "FX_getGen", $param, "ResultQuery" ) ;
@@ -575,7 +606,7 @@ function getRootDom()
   /*initialise l'instance d'un formulaire 
   ids : identifiant de sujet (99 fois sur 100 l'idu)
   elle va être stockée dans la base de donnée récipient (voir constructeur) et aura un champ unique : id_instance   */
-  function initInstance($ids='',$idformx='',$titre='') {
+  function initInstance($ids='',$idformx='',$titre='',$idContexte='') {
   	global $formxSession ;
   	if(! $ids) $ids = $this->ids ;
 	if(! $idformx) $idformx = $this->idformx ;
@@ -584,6 +615,8 @@ function getRootDom()
 	if(! $titre) $titre = $this->supprMP( utf8_decode($this->XMLDOM->documentElement->getElementsByTagName('Libelle')->item(0)->nodeValue) );
 	$vals = array();
 	$vals['ids']=$ids;
+	if($idContexte) $vals['id_contexte']=$idContexte;
+	else if( $this->getIdContexte() ) $vals['id_contexte'] = $this->getIdContexte();
 	$vals['dt_creation']=date("Y-m-d H:i:s");
 	$vals['dt_modif']=date("Y-m-d H:i:s");
 	//$vals['idformx']=$this->XMLCore[id];
@@ -1560,7 +1593,7 @@ public  function getAndCloseState() {
 				$dataa[iduser] = $formxSession->getUser ( ) ;
 				$dataa[date] = $date->getDatetime ( ) ;
 				$sel[$i] = $dataa[iddocument] ;
-				$requetee = new clRequete ( BDD, DOCSEDITES, $dataa ) ;
+				$requetee = $this->getSession()->getObjRequete($dataa, BDD, DOCSEDITES);
 				$requetee->addRecord ( ) ;
 				unset($dataa);
 				$rep = $date->getYear()."/".$date->getMonthNumber()."/";
@@ -2164,7 +2197,7 @@ $reg=array();
 			if( ereg(".*type:([^;]*);.*",$item->getAttribute('linkDBCol'),$reg) ) { $type =  $reg[1] ; }
 			else {
 				//sinon on regarde si il existe déja
-					$requete=new clRequete ($db, $table);
+					$requete= $this->getSession()->getObjRequete('',$db, $table);
 					$desc = $requete->descTable();
 					if( isset($desc[$field]))
 						$type=$desc[$field][1]."(".$desc[$field][0].")";
@@ -2210,10 +2243,10 @@ $reg=array();
 				}
 			$data[$field]=$val;
 			$data[$keycol]=$keyval;
-			$requete=new clRequete ( $db, $table ) ;
+			$requete= $this->getSession()->getObjRequete('',$db, $table);
 			$requete->testAndMakeCol($field,$type);
 			//rechargement de la classe pour traitement des donnes data avec la colonne cette fois
-			$requete=new clRequete ( $db,$table,$data) ;
+			$requete = $this->getSession()->getObjRequete($data, $db, $table);
 			$resu = $requete->uoiRecord ($key) ;
 	
  	} 
@@ -3898,10 +3931,7 @@ function getAffichage($mode='') {
 	return $this->miseEnPage($mode,$this->af);
 }
 
-private function getSession()
-{
-	return $this->session  ;
-}
+
 
 
 function getAuthor() {
