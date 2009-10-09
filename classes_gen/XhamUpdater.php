@@ -332,11 +332,11 @@ MAJ DES PATCHS
 			    $p = MYSQL_XARH_PASS ;
 			    $b = MYSQL_XARH_BDD ;
 		} else if ($requete['base'] == 'formx' ) {
-			    $h = MYSQL_XARH_HOST ;
-			    $u = MYSQL_XARH_USER ;
-			    $p = MYSQL_XARH_PASS ;
+			    $h = MYSQL_HOST ;
+			    $u = MYSQL_USER ;
+			    $p = MYSQL_PASS ;
 			    $b = FX_BDD ;
-
+		}
 		if( $requete['file'] )
 		    self::execSqlFileFromConfig($h,$u,$p,$b,URLLOCAL.$requete['file']);
 		else
@@ -346,6 +346,7 @@ MAJ DES PATCHS
 	    //ccam ( spécifique tuv2 )
 	    //mise à jour CCAM
 	    if( ! defined('NO_CCAM_UPDATE') || !  NO_CCAM_UPDATE)
+	    {
 		foreach($update->ccam as $ccam ) {
 		    if( ! $isCcamUpdated ) {
 			$h = MYSQL_HOST ;
@@ -367,13 +368,16 @@ MAJ DES PATCHS
 			$isCcamUpdated = true ;
 		    }
 		}
+	    }
 
 	    //enregistrement
 	    $tabUpdateOk[] = $update['id'];
 	    file_put_contents(URLLOCAL.$varRelFic,implode(',',$tabUpdateOk));
 	 }
       }
-    }
+
+
+
 
     static function genResultQueryConfigFile($file,$host,$base,$user,$pass) {
 	$dom      = new DOMDocument ( '1.0', 'utf8' ) ;
