@@ -21,6 +21,7 @@
 	<ITEM id="is_ok_enquete" type="RADIO" onChangeSubmit='y' oblig="y">
             <Libelle>2. Acceptez-vous de répondre à cette enquête ?</Libelle>
             <FromList>list:Oui|Non</FromList>
+	    <FromListLibelles>list:Oui, j'accepte de participer à ce travail régional|Non</FromListLibelles>
 	     <Cond  type="rempli" oblig="y" itemCible="is_transfusion" />
         </ITEM>
 
@@ -57,37 +58,27 @@
         <ITEM id="is_responsabilite" type="RADIO"  >
             <Libelle>4a. Le prescripteur a-t-il transfusé la première poche ?</Libelle>
             <FromList>list:Oui|Non|Je ne sais pas</FromList>
-	    <ShowItemsOnVal>
-                <ListIdItems>list:heure_premiere_poche</ListIdItems>
-                <OnVal>const:Oui</OnVal>
-	    </ShowItemsOnVal>
         </ITEM>
 
 	<ITEM id="heure_premiere_poche" type="RADIO"  >
-            <Libelle>4b. A quelle heure a été passée la première poche ?</Libelle>
+            <Libelle>5. A quelle heure a été passée la première poche ?</Libelle>
             <FromList>list:0H-8H|8H-16H|16H-24H|Je ne sais pas</FromList>
              <FromList>list:0H-8H|8H-16H|16H-24H|Plus de 24 H après la prescription|Je ne sais pas</FromList>
-        </ITEM>
-
-	<ITEM id="motif_transfu_urg" type="CHECK"  >
-            <Libelle>4c. Motif de la transfusion aux urgences</Libelle>
-            <FromList>list:Déchoquage en cours|Pas de place dans les services|Pas de médecin dans les services|Organisation de l'ES|Il fallait bien que quelqu'un le fasse et ça arrangeait tout de monde.</FromList>
-        </ITEM>
-
-	 <ITEM id="is_psl" type="RADIO"  >
-            <Libelle>4d.Avez-vous donné des PSL pour le transport ?</Libelle>
-            <FromList>list:oui|non</FromList>
-            <Cond type="equal" oblig="y" prerequite="y" >
-		<Arg1>globalObject:patient->getTypeDestination()</Arg1>
-		<Arg2>const:T</Arg2>
+	     <Cond  type="equal" oblig="y">
+                <Arg1>formVar:is_ok_enquete</Arg1>
+                <Arg2>const:Oui</Arg2>
             </Cond>
         </ITEM>
+
+
+
+
 
         <ITEM id="type_produit" type="CHECK"  oblig="y" >
             <Libelle>5. Type de produit prescrit</Libelle>
             <FromList>list:CGR|Plasma|Plaquettes</FromList>
             <ShowItemsOnVal>
-                <ListIdItems>list:cgr_indication|cgr_terrain|cgr_mtc|hemo|plaquettes|tp|cgr_nb_prescrit|cgr_nb_transfuse</ListIdItems>
+                <ListIdItems>list:cgr_indication|cgr_terrain|cgr_mtc|hemo|cgr_nb_prescrit|cgr_nb_transfuse</ListIdItems>
                 <OnVal>const:CGR</OnVal>
             </ShowItemsOnVal>
              <ShowItemsOnVal>
@@ -95,7 +86,7 @@
                 <OnVal>const:Plasma</OnVal>
             </ShowItemsOnVal>
             <ShowItemsOnVal>
-                <ListIdItems>list:plaquettes_indication|plaquettes_terrain|plaquettes_mtc|hemo|plaquettes|tp|plaquettes_nb_prescrit|plaquettes_nb_transfuse</ListIdItems>
+                <ListIdItems>list:plaquettes_indication|plaquettes_terrain|plaquettes_mtc|hemo|plaquettes|plaquettes_nb_prescrit|plaquettes_nb_transfuse</ListIdItems>
                 <OnVal>const:Plaquettes</OnVal>
             </ShowItemsOnVal>
              <Cond  type="equal" oblig="y" >
@@ -108,7 +99,7 @@
         <!-- CGR -->
 
  	 <ITEM id="cgr_indication" type="CHECK"  >
-            <Libelle>5a-a CGR : indication</Libelle>
+            <Libelle>6a-a CGR : indication (obligatoire)</Libelle>
             <FromList>list:Hémorragie traumatique|H digestive|H gynéco-obstétricale|H ORL|H urologique|Accident des anticoagulants|Anémie chronique|Anémie post chimiothérapie|Hémopathie|Autre</FromList>
 	    <ShowItemsOnVal>
                 <ListIdItems>list:cgr_indication_autre</ListIdItems>
@@ -118,12 +109,12 @@
       
 
          <ITEM id="cgr_indication_autre" type="TXT" >
-            <Libelle>5a-b CGR : indication autre</Libelle>
+            <Libelle>6a-b CGR : indication autre</Libelle>
         </ITEM>
 
 
         <ITEM id="cgr_terrain" type="CHECK"  opt="y">
-            <Libelle>5a-c CGR : Terrain</Libelle>
+            <Libelle>6a-c CGR : Terrain</Libelle>
             <FromList>list:Insuffisant cardiorespiratoire|Insuffisant coronarien|Insuffisant vasculo cérébral|Autre</FromList>
             <ShowItemsOnVal>
                 <ListIdItems>list:cgr_terrain_autre</ListIdItems>
@@ -132,11 +123,11 @@
         </ITEM>
 
          <ITEM id="cgr_terrain_autre" type="TXT"  >
-            <Libelle>5a-d CGR : terrain autre</Libelle>
+            <Libelle>6a-d CGR : terrain autre</Libelle>
         </ITEM>
 
         <ITEM id="cgr_mtc" type="CHECK"  opt="y" >
-            <Libelle>5a-e CGR : mauvaise tolérance clinique</Libelle>
+            <Libelle>6a-e CGR : mauvaise tolérance clinique</Libelle>
             <FromList>list:Douleur thoracique|Dyspnée|Troubles du rythme|Hypotension|Tachycardie sinusale|Confusion|Autre</FromList>
             <ShowItemsOnVal>
                 <ListIdItems>list:cgr_mtc_autre</ListIdItems>
@@ -145,16 +136,16 @@
         </ITEM>
 
          <ITEM id="cgr_mtc_autre" type="TXT"  >
-            <Libelle>5a-f CGR : mauvaise tolérance clinique autre</Libelle>
+            <Libelle>6a-f CGR : mauvaise tolérance clinique autre</Libelle>
         </ITEM>
 
 	<ITEM id="cgr_nb_prescrit" type="LISTE"  >
-            <Libelle>5a-g Nombre de CGR prescrits</Libelle>
+            <Libelle>6a-g Nombre de CGR prescrits</Libelle>
 	    <FromList>list:1|2|3|4|5|6|7|8|9|10|sup. 10</FromList>
         </ITEM>
 
 	<ITEM id="cgr_nb_transfuse" type="LISTE"  >
-            <Libelle>5a-h Nombre de CGR prescrits</Libelle>
+            <Libelle>6a-h Nombre de CGR transfusés</Libelle>
 	    <FromList>list:1|2|3|4|5|6|7|8|9|10|sup. 10</FromList>
         </ITEM>
 
@@ -162,7 +153,7 @@
         <!-- plasma -->
 
         <ITEM id="plasma_indication" type="CHECK"  >
-            <Libelle>5b-a Plasma : indication</Libelle>
+            <Libelle>6b-a Plasma : indication (obligatoire)</Libelle>
             <FromList>list:CIVD|Troubles de coagulation|Hémorragie massive|Autre</FromList>
             <ShowItemsOnVal>
                 <ListIdItems>list:plasma_indication_autre</ListIdItems>
@@ -171,12 +162,12 @@
         </ITEM>
 
          <ITEM id="plasma_indication_autre" type="TXT"  >
-            <Libelle>5b-b Plasma : indication autre</Libelle>
+            <Libelle>6b-b Plasma : indication autre</Libelle>
         </ITEM>
 
 
         <ITEM id="plasma_terrain" type="CHECK" opt="y" >
-            <Libelle>5b-c Plasma : Terrain</Libelle>
+            <Libelle>6b-c Plasma : Terrain (facultatif)</Libelle>
             <FromList>list:Insuffisant cardiorespiratoire|Insuffisant coronarien|Insuffisant vasculo cérébral|Autre</FromList>
             <ShowItemsOnVal>
                 <ListIdItems>list:plasma_terrain_autre</ListIdItems>
@@ -185,16 +176,16 @@
         </ITEM>
 
          <ITEM id="plasma_terrain_autre" type="TXT"  >
-            <Libelle>5b-d Plasma : terrain autre</Libelle>
+            <Libelle>6b-d Plasma : terrain autre</Libelle>
         </ITEM>
 
 	<ITEM id="plasma_nb_prescrit" type="LISTE"  >
-            <Libelle>5b-e Nombre d'unités de plasma prescrites</Libelle>
+            <Libelle>6b-e Nombre d'unités de plasma prescrites</Libelle>
 	    <FromList>list:1|2|3|4|5|6|7|8|9|10|sup. 10</FromList>
         </ITEM>
 
 	<ITEM id="plasma_nb_transfuse" type="LISTE"  >
-            <Libelle>5b-f Nombre d'unités de plasma transfusées</Libelle>
+            <Libelle>6b-f Nombre d'unités de plasma transfusées</Libelle>
 	    <FromList>list:1|2|3|4|5|6|7|8|9|10|sup. 10</FromList>
         </ITEM>
 
@@ -202,7 +193,7 @@
         <!-- Plaquettes -->
 
         <ITEM id="plaquettes_indication" type="CHECK"  >
-            <Libelle>5c-a Plaquettes : indication</Libelle>
+            <Libelle>6c-a Plaquettes : indication (obligatoire)</Libelle>
             <FromList>list:Thrombopénie chronique|CIVD|Troubles de coagulation|Hémorragie massive|Autre</FromList>
             <ShowItemsOnVal>
                 <ListIdItems>list:plaquettes_indication_autre</ListIdItems>
@@ -211,12 +202,12 @@
         </ITEM>
 
          <ITEM id="plaquettes_indication_autre" type="TXT"  >
-            <Libelle>5c-b Plaquettes : indication autre</Libelle>
+            <Libelle>6c-b Plaquettes : indication autre</Libelle>
         </ITEM>
 
 
 	<ITEM id="plaquettes_terrain" type="CHECK"  opt="y">
-            <Libelle>5c-c Plaquettes : Terrain</Libelle>
+            <Libelle>6c-c Plaquettes : Terrain (facultatif)</Libelle>
             <FromList>list:Insuffisant cardiorespiratoire|Insuffisant coronarien|Insuffisant vasculo cérébral|Autre</FromList>
             <ShowItemsOnVal>
                 <ListIdItems>list:plaquettes_terrain_autre</ListIdItems>
@@ -226,11 +217,11 @@
 
 
          <ITEM id="plaquettes_terrain_autre" type="TXT"  >
-            <Libelle>5c-d Plaquettes : terrain autre</Libelle>
+            <Libelle>6c-d Plaquettes : terrain autre</Libelle>
         </ITEM>
 
         <ITEM id="plaquettes_mtc" type="CHECK" opt="y" >
-            <Libelle>5c-e Plaquettes : mauvaise tolérance clinique</Libelle>
+            <Libelle>6c-e Plaquettes : mauvaise tolérance clinique (facultatif)</Libelle>
             <FromList>list:Syndrome hémorragique diffus|Hémorragie FO</FromList>
             <ShowItemsOnVal>
                 <ListIdItems>list:plaquettes_mtc_autre</ListIdItems>
@@ -239,16 +230,16 @@
         </ITEM>
 
          <ITEM id="plaquettes_mtc_autre" type="TXT"  >
-            <Libelle>5c-f Plaquettes : mauvaise tolérance clinique autre</Libelle>
+            <Libelle>6c-f Plaquettes : mauvaise tolérance clinique autre</Libelle>
         </ITEM>
 
 	<ITEM id="plaquettes_nb_prescrit" type="LISTE"  >
-            <Libelle>5c-g Nombre de concentrés plaquettaires prescrits</Libelle>
+            <Libelle>6c-g Nombre de concentrés plaquettaires prescrits</Libelle>
 	    <FromList>list:1|2|3|4|5|6|7|8|9|10</FromList>
         </ITEM>
 
 	<ITEM id="plaquettes_nb_transfuse" type="LISTE"  >
-            <Libelle>5c-g Nombre de concentrés plaquettaires transfusés</Libelle>
+            <Libelle>6c-g Nombre de concentrés plaquettaires transfusés</Libelle>
 	    <FromList>list:1|2|3|4|5|6|7|8|9|10</FromList>
         </ITEM>
 
@@ -256,18 +247,33 @@
 
 
         <ITEM id="hemo" type="LISTE"  >
-            <Libelle>6a Taux hemoglobine (g/100ml)</Libelle>
+            <Libelle>Taux hemoglobine (g/100ml)</Libelle>
 	    <FromList>list:inf. 3|de 3 à 3.9|de 4 à 4.9|de 5 à 5.9|de 6 à 6.9|de 7 à 7.9|de 8 à 8.9|de 9 à 9.9|sup. 10</FromList>
         </ITEM>
 
         <ITEM id="plaquettes" type="LISTE"  >
-            <Libelle>6b Numération plaquettaire (/mm3)</Libelle>
+            <Libelle>Numération plaquettaire (/mm3)</Libelle>
 	    <FromList>list:inf. 10 000|de 10 000 à 20 000|de 20 000 à 30 000|de 30 000 à 40 000|de 40 000 à 50 000|de 50 000 à 60 000|de 60 000 à 70 000|de 70 000 à 80 000|de 80 000 à 90 000|de 90 000 à 100 000|sup. 100 000</FromList>
         </ITEM>
 
         <ITEM id="tp" type="LISTE" >
-            <Libelle>6c TP (%)</Libelle>
+            <Libelle>TP (%)</Libelle>
 	    <FromList>list:inf. 10|de 10 à 19|de 20 à 29|de 30 à 39|de 40 à 49|de 50 à 59|de 60 à 69|de 70 à 79|de 80 à 89|de 90 à 100</FromList>
         </ITEM>
+
+	<ITEM id="motif_transfu_urg" type="CHECK"  >
+            <Libelle>7. Motif de la transfusion aux urgences</Libelle>
+            <FromList>list:Déchoquage en cours|Pas de place dans les services|Pas de médecin dans les services|Organisation de l'ES|Il fallait bien que quelqu'un le fasse et ça arrangeait tout de monde.</FromList>
+        </ITEM>
+
+	<ITEM id="is_psl" type="RADIO"  >
+            <Libelle>8.Avez-vous donné des PSL pour le transport ?</Libelle>
+            <FromList>list:oui|non</FromList>
+            <Cond type="equal" oblig="y" prerequite="y" >
+		<Arg1>globalObject:patient->getTypeDestination()</Arg1>
+		<Arg2>const:T</Arg2>
+            </Cond>
+        </ITEM>
+
      </ETAPE>
 </FORMX>
