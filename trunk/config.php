@@ -88,6 +88,7 @@ function eko ( $message ) {
   }
   if ( isset ( $errs ) )
     $errs->logThis ( $message ) ;
+    return true ;
 }
 
 //	this is the sock mail function

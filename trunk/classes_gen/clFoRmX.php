@@ -550,8 +550,7 @@ function getRootDom()
    	//si l'ids chargé n'est pas la même, rechargement du contructeur
    	if($this->ids != $res['ids'][0]) {
    		$this->debug('Note: la classe a été instanciée avec l\'ids \''.$this->ids."' et doit editer un formulaire dont l'ids est ".$res['ids'][0]);
-   			$options = $this->instanciedsOptions ;
-   			$this->__construct($res['ids'][0],"$options NO_POST_THREAT");
+   			$this->__construct($res['ids'][0]," NO_POST_THREAT");
    		}
    	$this->dt_modif = $res['dt_modif'][0];
    	$this->libelle = $res['libelle'][0];
@@ -2520,6 +2519,9 @@ $reg=array();
 public function testCond($cond){
 
 	switch($cond['type']) {
+	case 'rempli':
+		if( !  $cond['itemCible'] ) throw new Exception("La condition de type rempli doit avoir un attribut itemCible valide");
+		return $this->getFormVar( (string) $cond['itemCible']);
 	case 'equal':
 		return ( $this->testCond($cond->Arg1) == $this->testCond($cond->Arg2) );
 	case 'inf':
@@ -2550,12 +2552,12 @@ public function testCond($cond){
 
 /*Exexution d'un test d'une balise conditionelle en DOM*/
 /*attention, s'appelle un niveau AU DESSUS (item) */
-public function testCondDOM($cond){
+public function testCondDOM($cond)
+{
 	$xml = $this->XMLDOM->saveXML($cond);
 	//eko("balise condition: <xmp>$xml</xmp>");
 	return $this->testCond(simplexml_load_string($xml)->Cond);
 }
-
 
 
 /*analyse et renvoie selon le type de données le contenu d'une
@@ -3580,11 +3582,11 @@ return '';
 }
 
 function isCacheValue($nom) {
-	//eko($this->cacheValue);
+	
  if ( ! isset($this->cacheValue)){
 	$this->cacheValue = array () ;
 	return false ;	
- } else if ( isset ($this->cacheValue[$nom])) {
+ } else if (  isset ($this->cacheValue[$nom])) {
  	$this->debug("========acces à un form par le cache");
  	return $this->cacheValue[$nom] ;
  } else {

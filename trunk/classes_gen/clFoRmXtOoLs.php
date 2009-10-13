@@ -488,7 +488,18 @@ static public function exportsGetCsvFromData(&$dataTab,$nomFic = '',$options = a
 	{
 		$nomFic = 'export_'.rand(1,999999).'.csv';
 	}
-	$hFic = fopen(clFoRmXSession::getInstance()->getLocalUrlCache().$nomFic,'w') ;
+
+	$urlLocalDepot = '';
+	if( isset ($options['urlDepot']) )
+	{
+	    $urlLocalDepot = $options['urlDepot'] ;
+	}
+	else
+	{
+	    $urlLocalDepot = clFoRmXSession::getInstance()->getLocalUrlCache() ;
+	}
+
+	$hFic = fopen($urlLocalDepot.$nomFic,'w') ;
 	//on parcourt une premiere fois pour avoir les indicateurs et créer le header
 	$header = '' ;
 	$tabIndexIgnore = array() ;
@@ -518,7 +529,7 @@ static public function exportsGetCsvFromData(&$dataTab,$nomFic = '',$options = a
 
 			if(  isset($ligne[$idIndic] ) )
 			{
-				$value = utf8_decode($ligne[$idIndic]) ;
+				$value = self::clean2utf8($ligne[$idIndic]) ;
 				$value=str_replace(';', ',', $value);
 				$value=str_replace("\n", ' ', $value);
 				$value=str_replace("\r", ' ', $value);
@@ -536,7 +547,7 @@ static public function exportsGetCsvFromData(&$dataTab,$nomFic = '',$options = a
 	if( ! $isLocalAccess )
 		return clFoRmXSession::getInstance()->getWebUrlCache().$nomFic;
 	else
-		return clFoRmXSession::getInstance()->getLocalUrlCache().$nomFic;
+		return $urlLocalDepot.$nomFic;
 }
 
 
