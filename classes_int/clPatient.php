@@ -187,28 +187,112 @@ class clPatient {
       eko ( $this->patient ) ;
   }
 
-/**
- * export minipal à fournir lors de l'export des formulaires
+  function getLibelleSite()
+  {
+    global $options;
+    $tab = array() ;
+    $tab[125]	 = "APHM-Conception" ;
+    $tab[68]	= "APHM-Nord" ;
+    $tab[491]	= "APHM-NordEnfants" ;
+    $tab[107]	= "APHM-Sud" ;
+    $tab[124]	= "APHM-TimoneEnfants" ;
+    $tab[157]	= "Arles" ;
+    $tab[303]	= "Avignon" ;
+    $tab[466]	= "Avignon-Enfants_et_Gyneco" ;
+    $tab[203]	= "Brignoles" ;
+    $tab[423]	= "Cannes" ;
+    $tab[289]	= "Carpentras" ;
+    $tab[188]	= "Chits-Toulon" ;
+    $tab[246]	= "Chits-LASEYNE" ;
+    $tab[306]	= "Digne" ;
+    $tab[183]	= "Draguignan" ;
+    $tab[255]	= "Frejus" ;
+    $tab[387]	= "Grasse" ;
+    $tab[241]	= "Hyeres" ;
+    $tab[167]	= "Martigues" ;
+    $tab[284]	= "Pertuis" ;
+    $tab[162]	= "Salon" ;
+    $tab[268]	= "St Trop" ;
+    $idEtab = $options->getOption('RPU_IdActeur');
+    if ( $idEtab and isset($tab[$idEtab]) )
+    {
+	return  $tab[$idEtab];
+    }
+    return '';
+  }
+
+
+      function getIdpassagePseudoAnonymyse()
+    {
+	return sha1(TBIDSITE.$this->getILP());
+    }
+
+
+    /**
+ * export minimal à fournir lors de l'export des formulaires
  * @return array
  */
   function getMiniExport()
   {
+      global $options ;
       $ret = array();
-      $ret['sexe'] = $this->getGenre();
-      $ret['date_naissance'] = $this->getDateNaissance();
-      $ret['provenance'] = $this->getProvenance();
-      $ret['adresseur'] = $this->getAdresseur();
-      $ret['mode_arrivee'] = $this->getModeAdmission();
-      $ret['date_admission'] = $this->getDateAdmission();
-      $ret['DateExamen'] = $this->getDateExamen();
-      $ret['CodeDiagnostic'] = $this->getCodeDiagnostic();
-      $ret['TypeDestAttendue'] = $this->getTypeDestination();
-      $ret['mode_admission'] = $this->getTypeAdmission();
-      $ret['DateSortie'] = $this->getDateSortie();
-      
+	$ret['id_site'] = TBIDSITE ;
+	$ret['libelle_site'] = $this->getLibelleSite() ;
+	$ret['id_terminal'] = '';
+	$ret['idpassAnonyme'] = $this->getIdpassagePseudoAnonymyse() ;
+	$ret['sexe'] = $this->getGenre();
+	$ret['date_naissance'] = $this->getDateNaissance();
+	$ret['adresse_cp'] = $this->getCodePostal();
+	$ret['uf_admission'] = '' ;
+	$ret['uf_examen'] = $this->getUF();
+	$ret['is_uhcd'] = ($this->ifInUHCD()?'oui':'non');
+	$ret['date_admission'] = $this->getDateAdmission();
+	$ret['DateSortie'] = $this->getDateSortie();
+	$ret['DateExamen'] = $this->getDateExamen();
+	$ret['code_medecin'] = $this->getMatriculeMedecin();
+	$ret['nom_medecin'] = $this->getMedecin();
+	$ret['type_medecin'] = 'U';
+	$ret['nom_ide'] = $this->getIDE();
+	$ret['code_ide'] = $this->getMatriculeIDE() ;
+	$ret['code_recours'] = $this->getCodeRecours();
+	$ret['libelle_recours'] = $this->getRecours();
+	$ret['code_gravite_ioa'] = $this->getCodeGravite();
+	$ret['code_ccmu_med'] = $this->getCCMU();
+	$ret['mode_sortie'] = $this->getTypeDestination();
+	$ret['type_destination'] = $this->getDestPMSI();
+	$ret['type_orientation'] = $this->getOrientation();
+	$ret['motif_transfert'] = $this->getMotifTransfert();
+	$ret['moyen_transport'] = $this->getMoyenTransport();
+	$ret['code_provenance_pmsi'] = $this->getCodeProvenancePmsi();
+	$ret['code_mode_entree'] = $this->getCodeModeEntree();
+	$ret['code_transport'] = $this->getCodeTransport();
+	$ret['code_pec_transport'] = $this->getCodePecTransport();
+	$ret = array_merge($ret, $this->getTabCodesActesCcam(),  $this->getTabCodesActesNgap(), $this->getTabCodesDiags());
+	return $ret ;
+  }
+
+  function getCodeProvenancePmsi()
+  {
+      return substr($this->getProvenance(), 0, 1);
+  }
+
+  function getCodeModeEntree()
+  {
+      return substr($this->getProvenance(), 1, 1);
+  }
+
+  function getCodeTransport()
+  {
+      $tab = explode(' ',$this->getModeAdmission());
+      return $tab[0];
+  }
 
 
-      return $ret ;
+
+  function getCodePecTransport()
+  {
+      $tab = explode(' ',$this->getModeAdmission());
+      return $tab[1];
   }
 
   function setAttribut ( $nom, $valeur ) {
@@ -419,7 +503,7 @@ class clPatient {
   function getTabActes()
   {
 	$idPassage = $this->getNSej();
-	$requete = " SELECT `codeActe`  FROM `ccam_cotation_actes`  WHERE `numSejour` = 	'$idPassage'  " ;
+	$requete = " SELECT `codeActe`  FROM `ccam_cotation_actes`  WHERE `numSejour` = '$idPassage'  " ;
 	$obRequete = new clRequete(CCAM_BDD, 'ccam_cotation_actes') ;
 	$res = $obRequete->exec_requete($requete, 'tab');
 	$ret = array() ;
@@ -429,6 +513,54 @@ class clPatient {
 	}
 	 return $ret;
   }
+
+  function getTabCodesActesCcam()
+  {
+	$idPassage = $this->getNSej();
+	$requete = " SELECT `codeActe`  FROM `ccam_cotation_actes`  WHERE type = 'ACTE' and codeacte not like '%NGAP%' AND `numSejour` = '$idPassage'  " ;
+	$obRequete = new clRequete(CCAM_BDD, 'ccam_cotation_actes') ;
+	$res = $obRequete->exec_requete($requete, 'tab');
+	$tabRetour = array() ;
+	for($i=1;$i<31;$i++)
+	{
+	    $tabRetour['CCAM'.$i] = (isset($res[$i-1])?$res[$i-1]['codeActe']:'') ;
+	}
+	return $tabRetour ;
+
+  }
+
+  //TODO
+  function getTabCodesActesNgap()
+  {
+	$idPassage = $this->getNSej();
+	$requete = " SELECT `codeActe`  FROM `ccam_cotation_actes`  WHERE type = 'ACTE' and codeacte like '%NGAP%' AND `numSejour` = '$idPassage'  " ;
+	$obRequete = new clRequete(CCAM_BDD, 'ccam_cotation_actes') ;
+	$res = $obRequete->exec_requete($requete, 'tab');
+	$tabRetour = array() ;
+	for($i=1;$i<31;$i++)
+	{
+	    $tabRetour['NGAP'.$i] = (isset($res[$i-1])?$res[$i-1]['codeActe']:'') ;
+	}
+	return $tabRetour ;
+  }
+
+  //TODO
+  function getTabCodesDiags()
+  {
+
+      	$idPassage = $this->getNSej();
+	$requete = " SELECT `codeActe`  FROM `ccam_cotation_actes`  WHERE type = 'DIAG' `numSejour` = '$idPassage'  " ;
+	$obRequete = new clRequete(CCAM_BDD, 'ccam_cotation_actes') ;
+	$res = $obRequete->exec_requete($requete, 'tab');
+	$tabRetour = array() ;
+	for($i=1;$i<11;$i++)
+	{
+	    $tabRetour['DIAG'.$i] = (isset($res[$i-1])?$res[$i-1]['codeActe']:'') ;
+	}
+	return $tabRetour ;
+  }
+
+
   
   function getTypeAdmission ( ) { 
     $param[nomitem] = addslashes(stripslashes($this->getDestinationAttendue ( ))) ;
