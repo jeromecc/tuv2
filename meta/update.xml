@@ -17,389 +17,413 @@
 
 <updates>
 
-	<update id="1">
-		<description>Création de la table de gestion des enquetes</description>
-		<requete>CREATE TABLE IF NOT EXISTS `enquetes` (
+    <update id="1">
+	<description>Création de la table de gestion des enquetes</description>
+	<requete>CREATE TABLE IF NOT EXISTS `enquetes` (
   `id_enquete` int(11) NOT NULL auto_increment,
   `id_trigger` varchar(64) NOT NULL,
   `date_debut` datetime NOT NULL,
   `date_fin` datetime NOT NULL,
   PRIMARY KEY  (`id_enquete`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1</requete>
-	</update>
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1
+	</requete>
+    </update>
 
-	<update id="2">
-		<description>Création du menu de gestion des enquetes</description>
-		<menu_new>
-			<libelle>Gestion enquêtes</libelle>
-			<sub idUnique="160HBIbY11y6fqOR" /> <!--Administration-->
-			<cle cle="gestenquetes" />
-			<cletotale cle="administration|gestenquetes" />
-			<param option="" droit="Administration" visible="y" classe="clGestFormxTriggers" argument="''" /><!--Attention aux majuscules , argument entre simple quotes-->
-		</menu_new>
-	</update>
+    <update id="2">
+	<description>Création du menu de gestion des enquetes</description>
+	<menu_new>
+	    <libelle>Gestion enquêtes</libelle>
+	    <sub idUnique="160HBIbY11y6fqOR" /> <!--Administration-->
+	    <cle cle="gestenquetes" />
+	    <cletotale cle="administration|gestenquetes" />
+	    <param option="" droit="Administration" visible="y" classe="clGestFormxTriggers" argument="''" /><!--Attention aux majuscules , argument entre simple quotes-->
+	</menu_new>
+    </update>
 
-  <update id="4">
-		<description>Mise à jour du référentiel diags-sfmu/packs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
-		<ccam />
-  </update>
+    <update id="4">
+	<description>Mise à jour du référentiel diags-sfmu/packs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+	<ccam />
+    </update>
 
-  <update id="7">
-		<description>Mise à jour du référentiel diags-sfmu/packs rc2 + motifs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
-		<ccam />
-  </update>
+    <update id="7">
+	<description>Mise à jour du référentiel diags-sfmu/packs rc2 + motifs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+	<ccam />
+    </update>
 
-  <update id="8">
-                <description>Ajout de l'option pour la gestion de l'UF de chirurgie (APHM)</description>
-                <option_new>
-                        <categorie>UF</categorie>
-                        <cle>numUFChirurgie</cle>
-                        <libelle>Le patient passera dans cette UF si le nom du médecin commence par "Dr CHIR"</libelle>
-                </option_new>
-  </update>
-
-
-  <update id="15">
-                <description>Mise à jour de l'option HprimXML_CodeMedecin</description>
-		<option_upd>
-			<cle>HprimXML_CodeMedecin</cle>
-			<choix>x|ADELI|ADELI9|NOMMED</choix>
-		</option_upd>	
-  </update>
-
-  <update id="17">
-        <description>Création de l'option HprimXML_NomModulo</description>
+    <update id="8">
+	<description>Ajout de l'option pour la gestion de l'UF de chirurgie (APHM)</description>
 	<option_new>
-               <categorie>CCAM</categorie>
-               <cle>HprimXML_NomModulo</cle>
-               <libelle>Le numéro dans le nom du fichier est codé sur 3 caractères de 000 à 999.</libelle>
-	       <type>bool</type>
-        </option_new>
-  </update>
-
-  <update id="18">
-        <description>Création de l'option Pacs_Actif</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>Pacs_Actif</cle>
-               <libelle>L'appel contextuel vers le pacs est actif ou non.</libelle>
-               <type>bool</type>
-	       <admin>1</admin>
-        </option_new>
-  </update>
-
-  <update id="19">
-        <description>Création de l'option Pacs_Droit</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>Pacs_Droit</cle>
-               <libelle>L'appel contextuel vers le pacs est actif ou non.</libelle>
-               <type>bool</type>
-	       <admin>1</admin>
-        </option_new>
-  </update>
-
-   <update id="20">
-        <description>Création de l'option Pacs_URL</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>Pacs_URL</cle>
-               <libelle>URL de l'application appelée.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
-
-   <update id="21">
-        <description>Création de l'option Pacs_User</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>Pacs_User</cle>
-               <libelle>L'utilisateur utilisé pour l'appel contextuel du pacs.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
-
-   <update id="22">
-        <description>Création de l'option Pacs_Pass</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>Pacs_Pass</cle>
-               <libelle>Le mot de passe utilisé pour l'appel contextuel du pacs.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+	    <categorie>UF</categorie>
+	    <cle>numUFChirurgie</cle>
+	    <libelle>Le patient passera dans cette UF si le nom du médecin commence par "Dr CHIR"</libelle>
+	</option_new>
+    </update>
 
 
-     <update id="24">
-        <description>Création de l'option Activite4_desactiver_controle</description>
-        <option_new>
-               <categorie>CCAM</categorie>
-               <cle>Activite4_desactiver_controle</cle>
-               <libelle>Désactive le contrôle bloquant de la saisie de l'anesthesie</libelle>
-			   <type>bool</type>
-        </option_new>
-  </update>
+    <update id="15">
+	<description>Mise à jour de l'option HprimXML_CodeMedecin</description>
+	<option_upd>
+	    <cle>HprimXML_CodeMedecin</cle>
+	    <choix>x|ADELI|ADELI9|NOMMED</choix>
+	</option_upd>
+    </update>
 
-  <update id="25">
-        <description>Création de l'option DxCare_Actif</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_Actif</cle>
-               <libelle>L'appel contextuel vers DxCare est actif ou non.</libelle>
-               <type>bool</type>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="17">
+	<description>Création de l'option HprimXML_NomModulo</description>
+	<option_new>
+	    <categorie>CCAM</categorie>
+	    <cle>HprimXML_NomModulo</cle>
+	    <libelle>Le numéro dans le nom du fichier est codé sur 3 caractères de 000 à 999.</libelle>
+	    <type>bool</type>
+	</option_new>
+    </update>
 
-  <update id="26">
-        <description>Création de l'option DxCare_Droit</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_Droit</cle>
-               <libelle>L'appel contextuel vers DxCare est actif ou non.</libelle>
-               <type>bool</type>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="18">
+	<description>Création de l'option Pacs_Actif</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Pacs_Actif</cle>
+	    <libelle>L'appel contextuel vers le pacs est actif ou non.</libelle>
+	    <type>bool</type>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-   <update id="27">
-        <description>Création de l'option DxCare_URL</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_URL</cle>
-               <libelle>URL de l'application appelée.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="19">
+	<description>Création de l'option Pacs_Droit</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Pacs_Droit</cle>
+	    <libelle>L'appel contextuel vers le pacs est actif ou non.</libelle>
+	    <type>bool</type>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-   <update id="28">
-        <description>Création de l'option DxCare_User</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_User</cle>
-               <libelle>L'utilisateur utilisé pour l'appel contextuel de DxCare.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="20">
+	<description>Création de l'option Pacs_URL</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Pacs_URL</cle>
+	    <libelle>URL de l'application appelée.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-   <update id="29">
-        <description>Création de l'option DxCare_Pass</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_Pass</cle>
-               <libelle>Le mot de passe utilisé pour l'appel contextuel de DxCare.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="21">
+	<description>Création de l'option Pacs_User</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Pacs_User</cle>
+	    <libelle>L'utilisateur utilisé pour l'appel contextuel du pacs.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-  <update id="30">
-        <description>Création de l'option DxCare_URL_Prescription</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_URL_Prescription</cle>
-               <libelle>URL de l'application appelée.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="22">
+	<description>Création de l'option Pacs_Pass</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Pacs_Pass</cle>
+	    <libelle>Le mot de passe utilisé pour l'appel contextuel du pacs.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-  <update id="31">
-        <description>Création de l'option DxCare_URL_QuestUrg</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_URL_QuestUrg</cle>
-               <libelle>URL de l'application appelée.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
 
-  <update id="32">
-        <description>Création de l'option DxCare_URL_Synthese</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_URL_Synthese</cle>
-               <libelle>URL de l'application appelée.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="24">
+	<description>Création de l'option Activite4_desactiver_controle</description>
+	<option_new>
+	    <categorie>CCAM</categorie>
+	    <cle>Activite4_desactiver_controle</cle>
+	    <libelle>Désactive le contrôle bloquant de la saisie de l'anesthesie</libelle>
+	    <type>bool</type>
+	</option_new>
+    </update>
 
-  <update id="33">
-        <description>Création de l'option DxCare_URL_Bilan</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_URL_Bilan</cle>
-               <libelle>URL de l'application appelée.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="25">
+	<description>Création de l'option DxCare_Actif</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_Actif</cle>
+	    <libelle>L'appel contextuel vers DxCare est actif ou non.</libelle>
+	    <type>bool</type>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-  <update id="34">
-        <description>Création de l'option DxCare_URL_PlanSoins</description>
-        <option_new>
-               <categorie>Appels contextuels</categorie>
-               <cle>DxCare_URL_PlanSoins</cle>
-               <libelle>URL de l'application appelée.</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="26">
+	<description>Création de l'option DxCare_Droit</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_Droit</cle>
+	    <libelle>L'appel contextuel vers DxCare est actif ou non.</libelle>
+	    <type>bool</type>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-  <update id="35">
-        <description>Création de l'option HprimXML_FTPRepd (utilisé pour gérer les envois vers AS400)</description>
-        <option_new>
-               <categorie>CCAM</categorie>
-               <cle>HprimXML_FTPRepd</cle>
-               <libelle>URL distante où se trouveront les fichiers envoyés (spécifique AS400, laisser vide sinon)</libelle>
-               <admin>1</admin>
-        </option_new>
-  </update>
+    <update id="27">
+	<description>Création de l'option DxCare_URL</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_URL</cle>
+	    <libelle>URL de l'application appelée.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-  <update id="36">
-        <description>Création de la table des diagnostics interdits</description>
-        <requete base="ccam" file="meta/refccam/codescim10interdits.sql" />
-  </update>
+    <update id="28">
+	<description>Création de l'option DxCare_User</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_User</cle>
+	    <libelle>L'utilisateur utilisé pour l'appel contextuel de DxCare.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-  <update id="37">
-        <description>Extension du nombre de carateres autorisés pour le code diag</description>
-        <requete base="ccam"  >ALTER TABLE `ccam_liste` CHANGE `nomitem` `nomitem` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL</requete>
-  </update>
+    <update id="29">
+	<description>Création de l'option DxCare_Pass</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_Pass</cle>
+	    <libelle>Le mot de passe utilisé pour l'appel contextuel de DxCare.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-  <update id="38">
-		<description>Ajout d'une colonne "commentaire radio" dans la table radio.</description>
-		<requete>ALTER TABLE `radios` ADD `commentaire_radio` VARCHAR( 255 ) NOT NULL</requete>
-  </update>
+    <update id="30">
+	<description>Création de l'option DxCare_URL_Prescription</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_URL_Prescription</cle>
+	    <libelle>URL de l'application appelée.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-  <update id="40">
-		<description>Ajout de l'entrée AJAX pour la mise à jour du commentaire de la radio.</description>
-		<menu_new>
-			<libelle>setComRadio</libelle>
-			<sub idUnique="81iJ03ii5pIjLteB" /> <!--Statistiques-->
-			<cle cle="setComRadio" />
-			<cletotale cle="Ajax|setComRadio" />
-            <param option="" droit="" visible="y" classe="clListeRadios" argument="'ajax'" />
-		</menu_new>
-  </update>
+    <update id="31">
+	<description>Création de l'option DxCare_URL_QuestUrg</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_URL_QuestUrg</cle>
+	    <libelle>URL de l'application appelée.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-	<update id="41">
-		<description>Mise à jour du référentiel diags-sfmu/packs rc3 + motifs grippe</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
-		<ccam />
-	</update>
+    <update id="32">
+	<description>Création de l'option DxCare_URL_Synthese</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_URL_Synthese</cle>
+	    <libelle>URL de l'application appelée.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 
-     <update id="43">
-        <description>Création de l'option ImportsBasculeSortis (Durée depuis l'admission pour que le patient soit directement placé dans les sortis)</description>
-        <option_new>
-               <categorie>Importation</categorie>
-               <cle>ImportsBasculeSortis</cle>
-               <libelle>Durée depuis l'admission pour que le patient soit directement placé dans les sortis</libelle>
-               <defaultValue>30</defaultValue>
-        </option_new>
+    <update id="33">
+	<description>Création de l'option DxCare_URL_Bilan</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_URL_Bilan</cle>
+	    <libelle>URL de l'application appelée.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
+
+    <update id="34">
+	<description>Création de l'option DxCare_URL_PlanSoins</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>DxCare_URL_PlanSoins</cle>
+	    <libelle>URL de l'application appelée.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
+
+    <update id="35">
+	<description>Création de l'option HprimXML_FTPRepd (utilisé pour gérer les envois vers AS400)</description>
+	<option_new>
+	    <categorie>CCAM</categorie>
+	    <cle>HprimXML_FTPRepd</cle>
+	    <libelle>URL distante où se trouveront les fichiers envoyés (spécifique AS400, laisser vide sinon)</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
+
+    <update id="36">
+	<description>Création de la table des diagnostics interdits</description>
+	<requete base="ccam" file="meta/refccam/codescim10interdits.sql" />
+    </update>
+
+    <update id="37">
+	<description>Extension du nombre de carateres autorisés pour le code diag</description>
+	<requete base="ccam"  >ALTER TABLE `ccam_liste` CHANGE `nomitem` `nomitem` VARCHAR( 128 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL</requete>
+    </update>
+
+    <update id="38">
+	<description>Ajout d'une colonne "commentaire radio" dans la table radio.</description>
+	<requete>ALTER TABLE `radios` ADD `commentaire_radio` VARCHAR( 255 ) NOT NULL</requete>
+    </update>
+
+    <update id="40">
+	<description>Ajout de l'entrée AJAX pour la mise à jour du commentaire de la radio.</description>
+	<menu_new>
+	    <libelle>setComRadio</libelle>
+	    <sub idUnique="81iJ03ii5pIjLteB" /> <!--Statistiques-->
+	    <cle cle="setComRadio" />
+	    <cletotale cle="Ajax|setComRadio" />
+	    <param option="" droit="" visible="y" classe="clListeRadios" argument="'ajax'" />
+	</menu_new>
+    </update>
+
+    <update id="41">
+	<description>Mise à jour du référentiel diags-sfmu/packs rc3 + motifs grippe</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+	<ccam />
+    </update>
+
+    <update id="43">
+	<description>Création de l'option ImportsBasculeSortis (Durée depuis l'admission pour que le patient soit directement placé dans les sortis)</description>
+	<option_new>
+	    <categorie>Importation</categorie>
+	    <cle>ImportsBasculeSortis</cle>
+	    <libelle>Durée depuis l'admission pour que le patient soit directement placé dans les sortis</libelle>
+	    <defaultValue>30</defaultValue>
+	</option_new>
     </update>
 
     <update id="44">
-		<description>Mise à jour du référentiel diags-sfmu/packs rc3 + motifs grippe</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
-		<ccam />
-	</update>
+	<description>Mise à jour du référentiel diags-sfmu/packs rc3 + motifs grippe</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+	<ccam />
+    </update>
 
-  <update id="47">
-        <description>Création de l'option RPU envoi donnees pandemiques </description>
-        <option_new>
-               <categorie>RPU</categorie>
-               <cle>RPU_Envoi_Pandemie</cle>
-               <libelle>Rajouter les donnes pandemiques à la fin des RPU</libelle>
-               <type>bool</type>
-				<admin>1</admin>
-				<defaultValue>1</defaultValue>
-        </option_new>
-  </update>
+    <update id="47">
+	<description>Création de l'option RPU envoi donnees pandemiques </description>
+	<option_new>
+	    <categorie>RPU</categorie>
+	    <cle>RPU_Envoi_Pandemie</cle>
+	    <libelle>Rajouter les donnes pandemiques à la fin des RPU</libelle>
+	    <type>bool</type>
+	    <admin>1</admin>
+	    <defaultValue>1</defaultValue>
+	</option_new>
+    </update>
 
-	<update id="48">
-		<description>Correction d'un libelle sur les motifs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
-		<ccam />
-	</update>
+    <update id="48">
+	<description>Correction d'un libelle sur les motifs</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+	<ccam />
+    </update>
 
- <update id="49">
-        <description>Option pour inverser la recuperation du nom de jeune fille et le nom usuel </description>
-        <option_new>
-               <categorie>Importation</categorie>
-               <cle>importationNomsInv</cle>
-               <libelle>Inverser la recuperation du nom de jeune fillet et le nom usuel en HL7.</libelle>
-               <type>bool</type>
-				<admin>1</admin>
-				<defaultValue>0</defaultValue>
-        </option_new>
-  </update>
+    <update id="49">
+	<description>Option pour inverser la recuperation du nom de jeune fille et le nom usuel </description>
+	<option_new>
+	    <categorie>Importation</categorie>
+	    <cle>importationNomsInv</cle>
+	    <libelle>Inverser la recuperation du nom de jeune fillet et le nom usuel en HL7.</libelle>
+	    <type>bool</type>
+	    <admin>1</admin>
+	    <defaultValue>0</defaultValue>
+	</option_new>
+    </update>
 
-  <update id="50">
-		<description>Association de l'acte NGAP104 (c non facturable) à tous les diagnostics.</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
-		<ccam />
-  </update>
+    <update id="50">
+	<description>Association de l'acte NGAP104 (c non facturable) à tous les diagnostics.</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+	<ccam />
+    </update>
 
-  <update id="53">  <!-- Option a choix multiples  -->
-		<description>Ajout de l'option HprimXML_DateProduction</description>
-		<option_new>
-			<categorie>CCAM</categorie>
-			<cle>HprimXML_DateProduction</cle>
-			<libelle>Date et heure de production des fichiers HprimXML</libelle>
-			<type>combobox</type>
-			<choix>Normal|Heure médiane|Heure admission|Heure examen|Heure sortie</choix>
-			<defaultValue>Normal</defaultValue>
-		</option_new>
-	</update>
+    <update id="53">  <!-- Option a choix multiples  -->
+	<description>Ajout de l'option HprimXML_DateProduction</description>
+	<option_new>
+	    <categorie>CCAM</categorie>
+	    <cle>HprimXML_DateProduction</cle>
+	    <libelle>Date et heure de production des fichiers HprimXML</libelle>
+	    <type>combobox</type>
+	    <choix>Normal|Heure médiane|Heure admission|Heure examen|Heure sortie</choix>
+	    <defaultValue>Normal</defaultValue>
+	</option_new>
+    </update>
 
- <update id="54">  <!-- Option a choix multiples  -->
-		<description>Ajout de l'option HprimXML_DateVenue</description>
-		<option_new>
-			<categorie>CCAM</categorie>
-			<cle>HprimXML_DateVenue</cle>
-			<libelle>Date et heure de la venue du patient</libelle>
-			<type>combobox</type>
-			<choix>Normal|Heure médiane|Heure admission|Heure examen|Heure sortie</choix>
-			<defaultValue>Normal</defaultValue>
-		</option_new>
-	</update>
+    <update id="54">  <!-- Option a choix multiples  -->
+	<description>Ajout de l'option HprimXML_DateVenue</description>
+	<option_new>
+	    <categorie>CCAM</categorie>
+	    <cle>HprimXML_DateVenue</cle>
+	    <libelle>Date et heure de la venue du patient</libelle>
+	    <type>combobox</type>
+	    <choix>Normal|Heure médiane|Heure admission|Heure examen|Heure sortie</choix>
+	    <defaultValue>Normal</defaultValue>
+	</option_new>
+    </update>
 
-   <update id="55">  <!-- Option a choix multiples  -->
-		<description>Ajout de l'option HprimXML_CodeMedecinInterv</description>
-		<option_new>
-			<categorie>CCAM</categorie>
-			<cle>HprimXML_CodeMedecinInterv</cle>
-			<libelle>Le type de code médecin utilisé dans le champs intervention/demande/medecin/code</libelle>
-			<type>combobox</type>
-			<choix>ADELI|ADELI9|NOMMED|NOMMED10|VIDE</choix>
-			<defaultValue>ADELI</defaultValue>
-		</option_new>
-	</update>
+    <update id="55">  <!-- Option a choix multiples  -->
+	<description>Ajout de l'option HprimXML_CodeMedecinInterv</description>
+	<option_new>
+	    <categorie>CCAM</categorie>
+	    <cle>HprimXML_CodeMedecinInterv</cle>
+	    <libelle>Le type de code médecin utilisé dans le champs intervention/demande/medecin/code</libelle>
+	    <type>combobox</type>
+	    <choix>ADELI|ADELI9|NOMMED|NOMMED10|VIDE</choix>
+	    <defaultValue>ADELI</defaultValue>
+	</option_new>
+    </update>
 
     <update id="56">
-        <description>Mise à jour de l'option HprimXML_CodeMedecin</description>
-        <option_upd> <!-- toutes les balises suivantes sont optionnelles sauf <cle> -->
-            <cle>HprimXML_CodeMedecin</cle> <!-- l'update va se faire par rapport à cette clé -->
-            <choix>x|ADELI|ADELI9|NOMMED|VIDE</choix>
-        </option_upd>
+	<description>Mise à jour de l'option HprimXML_CodeMedecin</description>
+	<option_upd> <!-- toutes les balises suivantes sont optionnelles sauf <cle> -->
+	    <cle>HprimXML_CodeMedecin</cle> <!-- l'update va se faire par rapport à cette clé -->
+	    <choix>x|ADELI|ADELI9|NOMMED|VIDE</choix>
+	</option_upd>
     </update>
 
     <update id="57" >
-        <description>Changement du libellé de la grippe A/H1N1 : Suspicion de Grippe A/H1N1 ou H1N1</description>
-        <ccam />
+	<description>Changement du libellé de la grippe A/H1N1 : Suspicion de Grippe A/H1N1 ou H1N1</description>
+	<ccam />
     </update>
-        
+
     <update id="58"  >
-        <description>Ajout d'un index sur la table formx</description>
-        <requete base="formx" >ALTER TABLE `formx` ADD INDEX ( `ids` )</requete>
+	<description>Ajout d'un index sur la table formx</description>
+	<requete base="formx" >ALTER TABLE `formx` ADD INDEX ( `ids` )</requete>
     </update>
 
     <update id="59" >
-        <description>Ajout d'un index sur la table formx</description>
-        <requete base="formx">ALTER TABLE `formx` ADD INDEX ( `ids`, `status` )</requete>
+	<description>Ajout d'un index sur la table formx</description>
+	<requete base="formx">ALTER TABLE `formx` ADD INDEX ( `ids`, `status` )</requete>
     </update>
 
 
-  <update id="60">
-		<description>Association de l'acte NGAP104 (c non facturable) à tous les diagnostics.</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
-		<ccam />
-  </update>
-
-  <update id="61" >
-        <description>Mise à jour des recours et des diags</description>
-        <ccam />
+    <update id="60">
+	<description>Association de l'acte NGAP104 (c non facturable) à tous les diagnostics.</description>  <!-- force le réimport des fichiers sql des actes diags pack : meta/refccam/ccam_liste.sql et terminurg_zccam.sql , exportés comme indiqué sur le wiki -->
+	<ccam />
     </update>
 
+    <update id="61" >
+	<description>Mise à jour des recours et des diags</description>
+	<ccam />
+    </update>
+
+    <update id="62">
+	<description>Ajout de l'option permetant d'utiliser ou non le formulaire bio 2009</description>
+	<option_new>
+	    <categorie>Documents et formulaires</categorie>
+	    <cle>bio2009</cle>
+	    <libelle>Utilisation du formulaire bio 2009</libelle>
+	    <type>bool</type>
+	    <defaultValue>0</defaultValue>
+	</option_new>
+    </update>
+
+    <update id="62">
+	<description>Ajout de l'option permetant de choisir le type d'envoi de mail</description>
+	<option_new>
+	    <categorie>Documents et formulaires</categorie>
+	    <cle>typeMail</cle>
+	    <libelle>Type d'envoi de mail (html/txt)</libelle>
+	    <type>combobox</type>
+	    <choix>HTML|TXT</choix>
+	    <defaultValue>HTML</defaultValue>
+	</option_new>
+    </update>
+    
 </updates>
