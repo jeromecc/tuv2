@@ -1867,12 +1867,12 @@ class clFichePatient {
 	    // Envoi du mail.
 	    // mail ( $dest2, $sujet, $message, $headers ) ;
 	    if ( $options->getOption ( 'SMTP_Type' ) == 'localhost' )
-		mail ( "titeiko@gmail.com", $sujet, $message, $headers ) ;
+		mail ( $dest2, $sujet, $message, $headers ) ;
 	    else {
 	    //$headers .= 'To: '.$dest2."\r\n" ;
 	    // print $headers ;
 		if ( $options->getOption ( 'SMTP_Type' ) == 'autreAvecAuth' ) $auth = 1 ; else $auth = 0 ;
-		sock_mail ( $auth, "titeiko@gmail.com", $sujet, $message, $headers, Erreurs_MailApp, $cc ) ;
+		sock_mail ( $auth, $dest2, $sujet, $message, $headers, Erreurs_MailApp, $cc ) ;
 	    }
 	//eko ( $dest2 ) ;
 	// Sinon, on affiche le formulaire d'envoi / création de message.
