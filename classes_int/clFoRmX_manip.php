@@ -195,6 +195,7 @@ class  clFoRmX_manip extends clFoRmX {
     function genCase($bubulle, $droit='form_non_spe') {
 	global $tool ;
 	global $session;
+	global $options;
 	if($this->droit) $droit =$this->droit;
 	// Chargement du template ModeliXe.
 	$mod = new ModeliXe ( "FX_blocActions.mxt" ) ;
@@ -250,8 +251,16 @@ class  clFoRmX_manip extends clFoRmX {
 		    elseif ( eregi ( 'Bio', $libelle ) && eregi ( '2009', $libelle )) $libelleC = 'bio2009';
 		    elseif ( eregi ( 'Bio', $libelle ) ) $libelleC = 'labo' ;
 		    else $libelleC = 'spe' ;
+		    eko($libelle);
 		    //$mod->Mxattribut("actions.frep.code","document.FoRmXcase.Formulaire2print.value = '".$libelleC."';document.FoRmXcase.submit();");
-		    $mod -> MxText ( "actions.frep.lienPrint", "<a href=\"".URLNAVI.$session->genNavi($session->getNavi(0),$session->getNavi(1),$session->getNavi(2))."&Formulaire2print=$libelleC&FormX_ext_goto_=".$data[id_instance][$i]."&act_print=1\" target=\"_blank\">" ) ;
+		    if ((!($options->getOption("imprRadioRadio")) && ereg ( 'Radio', $libelle ) && ereg ( 'radio', $libelle ))
+//			$mod -> MxBloc ( "actions.frep", "delete" );
+			|| (!($options->getOption("imprRadioScanner")) && ereg ( 'Radio', $libelle ) && ereg ( 'scanner', $libelle ))
+//			$mod -> MxBloc ( "actions.frep", "delete" );
+			|| (!($options->getOption("imprRadioEcho")) && ereg ( 'Radio', $libelle ) && ereg ( 'échographie', $libelle )))
+			$mod -> MxBloc ( "actions.frep", "delete" );
+		    else
+			$mod -> MxText ( "actions.frep.lienPrint", "<a href=\"".URLNAVI.$session->genNavi($session->getNavi(0),$session->getNavi(1),$session->getNavi(2))."&Formulaire2print=$libelleC&FormX_ext_goto_=".$data[id_instance][$i]."&act_print=1\" target=\"_blank\">" ) ;
 		}
 
 		$resume = addslashes(str_replace('"',"'",$newInstance->gen_resume()));
@@ -287,7 +296,7 @@ class  clFoRmX_manip extends clFoRmX {
 	    if ( $options -> getOption ( "racBonRadio" ) )
 		$mod -> Mxattribut("racbonradio.newRadio","document.FoRmXcase.FormX_to_open_.value = 'Formulaire_Radio';document.FoRmXcase.FoRmX_selValid.value = 'on';document.FoRmXcase.FoRmX_selValid_x.value = 'on';document.FoRmXcase.ids.value = '".$this->ids."';document.FoRmXcase.submit();");
 	    else $mod -> MxBloc ( "racbonradio", "delete" ) ;
-	    if ( $options -> getOption ( "racBonLabo" ) ){
+	    if ( $options -> getOption ( "racBonLabo" ) ) {
 		$options->getOption("bio2009") ? $f = "Formulaire_Bio2009" : $f = "Formulaire_Bio";
 		$mod -> Mxattribut("racbonlabo.newLabo","document.FoRmXcase.FormX_to_open_.value = '" . $f . "';document.FoRmXcase.FoRmX_selValid.value = 'on';document.FoRmXcase.FoRmX_selValid_x.value = 'on';document.FoRmXcase.ids.value = '".$this->ids."';document.FoRmXcase.submit();");
 	    }
