@@ -414,7 +414,7 @@
 	</option_new>
     </update>
 
-    <update id="62">
+    <update id="63">
 	<description>Ajout de l'option permetant de choisir le type d'envoi de mail</description>
 	<option_new>
 	    <categorie>Documents et formulaires</categorie>
@@ -423,6 +423,40 @@
 	    <type>combobox</type>
 	    <choix>HTML|TXT</choix>
 	    <defaultValue>HTML</defaultValue>
+	</option_new>
+    </update>
+
+
+    <update id="64">
+	<description>Ajout de l'option imprRadioRadio</description>
+	<option_new>
+	    <categorie>Documents et formulaires</categorie>
+	    <cle>imprRadioRadio</cle>
+	    <libelle>Affichage ou non de l'icone d'impression pour les radio de la fiche patient</libelle>
+	    <type>bool</type>
+	    <defaultValue>1</defaultValue>
+	</option_new>
+    </update>
+
+    <update id="65">
+	<description>Ajout de l'option imprRadioScanner</description>
+	<option_new>
+	    <categorie>Documents et formulaires</categorie>
+	    <cle>imprRadioScanner</cle>
+	    <libelle>Affichage ou non de l'icone d'impression pour les scanners de la fiche patient</libelle>
+	    <type>bool</type>
+	    <defaultValue>1</defaultValue>
+	</option_new>
+    </update>
+
+    <update id="66">
+	<description>Ajout de l'option imprRadioEcho</description>
+	<option_new>
+	    <categorie>Documents et formulaires</categorie>
+	    <cle>imprRadioEcho</cle>
+	    <libelle>Affichage ou non de l'icone d'impression pour les échographies de la fiche patient</libelle>
+	    <type>bool</type>
+	    <defaultValue>1</defaultValue>
 	</option_new>
     </update>
     
