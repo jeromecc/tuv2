@@ -70,7 +70,7 @@ class clListeBE {
 	for ( $i = 0 ; isset ( $res['id'][$i] ) ; $i++ ) {
 
 	    // récupération date admission
-	    $dt_adm = "Date inconnue";
+	   /* $dt_adm = "Date inconnue";
 	    $sql = "SELECT dt_admission FROM `patients_presents` WHERE nsej='".$res['nsej'][$i]."'";
 	    $obRequete = new clRequete(BDD, 'patients_presents', array() ,MYSQL_HOST, MYSQL_USER , MYSQL_PASS );
 	    $tabResult = $obRequete->exec_requete($sql, 'tab');
@@ -80,9 +80,9 @@ class clListeBE {
 		$sql = "SELECT dt_admission FROM `patients_sortis` WHERE nsej='".$res['nsej'][$i]."'";
 		$tabResult = $obRequete->exec_requete($sql, 'tab');
 		if (isset($tabResult[0])) $dt_adm = $tabResult[0]['dt_admission'];
-	    }
+	    }*/
 
-	    $item['dt_adm'] = $dt_adm;
+	    $item['dt_adm'] = $res['date_admission'][$i];
 	    $item['ilp'] = $res['ilp'][$i] ;
 	    $item['nsej'] = $res['nsej'][$i] ;
 	    $item['patient'] = $res['nom'][$i].' '.ucfirst(strtolower($res['prenom'][$i])) ;

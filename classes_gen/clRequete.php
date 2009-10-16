@@ -419,7 +419,7 @@ function testData() {
       // On teste si la colonne existe
       if ( ! $desc[$key] AND isset ( $errs ) ) {
       $errs->addErreur ( "Base -> ".$this->db."<br/>Table -> ".$this->table."<br/>Erreur -> $key : La colonne n'existe pas<br>", "1" ) ;
-      }     
+      }
       // On teste si la longueur de la donnée est cohérente
       if ( $desc[$key][1] != 'blob' AND $desc[$key][0] < strlen ( $val ) AND isset ( $errs ) AND ! $this->isCutData) { // Donnée trop longue
 		$erreur = "$key : <br/>Longueur attendue : ".$desc[$key][0]." <br/>Longueur reçue : ".strlen($val)."<br/>Contenu : ".$val ;

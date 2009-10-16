@@ -459,5 +459,10 @@
 	    <defaultValue>1</defaultValue>
 	</option_new>
     </update>
-    
+    ALTER TABLE `bal` ADD `date_admission` DATETIME NOT NULL
+
+    <update id="67">
+	<description>Ajout de l'option imprRadioEcho</description>
+	    <requete base="tuv2">ALTER TABLE `bal` ADD `date_admission` DATETIME NOT NULL </requete>
+    </update>
 </updates>
