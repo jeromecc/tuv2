@@ -95,6 +95,7 @@ class clFichePatient {
 		$data['date'] = $date->getDatetime ( ) ;
 		$data['action'] = 'Annulation du passage en UF UHCD' ;
 		$data['iduser'] = $session->getUid ( ) ;
+		$data['date_admission'] = $this->patient->getDateAdmission();
 		$requete = new clRequete ( BDD, 'bal', $data ) ;
 		$requete->addRecord ( ) ;
 		$this->patient->setAttribut ( 'UF', $options->getOption ( 'numUFexec' ) ) ;
@@ -919,6 +920,7 @@ class clFichePatient {
 	    $data['dest_attendue'] = $this->patient->getDestinationAttendue ( ) ;
 	    $data['type'] = 'UHCD' ;
 	    $data['date'] = $date->getDatetime ( ) ;
+	    $data['date_admission'] = $this->patient->getDateAdmission();
 	    if ( $type == 'urg' ) $data['action'] = 'Annulation du passage en UF UHCD' ;
 	    elseif ( $type == 'asc' ) $data['action'] = 'Annulation du passage en UF Soins Continus' ;
 	    elseif ( $type == 'sc' ) $data['action'] = 'Passage en UF Soins Continus' ;

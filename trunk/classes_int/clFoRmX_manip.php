@@ -251,7 +251,6 @@ class  clFoRmX_manip extends clFoRmX {
 		    elseif ( eregi ( 'Bio', $libelle ) && eregi ( '2009', $libelle )) $libelleC = 'bio2009';
 		    elseif ( eregi ( 'Bio', $libelle ) ) $libelleC = 'labo' ;
 		    else $libelleC = 'spe' ;
-		    eko($libelle);
 		    //$mod->Mxattribut("actions.frep.code","document.FoRmXcase.Formulaire2print.value = '".$libelleC."';document.FoRmXcase.submit();");
 		    if ((!($options->getOption("imprRadioRadio")) && ereg ( 'Radio', $libelle ) && ereg ( 'radio', $libelle ))
 //			$mod -> MxBloc ( "actions.frep", "delete" );

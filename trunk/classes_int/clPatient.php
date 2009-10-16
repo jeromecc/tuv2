@@ -98,6 +98,7 @@ class clPatient {
 	$data['date'] = $this->getDateSortie ( ) ;
 	$data['action'] = 'Sortie du patient' ;
 	$data['iduser'] = $session->getUid ( ) ;
+	$data['date_admission'] = $this->getDateAdmission();
 	$requete = new clRequete ( $this->base, 'bal', $data ) ;
     $requete->addRecord ( ) ;
   }
