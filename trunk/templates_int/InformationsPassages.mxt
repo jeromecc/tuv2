@@ -32,3 +32,6 @@
     <mx:hidden id="hidden" />
   </form>
 </div>
+<script type="text/javascript">
+window.setTimeout ('history.go (0)',60000)
+</script>
