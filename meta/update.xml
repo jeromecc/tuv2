@@ -465,4 +465,45 @@
 	<description>Ajout de l'option imprRadioEcho</description>
 	    <requete base="tuv2">ALTER TABLE `bal` ADD `date_admission` DATETIME NOT NULL </requete>
     </update>
+
+    <update id="68">
+	<description>Création de l'option Lien_Actif</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Lien_Actif</cle>
+	    <libelle>Le lien externe est activé.</libelle>
+	    <type>bool</type>
+	    <admin>1</admin>
+	</option_new>
+    </update>
+
+    <update id="69">
+	<description>Création de l'option Lien_Description</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Lien_Description</cle>
+	    <libelle>Description du lien contextuel.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
+
+    <update id="70">
+	<description>Création de l'option Lien_Droit</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Lien_Droit</cle>
+	    <libelle>Le droit nécessaire pour voir le lien.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
+
+    <update id="71">
+	<description>Création de l'option Lien_URL</description>
+	<option_new>
+	    <categorie>Appels contextuels</categorie>
+	    <cle>Lien_URL</cle>
+	    <libelle>URL.</libelle>
+	    <admin>1</admin>
+	</option_new>
+    </update>
 </updates>

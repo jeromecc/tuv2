@@ -67,6 +67,9 @@ class clListesPatients {
     if ( ( $session->getNavi ( 1 ) == "delPatient" ) AND  $session->getDroit ( "Liste_Attendus", "d" ) ) {
       $this -> delPatient ( ) ;
     }
+    if ( $_POST['Annuler'] OR $_POST['Annuler_x'] ) {
+        header ( 'Location:'.URLNAVI.$session->genNavi($session->getNavi(0))) ;
+    }
     // On vérifie si l'ajout manuel d'un patient attendu est demandé.
     if ( ( $_POST['Ajouter'] OR $_POST['Ajouter_x'] OR ( $session -> getNavi ( 1 ) == "addPatientAttendu" AND ! $_POST['Annuler'] AND ! $_POST['Annuler_x'] ) ) AND ( ( $session->getDroit ( "Liste_".$this->type, "w" ) AND $options -> getOption ( "AjoutManuel" ) ) OR ( $session->getDroit ( "Liste_".$this->type, "w" ) AND $this -> type == "Attendus" ) ) ) {
       if ( $this -> type == "Attendus" )
@@ -1023,6 +1026,7 @@ class clListesPatients {
 	$requete = new clRequete ( BDD, PPRESENTS, $data2 ) ;
 	// Exécution de la requête.
 	$requete->updRecord ( "idpatient='".$res['idpatient'][$i]."'" ) ;
+    header ( 'Location:'.URLNAVI.$session->genNavi($session->getNavi(0))) ;
       }
 
     } else {

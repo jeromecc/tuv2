@@ -52,6 +52,7 @@ class XhamBluePig {
 		$app[] = $this->genCarpentrasExcel ( ) ;
         $app[] = $this->genPacs ( ) ;
 		$app[] = $this->genDxCare ( ) ;
+		$app[] = $this->genLien ( ) ;
 
 		for ( $i = 0 ; $i < count($app) ; $i++ ) {
 			if ( $app[$i] ) {
@@ -62,7 +63,17 @@ class XhamBluePig {
 
 		$this->af .= $mod -> MxWrite ( "1" ) ;
 	}
-	
+
+
+    function genLien ( $img='images/liengen.gif', $text='' ) {
+		$pref = "Lien" ;
+		if ( $this->options->getOption ( $pref."_Actif" ) AND ( ! $this->options->getOption ( $pref."_Droit" ) OR $this->droits->getDroit ( $this->options->getOption ( $pref."_Droit" ) ) ) ) {
+    		$urls = $this->options->getOption ( $pref."_URL" ) ;
+            $lien = '<img src="'.$img.'" style="border: 0px;" alt="Labo" />' ;
+			$inf = XhamTools::genInfoBulle ( $this->options->getOption ( $pref."_Description" ) ) ;
+			return '<a target="_blank" href="'.$urls.'" '.$inf.'>'.$lien.'</a>' ;
+    	}
+	}
 
 	function genBlueMedi ( $img='images/bluemedi.gif', $text='' ) {
     	$pref = "BlueMedi" ;
