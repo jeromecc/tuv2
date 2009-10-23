@@ -126,6 +126,7 @@ class clSession {
   // Ajout des statistiques dans la base de données.
   function setStats ( ) {
     global $logs ;
+    if ( $this->navi[0] != 'Importation' ) {
     $data['nombre'] = "nombre+1" ;
     // Appel de la classe Requete.
     $requete = new clRequete ( BASEXHAM, TABLESTATS, $data ) ;
@@ -144,7 +145,7 @@ class clSession {
       // Exécution de la requete.
       $res = $requete->addRecord ( ) ;
     }
-    
+    }
   }
 
   // Initialisation de la navigation.
