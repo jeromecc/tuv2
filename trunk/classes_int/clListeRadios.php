@@ -920,7 +920,15 @@ class clListeRadios {
       	$t['all']  = 'Global - Toutes' ;
       	$t['npec']  = 'Global - Non prises en charge' ;
       	$t['alm']  = 'Global - Toutes sauf terminées' ;
-      	$t['d']    = 'Global - Terminés' ;
+      	$t['d']    = 'Global - Terminés (12 dernières heures)' ;
+        $t['d024']    = 'Global - Terminés (J-0)' ;
+        $t['d2448']    = 'Global - Terminés (J-1)' ;
+        $t['d4872']    = 'Global - Terminés (J-2)' ;
+        $t['d7296']    = 'Global - Terminés (J-3)' ;
+        $t['d96120']    = 'Global - Terminés (J-4)' ;
+        $t['d120144']    = 'Global - Terminés (J-5)' ;
+        $t['d144168']    = 'Global - Terminés (J-6)' ;
+        $t['d168192']    = 'Global - Terminés (J-7)' ;
       	$t['rall'] = 'Radio - Toutes' ;
       	$t['ralm'] = 'Radio - Toutes sauf terminées' ;
       	$t['rd']   = 'Radio - Terminées' ;
@@ -960,6 +968,7 @@ class clListeRadios {
 		elseif ( ! isset ( $_SESSION['typeListe'] ) ) $_SESSION['typeListe'] = 'all' ;
 		//print "Type Liste : ".$_SESSION['typeListe'].'<br/>' ;
 		//print affTab ( $_SESSION ) ;
+        $date = new clDate ( ) ;
     	switch ( $_SESSION['typeListe'] ) {
     		case 'all':
     			$and = $reqDate ;
@@ -969,6 +978,37 @@ class clListeRadios {
     		break ;
     		case 'd':
     			$and = "AND etat='d'".$reqDate2 ;
+    		break ;
+            case 'd024':
+    			$and = "AND etat='d' AND dt_fin LIKE '".$date->getDate('Y-m-d')."%'" ;
+    		break ;
+    		case 'd2448':
+                $date->addDays(-1);
+    			$and = "AND etat='d' AND dt_fin LIKE '".$date->getDate('Y-m-d')."%'" ;
+    		break ;
+    		case 'd4872':
+                $date->addDays(-2);
+    			$and = "AND etat='d' AND dt_fin LIKE '".$date->getDate('Y-m-d')."%'" ;
+    		break ;
+    		case 'd7296':
+                $date->addDays(-3);
+    			$and = "AND etat='d' AND dt_fin LIKE '".$date->getDate('Y-m-d')."%'" ;
+    		break ;
+    		case 'd96120':
+                $date->addDays(-4);
+    			$and = "AND etat='d' AND dt_fin LIKE '".$date->getDate('Y-m-d')."%'" ;
+    		break ;
+    		case 'd120144':
+                $date->addDays(-5);
+    			$and = "AND etat='d' AND dt_fin LIKE '".$date->getDate('Y-m-d')."%'" ;
+    		break ;
+    		case 'd144168':
+                $date->addDays(-6);
+    			$and = "AND etat='d' AND dt_fin LIKE '".$date->getDate('Y-m-d')."%'" ;
+    		break ;
+    		case 'd168192':
+                $date->addDays(-7);
+    			$and = "AND etat='d' AND dt_fin LIKE '".$date->getDate('Y-m-d')."%'" ;
     		break ;
     		case 'rall':
     			$and = $reqDate ;
@@ -1023,7 +1063,7 @@ class clListeRadios {
     	//$param['cw2'] = 'where r.idpatient=p.idpatient' ;
 		// Exécution de la requête.
       	$res = $req -> Execute ( "Fichier", "getRadiosGlob", $param, "ResultQuery" ) ;
-		//eko ( $res['INDIC_SVC'] ) ;
+		eko ( $res['INDIC_SVC'] ) ;
 		
 		return $res ;
 	}
