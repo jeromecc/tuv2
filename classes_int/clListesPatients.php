@@ -261,8 +261,9 @@ class clListesPatients {
 		//else
 		//	$param['cw'] = " p, ".BASEXHAM.".listes l WHERE ((p.dt_examen!='0000-00-00 00:00:00'  AND l.nomliste='Salles d\'examens' AND p.salle_examen NOT LIKE '$uhcd%' AND (p.salle_examen=l.nomitem)) OR ( p.dt_examen!='0000-00-00 00:00:00'  AND p.salle_examen=l.nomitem AND p.salle_examen NOT LIKE '$uhcd%' ) )  AND l.idapplication=".IDAPPLICATION." ORDER BY l.rang" ;
 		
-      	 
-		if ( $pedi )
+      	if ( $eq ) {
+            $param['cw'] = " WHERE dt_examen!='0000-00-00 00:00:00' AND traumato LIKE '$this->equipe%' " ;
+        } elseif ( $pedi )
 			$param['cw'] = " p WHERE ((p.dt_examen!='0000-00-00 00:00:00' AND p.salle_examen NOT LIKE '$uhcd%' AND p.salle_examen NOT LIKE '$pedi%') OR ( p.dt_examen!='0000-00-00 00:00:00'  " .
 					"AND p.salle_examen NOT LIKE '$uhcd%' AND p.salle_examen NOT LIKE '$pedi%' ) )".$eq ;
 		else
@@ -407,18 +408,21 @@ class clListesPatients {
           //eko($res);
         }
         else
-          $res = $req -> Execute ( "Fichier", "getPatients", $param, "ResultQuery" ) ;  
+          $res = $req -> Execute ( "Fichier", "getPatients", $param, "ResultQuery" ) ;
+          //eko ( $res['INDIC_SVC'] ) ;
       }
       else
         $res = $req -> Execute ( "Fichier", "getPatients", $param, "ResultQuery" ) ;
-      
+      //eko ( $res['INDIC_SVC'] ) ;
       //eko($res);
       //eko ( $res['INDIC_SVC'] ) ;
       if ( DEBUGLISTESPATIENTS AND $session->getDroit ( "Liste_".$this->type, "a" ) ) newfct ( gen_affiche_tableau, $res[INDIC_SVC] ) ;
       // Cas des patients non-vus.
     } else {
       $list = new ListMaker ( "template/ListePatientsBis.html" ) ;
-      if ( $pedi )
+      if ( $eq ) {
+          $param['cw'] = "WHERE dt_examen='0000-00-00 00:00:00' AND traumato LIKE '$this->equipe%' " ;
+      } elseif ( $pedi )
       	$param['cw'] = "WHERE dt_examen='0000-00-00 00:00:00' AND salle_examen NOT LIKE '$uhcd%' AND salle_examen NOT LIKE '$pedi%'".$eq.' ORDER BY dt_admission' ;
       else
       	$param['cw'] = "WHERE dt_examen='0000-00-00 00:00:00' AND salle_examen NOT LIKE '$uhcd%'".$eq.' ORDER BY dt_admission' ;
