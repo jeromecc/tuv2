@@ -238,6 +238,7 @@ class clPatient {
       global $options ;
       $ret = array();
 	$ret['id_site'] = TBIDSITE ;
+	$ret['id_site_arh'] = $options->getOption('RPU_IdActeur');
 	$ret['libelle_site'] = $this->getLibelleSite() ;
 	$ret['id_terminal'] = '';
 	$ret['idpassAnonyme'] = $this->getIdpassagePseudoAnonymyse() ;
