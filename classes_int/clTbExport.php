@@ -158,37 +158,37 @@ class clTbExport {
 	$this->createNoeudTest($xml, $tests_categ1, "Safe mode non activ?", clUpdater::testSafeMode());
 	$this->createNoeudTest(
 	    $xml, $tests_categ1,
-	    "Test de la d?sactivation de la limite temporelle d'ex?cution du script",
+	    "Test de la desactivation de la limite temporelle d'execution du script",
 	    clUpdater::testLimiteTempo()
 	);
 	$this->createNoeudTest(
 	    $xml, $tests_categ1,
-	    "Test de l'augmentation de la m?moire allou?e ? 512M",
+	    "Test de l'augmentation de la memoire allouee a 512M",
 	    clUpdater::testNoNoNoNoNoNoThereIsNoLimit("512M")
 	);
 
 
-	$tests_categ2 = $this->createCategTest($xml, $root_tests, "Modules php n?cessaires");
+	$tests_categ2 = $this->createCategTest($xml, $root_tests, "Modules php necessaires");
 	$modules = array("soap", "xsl", "xml", "ftp", "mysql", "calendar", "gd", "zlib", "mbstring", "sockets");
 	foreach ($modules as $module) {
 	    $this->createNoeudTest(
 		$xml, $tests_categ2,
-		"Test de la pr?sence du module PHP " . $module,
+		"Test de la presence du module PHP " . $module,
 		clUpdater::testModule($module)
 	    );
 	}
 
-	$tests_categ3 = $this->createCategTest($xml, $root_tests, "Modules php pour fonctionalit?s ?tendues");
+	$tests_categ3 = $this->createCategTest($xml, $root_tests, "Modules php pour fonctionalites etendues");
 	$modules = array("curl", "openssl");
 	foreach ($modules as $module) {
 	    $this->createNoeudTest(
 		$xml, $tests_categ3,
-		"Test de la pr?sence du module PHP " . $module,
+		"Test de la presence du module PHP " . $module,
 		clUpdater::testModule($module)
 	    );
 	}
 
-	$tests_categ4 = $this->createCategTest($xml, $root_tests, "V?rification des r?pertoires");
+	$tests_categ4 = $this->createCategTest($xml, $root_tests, "Verification des repertoires");
 
 	$dirs = array(
 	    URLCACHE, URLDOCS, URLLOCAL.'hprim/', URLLOCAL.'hprim/ok/', URLLOCAL.'hprim/xml/',
@@ -198,7 +198,7 @@ class clTbExport {
 	foreach ($dirs as $dir) {
 	    $this->createNoeudTest(
 		$xml, $tests_categ4,
-		"Test du droit d'?criture sur le dossier " . $dir,
+		"Test du droit d'ecriture sur le dossier " . $dir,
 		clUpdater::testEcritureDossier($dir),
 		true
 	    );
@@ -213,16 +213,17 @@ class clTbExport {
 	);
 
 	$bases = array(BASEXHAM, BDD, CCAM_BDD);
-	foreach ($bases as $base) {
+	$bbases = array("xham", "tuv2", "ccam");
+	foreach ($bases as $i => $base) {
 	    $this->createNoeudTest(
 		$xml, $tests_categ5,
-		"Connexion ? la base '" . $base . "'",
+		"Connexion ? la base " . $bbases[$i] . " '" . $base . "'",
 		mysql_select_db ( $base )
 	    );
 
 	    $this->createNoeudTest(
 		$xml, $tests_categ5,
-		"Test des privil?ges CREATE ALTER DROP base '" . $base . "'",
+		"Test des privileges " . $bbases[$i] . " : CREATE ALTER DROP base '" . $base . "'",
 		clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,$base)
 	    );
 	}
