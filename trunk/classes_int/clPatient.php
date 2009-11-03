@@ -222,10 +222,15 @@ class clPatient {
     return '';
   }
 
+  function getIdPassage()
+  {
+	return $this->getNSej() ;
+  }
+
 
       function getIdpassagePseudoAnonymyse()
     {
-	return sha1(TBIDSITE.$this->getILP());
+	return sha1(TBIDSITE.$this->getIdPassage());
     }
 
 
@@ -747,6 +752,19 @@ class clPatient {
           $idPatient = $resTab[0]['idpatient'] ;
       }
       return new clPatient($idPatient,$etat);
+  }
+
+  static function getPatientsFromDateToDate(clDate $date1, clDate $date2)
+  {
+      $req =" SELECT idpatient from patients_sortis WHERE dt_admission >= '".$date1->getDatetime()."' AND   dt_admission <= '".$date2->getDatetime()."'  " ;
+      $obReq = new clRequete( BDD, 'patients_sortis');
+      $resTab = $obReq->exec_requete($req,'tab');
+      $tabRet = array();
+      foreach( $resTab as $ligne)
+      {
+	$tabRet[] = self::getObjPatientFromIdPassage($ligne['idpass']);
+      }
+      return $tabRet ;
   }
   
 }
