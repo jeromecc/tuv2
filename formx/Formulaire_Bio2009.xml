@@ -79,7 +79,7 @@
 
 	<ITEM type="CHECK" id="biochimie" opt="y" cols="2" >
 		<Libelle style="font-weight:bold;">Biochimie</Libelle>
-		<FromList>list:Gly|Na, K, Cl|Bicarbonate|Protides|Urée|Créatinine|Acide urique|Calcium|CK|LDH|Transaminases|GGT|PAL|Bilirubine|amylase|lipase|Alcoolémie|Protéine C réactive|Troponine|Myoglobine|Haptoglobine|BNP|procalcitonine|Ammoniémie|lactates|Oxyde de cardone|Gaz</FromList>
+		<FromList>list:Gly|Ionogramme (Na, K, Cl, CO2, Protides)|Urée|Créatinine|Acide urique|Calcium|CK|LDH|Transaminases|GGT|PAL|Bilirubine|amylase|lipase|Alcoolémie|Protéine C réactive|Troponine|Myoglobine|Haptoglobine|BNP|procalcitonine|Ammoniémie|lactates|Oxyde de cardone|Gaz</FromList>
 	</ITEM>
 	
 	<ITEM type="TXT" id="biochimie_temp" opt="y">
