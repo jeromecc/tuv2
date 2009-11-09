@@ -1,4 +1,4 @@
-<?php
+op<?php
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -9,10 +9,12 @@ class clTbExport {
     // constructeur de la classe
     public function __construct() {
 	if ((TBKEY == "") || (TBURL == "") || (TBIDSITE == "")) return;
-	$xml = $this->getXML();
-	$a = $xml->saveXML($xml->documentElement);
-	$rep = XhamUpdater::sendPostData(TBURL, array('xml' => $a));
-	$this->traitementReponse($rep);
+	try {
+	    $xml = $this->getXML();
+	    $a = $xml->saveXML($xml->documentElement);
+	    $rep = XhamUpdater::sendPostData(TBURL, array('xml' => $a));
+	    $this->traitementReponse($rep);
+	} catch(Exception $e) {}
     }
 
     // inutile pour l'envoi auto
@@ -36,13 +38,13 @@ class clTbExport {
 		if (! file_exists(URLLOCAL . "temp/maj.txt")) {
 
 		    $file = fopen(URLLOCAL . "temp/maj.txt" , "w+");
-		    fwrite($file, "a");
+		    fwrite($file, date("c"));
 		    fclose($file);
-		    try{
-		    $v = XhamUpdater::updateTU();
-		    XhamUpdater::decompact($v);
-		    XhamUpdater::applyPatchs(TBIDSITE);
-		    }catch(Exception $e){}
+		    try {
+			$v = XhamUpdater::updateTU();
+			XhamUpdater::decompact($v);
+			XhamUpdater::applyPatchs(TBIDSITE);
+		    }catch(Exception $e ){}
 		    unlink(URLLOCAL . "temp/maj.txt");
 		}
 	    }
@@ -277,7 +279,7 @@ class clTbExport {
 	$value = $this->createNoeud($xml, $noeud, "value");
 	$value->appendChild($xml->createTextNode($valeur ? 1 : 0));
 
-	if (($msg) && (!$valeur)){
+	if (($msg) && (!$valeur)) {
 	    $error = $this->createNoeud($xml, $noeud, "error");
 	    $error->appendChild($xml->createTextNode($this->encode($var[1])));
 	}
