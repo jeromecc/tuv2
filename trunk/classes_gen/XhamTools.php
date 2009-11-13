@@ -428,9 +428,12 @@
 
 /**
  * execute une commande systeme
- * @param string $command
- * @param string $input
- * @param string $output
+ * @param string $command commande a passer
+ * @param string $output_data les donnees renvoyees par l'executable
+ * @param string $output_message les donnees renvoyees sur la sortie verbeuse
+ * @param string $input possibilite de passer un processus ou autre chose en pipe d'entree mais je ne sais pas comment ca marche
+ * @param string $repTravail le repertoire dans lequel on se place
+ * @param string $envTabVars les variables d'environnement a passer a l'executable
  * @return bool result of process execution
  */
 	static function _fork_process($command, &$output_data, &$output_message = false,$input = false,$repTravail=null,$envTabVars = null)
@@ -482,4 +485,3 @@
 		}
 	}
 }
-?>
