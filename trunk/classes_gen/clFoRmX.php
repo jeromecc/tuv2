@@ -1338,6 +1338,7 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
 
    	if( $this->mustICloseAfterValid() && $this->justClosed )
     {
+		$_POST['formx_autoclose'] = true ;
 		$this->affFoRmX(); //TODO : lorsque plus aucune regle métier dans affFoRmX, virer la ligne
     } else
 		$this->af .=$this->affFoRmX();	
@@ -2262,6 +2263,8 @@ $reg=array();
 
  	//si l'item est de type closer et que sa condition est vraie, on cloture le formulaire et on le ferme
     if($item->getAttribute('closer') &&   $this->testCondDOM($item) ) {
+		eko("marquage de l'autoclose");
+		$_POST['formx_autoclose'] = true ;
  		$this->ImustDisapear = true ;
  		$this->close();
  	}

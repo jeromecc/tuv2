@@ -120,7 +120,11 @@ class clFichePatient {
 	    $patient = $this->patient ;
 	    $enquetes = clTuFormxTrigger::getWatcher($this->patient);
 	    $enquetes->launchTriggers();
-	    if( $this->isIHMDispo() ) 	$this->af .= $enquetes->getHtml();
+	    if( $this->isIHMDispo() )
+	    {
+		$this->af .= $enquetes->getHtml();
+	    }
+
 
 	} else
 	    $this->af .= "Le patient spécifié est introuvable dans cette liste." ;
@@ -453,39 +457,6 @@ class clFichePatient {
 	    $ac -> genBarre ( ) ;
 	    $mod -> MxText ( "appelsContextuels", $ac->getAffichage ( ) ) ;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1291,12 +1262,15 @@ class clFichePatient {
 		    // Dans les autres cas, on affiche les boutons de validation / annulation de la sortie.
 		    } else {
 			$contraintes = new clContraintes ( $this->patient->getID ( ), $this->paramCCAM ) ;
-
 			//formulaire(s) à remplir bloquant la sortie ( pré-contraintes ) ?
 			if ( clTuFormxTrigger::getWatcher($this->patient)->isTriggersOnOut() ) {
 			    $enquetes = clTuFormxTriggerWatcher::getInstance($this->patient)  ;
 			    $enquetes->launchTriggersOnOut();
+			    //eko("trigers lances, sortie de la fenetre bloquante");
 			    return '';
+			}  else if ( clTuFormxTrigger::getWatcher($this->patient)->isTriggersWaitingForLauch() ) {
+			    //eko("watchers en cours, sortie de la fenetre bloquante");
+			    return '' ;
 			}  else if ( $contraintes -> runCheck ( ) ) {
 
 				$f .= $form -> genImage ( "Valider", "Valider", URLIMGVAL, 'style="border: 0px; background-color: #FFFF99;"' ) ;
@@ -1495,6 +1469,19 @@ class clFichePatient {
 	$this->isIMHBusy = true ;
     }
 
+    //regarde si il y a un formx en cours
+
+    function isFormxEnCours()
+    {
+	return(
+	    isset($_POST['FoRmX_INSTANCE']) && $_POST['FoRmX_INSTANCE'] and
+	    ! (
+		(isset($_POST['FoRmX_close_x']) && $_POST['FoRmX_close_x'] ) or ( isset($_POST['formx_autoclose']) and $_POST['formx_autoclose'] )  
+	    
+		)
+	);
+    }
+
     //regarde si l'IHM de la fiche patient est occupée ou dispo . Utilisé par les triggers de formulaire pour savoir si on peut afficher ou non les formx
     function isIHMDispo() {
 	if ( $this->isIMHBusy )
@@ -1516,7 +1503,7 @@ class clFichePatient {
 	    return false ;
 	if( isset($_POST['FoRmX_selValid_x']) && $_POST['FoRmX_selValid_x'] )  //choix nouveau formulaire
 	    return false ;
-	if( isset($_POST['FoRmX_INSTANCE']) && ! ( isset($_POST['FoRmX_close_x']) && $_POST['FoRmX_close_x'] ) ) //sortie formulaire
+	if( $this->isFormxEnCours() )
 	    return false ;
 	//dans documents édités ?
 	//a priori, pas de déclenchage apres documents édités possible pour l'instant

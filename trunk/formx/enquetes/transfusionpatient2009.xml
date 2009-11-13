@@ -46,7 +46,7 @@
                 <OnVal>const:Plasma</OnVal>
             </ShowItemsOnVal>
             <ShowItemsOnVal>
-                <ListIdItems>list:plaquettes_indication|plaquettes_mtc|plaquettes|plaquettes_nb_prescrit|plaquettes_nb_transfuse</ListIdItems>
+                <ListIdItems>list:plaquettes_indication|plaquettes_mtc|plaquettes</ListIdItems>
                 <OnVal>const:Plaquettes</OnVal>
             </ShowItemsOnVal>
              <Cond  type="equal" oblig="y" >

@@ -11,7 +11,7 @@
 <root>
 <trigger title="Enquete Grippe" onOut="y" passageLinked="y"  idForm="enquetes/grippe2009"  maxDays="" obligDays=""  autoStart="" >
     
-	<cond type="regexp" item="medecin_urgences">^DOS.*</cond>
+	<cond type="regexp" item="medecin_urgences">^MED.*</cond>
 
 </trigger>
 </root>
