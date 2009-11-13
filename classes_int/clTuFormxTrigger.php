@@ -642,6 +642,11 @@ function getType()
 	return $this->sxDef['type'];
 }
 
+function getAttributeCond($att)
+{
+    return $this->sxDef[$att];
+}
+
 /**
  * regarde si la cond (supposée de type diag) contient ce code diag comme déclencheur
  * @param string $codeDiagPatient
@@ -706,6 +711,17 @@ function getType()
 			}
 		}
 		return false ;
+	}
+
+	function hasRegExp(clPatient $patient)
+	{
+	     $val = $patient->getInformation(  (string) $this->getAttributeCond('item') ) ;
+	     $reg =  (string) $this->getSxDef() ;
+	    if( $val and ereg($reg, $val ))
+	    {
+		return true ;
+	    }
+	    return false ;
 	}
 
 	function getFirstSubCond()
@@ -850,7 +866,7 @@ class clTuFormxTriggerWatcher
 				return true ;
 			}
 			return false ;
-        case 'motif':
+		case 'motif':
 			//est-ce que le motif du patient est concerné par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
 			if($condition->hasMotif($this->getPatient()->getCodeRecours())  )
 			{
@@ -860,6 +876,12 @@ class clTuFormxTriggerWatcher
 		case 'acte':
 			//est-ce que les actes du patient sont concernés par ce formulaire ? Est-ce que le patient n'a pas déjà le formulaire instancié pour le passage ?
 			if( $condition->hasActes($this->getPatient()->getTabActes()  )   )
+			{
+				return true ;
+			}
+			return false ;
+		case 'regexp':
+			if( $condition->hasRegExp($this->getPatient()  )   )
 			{
 				return true ;
 			}
@@ -909,9 +931,9 @@ class clTuFormxTriggerWatcher
 		case 'xor':
 		case 'ccmu':
 		case 'diag':
-        case 'motif':
+		case 'motif':
 		case 'acte':
-
+		case 'regexp':
 			if ( ! $this->getpatient()->hasFormxPassage($condition->getTrigger()->getIdFormx(),array('etat' => $options['etatsFormx'] ) ) )
 			{
 				//eko("formulaire non trouve, tests des conditions de declenchement");
@@ -938,7 +960,7 @@ class clTuFormxTriggerWatcher
 		foreach( clTuFormxTrigger::getTriggersActive() as $trigger )
 		{
 			//le patient est il elligible ? Si en sortie, est-ce bien un trigger de sortie ?
-			if( $this->isElligible($trigger)  and ( ! $trigger ->isOnOut() or ( $typeAppel == 'onOut' && $trigger ->isOnOut()  ) ) )
+			if(  ( ! $trigger ->isOnOut() or ( $typeAppel == 'onOut' && $trigger ->isOnOut()  ) ) and $this->isElligible($trigger) )
 			{
 				//appel de fonction
 				if( $trigger->hasFunc() )
@@ -986,7 +1008,10 @@ class clTuFormxTriggerWatcher
 		foreach ( $_SESSION['tuFxTriggersWatcher'][$this->getPatient()->getIDU() ]['launchers'] as $idTrigger )
 		{
 			if ( $idTriggerAsk == $idTrigger )
-				return true ;
+			{
+			    return true ;
+			}
+				
 		}
 		return false ;
 	}
@@ -1020,6 +1045,7 @@ class clTuFormxTriggerWatcher
 
 	function isTriggersOnOut()
 	{
+
 		//est-ce qu'il y a des enquetes  en cours ?
 		if ( !  clTuFormxTrigger::isTriggersActive() )
 			return false ;
@@ -1065,7 +1091,8 @@ class clTuFormxTriggerWatcher
 	public function checkOnOut()
 	{
 		
-		
+
+
 		if ( !  clTuFormxTrigger::isTriggersActive() )
 			return false ;
 		$tabLibEnquetesInachevees = array() ;
@@ -1077,7 +1104,7 @@ class clTuFormxTriggerWatcher
 			// le patient sort avec un trigger incomplet ? Le trigger est défini comme bloquant ?
 			if(  $this->isElligibleAndNotCompleted($trigger )  )
 			{
-				//eko("l'enqueete ".$trigger->getNomEnquete()." n'est pas complétée");
+			    eko("l'enqueete ".$trigger->getNomEnquete()." n'est pas complétée");
 
 				if( $trigger->isBlocking() )
 					$tabLibEnquetesInachevees[] = $trigger->getNomEnquete() ;

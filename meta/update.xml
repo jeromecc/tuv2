@@ -506,4 +506,14 @@
 	    <admin>1</admin>
 	</option_new>
     </update>
+
+
+
+
+    <update id="74">
+	<description>Mise à jour du thesaurus</description>
+	<ccam />
+    </update>
+
 </updates>
+

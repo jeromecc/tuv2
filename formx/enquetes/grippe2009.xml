@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="grippe2009" pantom="y" closeAfterValid="y" showOblig="y" >
+    <Libelle>Formulaire Grippe</Libelle>
+    <Objet>Formulaire Grippe</Objet>
+    <Groupe>Enquetes</Groupe>
+    
+    <ETAPE id="1">
+	<Libelle>Première étape du formulaire</Libelle>
+
+
+	<ITEM id="id_passage" type="HIDDEN" ><From>globalObject:patient->getNSej()</From></ITEM>
+	
+	<ITEM id="is_fievre" type="RADIO" onChangeReload='y' oblig="y">
+	    <Libelle>Fièvre (T°C &#62; 38°C) à domicile ou aux urgences ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    
+	</ITEM>
+	
+	<ITEM id="closer" type="HIDDEN" readonly="y"  closer="y">
+	    <Cond type="or" oblig="y" >
+		<Arg1 type="equal">
+		    <Arg1>formVar:is_fievre</Arg1>
+		    <Arg2>const:non</Arg2>
+		</Arg1>
+		<Arg2 type="equal">
+		    <Arg1>formVar:is_fievre</Arg1>
+		    <Arg2>const:ne sais pas</Arg2>
+		</Arg2>
+	    </Cond>
+	</ITEM>
+
+
+	<ITEM id="is_suspect_grippe" type="RADIO" opt="y" onChangeReload='y'>
+	    <Libelle>Cas suspect de grippe ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="or" oblig="y" >
+		<Arg1 type="equal">
+		    <Arg1>formVar:is_fievre</Arg1>
+		    <Arg2>const:oui</Arg2>
+		</Arg1>
+		<Arg2 type="equal">
+		    <Arg1>formVar:is_fievre</Arg1>
+		    <Arg2>const:ne sais pas</Arg2>
+		</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="closer" type="HIDDEN" readonly="y"  closer="y">
+	    <Cond type="or" oblig="y" >
+		<Arg1 type="equal">
+		    <Arg1>formVar:is_suspect_grippe</Arg1>
+		    <Arg2>const:non</Arg2>
+		</Arg1>
+		<Arg2 type="equal">
+		    <Arg1>formVar:is_suspect_grippe</Arg1>
+		    <Arg2>const:ne sais pas</Arg2>
+		</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="prelevement_grippe" type="RADIO" opt="y">
+	    <Libelle>Prélèvement grippe ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="motif_prelevement_grippe" type="RADIO" opt="y">
+	    <Libelle>Motif prélèvement :</Libelle>
+	    <FromList>list:Facteur de risque (FDR) personnel|FDR dans l'entourage|Femme enceinte dans l'entourage|But diagnostique|Autre</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="delai_fievre" type="RADIO" opt="y">
+	    <Libelle>Délai depuis le début fièvre :</Libelle>
+	    <FromList>list:&#60;12h|12-24h|24-48h|2-3j|3-5j|&#62;5j|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="forte_fievre_domicile" type="RADIO" opt="y">
+	    <Libelle>Fièvre supérieure à 39°C au domicile ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="forte_fievre_urgences" type="RADIO" opt="y">
+	    <Libelle>Fièvre supérieure à 39°C aux urgences ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="etat_general" type="RADIO" opt="y">
+	    <Libelle>Etat général</Libelle>
+	    <FromList>list:bon|moyen|altéré|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="hemodynamique" type="RADIO" opt="y">
+	    <Libelle>Hémodynamique périphérique (TRC, Coloration, marbrure) :</Libelle>
+	    <FromList>list:bonne|moyenne|mauvaise</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="is_courbature" type="RADIO" opt="y">
+	    <Libelle>Courbatures ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="is_frissons" type="RADIO" opt="y">
+	    <Libelle>Frissons ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="is_cephalee" type="RADIO" opt="y">
+	    <Libelle>Céphalée ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="is_diarrhee" type="RADIO" opt="y">
+	    <Libelle>Diarrhée ?</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="resultat_tdr" type="RADIO" opt="y">
+	    <Libelle>Résultat Test diagnostic rapide grippe</Libelle>
+	    <FromList>list:non fait|positif|négatif|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="radio_pulmo" type="RADIO" opt="y">
+	    <Libelle>Radio pulmonaire</Libelle>
+	    <FromList>list:non faite|normale|anormale</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="pcr_sanguine" type="RADIO" opt="y">
+	    <Libelle>PCR sanguine</Libelle>
+	    <FromList>list:non faite|&#60;100mg&#47;l|&#62;100mg&#47;l</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="tamiflu" type="RADIO" opt="y">
+	    <Libelle>Prescription Tamiflu</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+	
+
+	<ITEM id="antibio" type="RADIO" opt="y">
+	    <Libelle>Prescription Antibiotiques</Libelle>
+	    <FromList>list:oui|non|ne sais pas</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_suspect_grippe</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+    </ETAPE>
+</FORMX>
