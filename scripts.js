@@ -230,6 +230,7 @@ BrowserDetect.init();
 function cacherSelect() {
 if ( BrowserDetect.browser != 'Explorer' || BrowserDetect.version != '6' )
 	return ;
+
 eletest1 = 	document.getElementById("newform_blocvalid");
 eletest2 = 	document.getElementById("formX");
 eletest3 = 	document.getElementById("ajoutermini");
@@ -242,12 +243,22 @@ var eles = ele.getElementsByTagName("select");
 for(var i=0;i<eles.length;i++) {
 	eles[i].style.visibility="hidden";
  }
+
+
+
 var ele = document.getElementById("transfertpatient");
+if(ele)
+    {
 var eles = ele.getElementsByTagName("select");
 for(var i=0;i<eles.length;i++) {
 	eles[i].style.visibility="hidden";
- } 
+ }}
+
+  eles = document.getElementsByName("modDateSortie");
+    for(var i=0;i<eles.length;i++) {
+	eles[i].style.visibility="hidden";
+    }
+
+
 }
-
-
 

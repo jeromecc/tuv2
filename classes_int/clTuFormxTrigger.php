@@ -599,9 +599,9 @@ static function getFinEnquete($idEnquete)
 		{
 			// print "<br />analyse ".$trigger->idTrigger ;
 			if( $trigger->mustBegin() )
-            {
+			{
 				$trigger->start();
-            }
+			}
 			if( $trigger->mustClose() )
 			{
 				$trigger->close();
@@ -681,7 +681,7 @@ function getAttributeCond($att)
 		return false ;
 	}
 
-    function hasCcmu($ccmuPatient)
+	function hasCcmu($ccmuPatient)
 	{
 		foreach( $this->getSxDef()->ccmu as $ccmu )
 		{
@@ -959,9 +959,11 @@ class clTuFormxTriggerWatcher
 		//pour chaque enquete
 		foreach( clTuFormxTrigger::getTriggersActive() as $trigger )
 		{
+		    //eko("test si la session est concernée par le trigger ".$trigger->getIdTrigger());
 			//le patient est il elligible ? Si en sortie, est-ce bien un trigger de sortie ?
 			if(  ( ! $trigger ->isOnOut() or ( $typeAppel == 'onOut' && $trigger ->isOnOut()  ) ) and $this->isElligible($trigger) )
 			{
+			    //eko("oui");
 				//appel de fonction
 				if( $trigger->hasFunc() )
 				{
@@ -975,6 +977,11 @@ class clTuFormxTriggerWatcher
 					$this->markLaunching($trigger->getIdTrigger() );
 				}
 			}
+			else
+			{
+			    //eko("non");
+			}
+
 		}
 	}
 
@@ -1001,6 +1008,11 @@ class clTuFormxTriggerWatcher
 				unset($_SESSION['tuFxTriggersWatcher'][$this->getPatient()->getIDU() ]['launchers'][$index] );
 		}
 
+	}
+
+	function isTriggersWaitingForLauch()
+	{
+	    return (bool)  count($_SESSION['tuFxTriggersWatcher'][$this->getPatient()->getIDU() ]['launchers']);
 	}
 
 	function isLaunching($idTriggerAsk)
@@ -1104,7 +1116,7 @@ class clTuFormxTriggerWatcher
 			// le patient sort avec un trigger incomplet ? Le trigger est défini comme bloquant ?
 			if(  $this->isElligibleAndNotCompleted($trigger )  )
 			{
-			    eko("l'enqueete ".$trigger->getNomEnquete()." n'est pas complétée");
+			    //eko("l'enqueete ".$trigger->getNomEnquete()." n'est pas complétée");
 
 				if( $trigger->isBlocking() )
 					$tabLibEnquetesInachevees[] = $trigger->getNomEnquete() ;
