@@ -2262,8 +2262,8 @@ $reg=array();
 
 
  	//si l'item est de type closer et que sa condition est vraie, on cloture le formulaire et on le ferme
-    if($item->getAttribute('closer') &&   $this->testCondDOM($item) ) {
-		eko("marquage de l'autoclose");
+    if($item->getAttribute('closer') &&   $this->testCondDOM($item) )
+	{
 		$_POST['formx_autoclose'] = true ;
  		$this->ImustDisapear = true ;
  		$this->close();
