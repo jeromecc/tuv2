@@ -1097,7 +1097,7 @@ static function genMenuSelection($prefix,$ids) {
 static function getHyperLink($args) {
 	$res = array();
 	if(ereg("url:([^;]*);",$args,$res)) {
-		$url = FX_URLDOCUMENT.$res[1];
+		$url = $res[1] ;
 		if(ereg("width:([^;]*);",$args,$res))
 			$width = $res[1];
 		else

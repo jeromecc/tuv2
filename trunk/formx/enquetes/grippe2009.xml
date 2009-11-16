@@ -11,7 +11,7 @@
 	<ITEM id="id_passage" type="HIDDEN" ><From>globalObject:patient->getNSej()</From></ITEM>
 	
 	<ITEM id="is_fievre" type="RADIO" onChangeReload='y' oblig="y">
-	    <Libelle>Fièvre (T°C &#62; 38°C) à domicile ou aux urgences ?</Libelle>
+	    <Libelle>Fièvre (T°C &gt;= 38°C) à domicile ou aux urgences ?</Libelle>
 	    <FromList>list:oui|non|ne sais pas</FromList>
 	    
 	</ITEM>
@@ -31,7 +31,7 @@
 
 
 	<ITEM id="is_suspect_grippe" type="RADIO" opt="y" onChangeReload='y'>
-	    <Libelle>Cas suspect de grippe ?</Libelle>
+	    <Libelle>Cas suspect de grippe ? (T°C&gt;=38°C ET symptomes respiratoire haut ou bas) </Libelle>
 	    <FromList>list:oui|non|ne sais pas</FromList>
 	    <Cond type="or" oblig="y" >
 		<Arg1 type="equal">
@@ -67,7 +67,7 @@
 	    </Cond>
 	</ITEM>
 
-	<ITEM id="motif_prelevement_grippe" type="RADIO" opt="y">
+	<ITEM id="motif_prelevement_grippe" type="RADIO" opt="y"  hyperinfo="url:http://www.sante-sports.gouv.fr/grippe/prise-charge-vos-patients/prise-charge-vos-patients.html;width:800;height:2000;">
 	    <Libelle>Motif prélèvement :</Libelle>
 	    <FromList>list:Facteur de risque (FDR) personnel|FDR dans l'entourage|Femme enceinte dans l'entourage|But diagnostique|Autre</FromList>
 	    <Cond type="equal" oblig="y" >
@@ -166,23 +166,7 @@
 	    </Cond>
 	</ITEM>
 
-	<ITEM id="radio_pulmo" type="RADIO" opt="y">
-	    <Libelle>Radio pulmonaire</Libelle>
-	    <FromList>list:non faite|normale|anormale</FromList>
-	    <Cond type="equal" oblig="y" >
-		<Arg1>formVar:is_suspect_grippe</Arg1>
-		<Arg2>const:oui</Arg2>
-	    </Cond>
-	</ITEM>
 
-	<ITEM id="pcr_sanguine" type="RADIO" opt="y">
-	    <Libelle>PCR sanguine</Libelle>
-	    <FromList>list:non faite|&#60;100mg&#47;l|&#62;100mg&#47;l</FromList>
-	    <Cond type="equal" oblig="y" >
-		<Arg1>formVar:is_suspect_grippe</Arg1>
-		<Arg2>const:oui</Arg2>
-	    </Cond>
-	</ITEM>
 
 	<ITEM id="tamiflu" type="RADIO" opt="y">
 	    <Libelle>Prescription Tamiflu</Libelle>
