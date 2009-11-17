@@ -62,7 +62,7 @@ if ( ! $stopAffichage AND $session->getNavi ( 2 ) != "voirDoc" AND  $session->ge
   <script type="text/javascript" src="modules/calendar/calendar-setup.js" ></script>
   <script type="text/javascript" src="scripts.js"></script>
   <script type="text/javascript" src="ajax.js"></script>
-  <script type="text/javascript" src="formx.js"></script>
+  <script type="text/javascript" src="formx.js?v=<?php echo VERSIONAPPLICATION ?>"></script>
   <script type="text/javascript" src="modules/draganddrop/core.js"></script>
   <script type="text/javascript" src="modules/draganddrop/events.js"></script>
   <script type="text/javascript" src="modules/draganddrop/css.js"></script>

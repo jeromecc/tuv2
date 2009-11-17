@@ -10,13 +10,16 @@ function formxjs_getvalue(iditem) {
 			}
 		}
 	}
-	var eles = document.getElementsByName('FoRmX_'+iditem) ;
+	eles = document.getElementsByName('FoRmX_'+iditem) ;
 	if ( eles.length >= 1 ) {
 		return eles[0].value ;
 	}
+	return '';
 }
 
 function formxjs_appears(iditem) {
+	if( ! document.getElementById('ligne_'+iditem)) return ;
+
 	// dataHtml = document.getElementById('ligne_'+iditem).innerHTML ;
 	 //document.getElementById('ligne_'+iditem).innerHTML = '' ;
 	if ( BrowserDetect.browser == 'explorer' || BrowserDetect.browser == 'Explorer'  )
@@ -36,6 +39,7 @@ function formxjs_appears(iditem) {
 }
 
 function formxjs_disappears(iditem) {
+	if( ! document.getElementById('ligne_'+iditem)) return ;
 	document.getElementById('ligne_'+iditem).style.display = 'none';
 }
 
