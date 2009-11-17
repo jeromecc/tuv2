@@ -514,7 +514,10 @@ function getRootDom()
 				$suparg2->appendChild($oldCond->getElementsByTagname('Arg1')->item(0) );
 				$suparg2->appendChild($oldCond->getElementsByTagname('Arg2')->item(0) );
 				$suparg2->setAttribute('type',$oldCond->getAttribute('type'));
-				
+				if( $oldCond->hasAttribute('prerequite') )
+				{
+				    $suparg2->setAttribute('prerequite','y');
+				}
 				$eleNewCond->appendChild($suparg1);
 				$eleNewCond->appendChild($suparg2);
 				
@@ -2518,34 +2521,44 @@ $reg=array();
 }
 
 
+
 /*Exexution d'un test d'une balise conditionelle en simpleXML*/
-public function testCond($cond){
+public function testCond($cond,$mode=''){
 
 	switch($cond['type']) {
 	case 'rempli':
+		if( $mode == 'prerequite' and ! (string) $cond['prerequite'] ) return true ;
 		if( !  $cond['itemCible'] ) throw new Exception("La condition de type rempli doit avoir un attribut itemCible valide");
 		return $this->getFormVar( (string) $cond['itemCible']);
 	case 'equal':
-		return ( $this->testCond($cond->Arg1) == $this->testCond($cond->Arg2) );
+		if( $mode == 'prerequite' and ! (string) $cond['prerequite'] ) return true ;
+		return ( $this->testCond($cond->Arg1,$mode) == $this->testCond($cond->Arg2,$mode) );
 	case 'inf':
-		return ( $this->testCond($cond->Arg1) < $this->testCond($cond->Arg2) );
+		if( $mode == 'prerequite' and ! (string) $cond['prerequite'] ) return true ;
+		return ( $this->testCond($cond->Arg1,$mode) < $this->testCond($cond->Arg2,$mode) );
 	case 'inf_equal':
-		return ( $this->testCond($cond->Arg1) <= $this->testCond($cond->Arg2) );
+		if( $mode == 'prerequite' and  ! (string) $cond['prerequite'] ) return true ;
+		return ( $this->testCond($cond->Arg1,$mode) <= $this->testCond($cond->Arg2,$mode) );
 	case 'sup_equal':
-		return ( $this->testCond($cond->Arg1) >= $this->testCond($cond->Arg2) );
+		if( $mode == 'prerequite' and ! (string) $cond['prerequite'] ) return true ;
+		return ( $this->testCond($cond->Arg1,$mode) >= $this->testCond($cond->Arg2,$mode) );
 	case 'sup':
-		return ( $this->testCond($cond->Arg1) > $this->testCond($cond->Arg2) );
+		if( $mode == 'prerequite' and ! (string) $cond['prerequite'] ) return true ;
+		return ( $this->testCond($cond->Arg1,$mode) > $this->testCond($cond->Arg2,$mode) );
 	case 'diff':
-		return ( $this->testCond($cond->Arg1) != $this->testCond($cond->Arg2) );
+		return ( $this->testCond($cond->Arg1,$mode) != $this->testCond($cond->Arg2,$mode) );
 	case 'or':
-		return ( $this->testCond($cond->Arg1) || $this->testCond($cond->Arg2) );
+		return ( $this->testCond($cond->Arg1,$mode) || $this->testCond($cond->Arg2,$mode) );
 	case 'and':
-		return ( $this->testCond($cond->Arg1) && $this->testCond($cond->Arg2) );
+		return ( $this->testCond($cond->Arg1,$mode) && $this->testCond($cond->Arg2,$mode) );
 	case 'not':
-		return (! $this->testCond($cond->Arg1)) ;
+		if( $mode == 'prerequite' and  ! (string) $cond['prerequite'] ) return true ;
+		return (! $this->testCond($cond->Arg1,$mode)) ;
 	case 'in':
-		return(in_array($this->testCond($cond->Arg1),explode('|',$this->testCond($cond->Arg2))));
+		if( $mode == 'prerequite' and  ! (string) $cond['prerequite'] ) return true ;
+		return(in_array($this->testCond($cond->Arg1,$mode),explode('|',$this->testCond($cond->Arg2,$mode))));
 	case 'function':
+		if( $mode == 'prerequite' and ! (string) $cond['prerequite'] ) return true ;
 	  	return ( $this->callFunc($cond['namefunc']));
 	default:
 		return $this->getValueFrom((string) $cond);
@@ -2555,11 +2568,11 @@ public function testCond($cond){
 
 /*Exexution d'un test d'une balise conditionelle en DOM*/
 /*attention, s'appelle un niveau AU DESSUS (item) */
-public function testCondDOM($cond)
+public function testCondDOM($cond,$mode='')
 {
 	$xml = $this->XMLDOM->saveXML($cond);
 	//eko("balise condition: <xmp>$xml</xmp>");
-	return $this->testCond(simplexml_load_string($xml)->Cond);
+	return $this->testCond(simplexml_load_string($xml)->Cond,$mode);
 }
 
 
@@ -2821,7 +2834,7 @@ public function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
   		$this->debug("test de la condition activee pour l'item");
   		//test condition
   		if($item['isfresh']=='y') { //TraiterPostPost vient de le calculer
-  			//eko("c'est frais");
+  			//if( $item[id] == 'is_psl' )  eko("c'est frais: ".$item['lasttestcond']);
   			$resCond =  $item['lasttestcond']=='y'?true:false;
   			$domItem->setAttribute('isfresh','');
   		} else { //sinon on le recalcule
@@ -2836,7 +2849,11 @@ public function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 			if( ! $item['printHidden'])
 				return ;
 			else
-				$hideItem = true ;
+			{
+			    if( ! $this->testCondDOM($domItem, 'prerequite'))
+				return '';
+			    $hideItem = true ;
+			}
   		}
   	} elseif ($item->Cond['type'] && $acces =='RO' && $item['lasttestcond'] == 'n' ) {  //optimize est activé , lecture seule, et en cache on a la valeur non
 		return ;

@@ -86,7 +86,7 @@
 	</ITEM>
 
 	<ITEM id="forte_fievre_domicile" type="RADIO" opt="y">
-	    <Libelle>Fièvre supérieure à 39°C au domicile ?</Libelle>
+	    <Libelle>Fièvre &gt;= 39°C au domicile ?</Libelle>
 	    <FromList>list:oui|non|ne sais pas</FromList>
 	    <Cond type="equal" oblig="y" >
 		<Arg1>formVar:is_suspect_grippe</Arg1>
@@ -95,7 +95,7 @@
 	</ITEM>
 
 	<ITEM id="forte_fievre_urgences" type="RADIO" opt="y">
-	    <Libelle>Fièvre supérieure à 39°C aux urgences ?</Libelle>
+	    <Libelle>Fièvre &gt;= 39°C aux urgences ?</Libelle>
 	    <FromList>list:oui|non|ne sais pas</FromList>
 	    <Cond type="equal" oblig="y" >
 		<Arg1>formVar:is_suspect_grippe</Arg1>
