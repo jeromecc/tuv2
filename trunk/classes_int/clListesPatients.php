@@ -262,7 +262,7 @@ class clListesPatients {
 		//	$param['cw'] = " p, ".BASEXHAM.".listes l WHERE ((p.dt_examen!='0000-00-00 00:00:00'  AND l.nomliste='Salles d\'examens' AND p.salle_examen NOT LIKE '$uhcd%' AND (p.salle_examen=l.nomitem)) OR ( p.dt_examen!='0000-00-00 00:00:00'  AND p.salle_examen=l.nomitem AND p.salle_examen NOT LIKE '$uhcd%' ) )  AND l.idapplication=".IDAPPLICATION." ORDER BY l.rang" ;
 		
       	if ( $eq ) {
-            $param['cw'] = " WHERE dt_examen!='0000-00-00 00:00:00' AND traumato LIKE '$this->equipe%' " ;
+            $param['cw'] = " WHERE dt_examen!='0000-00-00 00:00:00' AND traumato LIKE '$this->equipe%' AND salle_examen NOT LIKE '$uhcd%'" ;
         } elseif ( $pedi )
 			$param['cw'] = " p WHERE ((p.dt_examen!='0000-00-00 00:00:00' AND p.salle_examen NOT LIKE '$uhcd%' AND p.salle_examen NOT LIKE '$pedi%') OR ( p.dt_examen!='0000-00-00 00:00:00'  " .
 					"AND p.salle_examen NOT LIKE '$uhcd%' AND p.salle_examen NOT LIKE '$pedi%' ) )".$eq ;
