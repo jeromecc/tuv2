@@ -93,7 +93,7 @@ class clTuFormxTrigger {
 		if( ! $this->isValide() )
 			return false ;
 		//si autostart
-		if( $this->getDxDefAttributeVal('autoStart') )
+		if( $this->getDxDefAttributeVal('autoStart') or $this->getDxDefAttributeVal('autostart') )
 			return false ;
 
 		return true ;
@@ -114,7 +114,7 @@ class clTuFormxTrigger {
 	
 	function isAutostart()
 	{
-		if( $this->getDxDefAttributeVal('autostart') )
+		if( $this->getDxDefAttributeVal('autostart') or $this->getDxDefAttributeVal('autoStart')  )
 			return true ;
 
 		return false ;
