@@ -273,7 +273,7 @@ class clHprim {
                     //unset ( $data['mode_admission'] ) ;
                     unset ( $data['telephone'] ) ;
                     unset ( $data['uf'] ) ;
-                    if ( $sta == 'MI' ) {
+                    if ( $sta == 'MI' OR $sta == 'MP' ) {
                     	unset ( $data['nsej'] ) ;
                     	// On vérifie que l'entrée n'existe pas déjà dans la table des patients présents.
 						$param2['table'] = PPRESENTS ;
