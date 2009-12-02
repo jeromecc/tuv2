@@ -1298,11 +1298,12 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
 				
 		//TODO le deplacer avant ça
 		$droitetape=$this->session->droit;
+
 		if($this->XMLCore['access']) $droitetape = utf8_decode((string) $this->XMLCore['access']);
 		if($etape->getAttribute('access')) $droitetape = utf8_decode($etape->getAttribute('access')) ;
 		
 		if(! $formxSession->getDroit($droitetape,'w'))
-			$this->debug("validation de l'etape refusée car pas W sur le droit '$droit'");
+			$this->debug("validation de l'etape refusée car pas W sur le droit '$droitetape'");
 		if($etape->getAttribute('dontvalid'))	
 			$this->debug("validation de l'etape refusée car présence de l'attribut dontvalid");	
 	   	if ( ( ! $etape->getAttribute('dontvalid')) && $formxSession->getDroit($droitetape,'w') && ( $this->testEtape($etape) || $_POST[$this->prefix.'step_next_x'] )) {
