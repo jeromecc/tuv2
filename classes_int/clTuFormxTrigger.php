@@ -1085,6 +1085,7 @@ class clTuFormxTriggerWatcher
 		//pour chaque enquete
 		foreach( clTuFormxTrigger::getTriggersActive() as $trigger )
 		{
+		    /*
 			// le patient sort avec un trigger incomplet ?
 			if( $this->isElligibleAndNotCompleted($trigger ) )
 			{
@@ -1096,7 +1097,7 @@ class clTuFormxTriggerWatcher
 				{
 					clTools::sendMail($destinataire, $sujet, $message);
 				}
-			}
+			}*/
 		}
 	}
 
