@@ -103,7 +103,7 @@ class clAuthentification {
       if ( DEBUGSESSION ) print "<br />idSession : ".$_SESSION['sidtuv2'.$this->index] ;
     // On vérifie que la session est toujours valide <=> que la durée calculée n'est pas supérieure
     // à la durée maximum d'inactivité.
-    if ( $duree->getMinutes ( ) <= $options -> getOption ( "DureeSession" ) ) {
+    if ( $duree->getMinutes ( ) <= ($options -> getOption ( "DureeSession" )<480?$options -> getOption ( "DureeSession" ):480) ) {
 		$_SESSION['last'.$this->index] = $dateN -> getDatetime ( ) ;
 		//	print affTab ( $_SESSION['informations'.$this->index] ) ;
 		//	eko (  $_SESSION['informations'.$this->index] ) ;
