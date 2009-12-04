@@ -125,7 +125,8 @@ class clSession {
 
   // Ajout des statistiques dans la base de données.
   function setStats ( ) {
-    global $logs ;
+    /*
+	global $logs ;
     if ( $this->navi[0] != 'Importation' ) {
     $data['nombre'] = "nombre+1" ;
     // Appel de la classe Requete.
@@ -146,6 +147,8 @@ class clSession {
       $res = $requete->addRecord ( ) ;
     }
     }
+	 * 
+	 */
   }
 
   // Initialisation de la navigation.
