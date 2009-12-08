@@ -888,18 +888,6 @@ class clTuFormxTriggerWatcher
 			return false ;
 		case 'medecin':
 
-			/*
-			if ( count(formxTools::exportsGetTabIdformFilterValue	( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => array('F','H') ) )   )   == 0 )
-					eko("aucun formulaire pour le médecin ".$this->getPatient()->getMatriculeMedecin()." n'est cloturé quelque soit le patient ");
-			if ( count(formxTools::exportsGetTabIdsIdformFilterValue	( $this->getPatient()->getIDU() , $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(), array('etat' => $options['etatsFormx'] )  ) ) == 0   )
-					eko("aucun formulaire pour le médecin ".$this->getPatient()->getMatriculeMedecin()." n'est instancié pour ce patient ");
-			else
-					eko("trouve formulaire pour le médecin ".$this->getPatient()->getMatriculeMedecin()." instancié pour le patient ");
-					eko( formxTools::exportsGetTabIdsIdformFilterValue	( $this->getPatient()->getIDU() , $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(), array('etat' => $options['etatsFormx'] )  ) );
-			*/
-
-
-			//eko("recherche sur dr ".$this->getPatient()->getMedecin() );
 			//Est-ce que le patient a un médecin urgentiste affecté ? Est-ce que ce médecin n'a pas déjà un formulaire instancié pour ce passage ?
 			if(	$this->getPatient()->getMatriculeMedecin()
 				&&
@@ -908,6 +896,20 @@ class clTuFormxTriggerWatcher
 				count(formxTools::exportsGetTabIdsIdformFilterValue	( $this->getPatient()->getIDU() , $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(), array('etat' => $options['etatsFormx'] )  ) ) == 0   )
 			{
 				
+				//eko(count(formxTools::exportsGetTabIdformFilterValue( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => $options['etatsFormx'] )   )  ));
+				return true ;
+			}
+			return false ;
+		case 'ide':
+
+			//Est-ce que le patient a un médecin urgentiste affecté ? Est-ce que ce médecin n'a pas déjà un formulaire instancié pour ce passage ?
+			if(	$this->getPatient()->getIDE()
+				&&
+				( count( formxTools::exportsGetTabIdformFilterValue	( $condition->getTrigger()->getIdFormx() , 'id_ide', $this->getPatient()->getIDE(),array('etat' => array('F','H') ) )   )   == 0 )
+				&&
+				count(formxTools::exportsGetTabIdsIdformFilterValue	( $this->getPatient()->getIDU() , $condition->getTrigger()->getIdFormx() , 'id_ide', $this->getPatient()->getIDE(), array('etat' => $options['etatsFormx'] )  ) ) == 0   )
+			{
+
 				//eko(count(formxTools::exportsGetTabIdformFilterValue( $condition->getTrigger()->getIdFormx() , 'id_medecin', $this->getPatient()->getMatriculeMedecin(),array('etat' => $options['etatsFormx'] )   )  ));
 				return true ;
 			}

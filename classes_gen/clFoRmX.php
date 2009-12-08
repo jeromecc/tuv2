@@ -149,8 +149,10 @@ class  clFoRmX {
   
   private $useCache;
   
-  //marqueur de non affichage du formulaire
+  //marqueur de non affichage du formulaire lorsqu'il est validé
   private $ImustDisapear ;
+  private $ImustDisapearNow ; //marqueur de disparition du formulaire même s'il n'est pas encore validé
+
   
   /*
   Constructeur de la classe. se construit avec un identifiant de sujet (ids)
@@ -737,9 +739,9 @@ function getRootDom()
   affFoRmX() doit être généré avant*/
   public function genPdf() {
   //vidage du cache
-  $mapoub = new clPoubelle();
-  $mapoub ->setRepertoire ($this->session->urlCache) ;
-  $mapoub ->purgerRepertoire(3600);
+  //$mapoub = new clPoubelle();
+  //$mapoub ->setRepertoire ($this->session->urlCache) ;
+  //$mapoub ->purgerRepertoire(3600);
   
   $buffer = $this->getAffichage () ;
   $mod = new ModeliXe ( "FX_Edition.mxt" ) ;
@@ -774,8 +776,8 @@ function getRootDom()
   
   $this->debug("entrée dans genPrint()");
   //vidage du cache
-  $mapoub = new clPoubelle($this->session->urlCache);
-  $mapoub ->purgerRepertoire(1);
+  //$mapoub = new clPoubelle($this->session->urlCache);
+  //$mapoub ->purgerRepertoire(1);
   if(! $buffer)
   	$buffer = $this->getAffichage ('print') ;
   else
@@ -816,8 +818,8 @@ function getRootDom()
     */
  public  function genPrint2($buffer)
   {
-	$mapoub = new clPoubelle($this->session->urlCache);
-	$mapoub ->purgerRepertoire(1);
+	//$mapoub = new clPoubelle($this->session->urlCache);
+	//$mapoub ->purgerRepertoire(1);
 	$session = formxSession::getInstance() ;
 
 	$data['titre']= $this->getTitre() ;
@@ -1366,7 +1368,9 @@ if( $_POST[$this->prefix.'step_next_x'] && empty($notTheLast) && empty($validFor
   public  function mustICloseAfterValid()
    {
    		if( $this->getRootDom()->getAttribute('closeAfterValid') || $this->ImustDisapear )
+		{
    			return true ;
+		}
    			
    		return false ;
    			
@@ -1570,9 +1574,9 @@ public  function getAndCloseState() {
 		break;
 	case 'editdoc':
 		//vidage du cache
-		$mapoub = new clPoubelle();
-  		$mapoub ->setRepertoire (FX_URLCACHE) ;
-  		$mapoub ->purgerRepertoire(3600);
+		//$mapoub = new clPoubelle();
+  		//$mapoub ->setRepertoire (FX_URLCACHE) ;
+  		//$mapoub ->purgerRepertoire(3600);
 		$i = 0;
 		if (isset($output)) unset($output);
 		foreach ($action->getElementsByTagName('Document') as $docu ) {
@@ -2272,6 +2276,16 @@ $reg=array();
  		$this->ImustDisapear = true ;
  		$this->close();
  	}
+
+
+	if($item->getAttribute('minimizer') &&   $this->testCondDOM($item) )
+	{
+		$_POST['formx_autoclose'] = true ;
+ 		$this->ImustDisapearNow = true ;
+		$this->setFormVar($item->getAttribute('minimizer'), '');
+		//$this->close();
+ 	}
+
  	
  	//marqueur que les infos sont fraiches pour l'affichage ( à charge de l'afficheur de les remettre à zero ensuite )
  	$item->setAttribute('isfresh','y');
@@ -3951,6 +3965,7 @@ function isFormPresent() {
   }
 
 function getAffichage($mode='') {
+	if( $this->ImustDisapearNow ) return '' ;
 	return $this->miseEnPage($mode,$this->af);
 }
 

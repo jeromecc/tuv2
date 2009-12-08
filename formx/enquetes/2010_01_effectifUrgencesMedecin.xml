@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf8" standalone='yes'?>
+<FORMX id="2010_01_effectifUrgencesMedecin" phantom="y" closeAfterValid="y" showOblig="y" >
+    <Libelle>Formulaire Effectif Urgences Médecin</Libelle>
+    <Objet>Pour nous permettre de mieux connaître le profil des personnels travaillant au sein des services d’urgences de la région PACA (évolution des statuts, courbe des âges, féminisation de la profession, formation….) nous vous serions reconnaissants de répondre à quelques questions très rapides.</Objet>
+    <Groupe>Enquetes</Groupe>
+    
+    <ETAPE id="1">
+	<Libelle></Libelle>
+
+	<ITEM id="id_medecin" type="HIDDEN"><From>globalObject:patient->getMatriculeMedecin()</From></ITEM>
+
+	<ITEM id="is_ok_enquete" type="RADIO" onChangeSubmit='y' oblig="y">
+            <Libelle>Acceptez-vous de répondre à cette enquête ? (8 questions)</Libelle>
+            <FromList>list:oui|non|pt</FromList>
+	    <FromListLibelles>list:Oui, j'accepte de participer à ce travail régional|Non|Plus tard...</FromListLibelles>
+        </ITEM>
+
+        <ITEM id="closer2" type="HIDDEN" readonly="y"  closer="y">
+            <Cond type="equal">
+                <Arg1>const:non</Arg1>
+                <Arg2>formVar:is_ok_enquete</Arg2>
+            </Cond>
+        </ITEM>
+
+        <ITEM id="minimizer" type="HIDDEN" readonly="y"  minimizer="is_ok_enquete">
+            <Cond type="equal">
+                <Arg1>const:pt</Arg1>
+                <Arg2>formVar:is_ok_enquete</Arg2>
+            </Cond>
+        </ITEM>
+
+	<ITEM id="med_statut" type="LISTE" opt="y">
+	    <Libelle>Quelle est statut ?</Libelle>
+	    <FromList>list:PH|PHPU|PHC|Assistant|Attaché|Interne|FFI|PAC|Etudiant</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="med_quotite" type="LISTE" opt="y">
+	    <Libelle>Quelle est quotité de travail ?</Libelle>
+	    <FromList>list:0.1|0.2|0.3|0.4|0.5|0.6|0.7|0.8|0.9|1</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="med_naissance" type="TXT" opt="y">
+	    <Libelle>Quelle est votre année de naissance ? (ex: 1980)</Libelle>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="med_sexe" type="RADIO" opt="y">
+	    <Libelle>Sexe</Libelle>
+	    <FromList>list:M|F</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="med_is_camu" type="RADIO" opt="y">
+	    <Libelle>Avez-vous la CAMU ?</Libelle>
+	    <FromList>list:Oui|Non</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="med_is_autre_formation" type="TXT" opt="y">
+	    <Libelle>Avez-vous une autre formation ? (précisez le cas échéant)</Libelle>
+	    <Cond type="equal" opt="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="med_is_autre_activite_pro" type="RADIO" opt="y">
+	    <Libelle>Avez-vous une activité professionelle autre que la médecine d'urgence ?</Libelle>
+	    <FromList>list:Oui|Non</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+
+	<ITEM id="med_is_autre_site_urg_samu_smur" type="RADIO" opt="y">
+	    <Libelle>Travaillez-vous dans un autre site d'urgences, SAMU ou SMUR ?</Libelle>
+	    <FromList>list:Oui|Non</FromList>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+
+
+	<ITEM id="med_is_newsletter" type="RADIO" opt="y">
+	    <Libelle>Souhaitez-vous recevoir les informations (newsletter) de l'Observatoire Régional des urgences et du Collège PACA de Médecine d'Urgences ?</Libelle>
+	    <FromList>list:Oui|Non</FromList>
+	    <ShowItemsOnVal>
+                <ListIdItems>list:med_mail</ListIdItems>
+                <OnVal>const:Oui</OnVal>
+            </ShowItemsOnVal>
+	    <Cond type="equal" oblig="y" >
+		<Arg1>formVar:is_ok_enquete</Arg1>
+		<Arg2>const:oui</Arg2>
+	    </Cond>
+	</ITEM>
+
+	<ITEM id="med_mail" type="TXT" opt="y">
+	    <Libelle>Merci de nous préciser votre adresse mail:</Libelle>
+	    <FromList>list:Oui|Non</FromList>
+	</ITEM>
+	
+    </ETAPE>
+</FORMX>
