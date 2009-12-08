@@ -464,13 +464,13 @@ class  clFoRmX_manip extends clFoRmX {
 
 
 
-    function getAffichage() {
+    function getAffichage($mode='') {
 	global $pi;
 	if(is_object($pi)) {
 	    $pi->addMove('formX','formx_titre');
 	    $pi->addMove('formx_infobulle');
 	}
-	return clFoRmX::getAffichage();
+	return parent::getAffichage();
     }
 
 }

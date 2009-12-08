@@ -90,7 +90,9 @@ cp -frL ${location}formx/triggers/2009_avc.xml    ${locationtmp}formx/triggers/
 cp -frL ${location}formx/triggers/2009_qualite_diag_sfmu.xml    ${locationtmp}formx/triggers/
 cp -frL ${location}formx/triggers/2009_transfu_patient.xml    ${locationtmp}formx/triggers/
 cp -frL ${location}formx/triggers/2009_transfu_medecin.xml    ${locationtmp}formx/triggers/
-cp -frL ${location}formx/triggers/2009_grippe.xml    ${locationtmp}formx/triggers/
+cp -frL ${location}formx/triggers/2010_01_effectifUrgencesMedecin.xml    ${locationtmp}formx/triggers/
+cp -frL ${location}formx/triggers/2010_01_effectifUrgencesInfirmier.xml    ${locationtmp}formx/triggers/
+
 
 cp -frL ${location}formx/enquetes/*.xml    ${locationtmp}formx/enquetes/
 mkdir ${locationtmp}formx/templates

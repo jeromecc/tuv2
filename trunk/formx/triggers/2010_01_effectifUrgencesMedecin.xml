@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+    Document   : transfu_patient2008.xml
+    Created on : 27 mars 2009, 10:30
+    Author     : ecervetti
+    Description:
+        Purpose of the document follows.
+-->
+
+<root>
+<trigger title="Enquete effectif urgences médecin" autostart="y"  upload="y" autoclose="y" dateStart="01/01/2010" dateEnd="31/03/2050" exportRegularly="y" idForm="enquetes/2010_01_effectifUrgencesMedecin" maxDays="" obligDays=""  >
+	<cond type="medecin" />
+</trigger>
+</root>
