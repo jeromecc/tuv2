@@ -463,7 +463,7 @@
 
     <update id="67">
 	<description>Ajout de l'option imprRadioEcho</description>
-	    <requete base="tuv2">ALTER TABLE `bal` ADD `date_admission` DATETIME NOT NULL </requete>
+	<requete base="tuv2">ALTER TABLE `bal` ADD `date_admission` DATETIME NOT NULL </requete>
     </update>
 
     <update id="68">
@@ -515,5 +515,15 @@
 	<ccam />
     </update>
 
+
+    <update id="76">
+	<description>Mise à jour des champs de l'option ModuleEtiquettes</description>
+	<option_upd> <!-- toutes les balises suivantes sont optionnelles sauf <cle> -->
+	    <cle>ModuleEtiquettes</cle> <!-- l'update va se faire par rapport à cette clé -->
+	    <categorie>Modules</categorie>
+	    <type>combobox</type>
+	    <choix>Non|Saint Tropez|Pertuis|Carpentras|Carpentras2</choix>
+	</option_upd>
+    </update>
 </updates>
 
