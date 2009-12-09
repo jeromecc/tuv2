@@ -1331,20 +1331,22 @@ static function getinstances($idformx,$values='',$filtre="FX_getInstances",$date
 	if(! $filtre) $filtre="FX_getInstances";
 	$param = array();
 	if($date1 && $date2) {
-		$param['cwdate'] = " dt_modif >= '$date1' and  dt_creation <= '$date2' ";
+		$param['cwdate'] = " AND dt_modif >= '$date1' and  dt_creation <= '$date2' ";
 	} elseif ($date1) {
-		$param['cwdate'] = " dt_modif >= '$date1' ";
+		$param['cwdate'] = " AND dt_modif >= '$date1' ";
 	} elseif($date2) {
-		$param['cwdate'] = " dt_modif <= '$date2' ";
+		$param['cwdate'] = " AND dt_modif <= '$date2' ";
 	} else{
-		$param['cwdate'] = " 1=1 ";
+		$param['cwdate'] = " AND 1=1 ";
 	}
   if($values)
   if(! is_array($values)) $values = array($values);
   if(is_array($idformx)) {
-  		$param['listeidformx']="'".implode("','",$idformx)."'";
+  		$param['listeidformx']="'".implode("','",$idformx)."' AND";
+//		$param['cwdate'] = " AND " . $para['cwdate'];
   } else { 
-  		$param['listeidformx']="'".$idformx."'";
+  		$param['listeidformx']="'".$idformx."' AND";
+//		$param['cwdate'] = " AND " . $para['cwdate'];
   }
   //print affTab ( $param ) ; return ;
   $req = new clResultQuery ;

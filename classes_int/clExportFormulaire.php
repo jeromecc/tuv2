@@ -16,7 +16,7 @@ class clExportFormulaire {
 		// Mise en page, arg !
 		$af = "<div style=\"padding: 20px;\"><h4>Liste des consultations spécialisées par spécialiste :</h4><br/>" ;
 		// Récupération de l'ensemble des formulaires des CS
-		$tab = clFoRmXtOoLs::getinstances('formulaire_consultation_specialisee','','','2008-11-01','2008-12-31');
+		$tab = clFoRmXtOoLs::getinstances('formulaire_consultation_specialisee','','','2009-01-01','2009-12-31');
 		$nbResultats = $tab['INDIC_SVC'][2] ;
 		//eko ( $tab['INDIC_SVC'] ) ;
 		//return ;
