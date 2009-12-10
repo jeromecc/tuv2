@@ -36,6 +36,7 @@ cp -frL ${location}scripts.php    ${locationtmp}
 
 cp -frL ${location}extraction2008.php    ${locationtmp}
 cp -frL ${location}extraction2009.php    ${locationtmp}
+cp -frL ${location}extraction2010.php    ${locationtmp}
 
 cp -frL ${location}templates_int/    ${locationtmp}
 cp -frL ${location}meta/    ${locationtmp}
