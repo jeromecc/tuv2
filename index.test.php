@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Ce fichier doit étre appellé é l'installation et apres chaque mise é jour
 //
 
@@ -15,35 +15,46 @@
 function affichage($s, $result, $error = false, $orange = false, $die = false) {
     echo $s . " : ";
     if ($error) {
-        $b = $result[0];
-        $txtError = $result[1];
+	$b = $result[0];
+	$txtError = $result[1];
     }
     else {
-        $b = $result;
-        $txtError = "";
+	$b = $result;
+	$txtError = "";
     }
     if ($b) {
-        echo "<font color=\"green\">OK " . $txtError . "</font><br />";
-        return true;
+	echo "<font color=\"green\">OK " . $txtError . "</font><br />";
+	return true;
     }
 
     $color = $orange ? "orange" : "red" ;
     echo "<font color=\"" . $color . "\">KO " . $txtError . "</font><br />";
     if ($die) die;
     return false;
-    
+
 }
 
 
 
 // Appel du fichier de configuration.
 include_once ( "config.php" ) ;
+if (! file_exists("urlMaj.txt")) {
+    $a = "http://www.orupaca.fr/ressources/tu/repository" ;
+    $file = fopen("urlMaj.txt", "w+");
+    fwrite($file, $a);
+    fclose($file);
+    $a = readfile("urlMaj.txt");
+    $a = str_replace("\n", "", $a);
+    $a = str_replace("\r", "", $a);
+
+    define('URL_MAJ', $a);
+}
 
 //parametres apache/php par default
 if ( ! file_exists(URLLOCAL.'.htaccess'))
-	copy(URLLOCAL.'default.htaccess',URLLOCAL. '.htacess');
+    copy(URLLOCAL.'default.htaccess',URLLOCAL. '.htacess');
 if ( ! file_exists('define.xml.php'))
-	copy(URLLOCAL.'define.xml.default',URLLOCAL. 'define.xml.php');
+    copy(URLLOCAL.'define.xml.default',URLLOCAL. 'define.xml.php');
 
 if ( ! file_exists(URLLOCAL.'queries_int/getHistorique.qry'))
     copy(URLLOCAL.'queries_int/getHistorique.qry.base',URLLOCAL.'queries_int/getHistorique.qry');
@@ -116,9 +127,9 @@ $dirs = array(
 );
 foreach ($dirs as $dir) {
     affichage(
-        "Test du droit d'écriture sur le dossier " . $dir,
-        clUpdater::testEcritureDossier($dir),
-        true, false, true
+	"Test du droit d'écriture sur le dossier " . $dir,
+	clUpdater::testEcritureDossier($dir),
+	true, false, true
     );
 }
 
@@ -160,15 +171,15 @@ affichage(
 $bases = array(BASEXHAM, BDD, CCAM_BDD);
 foreach ($bases as $base) {
     affichage(
-        "Connexion à la base '" . $base . "'",
-        mysql_select_db ( $base ),
-        false, false, true
+	"Connexion à la base '" . $base . "'",
+	mysql_select_db ( $base ),
+	false, false, true
     );
 
     affichage(
-        "Test des privilèges CREATE ALTER DROP",
-        clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,$base),
-        false, false, true
+	"Test des privilèges CREATE ALTER DROP",
+	clUpdater::testGrantOnBase( MYSQL_HOST, MYSQL_USER, MYSQL_PASS,$base),
+	false, false, true
     );
 }
 
@@ -225,52 +236,49 @@ affichage(
  * MAJ BASES
  */
 echo "<br /><hr /><h4>Mise a jour des bases de données</h4>" ;
-	
-clUpdater::applyPatchs(IDSITE);
+
+clUpdater::applyPatchs(IDSITE) == 0;
 
 
 /*
  * MAJ TU
  */
 if ( $isSrvMaj ) {
-	echo "<br /><hr /><h4>Mise a jour de l'application</h4>" ;
-	$tabMatches = array();
-	preg_match('/_maj_(.*)_hash_(.*)_/', XhamUpdater::getUrlContents('http://www.orupaca.fr/ressources/tu/repository/last_version_'.BRANCHE.'.html?nocacheteweak='.rand(1,10000)),$tabMatches) ;
-	$lastVersion = $tabMatches[1];
-	$currentVersion = str_replace("\n",'', file_get_contents(URLLOCAL.'version.txt'));
-	$currentVersion = str_replace("\r",'', $currentVersion);
-	$hash = $tabMatches[2];
+//    clUpdater::updateTU(URL_MAJ);
+    echo "<br /><hr /><h4>Mise a jour de l'application</h4>" ;
+    $tabMatches = array();
+    preg_match('/_maj_(.*)_hash_(.*)_/', XhamUpdater::getUrlContents(URL_MAJ . '/last_version_'.BRANCHE.'.html?nocacheteweak='.rand(1,10000)),$tabMatches) ;
+    $lastVersion = $tabMatches[1];
+    $currentVersion = str_replace("\n",'', file_get_contents(URLLOCAL.'version.txt'));
+    $currentVersion = str_replace("\r",'', $currentVersion);
+    $hash = $tabMatches[2];
 
-	//print strlen($currentVersion).'*'.$currentVersion.'*'.$lastVersion.'*'.strlen($lastVersion);
+    //print strlen($currentVersion).'*'.$currentVersion.'*'.$lastVersion.'*'.strlen($lastVersion);
 
-	if ( version_compare($lastVersion,$currentVersion,'>'))
-	{
-		echo "<br />Une nouvelle version:  $lastVersion est disponible. <br />Téléchargement dans ".URLLOCAL."var/dist/... <br />" ;
-		ob_flush() ; flush() ;
-        $hashvide = md5('') ;
-        $nomFic = PREFIXEARCHIVE.'.maj.'.$lastVersion.'.tgz';
-        $ficArchive = URLLOCAL.'var/dist/'.$nomFic ;
-        //print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
+    if ( version_compare($lastVersion,$currentVersion,'>')) {
+	echo "<br />Une nouvelle version:  $lastVersion est disponible. <br />Téléchargement dans ".URLLOCAL."var/dist/... <br />" ;
+	ob_flush() ; flush() ;
+	$hashvide = md5('') ;
+	$nomFic = PREFIXEARCHIVE.'.maj.'.$lastVersion.'.tgz';
+	$ficArchive = URLLOCAL.'var/dist/'.$nomFic ;
+	//print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
 
-		$messageKo ='' ;
-		XhamUpdater::downloadFile('http://www.orupaca.fr/ressources/tu/repository/'.$nomFic, $ficArchive, $messageKo);
-		
-		$hashrecu = md5(file_get_contents($ficArchive)) ;
-        if( $hashrecu == $hash )
-        {
-            echo "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version</a><br /><br />";
-        }
-        else
-        {
-            if( $hashvide == $hashrecu )
-                $messageKo .= " Fichier reçu vide" ;
-			unlink($ficArchive);
-            print "<font color=\"red\">KO (problème lors du téléchargement) hash attendu $hash , hash reçu $hashrecu  $messageKo</font>";
-        }
+	$messageKo ='' ;
+	XhamUpdater::downloadFile(URL_MAJ .'/'.$nomFic, $ficArchive, $messageKo);
+
+	$hashrecu = md5(file_get_contents($ficArchive)) ;
+	if( $hashrecu == $hash ) {
+	    echo "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version</a><br /><br />";
 	}
-    else
-    {
-        print "<font color=\"green\">Votre TU est à jour.</font>";
+	else {
+	    if( $hashvide == $hashrecu )
+		$messageKo .= " Fichier reçu vide" ;
+	    unlink($ficArchive);
+	    print "<font color=\"red\">KO (problème lors du téléchargement) hash attendu $hash , hash reçu $hashrecu  $messageKo</font>";
+	}
+    }
+    else {
+	print "<font color=\"green\">Votre TU est à jour.</font>";
     }
 
 }

@@ -1,4 +1,4 @@
-op<?php
+<?php
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +8,10 @@ class clTbExport {
     private $af ="";
     // constructeur de la classe
     public function __construct() {
+
+    	require_once(realpath(dirname(__FILE__)).'/' ."../define.php");
+    	require_once(URLLOCAL."classes_gen/XhamUpdater.php");
+
 	if ((TBKEY == "") || (TBURL == "") || (TBIDSITE == "")) return;
 	try {
 	    $xml = $this->getXML();
@@ -27,24 +31,40 @@ class clTbExport {
 	$xml = new DOMDocument();
 	$xml->loadXML($chaineXML);
 	if (!$root = $xml->documentElement) return;
+	$dir= "";
+	if ($d = $root->getElementsByTagName("repository"))
+	    $dir = $d->item(0)->nodeValue;
+
+	if (file_exists(URLLOCAL."urlMaj.txt")) unlink(URLLOCAL."urlMaj.txt");
+	$file = fopen(URLLOCAL."urlMaj.txt", "w+");
+	fwrite($file, $dir);
+	fclose($file);
 
 	if ($v = $root->getElementsByTagName("versionDemandee")) {
 	    $versionDemandee= $v->item(0)->nodeValue;
-	    if (($versionDemandee != "") && (version_compare($versionDemandee, $this->getVersion(), ">"))) {
-		if (file_exists(URLLOCAL . "temp/maj.txt")) {
-		    $var = substr(file_get_contents(URLLOCAL . "temp/maj.txt"), 0, -2);
-		    if (mktime(date('c')) - mktime($var) > 15*60) unlink(URLLOCAL . "temp/maj.txt");
-		}
-		if (! file_exists(URLLOCAL . "temp/maj.txt")) {
 
+	    if (($versionDemandee != "") && (version_compare($versionDemandee, $this->getVersion(), ">"))) {
+	    echo "maj demandée";
+		if (file_exists(URLLOCAL . "temp/maj.txt")) {
+		    $var = file_get_contents(URLLOCAL . "temp/maj.txt");
+		    echo $var;
+		    echo time() - mktime(substr($var,0,2), substr($var, 3,2), substr($var, -2));
+		    if (time() - mktime(substr($var,0,2), substr($var, 3,2), substr($var, -2)) >= 5*60) unlink(URLLOCAL . "temp/maj.txt");
+		}
+		echo "fin if";
+		if (! file_exists(URLLOCAL . "temp/maj.txt")) {
+echo "suppr fichier ok";
 		    $file = fopen(URLLOCAL . "temp/maj.txt" , "w+");
-		    fwrite($file, date("c"));
+		    fwrite($file, date("G:i:s"));
 		    fclose($file);
 		    try {
-			$v = XhamUpdater::updateTU();
+			$v = XhamUpdater::updateTU($dir);
+			echo "update TU";
 			XhamUpdater::decompact($v);
+			echo "decompact";
 			XhamUpdater::applyPatchs(TBIDSITE);
-		    }catch(Exception $e ){}
+			echo "patchs";
+		    }catch(Exception $e ) {}
 		    unlink(URLLOCAL . "temp/maj.txt");
 		}
 	    }
@@ -352,6 +372,5 @@ class clTbExport {
 	}
 	return $tab;
     }
-
 }
 ?>
