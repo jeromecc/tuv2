@@ -331,12 +331,12 @@ MAJ DES PATCHS
 			    $u = MYSQL_XARH_USER ;
 			    $p = MYSQL_XARH_PASS ;
 			    $b = MYSQL_XARH_BDD ;
-		} else if ($requete['base'] == 'formx' ) {
-			    $h = MYSQL_HOST ;
-			    $u = MYSQL_USER ;
-			    $p = MYSQL_PASS ;
-			    $b = FX_BDD ;
-		}
+			} else if ($requete['base'] == 'formx' ) {
+				$h = MYSQL_HOST ;
+				$u = MYSQL_USER ;
+				$p = MYSQL_PASS ;
+				$b = FX_BDD ;
+			    }
 		if( $requete['file'] )
 		    self::execSqlFileFromConfig($h,$u,$p,$b,URLLOCAL.$requete['file']);
 		else
@@ -345,8 +345,7 @@ MAJ DES PATCHS
 
 	    //ccam ( spécifique tuv2 )
 	    //mise à jour CCAM
-	    if( ! defined('NO_CCAM_UPDATE') || !  NO_CCAM_UPDATE)
-	    {
+	    if( ! defined('NO_CCAM_UPDATE') || !  NO_CCAM_UPDATE) {
 		foreach($update->ccam as $ccam ) {
 		    if( ! $isCcamUpdated ) {
 			$h = MYSQL_HOST ;
@@ -373,8 +372,8 @@ MAJ DES PATCHS
 	    //enregistrement
 	    $tabUpdateOk[] = $update['id'];
 	    file_put_contents(URLLOCAL.$varRelFic,implode(',',$tabUpdateOk));
-	 }
-      }
+	}
+    }
 
 
 
@@ -595,34 +594,38 @@ MAJ DES PATCHS
 	    throw new Exception("Depot du fichier $urlLocalFile dans le repertoire $ftp_folder impossible  ") ;
     }
 
-    static function updateTU() {
-	$tabMatches = array();
-	preg_match('/_maj_(.*)_hash_(.*)_/', XhamUpdater::getUrlContents('http://www.orupaca.fr/ressources/tu/repository/last_version_'.BRANCHE.'.html?nocacheteweak='.rand(1,10000)),$tabMatches) ;
-	$lastVersion = $tabMatches[1];
-	$currentVersion = str_replace("\n",'', file_get_contents(URLLOCAL.'version.txt'));
-	$currentVersion = str_replace("\r",'', $currentVersion);
-	$hash = $tabMatches[2];
-	if ( version_compare($lastVersion,$currentVersion,'>')) {
-	    echo "<br />Une nouvelle version:  $lastVersion est disponible. <br />Téléchargement dans ".URLLOCAL."var/dist/... <br />" ;
-	    //	    ob_flush() ; flush() ;
-	    $hashvide = md5('') ;
-	    $nomFic = PREFIXEARCHIVE.'.maj.'.$lastVersion.'.tgz';
-	    $ficArchive = URLLOCAL.'var/dist/'.$nomFic ;
-	    //print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
+    static function updateTU($rep="http://www.orupaca.fr/ressources/tu/repository") {
+	$lastVersion = "";
+	try{
+	    $tabMatches = array();
+	    preg_match('/_maj_(.*)_hash_(.*)_/', XhamUpdater::getUrlContents($rep . '/last_version_'.BRANCHE.'.html?nocacheteweak='.rand(1,10000)),$tabMatches) ;
+	    $lastVersion = $tabMatches[1];
+	    $currentVersion = str_replace("\n",'', file_get_contents(URLLOCAL.'version.txt'));
+	    $currentVersion = str_replace("\r",'', $currentVersion);
+	    $hash = $tabMatches[2];
+	    if ( version_compare($lastVersion,$currentVersion,'>')) {
+		echo "<br />Une nouvelle version:  $lastVersion est disponible. <br />Téléchargement dans ".URLLOCAL."var/dist/... <br />" ;
+		//	    ob_flush() ; flush() ;
+		$hashvide = md5('') ;
+		$nomFic = PREFIXEARCHIVE.'.maj.'.$lastVersion.'.tgz';
+		$ficArchive = URLLOCAL.'var/dist/'.$nomFic ;
+		//print 'http://www.orupaca.fr/ressources/tu/repository/'.$nomFic;
 
-	    $messageKo ='' ;
-	    while (!($hash == md5(file_get_contents($ficArchive)) )) {
-		XhamUpdater::downloadFile('http://www.orupaca.fr/ressources/tu/repository/'.$nomFic, $ficArchive, $messageKo);
+		$messageKo ='' ;
+		while (!($hash == md5(file_get_contents($ficArchive)) )) {
+		    XhamUpdater::downloadFile($rep . '/'.$nomFic, $ficArchive, $messageKo);
 
+		}
+
+
+		echo "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version</a><br /><br />";
 	    }
-
-
-	    echo "<font color=\"green\">CHECKSUM $hash OK</font> <a href='install.php?release=$lastVersion'>Installer la nouvelle version</a><br /><br />";
 	}
+	catch (Exception $e) {}
 	return $lastVersion;
 
     }
-    
+
     static function rmdir_recurse($path) {
 	$result = true ;
 	$path= rtrim($path, '/').'/';

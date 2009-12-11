@@ -32,5 +32,5 @@
     <tb_idSite /> <!-- donne par le tableau de bord, rien par default -->
     <tb_keySite /> <!-- donne par le tableau de bord, rien par default -->
     <tb_url /><!-- url de la page à laquelle envoyer le xml -->
-
+    <url_repository /><!-- url du repository ou dl l'archive d'update, default : http://www.orupaca.fr/ressources/tu/repository -->
 </config>
