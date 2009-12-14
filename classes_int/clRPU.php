@@ -96,7 +96,7 @@ class clRPU {
 			// Calcul de la date d'examen
 			$dateE -> setDate ( $res['dt_examen'][$i] ) ;
 			if ( $res['dt_examen'][$i] != '0000-00-00 00:00:00' )
-				$mod -> MxText ( 'rpu.medic', $dateE->getDate ( 'd/m/Y  H:i' ) ) ;
+				$mod -> MxText ( 'rpu.medic', $dateE->getDate ( 'd/m/Y H:i' ) ) ;
 			else $mod -> MxText ( 'rpu.medic', '' ) ;
 			
 			// CP & Ville
@@ -154,7 +154,7 @@ class clRPU {
 			// Calcul de la date de sortie.
 			$dateS -> setDate ( $res['dt_sortie'][$i] ) ;
 			if ( $res['dt_sortie'][$i] != '0000-00-00 00:00:00' )
-				$mod -> MxText ( 'rpu.sortie', $dateS->getDate ( 'd/m/Y h:i' ) ) ;
+				$mod -> MxText ( 'rpu.sortie', $dateS->getDate ( 'd/m/Y H:i' ) ) ;
 			else $mod -> MxText ( 'rpu.sortie', '00/00/0000 00:00' ) ;
 			
 			// Calcul du mode de sortie.
