@@ -70,6 +70,13 @@ class clListesPatients {
     if ( $_POST['Annuler'] OR $_POST['Annuler_x'] ) {
         header ( 'Location:'.URLNAVI.$session->genNavi($session->getNavi(0))) ;
     }
+	if ( ( $_POST['Ajouter'] OR $_POST['Ajouter_x'] ) AND $this -> type == "Attendus" ) {
+        header ( 'Location:'.URLNAVI.$session->genNavi($session->getNavi(0),'addPatientAttendu')) ;
+    }
+	if ( ( $_POST['Ajouter'] OR $_POST['Ajouter_x'] ) ) {
+        header ( 'Location:'.URLNAVI.$session->genNavi($session->getNavi(0),'addPatientPresent')) ;
+    }
+
     // On vérifie si l'ajout manuel d'un patient attendu est demandé.
     if ( ( $_POST['Ajouter'] OR $_POST['Ajouter_x'] OR ( $session -> getNavi ( 1 ) == "addPatientAttendu" AND ! $_POST['Annuler'] AND ! $_POST['Annuler_x'] ) ) AND ( ( $session->getDroit ( "Liste_".$this->type, "w" ) AND $options -> getOption ( "AjoutManuel" ) ) OR ( $session->getDroit ( "Liste_".$this->type, "w" ) AND $this -> type == "Attendus" ) ) ) {
       if ( $this -> type == "Attendus" )
@@ -97,7 +104,7 @@ class clListesPatients {
       if ( $tmp != "RIEN" ) $this->af .= $tmp ;
       // Sinon, on génère la liste de tous les patients.
     } 
-    
+    if ( $tmp == "SORTIE" ) header ( 'Location:'.URLNAVI.$session->genNavi($session->getNavi(0) ) ) ;
     if ( $tmp == "RIEN" ) {
       // Vérification du droit de lecture sur la liste de patients.
       if ( $session->getDroit ( "Liste_".$this->type, "r" ) ) {

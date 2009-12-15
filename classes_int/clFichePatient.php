@@ -131,8 +131,6 @@ class clFichePatient {
 
 
 
-
-
     //$this->Netforce ( );
     //$this->Netforce2 ( );
 
@@ -1173,7 +1171,7 @@ class clFichePatient {
 			    $hprimXml = new clHprimXML ( ) ;
 			}
 		    }
-		    $this->rien = "1" ;
+		    $this->rien = "sortie" ;
 		}
 	    // Dans le dernier cas, il s'agit d'un bloc de type "textarea" tout simple à mettre à jour.
 	    } else { $modif = $_POST["mod".$nomBloc] ; $res = $modif ; }
@@ -2253,7 +2251,8 @@ class clFichePatient {
 
     // Retourne l'affichage généré par la classe.
     function getAffichage ( ) {
-	if ( $this->rien ) return "RIEN" ;
+	if ( $this->rien == 'sortie' ) return 'SORTIE' ;
+	elseif ( $this->rien ) return "RIEN" ;
 	if ( is_object( $this->formulaires) )
 	    $this->af.=$this->formulaires->getAffichage() ;
 

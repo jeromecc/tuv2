@@ -33,5 +33,5 @@
   </form>
 </div>
 <script type="text/javascript">
-window.setTimeout ('history.go (0)',1500000)
+window.setTimeout ('history.go (0)',120000)
 </script>
