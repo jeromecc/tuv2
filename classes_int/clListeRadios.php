@@ -917,9 +917,9 @@ class clListeRadios {
       	$mod -> MxText ( 'nbToday', $nbToday ) ;
       	$mod -> MxText ( 'today', $today ) ;
       	
-      	$t['all']  = 'Global - Toutes' ;
-      	$t['npec']  = 'Global - Non prises en charge' ;
       	$t['alm']  = 'Global - Toutes sauf terminées' ;
+      	$t['npec']  = 'Global - Non prises en charge' ;
+		$t['all']  = 'Global - Toutes' ;
       	$t['d']    = 'Global - Terminés (12 dernières heures)' ;
         $t['d024']    = 'Global - Terminés (J-0)' ;
         $t['d2448']    = 'Global - Terminés (J-1)' ;
@@ -1056,7 +1056,7 @@ class clListeRadios {
       			return $res ;
     		break;
     		default:
-    			$and = $reqDate ;
+    			$and = $and = "AND (etat='a' OR etat='b' OR etat='c')" ;
     		break;
     	}
     	$param['cw'] = 'where 1=1 '.$and.' ORDER BY dt_fin' ;
