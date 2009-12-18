@@ -335,7 +335,7 @@ class clHprimXML {
 				if ( ! ( $ngapl == 'AMI' AND $factu == 'non' ) AND ! $erreurngap ) {
   					if ( $ngapl == 'C' OR $ngapl == 'CS' ) $tri = '2.' ;
   					else $tri = '3.' ;
-  					$mod -> MxText ( 'codeAdeliMedecin', $this->adeliMedecin ) ;
+  					$mod -> MxText ( 'codeAdeliMedecin', $this->codeMedecinUrgentiste ) ;
   					$mod -> MxText ( 'actesngap.ngap.action', $action ) ;
   					$mod -> MxText ( 'actesngap.ngap.facturable', $factu ) ;
                     if ( $ngapl == 'C' AND isset ( $this->deqp[$pati->getID()]['U'] ) ) $isNuit = 'non' ;
@@ -360,7 +360,7 @@ class clHprimXML {
 				$erreurngap = 0 ;
 	   		} elseif ( $type == 'CCAM' ) {
 	   			$tri = '1.' ;
-	   			$mod -> MxText ( 'codeAdeliMedecin', $this->adeliMedecin ) ;
+	   			$mod -> MxText ( 'codeAdeliMedecin', $this->codeMedecinUrgentiste ) ;
 	   			$mod -> MxText ( 'actesccam.ccam.action', $action ) ;
 	   			$mod -> MxText ( 'actesccam.ccam.ccamEmetteur', $idact ) ;
 	   			if ( $options -> getOption ( 'HprimXML_Recepteur' ) )
@@ -443,6 +443,8 @@ class clHprimXML {
         $datadmi = new clDate ( $pati->getDateAdmission ( ) ) ;
         $datexam = new clDate ( $pati->getDateExamen ( ) ) ;
         $datsort = new clDate ( $pati->getDateSortie ( ) ) ;
+	$this->codeMedecinUrgentiste = $pati->getMatriculeMedecin();
+
         if ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'admission" ) $datdema = $datadmi ;
         elseif ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure d'examen" ) $datdema = $datexam ;
         elseif ( $options->getOption ( "ChoixHeureAffectationActes") == "Heure de sorti" ) $datdema = $datsort ;
