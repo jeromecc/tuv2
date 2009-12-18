@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf8" standalone='yes'?>
 <FORMX id="2010_01_effectifUrgencesMedecin" phantom="y" closeAfterValid="y" showOblig="y" >
     <Libelle>Formulaire Effectif Urgences Médecin</Libelle>
-    <Objet>Pour nous permettre de mieux connaître le profil des personnels travaillant au sein des services d’urgences de la région PACA (évolution des statuts, courbe des âges, féminisation de la profession, formation….) nous vous serions reconnaissants de répondre à quelques questions très rapides.</Objet>
+    <Objet>Pour nous permettre de mieux connaître le profil des personnels travaillant au sein des services d'urgences de la région PACA (évolution des statuts, courbe des âges, féminisation de la profession, formation….) nous vous serions reconnaissants de répondre à quelques questions très rapides.</Objet>
     <Groupe>Enquetes</Groupe>
     
     <ETAPE id="1">
@@ -30,7 +30,7 @@
         </ITEM>
 
 	<ITEM id="med_statut" type="LISTE" opt="y">
-	    <Libelle>Quelle est statut ?</Libelle>
+	    <Libelle>Quelle est votre statut ?</Libelle>
 	    <FromList>list:PH|PHPU|PHC|Assistant|Attaché|Interne|FFI|PAC|Etudiant</FromList>
 	    <Cond type="equal" oblig="y" >
 		<Arg1>formVar:is_ok_enquete</Arg1>
@@ -39,7 +39,7 @@
 	</ITEM>
 
 	<ITEM id="med_quotite" type="LISTE" opt="y">
-	    <Libelle>Quelle est quotité de travail ?</Libelle>
+	    <Libelle>Quelle est votre quotité de travail ?</Libelle>
 	    <FromList>list:0.1|0.2|0.3|0.4|0.5|0.6|0.7|0.8|0.9|1</FromList>
 	    <Cond type="equal" oblig="y" >
 		<Arg1>formVar:is_ok_enquete</Arg1>
