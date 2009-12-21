@@ -43,10 +43,6 @@ if (! file_exists("urlMaj.txt")) {
     $file = fopen("urlMaj.txt", "w+");
     fwrite($file, $a);
     fclose($file);
-    $a = readfile("urlMaj.txt");
-    $a = str_replace("\n", "", $a);
-    $a = str_replace("\r", "", $a);
-
     define('URL_MAJ', $a);
 }
 
