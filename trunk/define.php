@@ -4,13 +4,21 @@
 // Auteur : Damien Borel <dborel@ch-hyeres.fr>
 // Date   : 05 Janvier 2005
 
-// Description : 
+// Description :
 
 // Des constantes sont définies ici, puis utilisées dans le site.
 // Ca permet d'externaliser les parties en dur dans le code pour
 // une configuration plus facile.
 
 $xml = simplexml_load_file ( 'define.xml.php' ) ;
+
+    //$a = readfile("urlMaj.txt");
+   // $a = str_replace("\n", "", $a);
+  //  $a = str_replace("\r", "", $a);
+$file=fopen("urlMaj.txt", "r");
+$a = fread($file, 4500);
+fclose($file);
+    define('URL_MAJ', $a);
 
 // Liste des paramètres qui changent d'un établissement sur l'autre.
 define ( 'ADMINLOGIN', 		(string)$xml->adminlogin ) ;
@@ -34,7 +42,7 @@ define ( 'CCAM_BDD',		(string)$xml->baseccam ) ;
 define ( 'Erreurs_Actif', 	(string)$xml->erreursactives ) ;
 define ( 'Erreurs_MailApp', (string)$xml->erreursfrom ) ;
 define ( 'Erreurs_Mail', 	(string)$xml->erreursto ) ;
-if ( (string)$xml->baseformx ) 
+if ( (string)$xml->baseformx )
 	define ( 'FX_BDD',      (string)$xml->baseformx ) ;
 else define ( 'FX_BDD', BDD ) ;
 
@@ -182,7 +190,7 @@ define('TABLEFORMX',		'formx');
 define('TABLEFORMXDYNTAB',	false);
 define('TABLEFORMXGLOBVARS','formx_globvars');
 define('FORMX_LOCATION',	URLLOCAL.'formx/');
-define('DROITGENFORMX',		'formulaires'); 
+define('DROITGENFORMX',		'formulaires');
 define('FX_URL',			URL);
 define('FX_URLCACHE',		URLCACHE);
 define('FX_URLCACHEWEB',	URLCACHEWEB);
