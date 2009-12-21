@@ -16,6 +16,8 @@ class XhamStatsSessions {
 
   // Constructeur.
   function __construct ( $xham ) {
+    ini_set('memory_limit', '512M') ;
+    set_time_limit(0)  ;
     $this->xham = $xham ;
     // Affichage des sessions en cours.
     $this->af .= $this->getSessions ( ) ;
