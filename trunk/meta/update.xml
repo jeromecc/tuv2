@@ -525,5 +525,16 @@
 	    <choix>Non|Saint Tropez|Pertuis|Carpentras|Carpentras2</choix>
 	</option_upd>
     </update>
+
+	<update id="77"> <!-- 04/01/2010 -->
+	<description>Ajout d'un index sur dt_admission de la table patients_sortis</description>
+	<requete base="tuv2">ALTER TABLE `patients_sortis` ADD INDEX ( `dt_admission` ) </requete>
+    </update>
+
+	<update id="78"> <!-- 04/01/2010 -->
+	<description>Ajout d'un index sur dt_admission de la table patients_sortis</description>
+	<requete base="tuv2">ALTER TABLE `patients_sortis` ADD INDEX ( `idu` ) </requete>
+    </update>
+
 </updates>
 
