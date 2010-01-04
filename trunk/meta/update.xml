@@ -532,7 +532,7 @@
     </update>
 
 	<update id="78"> <!-- 04/01/2010 -->
-	<description>Ajout d'un index sur dt_admission de la table patients_sortis</description>
+	<description>Ajout d'un index sur idu de la table patients_sortis</description>
 	<requete base="tuv2">ALTER TABLE `patients_sortis` ADD INDEX ( `idu` ) </requete>
     </update>
 
