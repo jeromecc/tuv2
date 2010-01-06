@@ -32,7 +32,6 @@ class clGestFormxTriggers
 			$data = array() ;
 			$nomFic = '' ;
 			clTuFormxTrigger::getDataExport($trigger,$dateD,$dateF,$data,$nomFic);
-			eko($data) ;
 
 			$location = clFoRmXtOoLs::exportsGetCsvFromData($data,$nomFic);
             
