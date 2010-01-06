@@ -9,7 +9,7 @@
 -->
 
 <root>
-<trigger title="Enquete effectif urgences infirmier" autostart="y"  upload="y" autoclose="y" dateStart="01/01/2010" dateEnd="31/03/2050" exportRegularly="y" idForm="enquetes/2010_01_effectifUrgencesInfirmier" maxDays="" obligDays=""  >
+<trigger title="Enquete effectif urgences infirmier" autostart="y"  upload="y" autoclose="y" dateStart="01/01/2009" dateEnd="01/01/2010" exportRegularly="y" idForm="enquetes/2010_01_effectifUrgencesInfirmier" maxDays="" obligDays=""  >
 	<cond type="ide" />
 </trigger>
 </root>

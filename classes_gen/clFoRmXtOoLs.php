@@ -396,7 +396,19 @@ static public function exportsGetTabCw($cw,$options='')
 	if( isset($options['order'] ) && $options['order'] == 'recentFirst' )
 		$cw .= " ORDER BY id_instance DESC ";
 
-	$requete = "SELECT id_instance ,idformx,ids , dt_creation, dt_modif, idformx, libelle, status, author FROM formx WHERE $cw ";
+	if( isset ($options['crossWithTable'] ) ) 
+	{
+	    $baseFx = clFoRmXSession::getInstance()->getBase();
+	    $baseObjets = $options['crossWithTable']['base'];
+	    $tableObjets = $options['crossWithTable']['table'];
+	    $indexIds = $options['crossWithTable']['indexIds'];
+	    $requete = "SELECT id_instance ,idformx,ids , dt_creation, dt_modif, idformx, libelle, status, author FROM $baseFx.formx a ,$baseObjets.$tableObjets b WHERE a.ids = b.$indexIds AND $cw ";
+	}
+	else
+	{
+	    $requete = "SELECT id_instance ,idformx,ids , dt_creation, dt_modif, idformx, libelle, status, author FROM formx WHERE $cw ";
+	}
+	
 
 
 
