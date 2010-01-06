@@ -15,10 +15,11 @@ $xml = simplexml_load_file ( 'define.xml.php' ) ;
     //$a = readfile("urlMaj.txt");
    // $a = str_replace("\n", "", $a);
   //  $a = str_replace("\r", "", $a);
+
 $file=fopen("urlMaj.txt", "r");
 $a = fread($file, 4500);
 fclose($file);
-    define('URL_MAJ', $a);
+define('URL_MAJ', $a);
 
 // Liste des paramètres qui changent d'un établissement sur l'autre.
 define ( 'ADMINLOGIN', 		(string)$xml->adminlogin ) ;
