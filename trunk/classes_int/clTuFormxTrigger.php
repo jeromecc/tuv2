@@ -384,9 +384,20 @@ static function getFinEnquete($idEnquete)
             $nomFic = 'etab_'.$options->getOption('RPU_IdActeur').'_enquete_'.formxTools::strGetIdAtomiqueFx($idFormx).'_du_'.$strDate1.'_au_'.$strDate2.'.csv';
 
             if( $trigger->isPassageLinked() )
-                $tabOptions = array('firstColsFunc'=>'clGestFormxTriggers::genTabinfoIdPassage','firstColsFuncArgField'=>'id_passage');
+	    {
+                $tabOptions = array(
+		    'firstColsFunc'=>'clGestFormxTriggers::genTabinfoIdPassage',
+		    'firstColsFuncArgField'=>'id_passage'
+		    , 'crossWithTable' => array(
+			'base' => BDD ,
+			'table' => 'patients_sortis' ,
+			'indexIds' => 'idu' )
+		    );
+	    }
             else
+	    {
                 $tabOptions = array() ;
+	    }
 
             $data = clFoRmXtOoLs::exportsGetTabIdform($idFormx, $tabOptions + array( 'basic'=>true , 'cw' => " dt_creation <= '".$dateF->getDatetime()."' AND status IN ('F','H') AND dt_creation >= '".$dateD->getDatetime()."'   " ));
 	}
