@@ -30,6 +30,10 @@ class clPatient {
     global $session ;
     global $errs ;
     $date = new clDate ( ) ;
+
+
+
+
     // Appel de la classe Requete.
     $data[idu]              = $this->patient[idu] ;
     $data[ilp]              = $this->patient[ilp] ;
@@ -554,9 +558,8 @@ class clPatient {
   //TODO
   function getTabCodesDiags()
   {
-
       	$idPassage = $this->getNSej();
-	$requete = " SELECT `codeActe`  FROM `ccam_cotation_actes`  WHERE type = 'DIAG' `numSejour` = '$idPassage'  " ;
+	$requete = " SELECT `codeActe`  FROM `ccam_cotation_actes`  WHERE type = 'DIAG' AND `numSejour` = '$idPassage'  " ;
 	$obRequete = new clRequete(CCAM_BDD, 'ccam_cotation_actes') ;
 	$res = $obRequete->exec_requete($requete, 'tab');
 	$tabRetour = array() ;

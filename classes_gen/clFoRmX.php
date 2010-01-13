@@ -3457,7 +3457,8 @@ if (isset($item->FromList)) {
  		}
 	
 	//cas de liste XHAM
-	if (isset($item->FromXHAMList)) {	
+	if (isset($item->FromXHAMList))
+	{
 		//recuperation de la liste HHAM
 		$this->debug("Recupération de la liste XHAM ".$item->FromXHAMList[0]);
 		$tablist= $this->listeGen -> getListeItems ( utf8_decode($item->FromXHAMList[0]), "1") ;
@@ -3474,6 +3475,25 @@ if (isset($item->FromList)) {
  		}
  		$tablist = $tabtmp ;
 	}
+
+	
+	if (isset($item->FromTGSList))
+	{
+		global $patient ;
+		$patient = objPatient::a($patient);
+		return array_map('utf8_encode',$patient->getTerminal()->getTabItemsFromIdListoform($this->getValueFrom($item->FromTGSList)));
+	}
+
+
+
+
+
+
+
+
+
+
+
 	unset($tabtmp);
 /*
 	//FIXME utlilité de ce qui suit ??????
@@ -3725,6 +3745,12 @@ function getAllValuesFromFormx($idformx,$values='',$ids='',$options="")
   	$res['id_instance'][0]=$idformx;
   	$nb = 1 ;
   } else {
+	$base = $this->getSession()->getBase() ;
+	$table = $this->getSession()->getTable();
+	$obReq = $this->getSession()->getObjRequete('', $base, $table);
+	return $obReq->getGen(" idformx = '$idformx' AND ids = '$ids' ORDER BY  dt_modif DESC ", 'resultquery');
+
+	/*
   	$req = new clResultQuery ;
   	$param = array();
   	$param['table']=$this->session->tableInstances;
@@ -3733,6 +3759,8 @@ function getAllValuesFromFormx($idformx,$values='',$ids='',$options="")
   	$res = $req -> Execute ( "Fichier", "FX_getValuesInstance", $param, "ResultQuery" ) ;
   	$nb = $res['INDIC_SVC'][2];
   	if ( $nb == 0 ) return array("INDIC_SVC" => array( 2 => 0 ) );
+	 * */
+	 
   }
     $ret = array();
   	for($i=0;$i<$nb;$i++) {
