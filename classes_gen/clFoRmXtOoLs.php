@@ -402,7 +402,7 @@ static public function exportsGetTabCw($cw,$options='')
 	    $baseObjets = $options['crossWithTable']['base'];
 	    $tableObjets = $options['crossWithTable']['table'];
 	    $indexIds = $options['crossWithTable']['indexIds'];
-	    $requete = "SELECT id_instance ,idformx,ids , dt_creation, dt_modif, idformx, libelle, status, author FROM $baseFx.formx a ,$baseObjets.$tableObjets b WHERE a.ids = b.$indexIds AND $cw ";
+	    $requete = "SELECT id_instance ,idformx,ids , dt_creation, dt_modif, idformx, libelle, status, author FROM $baseFx.formx a ,$baseObjets.$tableObjets b WHERE a.ids = b.$indexIds AND $cw GROUP BY id_instance ";
 	}
 	else
 	{

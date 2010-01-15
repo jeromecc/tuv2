@@ -210,22 +210,29 @@ function getTabDroitsLocaux() {
  }	
  
  
- function loadFunc($func) {
+ function loadFunc($func) 
+ {
+	$location = $this->getFxLocalPath() ;
+	if( class_exists('objPlugin'))
+	{
+	    $location= objPlugin::getAnEventualOtherLocationForFormxFunc($location, $func);
+	    
+	}
 	if ( strpos($func,'/')) {
 		$funcname = basename($func);
-		require_once ($this->getFxLocalPath().'functions/'.$func.'.php');
+		require_once ($location.'functions/'.$func.'.php');
 		return $funcname ;
-	} else if (file_exists($this->getFxLocalPath().'functions/'.$func.'.php'))  {
-		require_once ($this->getFxLocalPath().'functions/'.$func.'.php');
+	} else if (file_exists($location.'functions/'.$func.'.php'))  {
+		require_once ($location.'functions/'.$func.'.php');
 		return $func ;
-	} else if (file_exists($this->getFxLocalPath().'functions/helpers/'.$func.'.php'))  {
-		require_once ($this->getFxLocalPath().'functions/helpers/'.$func.'.php');
+	} else if (file_exists($location.'functions/helpers/'.$func.'.php'))  {
+		require_once ($location.'functions/helpers/'.$func.'.php');
 		return $func ;
-	} else if (file_exists($this->getFxLocalPath().'functions/getters/'.$func.'.php'))  {
-		require_once ($this->getFxLocalPath().'functions/getters/'.$func.'.php');
+	} else if (file_exists($location.'functions/getters/'.$func.'.php'))  {
+		require_once ($location.'functions/getters/'.$func.'.php');
 		return $func ;
-	} else if (file_exists($this->getFxLocalPath().'functions/setters/'.$func.'.php'))  {
-		require_once ($this->getFxLocalPath().'functions/setters/'.$func.'.php');
+	} else if (file_exists($location.'functions/setters/'.$func.'.php'))  {
+		require_once ($location.'functions/setters/'.$func.'.php');
 		return $func ;
 	}
 } 
