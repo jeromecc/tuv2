@@ -401,7 +401,12 @@ function getRootDom()
   		$ressource.=".xml";
   	//on crée l'objet DOM
 	$this->XMLDOM = new DomDocument ();
-	if (! $this->XMLDOM->load($this->session->xmlLocation.$ressource)) {
+	$location = $this->session->xmlLocation ;
+	if( class_exists('objPlugin'))
+	{
+	    $location = objPlugin::getAnEventualOtherLocationForFormx($location,$ressource);
+	}
+	if (! $this->XMLDOM->load($location.$ressource)) {
 		$this->addErreur("Impossible de charger le fichier $ressource");
 		return '';
 		}
@@ -603,9 +608,13 @@ function getRootDom()
 	}
   }
     
-  function cleanInstance() {
+  function cleanInstance()
+  {
   	 $this->justClosed = false ;
-  }  
+  }
+
+
+
    
   /*initialise l'instance d'un formulaire 
   ids : identifiant de sujet (99 fois sur 100 l'idu)
@@ -2677,7 +2686,11 @@ public function getValueFrom($dedans,$noErrorIfRaw="") {
 }
 
 
-
+public function getSubject()
+{
+    global $patient;
+    return $patient ;
+}
 
 
 
@@ -3248,8 +3261,16 @@ public function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 	unset($tablist);
 	break;
    case 'TXT':
+		$options = '' ;
+		if( (string) $item->FromTGSScore )
+		{
+		    global $patient ;
+		    $idScore = $this->getValueFrom( $item->FromTGSScore) ;
+		    $options = " id='$id' " ;
+		    $options.= " onClick=score_print('$idScore','$id','".$patient->getIdPatient()."') " ;
+		}
 
-   		$mod -> MxFormField("etape.item.TXT.textsimple",'text', $id,$item->Val[0],"class=\"text1\" size=\"".($this->lngchmp + 2)."\"");
+   		$mod -> MxFormField("etape.item.TXT.textsimple",'text', $id,$item->Val[0],"$options  class=\"text1\" size=\"".($this->lngchmp + 2)."\"");
 		break;
 	case 'SLIDER':
 		$mod -> MxAttribut("etape.item.SLIDER.idsliderinput",$id);

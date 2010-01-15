@@ -209,6 +209,21 @@ function getIdEnquete()
 		return false ;
 }
 
+function getLastIdEnquete()
+{
+		$now = new clDate();
+		$requete = "SELECT * FROM enquetes WHERE  id_trigger = '".$this->idTrigger."'  ORDER BY date_debut DESC"   ;
+		$obRequete = new clRequete(BDD,'enquetes');
+		$res = $obRequete->exec_requete($requete, 'tab');
+
+		if(count($res) > 0 )
+			return $res[0]['id_enquete'] ;
+
+		return false ;
+}
+
+
+
 //hasBeenPreviouslyLaunched
 function hasBeenPreviouslyLaunched()
 {
