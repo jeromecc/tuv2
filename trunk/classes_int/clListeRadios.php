@@ -958,9 +958,9 @@ class clListeRadios {
 		$date = new clDate ( ) ;
 		//$date -> addDays ( -1 ) ;
 		$date -> addHours ( -12 ) ;
-		$reqDate = " AND (dt_fin>'".$date->getDatetime()."' OR dt_fin='0000-00-00 00:00:00')" ;
+		$reqDate = " AND (dt_fin>'".$date->getDatetime()."' OR (dt_fin='0000-00-00 00:00:00' AND etat!=d))" ;
 		$date -> addHours ( -12 ) ;
-		$reqDate2 = " AND (dt_fin>'".$date->getDatetime()."' OR dt_fin='0000-00-00 00:00:00')" ;
+		$reqDate2 = " AND (dt_fin>'".$date->getDatetime()."' OR (dt_fin='0000-00-00 00:00:00' AND etat!=d))" ;
 		// Préparation de la requête.
     	$req = new clResultQuery ;
     	//$param['tp'] = PPRESENTS ;
