@@ -24,6 +24,7 @@ class formxGlobals
 			$this->save(true);
    		}
 	}
+	
 	public function set($var,$val,$isSave = false)
 	{
 		$this->isModif = true ;

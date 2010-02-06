@@ -2689,6 +2689,11 @@ public function getValueFrom($dedans,$noErrorIfRaw="") {
 public function getSubject()
 {
     global $patient;
+    if( ! $patient ) //appel par ajax hors fiche patient : GTS
+    {
+	$ids = $this->getIDS();
+	$patient = objPatient::getObjPatientFromIDU($ids);
+    }
     return $patient ;
 }
 
@@ -3156,6 +3161,10 @@ public function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 			}
 		unset($tabtmp2);
  		}
+	if (isset($item->FromTerminalListeItem)) {
+		//recuperation de la liste HHAM
+		$tabtmp = objListe::getListeFromCol ( $this->getSubject()->getTerminal()->getIdTermConfiguration(), (string) $item->FromTerminalListeItem );
+ 		}
 
 	//si demande de libelles à la place des valeurs
 	if (isset($tablibs)) unset($tablibs);
@@ -3267,7 +3276,7 @@ public function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 		    global $patient ;
 		    $idScore = $this->getValueFrom( $item->FromTGSScore) ;
 		    $options = " id='$id' " ;
-		    $options.= " onClick=score_print('$idScore','$id','".$patient->getIdPatient()."') " ;
+		    $options.= " onClick=score_print('$idScore','$id','".$this->getIdInstance()."') " ;
 		}
 
    		$mod -> MxFormField("etape.item.TXT.textsimple",'text', $id,$item->Val[0],"$options  class=\"text1\" size=\"".($this->lngchmp + 2)."\"");
