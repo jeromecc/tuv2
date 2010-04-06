@@ -125,13 +125,16 @@ class clHprim {
 
   	// Lance l'import des données.
   	function runImportHPRIM ( ) {
+
+
+
   		// On parcourt le répertoire 'hprim' à la recherche des nouveaux fichiers HPRIM. 
   		$r = opendir ( "hprim" ) ;
   		while ( $fic = readdir ( $r ) ) {
       	  if ( $fic != "." AND $fic != ".." AND $fic != "ok" AND $fic != "ko" ) {
       		if ( stristr ( $fic, ".HPR" ) or stristr ( $fic, ".hpr" ) ) {
 			  $tmp = explode ( ".", $fic ) ;
-			  // eko ( "Je suis ici : $fic et le fichier associé est :"."hprim/".$tmp[0].'.OK' ) ;
+			   //eko ( "Je suis ici : $fic et le fichier associé est :"."hprim/".$tmp[0].'.OK' ) ;
 			  if ( file_exists ( "hprim/".$tmp[0].'.OK' ) OR file_exists ( "hprim/".$tmp[0].'.ok' ) ) {
 			    $this->readHPRIM ( "hprim/$fic" ) ;
 			    $date = new clDate ( ) ;
@@ -151,10 +154,16 @@ class clHprim {
 
 	// Lecture d'un fichier HPRIM 2.1 passé en paramètre.
 	function readHPRIM ( $file ) {
+
+		//eko("GNAAAAA");
 		global $options ;
 		if ( file_exists ( $file ) ) {
 			$req = new clResultQuery ;
 			$content  = file_get_contents( $file ) ;
+
+			//on vire les retour chariots qui peuvent etre considérés comme du "rien"
+			$content = str_replace(chr(13), '', $content);
+
 			$tableau  = preg_split ( "/\n/", $content ) ;
 			$infos    = preg_grep ( "/^H/", $tableau ) ;
 			$patients = preg_grep ( "/^[AP]\|/", $tableau ) ;
