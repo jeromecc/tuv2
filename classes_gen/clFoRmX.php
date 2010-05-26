@@ -827,11 +827,22 @@ function getRootDom()
     */
  public  function genPrint2($buffer)
   {
-	//$mapoub = new clPoubelle($this->session->urlCache);
-	//$mapoub ->purgerRepertoire(1);
+	set_time_limit(0);
+
 	$session = formxSession::getInstance() ;
 
-	$data['titre']= $this->getTitre() ;
+
+	$html = clFoRmXtOoLs::helpers_readTemplate('pdf_impression_page',array('titreFormulaire'=>utf8_decode($this->getTitre()), 'htmlFormulaire'=>utf8_decode($buffer)));
+
+	$css = '<style type="text/css">'.file_get_contents($session->getWebUrlCss().'formxv2_pdf.css').'</style>' ;
+	affDocuments::genDocLibreFromPat ( $this->getSubject(), $css.$html, utf8_decode($this->getTitre()) ) ; die ;
+
+	//$mapoub = new clPoubelle($this->session->urlCache);
+	//$mapoub ->purgerRepertoire(1);
+	
+
+	//$data['titre']= utf8_decode($this->getTitre()) ;
+	$data['titre']= utf8_decode($this->getTitre()) ;
 	$data['urlCss']=$session->getWebUrlCss().'formxv2_print.css' ;
 	$data['urlLogo']= $session->getWebUrlLogo();
 	$data['htmlFormulaire']= $buffer;
@@ -977,7 +988,16 @@ function getRootDom()
     //$xml = & $this->XMLCore ;
     //$this->debug("Entrée dans affFoRmX(), générateur de l'affichage.");
 	if ( $this->getRootDom()->hasAttribute('access')  &&  ! $this->getSession()->getDroit( $this->getRootDom()->getAttribute('access')  )  )   return '';
+
 	$af = '' ;
+	$options = array() ;
+	$options['dontPrintwhenNull'] = false ;
+
+	if( $this->getRootDom()->getAttribute('dontPrintwhenNull') )
+	{
+	    $options['dontPrintwhenNull'] = true ;
+	}
+
 
 
     //instanciation modelixe
@@ -1015,44 +1035,11 @@ function getRootDom()
 		foreach ( $this->getRootDom()->getElementsByTagName('ETAPE') as $etape)
 		{
 			if ( ( ! $etape->hasAttribute('access') ) || (  $formxSession->getDroit(utf8_decode( $etape->getAttribute('access') ),'r' )))
-				$af .=$this->getHtmlImpressionEtape($etape);
+				$af .=$this->getHtmlImpressionEtape($etape,$options);
 			if ($etape->getAttribute('etat') != 'fini') break ;
         }
 
-/*
-     //puis on parcourt les balises fusion
- 	//On parcourt les balises FUSION
-    foreach ($xml->FUSION as $fusion) {
-    	//eko("Entre fusion");
-    	$libelle_default = (string) $fusion->Libelle[0] ;
-    	if ( ( ! $fusion['access'] ) || (  $formxSession->getDroit(utf8_decode((string) $fusion['access']),'r' )))
-		$fusion['etat']='fini';
-		//$libelle = (string) $fusion->Libelle ;
-		$vars = array();
-		foreach ($fusion->Recup as $recup) {
-			$vars[] = (string) $recup['var'] ;
-			}
-		//debug comportement bizarre de simpleXml
-		if(count($vars)==1 & ! $vars[0])
-			$vars = array() ;
-	}
-*/
 
-	//on indique en caché la référence de formulaire pour traitemenent ulterieur des données POST
-    //$mod->MxHidden('hidden1',$this->prefix."INSTANCE=".$this->idInstance);
-    //$mod->MxHidden('hidden2','navi='.$formxSession->genNavi($formxSession->getNavi(0),$formxSession->getNavi(1),$formxSession->getNavi(2),$formxSession->getNavi(3)));
-    //if( ! $this->ya_un_cal ) $mod -> MxBloc ( "JavaCAL", "delete" ) ;
-
-    //javascript dynamique global au formulaire
-    //$mod -> MxText ( "js",$this->js);
-    //$af = $mod -> MxWrite ( "1" ) ;
-    //if($store) $this->af .= $af;
-	//tout affichage peut impliquer une mise à jour en base
-	//( 1er affichage charge les valeurs nom prenoms)
-	//il y a eu un changement d'adresse...
-
-	//2009/01 : je commente la ligne suivante qui me semble obsolete, à recetter.
-   // $this->saveInstance();
     return $af;
   }
 
@@ -1076,7 +1063,8 @@ public function regPost($vars)
   global $formxSession;
   global $errs;
   
-  
+
+
   $this->debug('entrée dans TraiterPost');
   
   /*d'abord analyse des données POST pour savoir si l'on a demandé l'affichage d'une instance de formulaire en particulier 
@@ -1126,10 +1114,14 @@ public function regPost($vars)
 		$goOn  = 'y';
 		$validForce = 'y';
 		}
-	
+
+    
+
 	//sinon, chargement d'instance donné
-	if ( ! isset($goOn) ||  ! $goOn) {
-		 
+	if ( ( ! isset($goOn) ||  ! $goOn  )   ) {
+
+
+		$id_instance = $_POST['FormX_ext_goto_'] ;
 		$this->loadInstance($_POST['FormX_ext_goto_']);
 		if(! isset($validForce) || ! $validForce)
 			$this->detectHeresie();
@@ -1145,17 +1137,18 @@ public function regPost($vars)
     	}
 		
 		$this->af .=$this->affFoRmX();
-		
-		return;
+		 if ( ! isset($_POST['FoRmX_print_x']) ) return;
 		}
 	} else {
 		$this->debug('Pas trouvé de commande $_POST[\'FormX_ext_goto_\']');
     }
-   
+
 	//si fermeture de la fenêtre de sélection de formulaire à ajoutter
 	 if($_POST[$this->prefix.'selCancel_x']  )
 		$this->isuseraction=true;
-			
+
+
+
     //si un demande de nouveau formulaire à instancier pour le sujet
    if($_POST[$this->prefix.'selValid_x']  ) {
 	$this->isuseraction=true;
@@ -1182,6 +1175,8 @@ public function regPost($vars)
    }
    
 
+
+
   //recherche un formulaire présent dans les données POST
   //un formulaire etait déja affiché précédement
   foreach ($_POST as $cle => $valeur) {
@@ -1194,14 +1189,17 @@ public function regPost($vars)
 	break;
 	}
    }
-   
+
+
+
    //su aucune clé trouvée, rien à
    if(! isset($id_instance)) $id_instance="";    
    if( ! $id_instance )  {
    		$this->debug("Pas trouvé d'instance dans les données post: $valeur"); 
    		return ;
    		}
-     
+
+
    //si pour cette instance, on a demandé la fermeture: rien
    if( $_POST[$this->prefix.'close_x']) {
    	clFoRmXtOoLs::cleanFormToLoad($this->prefix);
@@ -1213,7 +1211,11 @@ public function regPost($vars)
    $xml =  $this->XMLDOM ;
  
    //si pour cette instance, on a demandé l'impression:
+
+
+
    if( $_POST[$this->prefix.'print_x']) {
+
 	$this->isuseraction=true;
 	$this->modeImpression = true;
 	if( $this->getVersionForm() >= 11 )
@@ -2403,9 +2405,15 @@ $reg=array();
   }
 
 
-  public function getHtmlImpressionEtape($etape)
+  public function getHtmlImpressionEtape($etape,$options)
   {
 	  /* @var $etape DOMElement */
+
+	if($etape->getAttribute('dontPrintwhenNull') )
+	{
+	    $options['dontPrintwhenNull'] = true ;
+	}
+
 
 	  if ($etape->hasAttribute('access')  &&  !  $this->getSession()->getDroit(utf8_decode( $etape->getAttribut('access')),'r' ) ) return '';
 
@@ -2428,57 +2436,36 @@ $reg=array();
 
    if ( $etape->getAttribute('etat') != "fini" )
    {
-	   /*
-   	foreach ($etape->ITEM as $item){
-   		$optimize=$etape['optimize']?'y':'';
-		$this->printItem($mod,$item,'RW',$domEtape,$optimize);
-		}
-	//si présence d'un item non validé
-		if(isset($this->lastNonValidItem) && $this->lastNonValidItem) {
-		$mod->MxText("etape.infoNoValid.infoNoValid","<span style='color:red;'>".clFoRmXtOoLs::u8message("infoNoValid1")
-				.$this->lastNonValidItem->Libelle[0]
-				.clFoRmXtOoLs::u8message("infoNoValid2"))."</span>";
-		} else {
-				$mod->MxBloc( "etape.infoNoValid", "delete" ) ;
-		}
 
-	//on affiche les bouttons et vire les actions
-   	$mod->MxFormField("etape.valid_bouttons.etapeCancel","image",$this->prefix."step_cancel","on","value='on' src=\"".FX_URLIMGANNMINI."\"");
-  	$mod->MxFormField("etape.valid_bouttons.etapeValid","image",$this->prefix."step_valid_".$etape['id'],"on","value='on' src=\"".FX_URLIMGVAL."\"");
-	//on va chercher le droit general du formlaire
-	if ($this->XMLCore['access'] ) {
-    		$droit = utf8_decode((string) $this->XMLCore['access']);
-   	} else { //sinon on va chercher celui par defaut
-   		$droit = $this->session->droit ;
-		}
-	if ($formxSession->getDroit($droit,'m'))
-		$mod->MxFormField("etape.valid_bouttons.etapePrev","image",$this->prefix."step_prev","<-","value='on' src=\"".FX_URLIMGPREV."\"");
-	if ($formxSession->getDroit($droit,'a'))
-	$mod->MxFormField("etape.valid_bouttons.etapeNext","image",$this->prefix."step_next","->","value='on' src=\"".FX_URLIMGNEXT."\"");
-
-   	$mod -> MxBloc ( "etape.actions", "delete" ) ;
-*/
 		  return '' ;
 	}
 	else
 	{
-	//affichage des items en lecture seule
-	foreach ($etape->getElementsByTagname('ITEM') as $item )
-	{
-		//$optimize=$etape['optimize']?'y':'';
-		$data['contenu'] .= $this->getHtmlImpressionItem($item) ;
-		//$this->debug("Sorti de printItem");
+	    //affichage des items en lecture seule
+	    $indexItem = 0 ;
+	    $items = $etape->getElementsByTagname('ITEM');
+	    $nbItems = count($items);
+	    foreach ( $items as $item )
+	    {
+		    $contenu = $this->getHtmlImpressionItem($item,$options) ;
+		    if( ! $contenu ) continue ;
+
+		    $indexItem++ ;
+		    $data['contenu'] .= $contenu ;
+		    if( $nbItems > 3 and $indexItem == 3 )
+		    {
+			$data['contenu'] .= '</nobreak>';
+		    }
+	    }
+
+	    $ending = '' ;
+	    if( $indexItem == 0 and $options['dontPrintwhenNull'] )
+	    {
+		return '' ;
+	    }
+	    if( $nbItems <=3  ) $ending = '</nobreak>';
+	    return '<nobreak>'.clFoRmXtOoLs::helpers_readTemplate('pdf_impression_etape',$data).$ending ;
 	}
-	//$this->printActions($mod, $etape);
-	//on vire les bouttons
-	//$mod -> MxBloc ( "etape.valid_bouttons", "delete" ) ;
-	}
-
-
-	return clFoRmXtOoLs::helpers_readTemplate('impression_etape',$data) ;
-
-     //$mod -> MxBloc ( "etape", "loop" ) ;
-     //$this->useCache = false ;
   }
 
 
@@ -2700,10 +2687,17 @@ public function getSubject()
 
 
 /*Cette fonction gère l'affichage d'un item XML du formulaire*/
-public function getHtmlImpressionItem($item) {
+public function getHtmlImpressionItem($item,$options) {
 
 	global $formxSession;
 	global $compteurItem ;
+
+
+
+	 if( $item->hasAttribute('dontPrintwhenNull') )
+	 {
+	     $options['dontPrintwhenNull'] = true ;
+	 }
 
 	$etape = $item->parentNode ;
 	//eko($item->getAttribute('id'));
@@ -2744,9 +2738,10 @@ public function getHtmlImpressionItem($item) {
 	$data['libelle'] =   $item->getElementsByTagname('Libelle')->item(0)->nodeValue ;
 
 	$internalVal = $item->getElementsByTagname('Val')->item(0)->nodeValue ;
-	
+
+
 	//si demande de saut de l'item quand il est nul
-  	if (  $item->hasAttribute('dontPrintwhenNull') and ( ! $internalVal || in_array((string) $internalVal,$this->session->getNullValues())))
+  	if (  $options['dontPrintwhenNull'] and ( ! $internalVal || in_array((string) $internalVal,$this->session->getNullValues())))
 	{
   		//eko(  (string) $item->Val);
   		//eko(  "<xmp>".$item->asXML()."</xmp>");
@@ -2803,6 +2798,10 @@ public function getHtmlImpressionItem($item) {
 		$data['print_val_class'] = 'barcode' ;
 	}
 
+	if( preg_match('/^(.*)[\t]{15}(.*)/', $txt, $tabMatches))
+	{
+	    $txt = $tabMatches[1];
+	}
 
 	$valeur = $txt  ;
 
@@ -2817,7 +2816,7 @@ public function getHtmlImpressionItem($item) {
 	
 	//application de styles
 	
-	return clFoRmXtOoLs::helpers_readTemplate('impression_item',$data) ;
+	return clFoRmXtOoLs::helpers_readTemplate('pdf_impression_item',$data) ;
 }
 
 
@@ -3127,6 +3126,10 @@ public function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 	if((string) $item['style'] ) {
 		$txt = "<span style='".$item['style']."'>$txt</span>";
 	}
+	if( preg_match('/^(.*)[\t]{15}(.*)$/', $txt,$tabMatch))
+	{
+	    $txt = $tabMatch[1];
+	}
 	$mod -> MxText("etape.item.RO.minitxt",$txt );
    	break ;
    case 'RADIO':
@@ -3271,15 +3274,21 @@ public function printItem(& $mod,$item,$acces='RW',$domEtape,$optimize='') {
 	break;
    case 'TXT':
 		$options = '' ;
+		$query = '';
+		$val = $item->Val[0] ;
 		if( (string) $item->FromTGSScore )
 		{
-		    global $patient ;
+		    if( preg_match('/^(.*)[\t]{15}(.*)$/', $val,$tabMatch))
+		    {
+			$val = $tabMatch[1];
+			$query = $tabMatch[2];
+		    }
 		    $idScore = $this->getValueFrom( $item->FromTGSScore) ;
 		    $options = " id='$id' " ;
-		    $options.= " onClick=score_print('$idScore','$id','".$this->getIdInstance()."') " ;
+		    $options.= " onClick=score_print('$idScore','$id','".$this->getIdInstance()."','$query') " ;
 		}
 
-   		$mod -> MxFormField("etape.item.TXT.textsimple",'text', $id,$item->Val[0],"$options  class=\"text1\" size=\"".($this->lngchmp + 2)."\"");
+   		$mod -> MxFormField("etape.item.TXT.textsimple",'text', $id,$val,"$options  class=\"text1\" size=\"".($this->lngchmp + 2)."\"");
 		break;
 	case 'SLIDER':
 		$mod -> MxAttribut("etape.item.SLIDER.idsliderinput",$id);
